@@ -1,28 +1,65 @@
-<%-include header.html %>
-<% if (locals.error) { %>
-          <div class="alert alert-error">
-            <%= error %>
-          </div>
- <% } %>
-<form class="form-horizontal" method="post">
- <fieldset>
-    <legend><a href="/">主页</a>/登录</legend>
-    <div class="control-group">
-      <label class="control-label" for="username">用户名</label>
-      <div class="controls">
-        <input type="text" class="input-xlarge" id="username" name="username">
-      </div>
-    </div>
-    <div class="control-group">
-      <label class="control-label" for="password">口令</label>
-      <div class="controls">
-        <input type="password" class="input-xlarge" id="password" name="password">
-      </div>
-    </div>
-    <div class="form-actions">
-      <button type="submit" class="btn btn-primary">登入</button>
-    </div>
-  </fieldset>
-</form>
 
-<%-include footer.html %>
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+    <head>
+
+        <meta charset="utf-8">
+        <title>EasyAgile 登录</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <!-- CSS -->
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=PT+Sans:400,700'>
+        <link rel="stylesheet" href="stylesheets/reset.css">
+        <link rel="stylesheet" href="stylesheets/supersized.css">
+        <link rel="stylesheet" href="stylesheets/style.css">
+
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+    </head>
+
+    <body>
+
+        <div class="page-container">
+        <div class="logo">
+            <div class="logoimg"></div>
+            <h1>EasyAgile</h1>
+        </div>
+            
+            <form action="" method="post">
+                <input type="text" name="emailaddress" class="emailaddress" placeholder="您的邮箱">
+                <input type="password" name="password" class="password" placeholder="您的密码">
+                <button type="submit" class="login">登录</button>
+
+                <div class="noLogin">
+                <a class="login-signup" href="signup.html">注册</a>
+                <a class="forgetPassword">忘记密码</a>
+                </div>
+
+                <div class="error"><span>+</span></div>
+            </form>
+            <div class="connect">
+                <p>合作账号登录</p>
+                <p>
+                    <a class="facebook" href=""></a>
+                    <a class="twitter" href=""></a>
+                </p>
+            </div>
+        </div>
+        
+
+        <!-- Javascript -->
+        <script src="javascripts/jquery-1.8.2.min.js"></script>
+        <script src="javascripts/supersized.3.2.7.min.js"></script>
+        <script src="javascripts/supersized-init.js"></script>
+        <script src="javascripts/login/scripts.js"></script>
+
+    </body>
+
+</html>
+
