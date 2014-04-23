@@ -677,7 +677,7 @@ module.exports = function(app) {
 	 */
 	app.use(function(req,res) {
 		//res.render("404");
-		console.log('unsupported URL');
+		console.log('unsupported URL:'+req.url);
 		res.json(error);
 	});
 }
