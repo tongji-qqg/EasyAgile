@@ -1,0 +1,19 @@
+<% include header.html%>
+	  <div class="hero-unit">
+		 <h1>欢迎来到 Easy Agile</h1>
+		 <p>Easy Agile是一个基于 Node.js 的项目管理系統。</p>
+		 <p>
+			 <% if(project) { %>
+			 <p>
+			 	<%= project.name %>
+			 </p>
+			 <p>
+			 	<%= project.startDate %>
+			 </p>
+			 <p>
+			 	<%= project.des %>
+			 </p>
+			 <% } %>
+		 </p>
+	 </div>
+<% include footer.html%>

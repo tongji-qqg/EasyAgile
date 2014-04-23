@@ -1,0 +1,43 @@
+
+Indexes
+
+Use indexes to improve performance for common queries. Build indexes on fields that appear often in queries and for all operations that return sorted results. MongoDB automatically creates a unique index on the _id field.
+
+As you create indexes, consider the following behaviors of indexes:
+
+    Each index requires at least 8KB of data space.
+    Adding an index has some negative performance impact for write operations. For collections with high write-to-read ratio, indexes are expensive since each insert must also update any indexes.
+    Collections with high read-to-write ratio often benefit from additional indexes. Indexes do not affect un-indexed read operations.
+    When active, each index consumes disk space and memory. This usage can be significant and should be tracked for capacity planning, especially for concerns over working set size.
+
+See Indexing Strategies for more information on indexes as well as Analyze Query Performance. Additionally, the MongoDB database profiler may help identify inefficient queries.
+
+
+
+    上层的对象。一般都是独立的collection。
+    对象详细的线性元素一般用于内嵌。
+    如果对象和对象的关系是包含关系，应该用内嵌。
+    多对多关系用引用。
+    Collection存入的对象较少比较适合做独立的collection。
+    这样整个collection可以快速缓存应用服务器的内存中。
+    内嵌对象更难关联它上层的对象。还不能使用DBRef用在内嵌对象上。
+    要获取内嵌对象系统级别的视图更为困难。例子, 如果score不是内嵌，
+    就更容易查询所有学生中中，100个高分数。
+    如果内嵌对象很大(许多M), 你可能会遇到单个document容量的限制。
+    如果性能是个问题，那么就用内嵌。
+
+
+当我们设计一个模式，有一些问题我们必须回答的是：
+
+    相对于链接，什么时候我们将数据内嵌（embed）? 我们的决定会暗示问题2的答案：
+    我们需要多少集合，它们都是什么？
+    何时需要原子操作？这些操作仅可以在一个BSON文档范围内执行，不能跨文档操作。
+    我们会创建那些索引，以使查询和更新更快？
+    我们怎样进行分片？分片的key又是什么？
+
+
+问题解答：
+    如何处理好多对多的关系可谓是NoSQL的精髓所在。理论上，可以在一个集合中完成存储，不过实际上这样的情况非常罕见。这是由于查询的多样性所导致的，若是只有一种类型的查询，则这种多对多的关系放在一个良好设计的集合中，虽然会有大量的冗余，但是效率一定是最高的。如何设计这种数据库的关键就是看你有多少种查询，每一种的频率是多少，使用的其他要求是什么样的。对于不同的查询，同样的数据库设计的性能也是大不一样。还有一点，一般不要拆成三个集合，这是传统的关系型数据库的思维方式。都NoSQL了一定要换个角度思考问题。常见的情况就是拆成两个集合，然后有一部分冗余，对最常用的查询做一个索引。
+    1、Team 里面存一个 teammates: [] 存 User 的 _id 或其它索引值，这样就知道一个 team 有哪些 user
+    2、User 可以反查 Team 的 find({teammates: _id})，这样就知道一个 user 在哪些
+    与关系数据库类似，分开两个文档存储，然后其中一个文档的ID列表存在另一个文档中
