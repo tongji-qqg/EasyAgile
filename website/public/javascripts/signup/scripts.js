@@ -44,8 +44,29 @@ jQuery(document).ready(function() {
             return false;
         }
 
+        $.ajax({
+            type: 'POST',
+            url: '/reg',
+            dataType: 'json',
+            data: {
+                email: emailaddress,
+                name : username,
+                password : password
+            },
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function(data){
+                if(data.state === 'error')
+                    alert('error! '+ data.message);
+                if(data.state === 'success')
+                {                    
+                    location.href = "user/"+data.user._id;
+                }
+            }            
+        });
 
-
+        return false;
     });
 
     $('.page-container form .emailaddress, .page-container form .username, .page-container form .password, .page-container form .repeatpassword').keyup(function(){

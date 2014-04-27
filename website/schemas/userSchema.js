@@ -8,7 +8,7 @@ var userSchema = new Schema({
   email   : { type: String, required: true, unique:true},
 
   regDate: { type: Date, default: Date.now },  
-  birthdate : { type: Date },
+  birthday : { type: Date },
   phone   : String,
   icon    : String,
 
@@ -20,6 +20,20 @@ var userSchema = new Schema({
   projects : [{ 
   	projectName:String,  	
   	projectstartDate: Date,
-  	project{ type: ObjectId, ref: 'Project' }
-  }]
+  	project:{ type: ObjectId, ref: 'Project' }
+  }],
+
+  messages : [{
+      from : String,
+      message: String,
+      read: { type : Boolean, defaule: false}
+    }
+  ]
 });
+
+userSchema.statics.findUserByEmail = function(email, callback) {
+
+    return this.model('User').find( {email: email}, callback );
+}
+
+module.exports = mongoose.model('User',userSchema);

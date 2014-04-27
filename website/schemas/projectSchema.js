@@ -5,31 +5,31 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 var projectSchema = new Schema({
   name : { type: String, required: true, default: "project" },
   description: String,
-  startTime: { type: Date, default: Date.now },
-  endTime: Date
-  realEndTime: Date
+  createTime: { type: Date, default: Date.now },
+  endTime: Date,
+  realEndTime: Date,
+  done: {type: Boolean, default:false},
 
   owner: { 
     name: String,   //change when user change
-    id: ObjectId, 
-    icon: String,   //change when user change
-    required: true 
+    _id: ObjectId, 
+    icon: String,   //change when user change    
   },
   members: [{ 
     name: String,   //change when user change
-    id: ObjectId, 
+    _id: ObjectId, 
     icon: String,   //change when user change
     isAdmin: { type: Boolean, default: false } 
   }],
   
-  releases: [{ id:int, editTime:Date, releaseTime: Date, description: String, realReleaseTime: Date }],
+  releases: [{ editTime:Date, releaseTime: Date, description: String, realReleaseTime: Date }],
 
   topics: [{ type: ObjectId, ref: 'Topic' }],
 
-  requirements: [{ id:int, description: String, level: int}],  //level priority level
+  requirements: [{ description: String, level: Number}],  //level priority level
 
   files: [{ 
-            id:int,
+            id:Number,
             name: String, 
             url: String,
             uploadTime: {type:Date,default: Date.now},
@@ -38,3 +38,8 @@ var projectSchema = new Schema({
          
   sprints: [{ type: ObjectId, ref: 'Sprint' }] //assume no more than 100 sprints, so can return less than 0.1s
 });
+
+
+
+
+module.exports = mongoose.model('Project', projectSchema);

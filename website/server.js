@@ -10,6 +10,9 @@ var path = require('path');
 var settings = require('./settings')
 var ejs = require('ejs');
 var port = 18080;
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/easyagile');
 
 var app = express();
 
@@ -47,3 +50,5 @@ http.createServer(app).listen(app.get('port'),function(){
 });
 
 routes(app);
+
+

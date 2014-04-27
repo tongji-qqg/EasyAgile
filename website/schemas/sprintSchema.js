@@ -3,34 +3,48 @@ var Schema = mongoose.Schema;
 var ObjectId = mongoose.Schema.Types.ObjectId;
   
 var sprintSchema = new Schema({
+  name:{type:String, default:'Sprint name'},
+  createTime:{type: Date, default: Date.now},
   startTime: Date,
   endTime: Date,
   realEndTime: Date,
   description: String,
-  done: { type: Boolean, default: false},
+  state: { type: Number, default: 0},
+  deleted : {type: Boolean, default: false},
 
-  backlogs: [{ id:int, description: String, level: int }],
+  backlogs: [{ description: String, level: Number }],
 
-  defects: [{ id:int, description:String, level:int }],
+  defects: [{ description:String, level:Number }],
 
   issues: [{ 
-    id:int, 
     description:String, 
-    level:int, 
-    discoverTime: { type: Date, default: Date.now },
-    discoverPerson: { name: String, id: ObjectId },   //dont need change when user name change    
+    level:Number, 
+    discoverTime: { type: Date, default: Date.now },      
     solved: { type: Boolean, default:false },
   }],
 
   tasks: [{
-    id: int,
     description: String,
     deadline: Date,
     finishTime: Date,
-    level:int,
-    done: { type: Boolean, default: false },
-    progess: { type: int, default: 0 } //0~100,0%~100%  
+    level:Number,
+    state: { type: Number, default: 0 },
+    progress: { type: Number, default: 0 }, //0~100,0%~100%  
     //assume asign task to member no more than 200, so can return less than 0.2s      
     executer: [{ type: ObjectId, ref: 'User' }]  
   }]
 });
+
+/*
+sprintSchema.pre('remove', function(next){
+  console.log('message');
+    this.model('Project').update(
+        {sprints: this._id},  
+        {$pull: {sprints: this._id}}, 
+        {multi: true},
+        next
+    );
+});
+*/
+
+module.exports = mongoose.model('Sprint', sprintSchema);

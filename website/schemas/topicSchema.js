@@ -11,7 +11,6 @@ var topicSchema = new Schema({
   date: { type: Date, default: Date.now },
 
   comments: [{    //assume comment no more than 100 so that return time less than 0.1s
-    id: int,
     body: String, 
     date: { type: Date, default: Date.now },
     owner: { type: ObjectId, ref: 'User' },
@@ -19,3 +18,5 @@ var topicSchema = new Schema({
    
   deleted: {type: Boolean, default: false}, // may be use, may be not
 });
+
+module.exports = mongoose.model('Topic', topicSchema);
