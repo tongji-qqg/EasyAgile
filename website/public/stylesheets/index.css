@@ -1,0 +1,59 @@
+div#container{zoom:1;overflow: auto; width: 100%;margin:0 0 0 0;background-image: url(../img/index/bg.png); background-repeat: repeat;}
+div#header {background-color:#FFFFFF; width:100%;height:80px;position: relative;margin-bottom: 10px;box-shadow: 0px 0px 5px #999;}
+#header h1 {position: absolute; left: 45%; margin-top: 20%;}
+.menu{position: absolute;left: 0px;top:20%;width: 50px;height: 30px;}
+.message {position:absolute;right:70px;top:20%;width: 50px;height: 30px;}
+.account {position:absolute;right:10px;top: 20%;width: 50px;height: 30px;}
+
+div#menu {background-color:rgba(0,0,0,0,0.35);width:150px;float:left;position: relative;left:0px;}
+#menu p{
+margin:0px;
+padding:5px;
+text-align:left;
+border:solid 1px #EEEEEE;
+font-family:YouYuan;
+height: 30px;
+}
+.menuItem{background:#87CEEB;}.menuItem1{background:#87CEEB;}.menuItem2{background:#87CEEB;}
+
+.menuInnerItem1{background: #afeeee;display: none;}.menuInnerItem2{background: #afeeee;display: none;}
+
+div#content {background-color: #FFFFFF; margin-left:160px;position: relative;margin-right: 10px;}
+
+div#starProject {
+	background-color: #fff;
+	width: 100%;
+	height: 200px;
+	float: left;
+	border-radius:15px;
+	box-shadow: 0px 0px 2px #999;
+
+}
+div#personalProject {
+	background-color: #fff;
+	width: 100%;
+	height: 200px;
+
+	float: left;
+	border-radius:15px;
+	box-shadow: 0px 0px 2px #999;
+	margin-top: 5px;
+}
+div#archiveProject {
+	background-color: #fff;
+	width: 100%;
+	height: 200px;
+	float: left;
+	border-radius:15px;
+	box-shadow: 0px 0px 2px #999;
+	margin-top: 5px;
+}
+
+.demo_line_02{padding: 0 20px 0;margin: 20px 0;line-height: 1px;height:1px;border-left:450px solid #ddd;border-right: 450px solid #ddd;text-align: center;}
+.demo_line_02 span{position: relative;top:0px;padding: 0 0px;display:block;width: 150px;}
+
+
+h1 {margin-bottom:0;}
+h2 {margin-bottom:0;font-size:18px;}
+ul {margin:0;}
+li {list-style:none;}

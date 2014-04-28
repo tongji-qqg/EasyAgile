@@ -1,10 +1,99 @@
-<% include header.html%>
-	  <div class="hero-unit">
-		 <h1>欢迎来到 Easy Agile</h1>
-		 <p>Easy Agile是一个基于 Node.js 的项目管理系統。</p>
-		 <p>
-			 <a class="btn btn-primary btn-large" href="/login">登录</a>
-			 <a class="btn btn-large" href="/reg">立即注册</a>
-		 </p>
-	 </div>
-<% include footer.html%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+<link rel="stylesheet" type="text/css" href="css/index.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript"> 
+$(document).ready(function(){  
+  
+    /** 通过点击展开左边栏 **/  
+    $(".menu").click(function(){  
+      if($("#menu").css("left") == "0px")  
+      {  
+      	//$("#menu").animate({width:"0"});
+      	
+        $("#menu").animate({left:"-150px"});  
+        //$("#content").animate({marginLeft:"0"}); 
+        $("#content").width(function(n,c){
+        return c+150;});
+        $("#content").animate({left:"-150px"});  
+        
+      }  
+      else  
+      { 
+        //$("#menu").animate({width:"150px"});
+       
+        $("#menu").animate({left:"0px"});  
+        //$("#content").animate({marginLeft:"150px"}); 
+
+        $("#content").animate({left:"0px"});  
+        $("#content").width(function(n,c){
+        return c-150;});
+        
+      }  
+    });  
+
+    $(".menuItem1").click(function(){
+    $(".menuInnerItem1").slideToggle("slow");
+    });
+
+    $(".menuItem2").click(function(){
+    $(".menuInnerItem2").slideToggle("slow");
+    });
+      
+    
+  });  
+</script>
+ 
+
+</head>
+
+<body>
+
+<div id="container">
+
+<div id="header">
+
+<h1>Easy Agile</h1>
+<button class ="menu">menu</button>
+<button class="message">Message</button>
+<button class="account">User</button>
+</div>
+
+<div id="menu">
+
+<p class="menuItem">我的项目</p>
+<p class="menuItem1">我的任务▼</p>
+<p class="menuInnerItem1">今天的任务</p>
+<p class="menuInnerItem1">未来的任务</p>
+<p class="menuItem">我的日程</p>
+<p class="menuItem2">个人设置▼</p>
+<p class="menuInnerItem2">个人信息</p>
+<p class="menuInnerItem2">安全设置</p>
+<p class="menuInnerItem2">提醒设置</p>
+<p class="menuItem">下载应用</p>
+<p class="menuItem">退出登录</p>
+
+</div>
+
+<div id="content">
+
+<div id="starProject">
+<div class="demo_line_02"><span>星标项目</span></div>
+</div>
+
+<div id="personalProject">
+<hr style="margin-top:8px;width:45%;display:block;float:left" />
+<div class="text">个人项目</div>
+<hr style="margin-top:8px;width:45%;float:right" />
+</div>
+
+<div id="archiveProject"></div>
+
+</div>
+
+</div>
+
+</body>
+</html>
