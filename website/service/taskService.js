@@ -1,120 +1,12 @@
 var projectModel = require('../schemas/projectSchema');
 var userModel = require('../schemas/userSchema');
 var sprintModel = require('../schemas/sprintSchema');
-var mongoose = require('mongoose');
-var _ = require('underscore');
-var ObjectId = mongoose.Schema.Types.ObjectId;
-
+var taskModel = require('../schemas/taskSchema');
 var async = require('async');
 
-var databaseError = {
-		message: 'database error!'
-	},
-	projectNotFindError = {
-		message: 'peoject not find!'
-	},
-	userNotFindError = {
-		message: 'user not find!'
-	},
-	memberNotFindError = {
-		message: 'member not find!'
-	},
-	requirementNotFindError = {
-		message: 'requirement not find!'
-	},
-	topicNotFindError = {
-		message: 'topic not find!'
-	},
-	notFindError = {
-		message: 'not find!'
-	},
-	sprintNotFindError = {
-		message: 'sprint not find!'
-	},
-	commentNotFindError = {
-		message: 'comment not find!'
-	},
-	taskNotFindError = {
-		message: 'task not find!'
-	},
-	alreadyOwnerError = {
-		message: 'you are already project owner!'
-	},
-	alreadyMemberError = {
-		message: 'alreay team member!'
-	},
-	cannotRemoveOwnerError = {
-		message: 'project owner can not remove'
-	},
-	notAdminError = {
-		message: 'no do not have admin permission '
-	},
-	progressScopeError = {
-		message: 'progress should between 0 and 100'
-	};
+var F = require('./schemaHelpFuncs');
+var errorDef = require('./errorDefine');
 
-Array.prototype.removeByPos = function(from, to) {
-	console.log('here');
-  var rest = this.slice((to || from) + 1 || this.length);
-  this.length = from < 0 ? this.length + from : from;
-  return this.push.apply(this, rest);
-};
-
-var getArrayIndexByObjectId = function (array, id) {
-    for (var i = 0; i < array.length; i++) {
-        if (array[i].equals(id)) {
-            return i;
-        }
-    }
-    return -1;
-}
-
-function findProject(pid, callback){
-	projectModel.findById(pid, function(err, result){
-				if(err) return callback(databaseError);
-				if(result == null) callback(projectNotFindError);
-				else callback(null,result);				
-			});
-}
-
-function findSprint(targetProject, sid, callback){
-	var pos = getArrayIndexByObjectId(targetProject.sprints, sid);
-	    	if(pos == -1) return callback(sprintNotFindError);
-
-	sprintModel.findById(sid,function(err,sprint){
-	           		if(err) return callback(err);
-	           		if(sprint == null) callback(sprintNotFindError);
-	           		else callback(null, sprint)
-	           });
-}
-
-function checkAdmin(selfuid, targetProject,callback){
-	var permission = false;
-
-	if(targetProject.owner._id.equals(selfuid))
-		permission = true;	    	
-
-	var member = targetProject.members.id(selfuid);	    	
-	if(member != null && member.isAdmin)
-		permissin = true;
-	
-	if( !permission )return callback(notAdminError);	    	
-	callback(null, targetProject);
-}
-
-function checkMember(selfuid, targetProject,callback){
-	var permission = false;
-
-	if(targetProject.owner._id.equals(selfuid))
-		permission = true;	    	
-
-	var member = targetProject.members.id(selfuid);	    	
-	if(member != null)
-		permissin = true;
-	
-	if( !permission )return callback(notAdminError);	    	
-	callback(null, targetProject);
-}
 
 exports.createTask = function(selfuid, pid, sid, taskInfo, callback){
 
@@ -122,26 +14,34 @@ exports.createTask = function(selfuid, pid, sid, taskInfo, callback){
 
 	    function(callback){
 
-			findProject(pid, callback);       
+			F.findProject(pid, callback);       
 	    },
 
 	    function(targetProject, callback){	   
 
-	    	checkAdmin(selfuid, targetProject,callback);
+	    	F.checkAdmin(selfuid, targetProject,callback);
 	    },	
 
 	    function(targetProject, callback) {
 
-		  	findSprint(targetProject, sid, callback);		    
+		  	F.findSprint(targetProject, sid, callback);		    
 		},
 
 	    function(sprint, callback){	   
 	    	
-	    	sprint.tasks.push(taskInfo);
+	    	var task = new taskModel(taskInfo);
+	    	task.save(function(err){
+	    		if(err) callback(err);
+	    		else callback(null, sprint, task);
+	    	});
+	    },
+	    function(sprint, task, callback){
+	    	sprint.tasks.push(task._id);
+	    	sprint.taskTotal+= 1;
 	    	sprint.save(function(err){
 	       			if(err) return callback(err);
-	       			else callback(null);
-	       		});
+	       			else callback(null,task);
+	       	});
 	    }	
 
 	], callback);
@@ -155,17 +55,17 @@ exports.getTasks = function(selfuid, pid, sid, callback){
 
 	    function(callback){
 
-			findProject(pid, callback);       
+			F.findProject(pid, callback);       
 	    },
 
 	    function(targetProject, callback){	   
 
-	    	checkMember(selfuid, targetProject,callback);
+	    	F.checkMember(selfuid, targetProject,callback);
 	    },	
 
 	    function(targetProject, callback) {
 
-		  	findSprint(targetProject, sid, callback);		    
+		  	F.findSprintTasks(targetProject, sid, callback);		    
 		},
 
 	    function(sprint, callback){	   
@@ -183,23 +83,23 @@ exports.modifyTaskById = function(selfuid, pid, sid, tid, taskInfo, callback){
 
 	    function(callback){
 
-			findProject(pid, callback);       
+			F.findProject(pid, callback);       
 	    },
 
 	    function(targetProject, callback){	   
 
-	    	checkAdmin(selfuid, targetProject,callback);
+	    	F.checkAdmin(selfuid, targetProject,callback);
 	    },	
 
 	    function(targetProject, callback) {
 
-		  	findSprint(targetProject, sid, callback);		    
+		  	F.findSprint(targetProject, sid, callback);		    
 		},
 
 	    function(sprint, callback){	   
 	    	
 	    	var task = sprint.tasks.id(tid);
-	    	if(task == null) return callback(notFindError);
+	    	if(task == null) return callback(errorDef.notFindError);
 
 	    	task.description = taskInfo.description;
 	    	task.level = taskInfo.level;
@@ -221,33 +121,33 @@ exports.setTaskProgressById = function(selfuid, pid, sid, tid, progress, callbac
 		function(callback){
 
 			if( isNaN(progress))
-				return callback(progressScopeError);
+				return callback(errorDef.progressScopeError);
 
 			if( progress < 0 || progress > 100)
-				return callback(progressScopeError);
+				return callback(errorDef.progressScopeError);
 
 			callback(null);
 		},
 
 	    function(callback){
 
-			findProject(pid, callback);       
+			F.findProject(pid, callback);       
 	    },
 
 	    function(targetProject, callback){	   
 
-	    	checkMember(selfuid, targetProject,callback);
+	    	F.checkMember(selfuid, targetProject,callback);
 	    },	
 
 	    function(targetProject, callback) {
 
-		  	findSprint(targetProject, sid, callback);		    
+		  	F.findSprint(targetProject, sid, callback);		    
 		},
 
 	    function(sprint, callback){	   
 	    	
 	    	var task = sprint.tasks.id(tid);
-	    	if(task == null) return callback(notFindError);
+	    	if(task == null) return callback(errorDef.notFindError);
 
 	    	task.progress = progress;
 
@@ -268,25 +168,27 @@ exports.deleteTaskById = function(selfuid, pid, sid, tid, callback){
 
 	    function(callback){
 
-			findProject(pid, callback);       
+			F.findProject(pid, callback);       
 	    },
 
 	    function(targetProject, callback){	   
 
-	    	checkAdmin(selfuid, targetProject,callback);
+	    	F.checkAdmin(selfuid, targetProject,callback);
 	    },	
 
 	    function(targetProject, callback) {
 
-		  	findSprint(targetProject, sid, callback);		    
+		  	F.findSprint(targetProject, sid, callback);		    
 		},
 
 	    function(sprint, callback){	   
 	    	
-	    	var task = sprint.tasks.id(tid);
-	    	if(task == null) return callback(notFindError);
+	    	taskModel.findByIdAndRemove(tid, function(err){
+	    		if(err) return callback(err);
+	    	});
 
-	    	task.remove();
+	    	sprint.tasks.remove(tid);
+	    	
 
        		sprint.save(function(err){
        			if(err) return callback(err);
@@ -304,12 +206,12 @@ exports.assignMemberToTask = function(selfuid, pid, sid, tid, uid, callback){
 
 	    function(callback){
 
-			findProject(pid, callback);       
+			F.findProject(pid, callback);       
 	    },
 
 	    function(targetProject, callback){	   
 
-	    	checkAdmin(selfuid, targetProject,callback);
+	    	F.checkAdmin(selfuid, targetProject,callback);
 	    },	
 
 	    function(targetProject, callback){
@@ -317,25 +219,26 @@ exports.assignMemberToTask = function(selfuid, pid, sid, tid, uid, callback){
 	    	var member = targetProject.members.id(uid);
 	    	if(member != null) exist = true;
 	    	if(targetProject.owner._id.equals(uid)) exist = true;
-	    	if(!exist) return callback(memberNotFindError);
+	    	if(!exist) return callback(errorDef.memberNotFindError);
 
 	    	callback(null, targetProject);
 	    },
 
 	    function(targetProject, callback) {
 
-		  	findSprint(targetProject, sid, callback);		    
+		  	F.findSprint(targetProject, sid, callback);		    
 		},
 
 		function(sprint, callback){
+
 			var task = sprint.tasks.id(tid);
-			if(task == null) return callback(taskNotFindError);
+			if(task == null) return callback(errorDef.taskNotFindError);
 
 			callback(null, sprint, task);
 		},
 	    function(sprint, task, callback){	  
 
-	    	var pos = getArrayIndexByObjectId(task.executer, uid);
+	    	var pos = F.getArrayIndexByObjectId(task.executer, uid);
 	    	
 	    	if(pos != -1) return callback(null);
 
@@ -358,29 +261,30 @@ exports.removeMemberFromTask = function(selfuid, pid, sid, tid, uid, callback){
 
 	    function(callback){
 
-			findProject(pid, callback);       
+			F.findProject(pid, callback);       
 	    },
 
 	    function(targetProject, callback){	   
 
-	    	checkAdmin(selfuid, targetProject,callback);
+	    	F.checkAdmin(selfuid, targetProject,callback);
 	    },	
 
 	    function(targetProject, callback) {
 
-		  	findSprint(targetProject, sid, callback);		    
+		  	F.findSprint(targetProject, sid, callback);		    
 		},
 
 		function(sprint, callback){
+			
 			var task = sprint.tasks.id(tid);
-			if(task == null) return callback(taskNotFindError);
+			if(task == null) return callback(errorDef.taskNotFindError);
 
 			callback(null, sprint, task);
 		},
 
 	    function(sprint, task, callback){	   
 	    	
-	    	var pos = getArrayIndexByObjectId(task.executer, uid);
+	    	var pos = F.getArrayIndexByObjectId(task.executer, uid);
 	    	if(pos == -1) return callback(null);	    	
 
 	    	task.executer.remove(uid);

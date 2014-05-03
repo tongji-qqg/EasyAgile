@@ -15,20 +15,29 @@ var userSchema = new Schema({
   otherAccount:[{
   	platfromName: String,
   	AccountName: String
-  }],
+  }],  
 
-  projects : [{ 
-  	projectName:String,  	
-  	projectstartDate: Date,
-  	project:{ type: ObjectId, ref: 'Project' }
-  }],
+  projects : [{type: ObjectId, ref: 'Project'}],
+
+  files: [{ 
+            name: String, 
+            url: String,
+            createTime: {type:Date,default: Date.now},
+            owner: { type: ObjectId, ref: 'User' }
+         }],
 
   messages : [{
-      from : String,
+      date: { type: Date,default: Date.now },
+      from : [{type: ObjectId, ref: 'User'}],
       message: String,
       read: { type : Boolean, defaule: false}
-    }
-  ]
+    }],
+
+  alerts : [{
+    date:  { type: Date,default: Date.now },
+    message: String,
+    type: Number
+  }]
 });
 
 userSchema.statics.findUserByEmail = function(email, callback) {

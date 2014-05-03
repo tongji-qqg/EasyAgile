@@ -1,100 +1,12 @@
 var projectModel = require('../schemas/projectSchema');
 var userModel = require('../schemas/userSchema');
 var sprintModel = require('../schemas/sprintSchema');
-var mongoose = require('mongoose');
 
-var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var async = require('async');
 
-var databaseError = {
-		message: 'database error!'
-	},
-	projectNotFindError = {
-		message: 'peoject not find!'
-	},
-	userNotFindError = {
-		message: 'user not find!'
-	},
-	memberNotFindError = {
-		message: 'member not find!'
-	},
-	requirementNotFindError = {
-		message: 'requirement not find!'
-	},
-	topicNotFindError = {
-		message: 'topic not find!'
-	},
-	sprintNotFindError = {
-		message: 'sprint not find!'
-	},
-	commentNotFindError = {
-		message: 'comment not find!'
-	},
-	alreadyOwnerError = {
-		message: 'you are already project owner!'
-	},
-	alreadyMemberError = {
-		message: 'alreay team member!'
-	},
-	cannotRemoveOwnerError = {
-		message: 'project owner can not remove'
-	},
-	notAdminError = {
-		message: 'no do not have admin permission '
-	};
-
-Array.prototype.removeByPos = function(from, to) {
-	console.log('here');
-  var rest = this.slice((to || from) + 1 || this.length);
-  this.length = from < 0 ? this.length + from : from;
-  return this.push.apply(this, rest);
-};
-
-var getArrayIndexByObjectId = function (array, id) {
-    for (var i = 0; i < array.length; i++) {
-        if (array[i].equals(id)) {
-            return i;
-        }
-    }
-    return -1;
-}
-
-function findProject(pid, callback){
-	projectModel.findById(pid, function(err, result){
-				if(err) return callback(databaseError);
-				if(result == null) callback(projectNotFindError);
-				else callback(null,result);				
-			});
-}
-
-function checkAdmin(selfuid, targetProject,callback){
-	var permission = false;
-
-	if(targetProject.owner._id.equals(selfuid))
-		permission = true;	    	
-
-	var member = targetProject.members.id(selfuid);	    	
-	if(member != null && member.isAdmin)
-		permissin = true;
-	
-	if( !permission )return callback(notAdminError);	    	
-	callback(null, targetProject);
-}
-
-function checkMember(selfuid, targetProject,callback){
-	var permission = false;
-
-	if(targetProject.owner._id.equals(selfuid))
-		permission = true;	    	
-
-	var member = targetProject.members.id(selfuid);	    	
-	if(member != null)
-		permissin = true;
-	
-	if( !permission )return callback(notAdminError);	    	
-	callback(null, targetProject);
-}
+var F = require('./schemaHelpFuncs');
+var errorDef = require('./errorDefine');
 
 
 
@@ -105,12 +17,12 @@ exports.createSprint = function (selfuid, pid, sprintInfo, cb){
 
 	    function(callback){
 
-			findProject(pid, callback);       
+			F.findProject(pid, callback);       
 	    },
 
 	    function(targetProject, callback){	   
 
-	    	checkAdmin(selfuid, targetProject,callback);
+	    	F.checkAdmin(selfuid, targetProject,callback);
 	    },	
 
 	    function(targetProject, callback) {
@@ -128,7 +40,7 @@ exports.createSprint = function (selfuid, pid, sprintInfo, cb){
 
 	    	targetProject.save(function(err){
 	    		if(err) callback(err);
-	    		else callback(null);
+	    		else callback(null, newSprint);
 	    	});
 	    }	
 
@@ -142,22 +54,22 @@ exports.deleteSprint = function(selfuid, pid, sid, cb){
 
 	    function(callback){
 
-			findProject(pid, callback);       
+			F.findProject(pid, callback);       
 	    },
 
 	    function(targetProject, callback){	   
 
-	    	checkAdmin(selfuid, targetProject,callback);
+	    	F.checkAdmin(selfuid, targetProject,callback);
 	    },	
 
 	    function(targetProject, callback) {
 
 	    	var pos = targetProject.sprints.indexOf(sid);
-	    	if(pos == -1) return callback(sprintNotFindError);
+	    	if(pos == -1) return callback(errorDef.sprintNotFindError);
 
 	    	sprintModel.findById(sid, function(err, sprint){
 	    		if(err) return callback(err);	    	
-	    		if(!sprint) return callback(sprintNotFindError);
+	    		if(!sprint) return callback(errorDef.sprintNotFindError);
 	    		sprint.deleted = true;
 	    		sprint.save(function(err){
 	    			if(err) callback(err);
@@ -175,12 +87,12 @@ exports.getSprintListOfProject = function(selfuid, pid, cb){
 
 	    function(callback){
 
-			findProject(pid, callback);       
+			F.findProject(pid, callback);       
 	    },
 
 	    function(targetProject, callback){	   
 
-	    	checkMember(selfuid, targetProject,callback);
+	    	F.checkMember(selfuid, targetProject,callback);
 	    },	
 
 	    function(targetProject, callback) {
@@ -204,12 +116,12 @@ exports.getSprintById = function(selfuid, pid, sid, cb){
 
 	    function(callback){
 
-			findProject(pid, callback);       
+			F.findProject(pid, callback);       
 	    },
 
 	    function(targetProject, callback){	   
 
-	    	checkMember(selfuid, targetProject,callback);
+	    	F.checkMember(selfuid, targetProject,callback);
 	    },	
 
 	    function(targetProject, callback) {
@@ -232,18 +144,18 @@ exports.modifySprintById = function(selfuid, pid, sid, sprintInfo, cb){
 
 	    function(callback){
 
-			findProject(pid, callback);       
+			F.findProject(pid, callback);       
 	    },
 
 	    function(targetProject, callback){	   
 
-	    	checkAdmin(selfuid, targetProject,callback);
+	    	F.checkAdmin(selfuid, targetProject,callback);
 	    },	
 
 	    function(targetProject, callback) {
 
-	    	var pos = getArrayIndexByObjectId(targetProject.sprints, sid);
-	    	if(pos == -1) return callback(sprintNotFindError);
+	    	var pos = F.getArrayIndexByObjectId(targetProject.sprints, sid);
+	    	if(pos == -1) return callback(errorDef.sprintNotFindError);
 	
 			sprintModel.findOneAndUpdate({'_id':sid},{ $set: sprintInfo},function(err){
 				if(err) callback(err);
@@ -260,18 +172,18 @@ exports.setSprintState = function (selfuid, pid, sid, state, cb){
 
 	    function(callback){
 
-			findProject(pid, callback);       
+			F.indProject(pid, callback);       
 	    },
 
 	    function(targetProject, callback){	   
 
-	    	checkAdmin(selfuid, targetProject,callback);
+	    	F.checkAdmin(selfuid, targetProject,callback);
 	    },	
 
 	    function(targetProject, callback) {
 
-	    	var pos = getArrayIndexByObjectId(targetProject.sprints, sid);
-	    	if(pos == -1) return callback(sprintNotFindError);
+	    	var pos = F.getArrayIndexByObjectId(targetProject.sprints, sid);
+	    	if(pos == -1) return callback(errorDef.sprintNotFindError);
 	
 			sprintModel.findOneAndUpdate({'_id':sid},{ $set: {state: state}},function(err){
 				if(err) callback(err);

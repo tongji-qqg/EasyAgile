@@ -1,4 +1,12 @@
 
+////////////////////////////////////////////////////////////////////////////////////////
+//
+//            data define 
+//
+////////////////////////////////////////////////////////////////////////////////////////
+
+var success = require('../service/errorDefine').success;
+
 var F = require('./functions');
 
 var sprintService = require('../service/sprintService');
@@ -6,20 +14,9 @@ var sprintService = require('../service/sprintService');
 
 ////////////////////////////////////////////////////////////////////////////////////////
 //
-//            data define just fot development
+//            router
 //
 ////////////////////////////////////////////////////////////////////////////////////////
-
-var success = {
-	state: "success",
-	errorNUmber: 0,   //always 0	
-};
-
-var error = {
-	state: "error",
-	errorNumber: 1,    //may be other numbers
-	message: "error message"
-};
 
 module.exports = function(app){
 
@@ -29,34 +26,31 @@ module.exports = function(app){
 	 *
 	 */
 	////////////////////get all sprint brief description as a list
-	app.get('/API/p/:pid/s',F.checkUser);
-	app.get('/API/p/:pid/s',F.checkProjectMember);
+	app.get('/API/p/:pid/s',F.checkUser);	
 	app.get('/API/p/:pid/s',function(req,res){
 		console.log('request get: /API/p/:pid/s, pid = '+ req.params.pid);
 		
 		sprintService.getSprintListOfProject(req.session.user._id, req.params.pid, function(err, sprints){
 			if(err) res.json(err);
-			else res.json(sprints);
+			else res.json(F.successWithValue('sprints', sprints));
 		})
 	});
 
 	////////////////////get a detail sprint information
-	app.get('/API/p/:pid/s/:sid',F.checkUser);
-	app.get('/API/p/:pid/s/:sid',F.checkProjectMember);
+	app.get('/API/p/:pid/s/:sid',F.checkUser);	
 	app.get('/API/p/:pid/s/:sid',function(req,res){
 		console.log('request get: /API/p/:pid/s/:sid, pid = '+ req.params.pid + ' sid = '+ req.params.sid);
 		
 		sprintService.getSprintById(req.session.user._id, req.params.pid, req.params.sid, 
 			function(err, sprint){
 			if(err) res.json(err);
-			else res.json(sprint);
+			else res.json(F.successWithValue('sprint', sprint));
 		})
 
 	});
 
 	////////////////////new a sprint of a project
-	app.post('/API/p/:pid/s',F.checkUser);
-	app.post('/API/p/:pid/s',F.checkProjectAdmin);
+	app.post('/API/p/:pid/s',F.checkUser);	
 	app.post('/API/p/:pid/s',function(req,res){
 		console.log('request post: /API/p/:pid/s, pid = '+ req.params.pid);
 
@@ -73,8 +67,7 @@ module.exports = function(app){
 	});
 
 	////////////////////delete a sprint of a project
-	app.delete('/API/p/:pid/s/:sid',F.checkUser);
-	app.delete('/API/p/:pid/s/:sid',F.checkProjectAdmin);
+	app.delete('/API/p/:pid/s/:sid',F.checkUser);	
 	app.delete('/API/p/:pid/s/:sid',function(req,res){
 		console.log('request delete: /API/p/:pid/s/:sid, pid = '+ req.params.pid + ' sid = '+ req.params.sid);
 
@@ -86,8 +79,7 @@ module.exports = function(app){
 	});
 
 	////////////////////modify basic info of a sprint of a project
-	app.put('/API/p/:pid/s/:sid',F.checkUser);
-	app.put('/API/p/:pid/s/:sid',F.checkProjectAdmin);
+	app.put('/API/p/:pid/s/:sid',F.checkUser);	
 	app.put('/API/p/:pid/s/:sid',function(req,res){
 		console.log('request put: /API/p/:pid/s/:sid, pid = '+ req.params.pid + ' sid = '+ req.params.sid);
 		
@@ -102,8 +94,7 @@ module.exports = function(app){
 	});
 
 	////////////////////start a sprint of a project
-	app.get('/API/p/:pid/s/:sid/start',F.checkUser);
-	app.get('/API/p/:pid/s/:sid/start',F.checkProjectAdmin);
+	app.get('/API/p/:pid/s/:sid/start',F.checkUser);	
 	app.get('/API/p/:pid/s/:sid/start',function(req,res){
 		console.log('request get: /API/p/:pid/s/:sid/start, pid = '+ req.params.pid + ' sid = '+ req.params.sid);
 		
@@ -115,8 +106,7 @@ module.exports = function(app){
 	});
 
 	////////////////////finish a sprint of a project
-	app.get('/API/p/:pid/s/:sid/finish',F.checkUser);
-	app.get('/API/p/:pid/s/:sid/finish',F.checkProjectAdmin);
+	app.get('/API/p/:pid/s/:sid/finish',F.checkUser);	
 	app.get('/API/p/:pid/s/:sid/finish',function(req,res){
 		console.log('request get: /API/p/:pid/s/:sid/finish, pid = '+ req.params.pid + ' sid = '+ req.params.sid);
 		

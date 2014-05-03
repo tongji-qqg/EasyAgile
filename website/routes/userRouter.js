@@ -1,31 +1,22 @@
-var F = require('./functions');
 
-var userService = require('../service/userService');
 ////////////////////////////////////////////////////////////////////////////////////////
 //
 //            data define just fot development
 //
 ////////////////////////////////////////////////////////////////////////////////////////
 
-var messageList = [
-	{id:1, message:"hello world!",read:false},
-	{id:2, message:"hello tongji!",read:false}
-];
+var success = require('../service/errorDefine').success;
 
-var success = {
-	state: "success",
-	errorNUmber: 0,   //always 0	
-};
+var F = require('./functions');
 
-var error = {
-	state: "error",
-	errorNumber: 1,    //may be other numbers
-	message: "error message"
-};
+var userService = require('../service/userService');
 
 
-
-
+////////////////////////////////////////////////////////////////////////////////////////
+//
+//            router
+//
+////////////////////////////////////////////////////////////////////////////////////////
 
 module.exports = function(app){
 
@@ -42,19 +33,20 @@ module.exports = function(app){
 			email : req.body.email,
 			password: req.body.password
 		};
-		userService.register(newUser, function(err){
+		userService.register(newUser, function(err, user){
 				if(err){
 					console.log('register err '+ err.message);					
-					res.json(error);					
+					res.json(err);					
 				}
 				else{
-					console.log('register successs!');
-					req.session.user = newUser; //用户信息存入session
+					console.log('register successs! '+ user._id);
+					req.session.user = user; //用户信息存入session
 					req.session.save();
 
 					var r = {
 						state : 'success',
-						user  : newUser
+						errorNumber : 0,
+						user  : user
 					};
 		   			res.header('Access-Control-Allow-Credentials', 'true');		   			
 		   			res.json(r);
@@ -100,7 +92,7 @@ module.exports = function(app){
 			if(err)
 				res.json(err);
 			else
-				res.json(result);
+				res.json(F.successWithValue('user', result));
 		});
 
 	});
@@ -112,7 +104,7 @@ module.exports = function(app){
 
 		userService.findUserById(req.params.uid, function(err,result){
 			if(err) res.json(err);
-			else res.json(result);
+			else res.json(F.successWithValue('user', result));
 		});
 
 	});
@@ -125,11 +117,8 @@ module.exports = function(app){
 			if(err) res.json(err);
 			else{
 				req.session.user = result;
-				var r = {
-					state:'success',
-					user: result
-				};
-				res.json(r);
+				
+				res.json(F.successWithValue('user', result));
 			}
 		});
 		
@@ -148,7 +137,7 @@ module.exports = function(app){
 		if(req.body.birthday)targetUser.birthday = req.body.birthday;
 
 		if(targetUser === {}) return res.json(success);
-		userService.updateUserInfo(req.params.uid, targetUser, function(err){
+		userService.updateUserInfo(req.session.user._id, targetUser, function(err){
 			if(err) res.json(err);
 			else res.json(success);
 		});
@@ -162,20 +151,51 @@ module.exports = function(app){
 
 		if(req.body.password == null)
 			return res.json(err);
-		userService.updateUserInfo(req.params.uid, { password: req.body.password }, function(err){
+		userService.updateUserInfo(req.session.user._id, { password: req.body.password }, function(err){
 			if(err) res.json(err);
 			else res.json(success);
-		});		
-		res.json(success);
-
+		});				
 
 	});
 
 	/////////////////////get user tasks
-	app.get('/API/u/:uid/tasks',F.checkUser);
-	app.get('/API/u/:uid/tasks',function(req,res){
-		console.log('request get: /API/u/:uid/tasks, uid = '+ req.params.uid);
-		res.json(sprint.tasks);
+	app.get('/API/u/:uid/tasks/all',F.checkUser);
+	app.get('/API/u/:uid/tasks/all',function(req,res){
+		console.log('request get: /API/u/:uid/tasks/all, uid = '+ req.params.uid);
+		
+		userService.getUserAllTask(req.session.user._id, function(err, result){
+			if(err) res.json(err);
+			else res.json(F.successWithValue('tasks', result));
+		})
+
+	});
+
+
+	/////////////////////get user tasks
+	app.get('/API/u/:uid/tasks/current',F.checkUser);
+	app.get('/API/u/:uid/tasks/current',function(req,res){
+		console.log('request get: /API/u/:uid/tasks/current, uid = '+ req.params.uid);
+		
+		userService.getUserCurrentTask(req.session.user._id, function(err, result){
+			if(err) res.json(err);
+			else res.json(F.successWithValue('tasks', result));
+		});
+
+	});
+
+
+	/////////////////////get user projects
+	app.get('/API/u/:uid/projects',F.checkUser);
+	app.get('/API/u/:uid/projects',function(req,res){
+		console.log('request get: /API/u/:uid/projects, uid = '+ req.params.uid);
+		
+		userService.getUserPorjects(req.session.user._id, function(err, projects){
+			if(err) res.json(err);
+			else{ 				
+				res.json(F.successWithValue('projects', projects));
+			}
+		});
+
 	});
 
 	/*********************************************************

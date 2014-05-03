@@ -10,11 +10,8 @@ var projectSchema = new Schema({
   realEndTime: Date,
   done: {type: Boolean, default:false},
 
-  owner: { 
-    name: String,   //change when user change
-    _id: ObjectId, 
-    icon: String,   //change when user change    
-  },
+  owner: { type: ObjectId, ref: 'User'},     
+
   members: [{ 
     name: String,   //change when user change
     _id: ObjectId, 
@@ -28,14 +25,24 @@ var projectSchema = new Schema({
 
   requirements: [{ description: String, level: Number}],  //level priority level
 
+  issues: [{ 
+    description:String, 
+    level:Number, 
+    finder: { type: ObjectId, ref: 'User' },
+    dealer: { type: ObjectId, ref: 'User' },
+    discoverTime: { type: Date, default: Date.now },      
+    solved: { type: Boolean, default:false },
+  }],
+  
   files: [{ 
-            id:Number,
             name: String, 
             url: String,
-            uploadTime: {type:Date,default: Date.now},
+            createTime: {type:Date,default: Date.now},
             owner: { type: ObjectId, ref: 'User' }
          }],
-         
+
+
+  cSprint: { type: ObjectId, ref: 'Sprint' },
   sprints: [{ type: ObjectId, ref: 'Sprint' }] //assume no more than 100 sprints, so can return less than 0.1s
 });
 

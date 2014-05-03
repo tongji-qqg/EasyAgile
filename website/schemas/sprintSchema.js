@@ -4,35 +4,30 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
   
 var sprintSchema = new Schema({
   name:{type:String, default:'Sprint name'},
+
+  description: String,
+
   createTime:{type: Date, default: Date.now},
   startTime: Date,
   endTime: Date,
   realEndTime: Date,
-  description: String,
+  
+  //sprint state: 0,1,2,3: created, started, pause, finish
   state: { type: Number, default: 0},
+  
   deleted : {type: Boolean, default: false},
 
   backlogs: [{ description: String, level: Number }],
 
-  defects: [{ description:String, level:Number }],
+  taskTotal: { type: Number, default: 0},
+  taskFinish: { type: Number, default: 0},
 
-  issues: [{ 
-    description:String, 
-    level:Number, 
-    discoverTime: { type: Date, default: Date.now },      
-    solved: { type: Boolean, default:false },
+  taskState: [{
+    title: String,
+    index: Number
   }],
-
-  tasks: [{
-    description: String,
-    deadline: Date,
-    finishTime: Date,
-    level:Number,
-    state: { type: Number, default: 0 },
-    progress: { type: Number, default: 0 }, //0~100,0%~100%  
-    //assume asign task to member no more than 200, so can return less than 0.2s      
-    executer: [{ type: ObjectId, ref: 'User' }]  
-  }]
+  
+  tasks: [{ type: ObjectId, ref: 'Task' }]
 });
 
 /*

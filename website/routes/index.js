@@ -10,24 +10,16 @@ var F = require('./functions');
 var staticRouter = require('./staticRouter')
 	, userRouter = require('./userRouter')
 	, projectRouter = require('./projectRouter')
-	, rrRouter   = require('./rrRouter')
+	, rriRouter   = require('./rriRouter')
 	, sprintRouter = require('./sprintRouter')
-	, bdiRouter = require('./bdiRouter')
+	, backlogRouter = require('./backlogRouter')
 	, taskRouter = require('./taskRouter')
 	, topicRouter = require('./topicRouter');
 
-var success = {
-	state: "success",
-	errorNUmber: 0,   //always 0	
-};
 
-var error = {
-	state: "error",
-	errorNumber: 1,    //may be other numbers
-	message: "error message"
-};
+var error = require('../service/errorDefine').urlError;
 
-
+var success = require('../service/errorDefine').success;
 
 ////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -99,7 +91,7 @@ module.exports = function(app) {
 	 * project requirements and releases basic APIs	
 	 *
 	 */
-	rrRouter(app);
+	rriRouter(app);
 
 
 	
@@ -140,7 +132,7 @@ module.exports = function(app) {
 	 * for project sprint issues
 	 *
 	 */
-	bdiRouter(app);
+	backlogRouter(app);
 
 
 

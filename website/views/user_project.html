@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <% include header.html%>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- begin TOP NAVIGATION -->
+        <% include topnav.html %>        
+        <!-- end TOP NAVIGATION -->
+
+        <!-- begin SIDE NAVIGATION -->
+        <% include user_sidenav.html%>
+        <!-- end SIDE NAVIGATION -->
+
+        <!-- begin MAIN PAGE CONTENT -->
+        <div id="page-wrapper">
+
+            <div class="page-content">
+
+               
+
+
+                <!-- begin PAGE TITLE AREA -->
+                <!-- Use this section for each page's title and breadcrumb layout. In this example a date range picker is included within the breadcrumb. -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="page-title">
+                            <h1>当前项目
+                                <small></small>
+                            </h1>                                                     
+                        </div>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                
+                <div id='current-project-row' class="row">
+                    
+                           
+                </div>
+                  
+                <!-- /.row -->
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="page-title">
+                            <h1>归档项目
+                                <small></small>
+                            </h1>                                                     
+                        </div>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+
+
+                <div id='finished-project-row' class="row">                                    
+                   
+                </div>
+
+            </div>
+            <!-- /.page-content -->
+
+        </div>
+        <!-- /#page-wrapper -->
+        <!-- end MAIN PAGE CONTENT -->
+
+    </div>
+    <!-- /#wrapper -->
+    
+    <!-- begin NEW PROJECT AREA -->
+    <div id="new-project-form" class="modal fade" tabindex="-1" data-width="760" style="display: none;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">New Project</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label for="new-project-name-input" class="col-sm-2 control-label">Project Name</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="new-project-name-input" placeholder="Name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="new-project-des-input" class="col-sm-2 control-label">Description</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="new-project-des-input" placeholder="Des">
+            </div>
+          </div>          
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button id='new-project-close' type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+        <button id='new-project-button' type="button" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+    <!-- end NEW PROJECT CONTENT -->
+
+    <% include footer.html %>
+
+    <script src="/js/user/user_project.js"></script>
+</body>
+
+</html>
