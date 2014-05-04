@@ -84,7 +84,7 @@ var createTask = function(task,callback){
             data:{
             	title: task.title,
             	description: task.description,
-            	deadline: new Date(y,m,d),
+            	deadline: new Date(y,m-1,d),
             	level: 1            	
             },
             xhrFields: {

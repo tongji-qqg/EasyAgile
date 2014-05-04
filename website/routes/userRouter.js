@@ -1,7 +1,35 @@
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+// Copyright(c)2014,SSE,Tongji university Easyagile team
+// Allrightsreserved.
+//
+// Filename: userRouter.js
+//
+// Abstract: deal with user routes
+// Reference：
+//
+// Version：1.0
+// Author：bryce
+// Accomplisheddate：5-3-2014
+//
+// Replacedversion:
+// OriginalAuthor:
+// Accomplisheddate:
+//
+// Mainfunctions：
+// function(app){} //get the app, and routes it
+// 	
+// important : 
+// 
+// 
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+
+
 
 ////////////////////////////////////////////////////////////////////////////////////////
 //
-//            data define just fot development
+//            data define
 //
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -15,6 +43,20 @@ var userService = require('../service/userService');
 ////////////////////////////////////////////////////////////////////////////////////////
 //
 //            router
+//
+// post  /reg   //register
+// post  /login //login
+// get   /API/u/name/:name   //get user name like :name, return a list(array) of user info, may be null array([])
+// get   /API/u/email/:email //get a email corresponding user info, may be null({})
+// get   /API/u/:uid         //get one user info by id
+// post  /API/u              //for android validate user
+// put   /API/u/:uid         //change user information: name, icon, phone, birthady
+// put   /API/u/pw/:uid      //change user password
+// get   /API/u/:uid/tasks/all      //get user tasks
+// get   /API/u/:uid/tasks/current  //get user tasks
+// get   /API/u/:uid/projects       //get user projects
+// get   /API/u/:uid/m              //get all unread user messages
+// put   /API/u/:uid/m/:mid         //set a message to read
 //
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -217,3 +259,29 @@ module.exports = function(app){
 		res.json(success);
 	});
 }
+
+  /*
+   * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+   *
+   * Copyright 2014 qiqingguo, bryce.qiqi@gmail.com
+   *
+   * This file is part of EasyAgile
+   * EasyAgile is free software: you can redistribute it and/or modify
+   * it under the terms of the GNU Lesser General Public License as published by
+   * the Free Software Foundation, either version 3 of the License, or
+   * (at your option) any later version.
+   *
+   * Easy is distributed in the hope that it will be useful,
+   * but WITHOUT ANY WARRANTY; without even the implied warranty of
+   * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   * GNU Lesser General Public License for more details.
+   *
+   * You should have received a copy of the GNU Lesser General Public License
+   * along with QBlog.  If not, see <http://www.gnu.org/licenses/>.
+   *
+   *
+   * - Author: qiqingguo
+   * - Contact: bryce.qiqi@gmail.com
+   * - License: GNU Lesser General Public License (LGPL)
+   * - Blog and source code availability: http://cheetah.duapp.com
+   */

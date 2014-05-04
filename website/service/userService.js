@@ -1,4 +1,35 @@
-
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+// Copyright(c)2014,SSE,Tongji university Easyagile team
+// Allrightsreserved.
+//
+// Filename: backlogService.js
+//
+// Abstract: logic used by backlogRouter
+// Reference：
+//
+// Version：1.0
+// Author：bryce
+// Accomplisheddate：5-3-2014
+//
+// Replacedversion:
+// OriginalAuthor:
+// Accomplisheddate:
+//
+// Mainfunctions：
+// exports.register = function(userInfo, callback)
+// exports.findUserByEmail = function(email, callback)
+// exports.loginByEmail = function(email, password, callback)
+// exports.findUserById = function(id, callback)
+// exports.updateUserInfo = function(id, toUser, callback)
+// exports.getUserPorjects = function(id, callback)
+// exports.getUserAllTask = function(selfuid, callback)
+// exports.getUserCurrentTask = function(selfuid, callback)
+//
+// important : 
+//
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
 var userModel = require('../schemas/userSchema');
 
 var taskModel = require('../schemas/taskSchema');
@@ -11,15 +42,22 @@ var async = require('async');
 
 var errorDef = require('./errorDefine');
 
+
+////////////////////////////////////////////////////////////////////////////////////////
+//
+//             functions
+//
+////////////////////////////////////////////////////////////////////////////////////////
 exports.register = function(userInfo, callback){		
 
 	async.waterfall([
 		function(callback){
 			var user = new userModel(userInfo);
 			user.save(function(err, result){
-				if(err) callback(err);		
+				if(err) return callback(err);	
+				callback(null);	
 			});		
-			callback(null);
+			
 		},
 
 		function(callback){			
@@ -164,3 +202,29 @@ exports.getUserCurrentTask = function(selfuid, callback){
 	         	else callback(null, result);
 	         });	         
 };
+
+  /*
+   * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+   *
+   * Copyright 2014 qiqingguo, bryce.qiqi@gmail.com
+   *
+   * This file is part of EasyAgile
+   * EasyAgile is free software: you can redistribute it and/or modify
+   * it under the terms of the GNU Lesser General Public License as published by
+   * the Free Software Foundation, either version 3 of the License, or
+   * (at your option) any later version.
+   *
+   * Easy is distributed in the hope that it will be useful,
+   * but WITHOUT ANY WARRANTY; without even the implied warranty of
+   * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   * GNU Lesser General Public License for more details.
+   *
+   * You should have received a copy of the GNU Lesser General Public License
+   * along with QBlog.  If not, see <http://www.gnu.org/licenses/>.
+   *
+   *
+   * - Author: qiqingguo
+   * - Contact: bryce.qiqi@gmail.com
+   * - License: GNU Lesser General Public License (LGPL)
+   * - Blog and source code availability: http://cheetah.duapp.com
+   */

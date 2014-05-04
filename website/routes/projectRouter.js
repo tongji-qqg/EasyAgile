@@ -1,4 +1,31 @@
-
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+// Copyright(c)2014,SSE,Tongji university Easyagile team
+// Allrightsreserved.
+//
+// Filename: backlogRouter.js
+//
+// Abstract: deal with api requests about backlogs
+// Reference：
+//
+// Version：1.0
+// Author：bryce
+// Accomplisheddate：5-3-2014
+//
+// Replacedversion:
+// OriginalAuthor:
+// Accomplisheddate:
+//
+// Mainfunctions：
+// function(app){} //get the app, and routes it
+// 	
+// important : 
+// 
+// 
+// 
+// 
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -12,12 +39,24 @@ var projectService = require('../service/projectService');
 
 var success = require('../service/errorDefine').success;
 
+
+
 ////////////////////////////////////////////////////////////////////////////////////////
 //
 //            router
 //
+// post    /API/p                   //new a proect, post basic project info
+// get     /API/p/:pid              //get a project basic info
+// put     /API/p/:pid              //modify a proect basic info
+// put     /API/pf/:pid             //finish a project
+// post    /API/p/:pid/mid/:uid     //invite a team member by user id
+// post    /API/p/:pid/me/:email    //invite a team member by Email
+// delete  /API/p/:pid/mid/:uid     //delete a team member by user id
+// put     /API/p/:pid/ma/:uid      //set a team member as Admin
+// delete  /API/p/:pid/ma/:uid      //remove admin of a team member
+// get     /API/p/:pid/u/:uid/admin //if user is admin of a project
+//
 ////////////////////////////////////////////////////////////////////////////////////////
-
 
 module.exports = function(app){
 
@@ -152,3 +191,30 @@ module.exports = function(app){
 
 	});
 };
+
+
+  /*
+   * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+   *
+   * Copyright 2014 qiqingguo, bryce.qiqi@gmail.com
+   *
+   * This file is part of EasyAgile
+   * EasyAgile is free software: you can redistribute it and/or modify
+   * it under the terms of the GNU Lesser General Public License as published by
+   * the Free Software Foundation, either version 3 of the License, or
+   * (at your option) any later version.
+   *
+   * Easy is distributed in the hope that it will be useful,
+   * but WITHOUT ANY WARRANTY; without even the implied warranty of
+   * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   * GNU Lesser General Public License for more details.
+   *
+   * You should have received a copy of the GNU Lesser General Public License
+   * along with QBlog.  If not, see <http://www.gnu.org/licenses/>.
+   *
+   *
+   * - Author: qiqingguo
+   * - Contact: bryce.qiqi@gmail.com
+   * - License: GNU Lesser General Public License (LGPL)
+   * - Blog and source code availability: http://cheetah.duapp.com
+   */

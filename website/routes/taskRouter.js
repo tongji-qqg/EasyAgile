@@ -1,3 +1,30 @@
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+// Copyright(c)2014,SSE,Tongji university Easyagile team
+// Allrightsreserved.
+//
+// Filename: taskRouter.js
+//
+// Abstract: deal with task routes
+// Reference：
+//
+// Version：1.0
+// Author：bryce
+// Accomplisheddate：5-3-2014
+//
+// Replacedversion:
+// OriginalAuthor:
+// Accomplisheddate:
+//
+// Mainfunctions：
+// function(app){} //get the app, and routes it
+// 	
+// important : 
+// 
+// 
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+
 
 ////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -15,6 +42,14 @@ var success = require('../service/errorDefine').success;
 ////////////////////////////////////////////////////////////////////////////////////////
 //
 //            router
+//
+// get     /API/p/:pid/s/:sid/tasks            //get tasks of a sprint
+// post    /API/p/:pid/s/:sid/tasks            //add a task for a sprint
+// put     /API/p/:pid/s/:sid/t/:tid           //modify a task for a sprint
+// put     /API/p/:pid/s/:sid/t/:tid/progress  //set task progress
+// delete  /API/p/:pid/s/:sid/t/:tid           //delete a task for a sprint
+// put     /API/p/:pid/s/:sid/t/:tid/u/:uid    //assign a task to a member
+// delete  /API/p/:pid/s/:sid/t/:tid/u/:uid    //remove a task from a member 
 //
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -123,3 +158,29 @@ module.exports = function(app){
 		
 	});
 };
+
+  /*
+   * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+   *
+   * Copyright 2014 qiqingguo, bryce.qiqi@gmail.com
+   *
+   * This file is part of EasyAgile
+   * EasyAgile is free software: you can redistribute it and/or modify
+   * it under the terms of the GNU Lesser General Public License as published by
+   * the Free Software Foundation, either version 3 of the License, or
+   * (at your option) any later version.
+   *
+   * Easy is distributed in the hope that it will be useful,
+   * but WITHOUT ANY WARRANTY; without even the implied warranty of
+   * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   * GNU Lesser General Public License for more details.
+   *
+   * You should have received a copy of the GNU Lesser General Public License
+   * along with QBlog.  If not, see <http://www.gnu.org/licenses/>.
+   *
+   *
+   * - Author: qiqingguo
+   * - Contact: bryce.qiqi@gmail.com
+   * - License: GNU Lesser General Public License (LGPL)
+   * - Blog and source code availability: http://cheetah.duapp.com
+   */

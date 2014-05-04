@@ -1,3 +1,34 @@
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+// Copyright(c)2014,SSE,Tongji university Easyagile team
+// Allrightsreserved.
+//
+// Filename: index.js
+//
+// Abstract: gather all router, and routes app
+// Reference：
+//
+// Version：1.0
+// Author：bryce
+// Accomplisheddate：5-3-2014
+//
+// Replacedversion:
+// OriginalAuthor:
+// Accomplisheddate:
+//
+// Mainfunctions：
+// function(app){} //route express app instance
+// 	
+// important : 
+// 
+// 
+// 
+//
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+
+
+
 ////////////////////////////////////////////////////////////////////////////////////////
 //
 //            require modules
@@ -7,17 +38,17 @@
 
 var F = require('./functions');
 
-var staticRouter = require('./staticRouter')
-	, userRouter = require('./userRouter')
+var staticRouter    = require('./staticRouter')
+	, userRouter    = require('./userRouter')
 	, projectRouter = require('./projectRouter')
-	, rriRouter   = require('./rriRouter')
-	, sprintRouter = require('./sprintRouter')
+	, rriRouter     = require('./rriRouter')
+	, sprintRouter  = require('./sprintRouter')
 	, backlogRouter = require('./backlogRouter')
-	, taskRouter = require('./taskRouter')
-	, topicRouter = require('./topicRouter');
+	, taskRouter    = require('./taskRouter')
+	, topicRouter   = require('./topicRouter');
 
 
-var error = require('../service/errorDefine').urlError;
+var error   = require('../service/errorDefine').urlError;
 
 var success = require('../service/errorDefine').success;
 
@@ -26,6 +57,7 @@ var success = require('../service/errorDefine').success;
 //               router
 //
 ////////////////////////////////////////////////////////////////////////////////////////
+
 module.exports = function(app) {
 
 	app.use(function(req,res,next){
@@ -65,8 +97,6 @@ module.exports = function(app) {
 	 * for user message
 	 *
 	 */
-
-
 	 userRouter(app);
 
 
@@ -78,8 +108,7 @@ module.exports = function(app) {
 	 *
 	 * project basic APIs	
 	 *
-	 */
-	////////////////////new a proect, post basic project info
+	 */	
 	projectRouter(app);
 
 
@@ -159,3 +188,30 @@ module.exports = function(app) {
 		res.json(error);
 	});
 };
+
+
+  /*
+   * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+   *
+   * Copyright 2014 qiqingguo, bryce.qiqi@gmail.com
+   *
+   * This file is part of EasyAgile
+   * EasyAgile is free software: you can redistribute it and/or modify
+   * it under the terms of the GNU Lesser General Public License as published by
+   * the Free Software Foundation, either version 3 of the License, or
+   * (at your option) any later version.
+   *
+   * Easy is distributed in the hope that it will be useful,
+   * but WITHOUT ANY WARRANTY; without even the implied warranty of
+   * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   * GNU Lesser General Public License for more details.
+   *
+   * You should have received a copy of the GNU Lesser General Public License
+   * along with QBlog.  If not, see <http://www.gnu.org/licenses/>.
+   *
+   *
+   * - Author: qiqingguo
+   * - Contact: bryce.qiqi@gmail.com
+   * - License: GNU Lesser General Public License (LGPL)
+   * - Blog and source code availability: http://cheetah.duapp.com
+   */

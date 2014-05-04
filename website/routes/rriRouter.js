@@ -1,4 +1,29 @@
-
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+// Copyright(c)2014,SSE,Tongji university Easyagile team
+// Allrightsreserved.
+//
+// Filename: rriRouter.js
+//
+// Abstract: deal with api requests about release, requirement, issue
+// Reference：
+//
+// Version：1.0
+// Author：bryce
+// Accomplisheddate：5-3-2014
+//
+// Replacedversion:
+// OriginalAuthor:
+// Accomplisheddate:
+//
+// Mainfunctions：
+// function(app){} //get the app, and routes it
+// 	
+// important : 
+// 
+// 
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
 
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -18,6 +43,20 @@ var success = require('../service/errorDefine').success;
 ////////////////////////////////////////////////////////////////////////////////////////
 //
 //            router
+//
+// get     /API/p/:pid/r   //get require list of a project
+// delete  /API/p/:pid/r   //delete all requirements of a project
+// post    /API/p/:pid/r   //add a requirement of a project
+// put     /API/p/:pid/r   //bulk update
+// put     /API/p/:pid/r/:rid  //modify a requirement of a project
+// delete  /API/p/:pid/r/:rid  //delete a requirement of a project
+//
+// get     /API/p/:pid/s/:sid/issues  //get issues of a project
+// post    /API/p/:pid/s/:sid/issues  //add a issue for a project
+// put     /API/p/:pid/s/:sid/i/:iid  //modify a issue for a project
+// put     /API/p/:pid/s/:sid/i       //modify all issue for a project
+// delete  /API/p/:pid/s/:sid/i/:iid  //delete a issue for a project
+// delete  /API/p/:pid/s/:sid/i       //delete all issue for a project
 //
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -112,10 +151,10 @@ module.exports = function(app){
 
 	/*********************************************************
 	 *
-	 * for project sprint issues
+	 * for project issues
 	 *
 	 */
-	////////////////////get issues of a sprint
+	////////////////////get issues of a project
 	app.get('/API/p/:pid/s/:sid/issues',F.checkUser);	
 	app.get('/API/p/:pid/s/:sid/issues',function(req,res){
 		console.log('request get: /API/p/:pid/s/:sid/issues, pid = '+ req.params.pid + ' sid = '+ req.params.sid);
@@ -129,7 +168,7 @@ module.exports = function(app){
 
 	});
 
-	////////////////////add a issue for a sprint
+	////////////////////add a issue for a project
 	app.post('/API/p/:pid/s/:sid/issues',F.checkUser);	
 	app.post('/API/p/:pid/s/:sid/issues',function(req,res){
 		console.log('request post: /API/p/:pid/s/:sid/issues, pid = '+ req.params.pid + ' sid = '+ req.params.sid);
@@ -144,7 +183,7 @@ module.exports = function(app){
 
 	});
 
-	////////////////////modify a issue for a sprint
+	////////////////////modify a issue for a project
 	app.put('/API/p/:pid/s/:sid/i/:iid',F.checkUser);	
 	app.put('/API/p/:pid/s/:sid/i/:iid',function(req,res){
 		console.log('request put: /API/p/:pid/s/:sid/i/:iid, pid = '+ req.params.pid + 
@@ -160,7 +199,7 @@ module.exports = function(app){
 
 	});
 
-	////////////////////modify a issue for a sprint
+	////////////////////modify all issue for a project
 	app.put('/API/p/:pid/s/:sid/i',F.checkUser);	
 	app.put('/API/p/:pid/s/:sid/i',function(req,res){
 		console.log('request put: /API/p/:pid/s/:sid/i, pid = '+ req.params.pid + 
@@ -174,7 +213,7 @@ module.exports = function(app){
 
 	});
 
-	////////////////////delete a issue for a sprint
+	////////////////////delete a issue for a project
 	app.delete('/API/p/:pid/s/:sid/i/:iid',F.checkUser);	
 	app.delete('/API/p/:pid/s/:sid/i/:iid',function(req,res){
 		console.log('request delete: /API/p/:pid/s/:sid/i/:iid, pid = '+ req.params.pid + 
@@ -188,7 +227,7 @@ module.exports = function(app){
 
 	});
 
-	////////////////////delete a issue for a sprint
+	////////////////////delete a issue for a project
 	app.delete('/API/p/:pid/s/:sid/i',F.checkUser);	
 	app.delete('/API/p/:pid/s/:sid/i',function(req,res){
 		console.log('request delete: /API/p/:pid/s/:sid/i, pid = '+ req.params.pid + 
@@ -203,3 +242,29 @@ module.exports = function(app){
 	});
 
 };
+
+  /*
+   * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+   *
+   * Copyright 2014 qiqingguo, bryce.qiqi@gmail.com
+   *
+   * This file is part of EasyAgile
+   * EasyAgile is free software: you can redistribute it and/or modify
+   * it under the terms of the GNU Lesser General Public License as published by
+   * the Free Software Foundation, either version 3 of the License, or
+   * (at your option) any later version.
+   *
+   * Easy is distributed in the hope that it will be useful,
+   * but WITHOUT ANY WARRANTY; without even the implied warranty of
+   * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   * GNU Lesser General Public License for more details.
+   *
+   * You should have received a copy of the GNU Lesser General Public License
+   * along with QBlog.  If not, see <http://www.gnu.org/licenses/>.
+   *
+   *
+   * - Author: qiqingguo
+   * - Contact: bryce.qiqi@gmail.com
+   * - License: GNU Lesser General Public License (LGPL)
+   * - Blog and source code availability: http://cheetah.duapp.com
+   */

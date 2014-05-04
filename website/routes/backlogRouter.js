@@ -1,3 +1,32 @@
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+// Copyright(c)2014,SSE,Tongji university Easyagile team
+// Allrightsreserved.
+//
+// Filename: backlogRouter.js
+//
+// Abstract: deal with api requests about backlogs
+// Reference：
+//
+// Version：1.0
+// Author：bryce
+// Accomplisheddate：5-3-2014
+//
+// Replacedversion:
+// OriginalAuthor:
+// Accomplisheddate:
+//
+// Mainfunctions：
+// function(app){} //get the app, and routes it
+// 	
+// important : 
+// 
+// 
+// 
+// 
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+
 
 ////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -18,6 +47,14 @@ var success = require('../service/errorDefine').success;
 ////////////////////////////////////////////////////////////////////////////////////////
 //
 //            router
+//
+// get     /API/p/:pid/s/:sid/backlog   //get backlog of a sprint
+// post    /API/p/:pid/s/:sid/backlog   //add a piece of backlog for a sprint
+// put     /API/p/:pid/s/:sid/b/:bid    //modify a piece of backlog for a sprint
+// put     /API/p/:pid/s/:sid/b         //backlog bulk update
+// delete  /API/p/:pid/s/:sid/b/:bid    //delete a piece of backlog for a sprint
+// delete  /API/p/:pid/s/:sid/b         //delete all backlog for a sprint
+//
 //
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -115,3 +152,30 @@ module.exports = function(app){
 
 	});	
 };
+
+
+  /*
+   * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+   *
+   * Copyright 2014 qiqingguo, bryce.qiqi@gmail.com
+   *
+   * This file is part of EasyAgile
+   * EasyAgile is free software: you can redistribute it and/or modify
+   * it under the terms of the GNU Lesser General Public License as published by
+   * the Free Software Foundation, either version 3 of the License, or
+   * (at your option) any later version.
+   *
+   * Easy is distributed in the hope that it will be useful,
+   * but WITHOUT ANY WARRANTY; without even the implied warranty of
+   * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   * GNU Lesser General Public License for more details.
+   *
+   * You should have received a copy of the GNU Lesser General Public License
+   * along with QBlog.  If not, see <http://www.gnu.org/licenses/>.
+   *
+   *
+   * - Author: qiqingguo
+   * - Contact: bryce.qiqi@gmail.com
+   * - License: GNU Lesser General Public License (LGPL)
+   * - Blog and source code availability: http://cheetah.duapp.com
+   */

@@ -1,3 +1,33 @@
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+// Copyright(c)2014,SSE,Tongji university Easyagile team
+// Allrightsreserved.
+//
+// Filename: backlogService.js
+//
+// Abstract: logic used by backlogRouter
+// Reference：
+//
+// Version：1.0
+// Author：bryce
+// Accomplisheddate：5-3-2014
+//
+// Replacedversion:
+// OriginalAuthor:
+// Accomplisheddate:
+//
+// Mainfunctions：
+// exports.postTopic = function(selfuid, pid, topic, cb)
+// exports.getTopic = function(selfuid, pid, tid, bIsComments, cb)
+// exports.deleteTopic = function(selfuid, pid, tid, cb)
+// exports.getTopicListOfProject = function(selfuid, pid, cb)
+// exports.commentTopic = function(selfuid, pid, tid, comment, cb)
+// exports.deleteCommentOfTopic = function(selfuid, pid, tid, cid, cb)
+// 
+// important : 
+//
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
 var projectModel = require('../schemas/projectSchema');
 var userModel = require('../schemas/userSchema');
 var topicModel = require('../schemas/topicSchema');
@@ -9,7 +39,11 @@ var F = require('./schemaHelpFuncs');
 var errorDef = require('./errorDefine');
 
 
-
+////////////////////////////////////////////////////////////////////////////////////////
+//
+//             functions
+//
+////////////////////////////////////////////////////////////////////////////////////////
 exports.postTopic = function(selfuid, pid, topic, cb){
 
 	async.waterfall([
@@ -287,3 +321,29 @@ exports.deleteCommentOfTopic = function(selfuid, pid, tid, cid, cb){
 	], cb);
 
 };
+
+  /*
+   * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+   *
+   * Copyright 2014 qiqingguo, bryce.qiqi@gmail.com
+   *
+   * This file is part of EasyAgile
+   * EasyAgile is free software: you can redistribute it and/or modify
+   * it under the terms of the GNU Lesser General Public License as published by
+   * the Free Software Foundation, either version 3 of the License, or
+   * (at your option) any later version.
+   *
+   * Easy is distributed in the hope that it will be useful,
+   * but WITHOUT ANY WARRANTY; without even the implied warranty of
+   * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   * GNU Lesser General Public License for more details.
+   *
+   * You should have received a copy of the GNU Lesser General Public License
+   * along with QBlog.  If not, see <http://www.gnu.org/licenses/>.
+   *
+   *
+   * - Author: qiqingguo
+   * - Contact: bryce.qiqi@gmail.com
+   * - License: GNU Lesser General Public License (LGPL)
+   * - Blog and source code availability: http://cheetah.duapp.com
+   */
