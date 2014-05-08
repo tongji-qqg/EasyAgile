@@ -36,8 +36,11 @@ a:hover,
 a:active,
 a:focus {
     color: #34495e;
+    cursor: pointer;
 }
-
+.fa:hover{
+    cursor: pointer;
+}
 @media(min-width:768px) {
     body {
         background: #34495e;
@@ -2069,4 +2072,11 @@ input[type="checkbox"]:checked::after,
         margin-left: 0;
     }
 }
+.logo{
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background: url(../img/logo.png) center center no-repeat; 
+}
+
 

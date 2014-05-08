@@ -6,6 +6,7 @@ $(function() {
     loadUserInfo();
 
     loadProjects();
+
     
 });
 
@@ -73,11 +74,14 @@ function loadProjects(){
         if(project.cSprint.taskTotal && project.cSprint.taskTotal != 0)
             percent = project.cSprint.taskFinish / project.cSprint.taskTotal;     
         var div = 
-        '<div class="col-lg-3 col-sm-6"> <div class="tile '+color +' dash-demo-tile"> <h4><i class="fa '+icon+' fa-fw"></i>' + project.name + '</h4> <div class="easy-pie-chart" data-percent="'+percent+'"> <span class="percent"></span> </div> <a href=/project/'+project._id+' class="dash-demo-footer">More Info <i class="fa fa-chevron-circle-right"></i></a> </div> </div>' ;
+        //'<div class="col-lg-3 col-sm-6"> <div class="tile '+color +' dash-demo-tile"> <h4><i class="fa '+icon+' fa-fw"></i>' + project.name + '</h4> <div class="easy-pie-chart" data-percent="'+percent+'"> <span class="percent"></span> </div> <a href=/project/'+project._id+' class="dash-demo-footer">More Info <i class="fa fa-chevron-circle-right"></i></a> </div> </div>' ;
+        '<div class="col-lg-3 col-sm-6"> <div class="tile '+color +' dash-demo-tile"> <h4>' + project.name + '<i class="fa fa-pencil fa-fw" style="margin-left:41%;"></i><i class="fa '+icon+' fa-fw" style="margin-left:0;"></i></h4> <div class="easy-pie-chart" data-percent="'+percent+'"> <span class="percent"></span> </div> <a href=/project/'+project._id+' class="dash-demo-footer">More Info <i class="fa fa-chevron-circle-right"></i></a> </div> </div>' ;
+
         if(!project.done)
             $('#current-project-row').append(div);
         else
             $('#finished-project-row').append(div);
+  
     };  
     if(uid){
         $.ajax({
@@ -112,6 +116,18 @@ function loadProjects(){
             }            
         });
     }
+    $("#showArchivePro").click(function(){
+      if($("#showArchivePro").html()=="显示"){
+        $("#showArchivePro").text("隐藏");
+
+        $("#finished-project-row").slideToggle("slow");
+      }
+      else if($("#showArchivePro").html()=="隐藏"){
+        $("#showArchivePro").text("显示");
+        $("#finished-project-row").slideToggle("slow");
+      
+      }
+    });
 }
 
 function loadUserInfo(){    
