@@ -4,11 +4,26 @@
 <head>
 
     <% include header.html%>
+    <script type="text/javascript">
+        <% if (typeof currentUser !== 'undefined') { %>
+            var userObject = <%- JSON.stringify(currentUser) %>;
+            var loggedUserId = <%= currentUser.id %>;
+        <% } %>
+
+        <% if (typeof projectId !== 'undefined' && typeof sprintId !== 'undefined') { %>
+            var selectedProjectId = <%= projectId %>;
+            var selectedSprintId = <%= sprintId %>;
+        <% } %>
+
+        <% if (typeof flashMessages !== 'undefined') { %>
+            var messages = <%- JSON.stringify(flashMessages) %>;
+        <% } %>
+    </script>
 
 </head>
 
 <body>
-
+<%- req.flash('message') %>
     <div id="wrapper">
 
         <!-- begin TOP NAVIGATION -->
@@ -52,18 +67,15 @@
                         <div class="page-title">
                             <h1>归档项目
                                 <small></small>
-                                <a id="showArchivePro" style="color:#4682b4;font-size:20px;">显示</a> 
-                            </h1> 
-
+                            </h1>                                                     
                         </div>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
 
 
-                <div id='finished-project-row' class="row" style="display:none">                                    
-                    <div class="col-lg-3 col-sm-6"> <div class="tile red dash-demo-tile"> <h4>projectName<i class="fa fa-refresh fa-fw" style="margin-left:30%;"></i></h4> <div class="easy-pie-chart" data-percent="100%"> <span class="percent"></span> </div>  </div> </div> ;
- 
+                <div id='finished-project-row' class="row">                                    
+                   
                 </div>
 
             </div>

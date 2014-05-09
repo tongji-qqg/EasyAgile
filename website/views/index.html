@@ -14,7 +14,23 @@
 
     <!-- Add custom CSS here -->
     <link href="css/modern-business.css" rel="stylesheet">
-    <link href="icons/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="icons/font-awesome/css/font-awesome.min.css" rel="stylesheet">    
+    <script type="text/javascript">
+        <% if (typeof currentUser !== 'undefined') { %>
+            var userObject = <%- JSON.stringify(currentUser) %>;
+            var loggedUserId = <%= currentUser.id %>;
+        <% } %>
+
+        <% if (typeof projectId !== 'undefined' && typeof sprintId !== 'undefined') { %>
+            var selectedProjectId = <%= projectId %>;
+            var selectedSprintId = <%= sprintId %>;
+        <% } %>
+
+        <% if (typeof flashMessages !== 'undefined') { %>
+            var messages = <%- JSON.stringify(flashMessages) %>;
+        <% } %>
+    </script>
+
 </head>
 
 <body>
@@ -58,6 +74,8 @@
         </div>
         <!-- /.container -->
     </nav>
+    
+    <%- req.flash('message') %>
 
     <div id="myCarousel" class="carousel slide">
         <!-- Indicators -->

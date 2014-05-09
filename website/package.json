@@ -4,14 +4,20 @@
     "author": "bryce",
     "description": "The first bae nodejs app!",
     "scripts": {
-        "start": "node server.js"
+        "start": "node app.js"
     },
     "dependencies": {
-		"express": "3.5.0",
-		"ejs": "*",
-        "mongoose":"*",
-        "async":"*",
-        "underscore":"*"
+		"sails": "0.9.16",
+        "grunt": "0.4.1",
+        "sails-disk": "~0.9.0",
+        "sails-mongo": "*",
+        "ejs": "0.8.4",
+        "optimist": "0.3.4",
+        "underscore": "*",
+        "async" : "*",
+        "randomstring" : "*",
+        "mongoose": "*",
+        "moment-timezone": "*"
     }
 }
 
