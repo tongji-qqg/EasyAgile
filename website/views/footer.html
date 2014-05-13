@@ -1,84 +1,46 @@
     <!-- GLOBAL SCRIPTS -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="/js/plugins/bootstrap/bootstrap.min.js"></script>
-    <script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="/js/plugins/popupoverlay/jquery.popupoverlay.js"></script>
-    <script src="/js/plugins/popupoverlay/defaults.js"></script>
+    <script src="/js/jquery-1.10.2.js"></script>
+    <script src="/plugins/bootstrap/bootstrap.min.js"></script>
+    <script src="/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="/plugins/popupoverlay/jquery.popupoverlay.js"></script>
+    <script src="/plugins/popupoverlay/defaults.js"></script>
     <!-- Logout Notification Box -->
-    <div id="logout">
-        <div class="logout-message">
-            <img class="img-circle img-logout" src="img/profile-pic.jpg" alt="">
-            <h3>
-                <i class="fa fa-sign-out text-green"></i> 确认退出
-            </h3>
-            <p>选择下面的 "注销" 结束会话.</p>
-            <ul class="list-inline">
-                <li>
-                    <a href="/logout" class="btn btn-green">
-                        <strong>注销</strong>
-                    </a>
-                </li>
-                <li>
-                    <button class="logout_close btn btn-green">取消</button>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <script type="text/javascript">
-    Date.prototype.Format = function(fmt)   
-    { //author: meizz   
-      var o = {   
-        "M+" : this.getMonth()+1,                 //月份   
-        "d+" : this.getDate(),                    //日   
-        "h+" : this.getHours(),                   //小时   
-        "m+" : this.getMinutes(),                 //分   
-        "s+" : this.getSeconds(),                 //秒   
-        "q+" : Math.floor((this.getMonth()+3)/3), //季度   
-        "S"  : this.getMilliseconds()             //毫秒   
-      };   
-      if(/(y+)/.test(fmt))   
-        fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));   
-      for(var k in o)   
-        if(new RegExp("("+ k +")").test(fmt))   
-      fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
-      return fmt;   
-    }  
-    </script>
+    <% include logout.html %>
+   
     <!-- Logout Notification jQuery -->
-    <script src="/js/plugins/popupoverlay/logout.js"></script>
+    <script src="/plugins/popupoverlay/logout.js"></script>
     <!-- HISRC Retina Images -->
-    <script src="/js/plugins/hisrc/hisrc.js"></script>
+    <script src="/plugins/hisrc/hisrc.js"></script>
 
     <!-- PAGE LEVEL PLUGIN SCRIPTS -->
     <!-- HubSpot Messenger -->
-    <script src="/js/plugins/messenger/messenger.min.js"></script>
-    <script src="/js/plugins/messenger/messenger-theme-flat.js"></script>
+    <script src="/plugins/messenger/messenger.min.js"></script>
+    <script src="/plugins/messenger/messenger-theme-flat.js"></script>
     <!-- Date Range Picker -->
-    <script src="/js/plugins/daterangepicker/moment.js"></script>
-    <script src="/js/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="/plugins/daterangepicker/moment.js"></script>
+    <script src="/plugins/daterangepicker/daterangepicker.js"></script>
     <!-- Morris Charts -->
-    <script src="/js/plugins/morris/raphael-2.1.0.min.js"></script>
-    <script src="/js/plugins/morris/morris.js"></script>
+    <script src="/plugins/morris/raphael-2.1.0.min.js"></script>
+    <script src="/plugins/morris/morris.js"></script>
     <!-- Flot Charts -->
-    <script src="/js/plugins/flot/jquery.flot.js"></script>
-    <script src="/js/plugins/flot/jquery.flot.resize.js"></script>
+    <script src="/plugins/flot/jquery.flot.js"></script>
+    <script src="/plugins/flot/jquery.flot.resize.js"></script>
     <!-- Sparkline Charts -->
-    <script src="/js/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <script src="/plugins/sparkline/jquery.sparkline.min.js"></script>
     <!-- Moment.js -->
-    <script src="/js/plugins/moment/moment.min.js"></script>
+    <script src="/plugins/moment/moment.min.js"></script>
     <!-- jQuery Vector Map -->
-    <script src="/js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-    <script src="/js/plugins/jvectormap/maps/jquery-jvectormap-world-mill-en.js"></script>
-    <script src="/js/demo/map-demo-data.js"></script>
+    <script src="/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="/plugins/jvectormap/maps/jquery-jvectormap-world-mill-en.js"></script>
     <!-- Easy Pie Chart -->
-    <script src="/js/plugins/easypiechart/jquery.easypiechart.min.js"></script>
+    <script src="/plugins/easypiechart/jquery.easypiechart.min.js"></script>
     <!-- DataTables -->
-    <script src="/js/plugins/datatables/jquery.dataTables.js"></script>
-    <script src="/js/plugins/datatables/datatables-bs3.js"></script>
+    <script src="/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="/plugins/datatables/datatables-bs3.js"></script>
 
     <!-- THEME SCRIPTS -->
     <script src="/js/flex.js"></script>
 
     <!-- Modal SCRIPTS -->
-    <script src="/js/plugins/bootstrap-modal/bootstrap-modal.js"></script>  
-    <script src="/js/plugins/bootstrap-modal/bootstrap-modalmanager.js"></script>    
+    <script src="/plugins/bootstrap-modal/bootstrap-modal.js"></script>  
+    <script src="/plugins/bootstrap-modal/bootstrap-modalmanager.js"></script>    

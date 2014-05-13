@@ -55,11 +55,15 @@ exports.modifyTaskById = function(selfuid, pid, sid, tid, taskInfo, callback){
 		},
 
 	    function(task, callback){	   
-	    	
-	    	task.description = taskInfo.description;
-	    	task.level    = taskInfo.level;
-	    	task.deadline = taskInfo.deadline;
-	    	task.title    = taskInfo.title;
+	    	sails.log.verbose('taskInfo.executer '+taskInfo.executer);
+	    	task.description = taskInfo.description || task.description;
+	    	task.level    = taskInfo.level || task.level ;
+	    	task.startTime= taskInfo.startTime || task.startTime;
+	    	task.deadline = taskInfo.deadline || task.deadline;
+	    	task.title    = taskInfo.title || task.title;
+	    	task.type     = taskInfo.type || task.type;
+	    	task.state    = taskInfo.state || task.state;
+	    	task.executer = taskInfo.executer || task.executer;
        		task.save(function(err){
        			if(err) return callback(ErrorService.makeDbErr(err));
        			else callback(null,task);
@@ -172,7 +176,7 @@ exports.assignMemberToTask = function(selfuid, pid, sid, tid, uid, callback){
 	    function(callback){
 	    	
 	    	AuthService.hasProjectAccess(uid, pid, function(err){
-	    		if(err) callback(ErrorService.makeDbErr(err));
+	    		if(err) callback(err);
 	    		else callback(null);
 	    	});
 	    },

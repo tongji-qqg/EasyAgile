@@ -17,7 +17,7 @@ var taskSchema = new Schema({
   realEndTime: Date,
   
   state: { type: Number, default: 0},    
-  
+  type: {type:Number, default:0 },
   level:Number,
 
   progress: { type: Number, default: 0 }, //0~100,0%~100%  

@@ -10,27 +10,11 @@
     <title>Easyagile</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Add custom CSS here -->
-    <link href="css/modern-business.css" rel="stylesheet">
-    <link href="icons/font-awesome/css/font-awesome.min.css" rel="stylesheet">    
-    <script type="text/javascript">
-        <% if (typeof currentUser !== 'undefined') { %>
-            var userObject = <%- JSON.stringify(currentUser) %>;
-            var loggedUserId = <%= currentUser.id %>;
-        <% } %>
-
-        <% if (typeof projectId !== 'undefined' && typeof sprintId !== 'undefined') { %>
-            var selectedProjectId = <%= projectId %>;
-            var selectedSprintId = <%= sprintId %>;
-        <% } %>
-
-        <% if (typeof flashMessages !== 'undefined') { %>
-            var messages = <%- JSON.stringify(flashMessages) %>;
-        <% } %>
-    </script>
-
+    <link href="/css/modern-business.css" rel="stylesheet">
+    <link href="/icons/font-awesome/css/font-awesome.min.css" rel="stylesheet">    
 </head>
 
 <body>
@@ -304,9 +288,9 @@
     <!-- /.container -->
 
     <!-- JavaScript -->
-    <script src="js/jquery-1.10.2.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="js/modern-business.js"></script>
+    <script src="/js/jquery-1.10.2.js"></script>
+    <script src="/plugins/bootstrap/bootstrap.min.js"></script>
+    <script src="/js/modern-business.js"></script>
 
 </body>
 

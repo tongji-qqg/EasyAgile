@@ -1,7 +1,7 @@
 var projectModel = require('../schemas/projectSchema');
 var userModel = require('../schemas/userSchema');
 var sprintModel = require('../schemas/sprintSchema');
-
+var taskModel  =  require('../schemas/taskSchema');
 
 var async = require('async');
 
@@ -62,12 +62,41 @@ exports.getSprintListOfProject = function(selfuid, pid, callback){
 };
 
 exports.getSprintById = function(selfuid, pid, sid, callback){
-					
-	sprintModel.findOne({'_id':sid})										    
+	
+	async.waterfall([
+		function(callback){
+			sprintModel.findOne({'_id':sid})
+				.populate('tasks')
 			    .exec(function(err, sprint){
 			    	if(err) callback(ErrorService.makeDbErr(err));
 			    	else callback(null, sprint);
-			    });			 						    			     		    
+			    });		
+		},
+		function(sprint, callback){
+			var queries = [];
+	     	function makeQuery(task){
+
+	     		return function(callback){
+		     		taskModel.populate(task, {path:'executer', select:'_id name icon'}, function(err){
+		         		if(err) return callback(ErrorService.makeDbErr(err));
+		         		else callback(null);
+		         	});
+	     		}
+	     	}
+	     	sprint.tasks.forEach(function(task){
+	     		queries.push(makeQuery(task));	
+	     	});
+	     	
+	     	async.parallel(queries,function(err){
+				
+				if(err) return callback(err);
+ 				else{
+					callback(null, sprint);
+				}
+			});	
+		}
+	],callback);					
+	
 }
 
 

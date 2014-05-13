@@ -59,6 +59,8 @@ module.exports = {
 	    var sprintInfo = {
 			name: req.body.name,
 			description: req.body.description,
+			startTime:req.body.startTime,
+			endTime:req.body.endTime
 		};
 		if(req.body.endTime) sprintInfo.endTime = req.body.endTime;
 		if(req.body.startTime){
@@ -96,7 +98,9 @@ module.exports = {
 	    sails.log.verbose('Controller - api/controller/SprintController.modifySprint');
 	    sprintService.modifySprintById(req.session.user._id, req.params.pid, req.params.sid, {
 			name: req.body.name,
-			description: req.body.description
+			description: req.body.description,
+			startTime:req.body.startTime,
+			endTime:req.body.endTime
 		}, function(err){
 			if(err) res.json(err);
 			else res.json(ErrorService.success);

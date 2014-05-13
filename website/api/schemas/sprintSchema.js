@@ -18,7 +18,9 @@ var sprintSchema = new Schema({
   deleted : {type: Boolean, default: false},
 
   backlogs: [{ 
+    title:String,
     description: String, 
+    estimate : {type: Number, default: 0},
     level: Number,
     tasks: [{ type: ObjectId, ref: 'Task' }]
   }],

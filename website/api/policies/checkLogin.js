@@ -21,7 +21,7 @@ module.exports = function checkLogin(req, res, next) {
   // User is not allowed
   // (default res.forbidden() behavior can be overridden in `config/403.js`)
   // return res.forbidden('You are not permitted to perform this action.');
-  req.flash.message("You are not login!", "error");
+  //req.flash.message("You are not login!", "error");
   return res.redirect('/');
     
 };

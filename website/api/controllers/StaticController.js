@@ -44,7 +44,7 @@ module.exports = {
   reg: function (req, res) {
         
     sails.log.verbose('Controller - api/controller/StaticController.reg');
-    return res.view('signup');
+    return res.view('auth/signup');
   },
 
   /**
@@ -55,7 +55,7 @@ module.exports = {
    */
   login: function(req, res) {
       sails.log.verbose('Controller - api/controller/StaticController.login');      
-      res.view('login');
+      res.view('auth/login');
   },
 
   /**
@@ -66,7 +66,7 @@ module.exports = {
    */
   userMain: function(req, res) {
       sails.log.verbose('Controller - api/controller/StaticController.userMain');      
-      res.view('user_project',{               
+      res.view('user/user_project',{               
           user:req.session.user,                
         });
   },
@@ -80,7 +80,7 @@ module.exports = {
    */
   userTask: function(req, res) {
       sails.log.verbose('Controller - api/controller/StaticController.userTask');      
-      res.view('user_task',{               
+      res.view('user/user_task',{               
           user:req.session.user,                
         });
   },
@@ -93,7 +93,7 @@ module.exports = {
    */
   userCal: function(req, res) {
       sails.log.verbose('Controller - api/controller/StaticController.userCal');      
-      res.view('user_cal',{               
+      res.view('user/user_cal',{               
           user:req.session.user,                
         });
   },
@@ -106,7 +106,7 @@ module.exports = {
    */
   userMessage: function(req, res) {
       sails.log.verbose('Controller - api/controller/StaticController.userMessage');      
-      res.view('user_message',{               
+      res.view('uesr/user_message',{               
           user:req.session.user,                
         });
   },
@@ -120,9 +120,10 @@ module.exports = {
    * @param   {res}  response    Response object
    */
   projectMain: function(req, res) {
-      sails.log.verbose('Controller - api/controller/StaticController.projectMain');      
-      res.view('project_main',{               
-          user:req.session.user,                
+      sails.log.verbose('Controller - api/controller/StaticController.projectMain '+ req.params.pid);      
+      res.view('project/project_main',{               
+          user:req.session.user,
+          pid: req.params.pid                
         });
   },
 
@@ -133,10 +134,18 @@ module.exports = {
    * @param   {res}  response    Response object
    */
   projectTaskboard: function(req, res) {
-      sails.log.verbose('Controller - api/controller/StaticController.projectTaskboard');      
-      res.view('project_taskboard',{                
-          user:req.session.user,                
+      sails.log.verbose('Controller - api/controller/StaticController.projectTaskboard');
+      DataService.getProjectById(req.params.pid, function(err, project){
+        if(err) res.view('taskboard',{                
+          user:req.session.user,
+          project:{ _id: req.params.pid, cSprint: 0 }
         });
+        else res.view('project/taskboard',{
+          user: req.session.user,
+          project:project
+        });
+      });      
+      
   },
 
   /**
@@ -147,7 +156,7 @@ module.exports = {
    */
   projectCal: function(req, res) {
       sails.log.verbose('Controller - api/controller/StaticController.projectCal');      
-      res.view('project_cal',{                
+      res.view('project/project_cal',{                
           user:req.session.user,                
         });
   },
@@ -160,7 +169,7 @@ module.exports = {
    */
   projectIssue: function(req, res) {
       sails.log.verbose('Controller - api/controller/StaticController.projectIssue');      
-      res.view('project_issue',{                
+      res.view('project/project_issue',{                
           user:req.session.user,                
         });
   },
@@ -173,7 +182,7 @@ module.exports = {
    */
   projectFiles: function(req, res) {
       sails.log.verbose('Controller - api/controller/StaticController.projectFiles');      
-      res.view('project_files',{                
+      res.view('project/project_files',{                
           user:req.session.user,                
         });
   },
@@ -186,7 +195,7 @@ module.exports = {
    */
   projectTopic: function(req, res) {
       sails.log.verbose('Controller - api/controller/StaticController.projectTopic');      
-      res.view('project_topic',{                
+      res.view('project/project_topic',{                
           user:req.session.user,                
         });
   },

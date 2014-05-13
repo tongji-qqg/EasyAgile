@@ -63,6 +63,7 @@ module.exports.policies = {
 		removeMemberById   : ["checkUser", "hasProjectAdmin"],
 		setMemberAdmin     : ["checkUser", "hasProjectAdmin"],
 		removeMemberAdmin  : ["checkUser", "hasProjectAdmin"],
+		
     },
     "sprint": {
         "*": false,
@@ -111,14 +112,15 @@ module.exports.policies = {
 
         // Custom actions
 		getTasksOfSprint     : ["checkUser", "hasProjectAccess", "sprintInProject"],
-		addTaskOfSprint      : ["checkUser", "hasProjectAccess", "sprintInProject"],
-		modifyTaskOfSprint   : ["checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint"],
+		addTaskOfSprint      : ["checkUser", "hasProjectAccess", "sprintInProject", "validateTaskOwner"],
+		modifyTaskOfSprint   : ["checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint", "validateTaskOwner"],
 		setTaskProgress      : ["checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint"],
 		deleteTaskOfSprint   : ["checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint"],
 		setTaskToBacklog     : ["checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint"],
 		unsetTaskToBacklog   : ["checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint"],
 		assignTaskToMember   : ["checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint"],
 		removeTaskFromMember : ["checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint"],
+		removeAllTaskOwner   : ["checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint"],
     },
     "topic": {
         "*": false,
@@ -154,6 +156,11 @@ module.exports.policies = {
 		getAllUserAlert      :["checkUser"],
 		readAlert            :["checkUser"]
     },
+    "socketio":{
+    	"*": false,
+    	subscribeToSprint  : [],//["checkUser", "hasProjectAccess", "sprintInProject"],
+    	subscribeToProject : [],//["checkUser", "hasProjectAccess"],
+    }
   /*
 	// Here's an example of adding some policies to a controller
 	RabbitController: {

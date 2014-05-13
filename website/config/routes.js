@@ -81,7 +81,8 @@ module.exports.routes = {
   'post    /API/p/:pid/me/:email'               : 'project.inviteMemberByEmail',
   'delete  /API/p/:pid/mid/:uid'                : 'project.removeMemberById',
   'put     /API/p/:pid/ma/:uid'                 : 'project.setMemberAdmin',
-  'delete  /API/p/:pid/ma/:uid'                 : 'project.removeMemberAdmin',  
+  'delete  /API/p/:pid/ma/:uid'                 : 'project.removeMemberAdmin', 
+  
   //backlog 6
   'get     /API/p/:pid/s/:sid/b'                : 'backlog.getBacklogOfProject',
   'post    /API/p/:pid/s/:sid/b'                : 'backlog.addBacklogOfProject',
@@ -111,7 +112,7 @@ module.exports.routes = {
   'put    /API/p/:pid/s/:sid'                   : 'sprint.modifySprint',
   'get    /API/p/:pid/s/:sid/start'             : 'sprint.startSprint',
   'get    /API/p/:pid/s/:sid/finish'            : 'sprint.finishSprint',
-  //task 7
+  //task 8
   'get     /API/p/:pid/s/:sid/t'                : 'task.getTasksOfSprint',
   'post    /API/p/:pid/s/:sid/t'                : 'task.addTaskOfSprint',
   'put     /API/p/:pid/s/:sid/t/:tid'           : 'task.modifyTaskOfSprint',
@@ -121,6 +122,7 @@ module.exports.routes = {
   'put     /API/p/:pid/s/:sid/t/:tid/nob'       : 'task.unsetTaskToBacklog',  
   'put     /API/p/:pid/s/:sid/t/:tid/u/:uid'    : 'task.assignTaskToMember',  
   'delete  /API/p/:pid/s/:sid/t/:tid/u/:uid'    : 'task.removeTaskFromMember',
+  'delete  /API/p/:pid/s/:sid/t/:tid/ua'        : 'task.removeAllTaskOwner',
   //topic 7
   'get    /API/p/:pid/t'                        :  'topic.getAllTopics',
   'get    /API/p/:pid/t/:tid'                   :  'topic.getOneTopic',
@@ -129,5 +131,7 @@ module.exports.routes = {
   'post   /API/p/:pid/tc/:tid'                  :  'topic.commentTopic',
   'get    /API/p/:pid/tc/:tid'                  :  'topic.getComments',
   'delete /API/p/:pid/t/:tid/c/:cid'            :  'topic.deleteComment',
-
+  //socket.io
+  'get     /API/p/:pid/sub'                     :  'socketio.subscribeToProject',
+  'get     /API/p/:pid/s/:sid/sub'              :  'socketio.subscribeToSprint',
 }

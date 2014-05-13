@@ -40,14 +40,22 @@ module.exports = {
     addTaskOfSprint: function (req, res) {
       
 	    sails.log.verbose('Controller - api/controller/TaskController.addTaskOfSprint');
-	    taskService.createTask(req.session.user._id, req.params.pid, req.params.sid, {
+	    var info = {
 			title      : req.body.title,
 			description: req.body.description,
+			startTime  : req.body.startTime,
 			deadline   : req.body.deadline,
-			level      : req.body.level
-		}, function(err, task){
+			type       : req.body.type,
+			
+		};
+		if(req.body.executer) info.executer = req.body.executer;	    
+
+	    taskService.createTask(req.session.user._id, req.params.pid, req.params.sid, info, function(err, task){
 			if(err) res.json(err);
-			else res.json(ErrorService.successWithValue('task', task));
+			else{
+				SocketService.updateSprint(req,res);
+				res.json(ErrorService.successWithValue('task', task));
+			}
 		});
     },
 
@@ -60,14 +68,21 @@ module.exports = {
     modifyTaskOfSprint: function (req, res) {
       
 	    sails.log.verbose('Controller - api/controller/TaskController.modifySprintOfSprint');
+
 	    taskService.modifyTaskById(req.session.user._id, req.params.pid, req.params.sid, req.params.tid, {
 			description: req.body.description,
 			deadline   : req.body.deadline,
-			level      : req.body.level,
-			title      : req.body.title
+			startTime  : req.body.startTime,
+			title      : req.body.title,
+			type       : req.body.type,
+			state      : req.body.state,
+			executer   : req.body.executer
 		}, function(err,task){
 			if(err) res.json(err);
-			else res.json(ErrorService.successWithValue('task', task));
+			else{
+				SocketService.updateSprint(req,res);
+				res.json(ErrorService.successWithValue('task', task));
+			}
 		});
     },
 
@@ -83,7 +98,10 @@ module.exports = {
 	    taskService.setTaskProgressById(req.session.user._id, req.params.pid, req.params.sid, req.params.tid, 
 			req.body.progress, function(err){
 			if(err) res.json(err);
-			else res.json(ErrorService.success);
+			else{
+				SocketService.updateSprint(req,res);
+				res.json(ErrorService.success);
+			}
 		});
     },
 
@@ -98,7 +116,10 @@ module.exports = {
 	    sails.log.verbose('Controller - api/controller/TaskController.setTaskToBacklog');
 	    taskService.setTaskToBacklog(req.params.sid, req.params.bid, req.params.tid, function(err){
 			if(err) res.json(err);
-			else res.json(ErrorService.success);
+			else{
+				SocketService.updateSprint(req,res);
+			 	res.json(ErrorService.success);
+			}
 		});
     },
 
@@ -113,7 +134,10 @@ module.exports = {
 	    sails.log.verbose('Controller - api/controller/TaskController.setTaskToBacklog');
 	    taskService.setTaskToBacklog(req.params.sid, null, req.params.tid, function(err){
 			if(err) res.json(err);
-			else res.json(ErrorService.success);
+			else{
+				SocketService.updateSprint(req,res);
+				res.json(ErrorService.success);
+			}
 		});
     },
 
@@ -129,7 +153,10 @@ module.exports = {
 	    taskService.deleteTaskById(req.session.user._id, req.params.pid, req.params.sid, req.params.tid, 
 			function(err){
 			if(err) res.json(err);
-			else res.json(ErrorService.success);
+			else{
+				SocketService.updateSprint(req,res);
+				res.json(ErrorService.success);
+			}
 		});
     },
 
@@ -145,7 +172,10 @@ module.exports = {
 		taskService.assignMemberToTask(req.session.user._id, req.params.pid, req.params.sid, req.params.tid,
 			req.params.uid, function(err){
 				if(err) res.json(err);
-				else res.json(ErrorService.success);
+				else{
+					SocketService.updateSprint(req,res);
+					res.json(ErrorService.success);
+				}
 			});
 	    
     },
@@ -162,10 +192,31 @@ module.exports = {
 	    taskService.removeMemberFromTask(req.session.user._id, req.params.pid, req.params.sid, req.params.tid,
 			req.params.uid, function(err){
 				if(err) res.json(err);
-				else res.json(ErrorService.success);
+				else{
+					SocketService.updateSprint(req,res);
+					res.json(ErrorService.success);
+				}
 			});
     },
 
+    /**
+	 * delete /API/p/:pid/s/:sid/t/:tid/u/a
+	 * 
+	 * @param   {req}   request     Request object
+	 * @param   {res}  response    Response object
+	 */
+    removeAllTaskOwner: function (req, res) {
+        sails.log.verbose('Controller - api/controller/TaskController.removeTaskFromMember');
+	    taskService.modifyTaskById(req.session.user._id, req.params.pid, req.params.sid, req.params.tid, {
+			executer   : []
+		}, function(err,task){
+			if(err) res.json(err);
+			else{
+				SocketService.updateSprint(req,res);
+				res.json(ErrorService.successWithValue('task', task));
+			}
+		});
+    },
 
   /**
    * Overrides for the settings in `config/controllers.js`

@@ -48,10 +48,15 @@ module.exports = {
 	    sails.log.verbose('Controller - api/controller/BacklogController.addBacklogOfProject');
 	    backlogService.createOne(req.session.user._id, req.params.pid, req.params.sid, TYPE.b, {
 			description: req.body.description,
-			level: req.body.level
+			level: req.body.level,
+			estimate: req.body.estimate,
+			title : req.body.title
 		},function(err){
 			if(err) res.json(err);
-			else res.json(ErrorService.success);
+			else{
+			 	res.json(ErrorService.success);
+			 	SocketService.updateSprint(req,res);
+			 }
 		});
     },
 
@@ -66,10 +71,17 @@ module.exports = {
 	    sails.log.verbose('Controller - api/controller/BacklogController.modifyBacklogOfProject');
 	    backlogService.modifyOne(req.session.user._id, req.params.pid, req.params.sid, req.params.bid, TYPE.b, {
 			description: req.body.description,
-			level: req.body.level
+			level: req.body.level,
+			estimate: req.body.estimate,
+			title : req.body.title
 		},function(err){
 			if(err) res.json(err);
-			else res.json(ErrorService.success);
+			else{
+				sails.log.warn(sails.io.sockets.clients());
+				sails.log.warn(sails.io.sockets.clients('sprintId_'+req.params.sid));
+				SocketService.updateSprint(req,res);
+			 	res.json(ErrorService.success);
+			}
 		});
     },
 
@@ -101,7 +113,10 @@ module.exports = {
 	    backlogService.deleteOne(req.session.user._id, req.params.pid, req.params.sid, req.params.bid, TYPE.b,
 			function(err){
 			if(err) res.json(err);
-			else res.json(ErrorService.success);
+			else {
+				res.json(ErrorService.success);
+				SocketService.updateSprint(req,res);
+			}
 		});
     },
 

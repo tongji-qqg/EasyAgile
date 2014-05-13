@@ -93,19 +93,22 @@ exports.getUserByEmail = function(email, callback) {
 exports.getProjectById = function(pid, callback){
 	
 	projectModel.findById(pid)
-	            .where({'deleted': false})
-	            .exec(function(err, result){
-					if(err) return callback(ErrorService.makeDbErr(err));
-					if(result == null) callback(ErrorService.projectNotFindError);
-					else callback(null,result);				
-				});
+            .where({'deleted': false})
+            .exec(function(err, result){
+				if(err) return callback(ErrorService.makeDbErr(err));
+				if(result == null) callback(ErrorService.projectNotFindError);
+				else callback(null,result);				
+			});
 }
+
 
 exports.getProjectInfoById = function(pid, callback){
 	
 	projectModel.findById(pid)
 				.where({'deleted': false})
                 .populate('owner','_id name icon')
+                .populate('cSprint')
+            	.populate('sprints')
 	            .exec(function(err, result){
 					if(err) return callback(ErrorService.makeDbErr(err));
 					if(result == null) callback(ErrorService.projectNotFindError);

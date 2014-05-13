@@ -55,6 +55,8 @@ exports.modifyOne = function(selfuid, pid, sid, rid, type, info, callback){
 
 		    	target.description = info.description;
 		    	target.level = info.level;
+		    	target.title = info.title;
+		    	target.estimate = info.estimate;
 
 	       		sprint.save(function(err){
 	       			if(err) return callback(err);
