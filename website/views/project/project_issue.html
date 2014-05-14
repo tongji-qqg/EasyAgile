@@ -33,18 +33,21 @@
         <!-- begin MAIN PAGE CONTENT -->
         <div id="page-wrapper">
 
-           <div class="page-content">
+            <div class="page-content">
 
                 <!-- begin PAGE TITLE ROW -->
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="page-title">
-                            <h1>Calendar</h1>
-                            <ol class="breadcrumb">
-                                <li><i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
+                            <h1>
+                                Project Issues
+                                <small></small>
+                            </h1>
+                            <!--ol class="breadcrumb">
+                                <!--li><i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
                                 </li>
-                                <li class="active">Calendar</li>
-                            </ol>
+                                <li class="active">Blank Page</li-->
+                            <!--/ol-->
                         </div>
                     </div>
                     <!-- /.col-lg-12 -->
@@ -52,57 +55,84 @@
                 <!-- /.row -->
                 <!-- end PAGE TITLE ROW -->
 
-                <div class="row">
 
-                    <div class="col-lg-8">
+
+<!-- Basic Responsive Table -->
+                    <div class="col-lg-6" style="width:100%;">
                         <div class="portlet portlet-default">
-                            <div class="portlet-heading">
-                                <div class="portlet-title">
-                                    <h4>Calendar</h4>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
+
                             <div class="portlet-body">
                                 <div class="table-responsive">
-                                    <div id="calendar"></div>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                               <th style="width:100%;">
+                                                   <div style="width:260px;display:inline-block;vertical-align:middle;">
+                                                       <div class="btn-group btn-group-justified">
+                                                            <a class="btn btn-blue" role="button">OPEN</a>
+                                                            <a class="btn btn-white" role="button">CLOSED</a>
+                                                       </div>
+                                                  </div>
+                                                  <div class="btn-group" style="margin-left:135px;">
+                                                      <button type="button" class="btn btn-blue">排序</button>
+                                                      <button type="button" class="btn btn-blue dropdown-toggle" data-toggle="dropdown">
+                                                           <span class="caret"></span>
+                                                           <span class="sr-only">Toggle Dropdown</span>
+                                                      </button>
+                                                      <ul class="dropdown-menu" role="menu">
+                                                         <li><a href="#">最新</a></li>
+                                                         <li><a href="#">最早</a></li>
+                                                      </ul>
+                                                </div>
+                                                <button class="btn btn-primary" style="margin-left:135px;">新建Issue</button>
+                                              </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" value="" style="margin-top:10px;">全选</label>
+                                                        <button class="btn btn-primary" style="margin-left:50px;">close</button>
+                                                     </div>
+
+                                                </td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                        
+                                                              <div class="col-sm-10" style="margin-left:0px;padding-left:0px">
+                                                                 <textarea class="form-control" id="textArea" placeholder="新建Issue描述"></textarea>
+                                                             </div>
+                                                             <button class="btn btn-primary">提交</button>                     
+                                                        
+                                                 
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="checkbox">
+                                                         <label><input type="checkbox" value="">issue1</label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="checkbox">
+                                                         <label><input type="checkbox" value="">issue2</label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
+                        <!-- /.portlet -->
                     </div>
-                    <!-- /.col-lg-8 -->
-
-                    <div class="col-lg-4">
-                        <div class="portlet portlet-default">
-                            <div class="portlet-heading">
-                                <div class="portlet-title">
-                                    <h4>Draggable Events</h4>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="portlet-body">
-                                <div id='external-events'>
-                                    <div class='external-event'>Lunch</div>
-                                    <div class='external-event'>Meeting</div>
-                                    <div class='external-event'>Break</div>
-                                    <div class='external-event'>Client</div>
-                                    <div class='external-event'>Interview</div>
-                                    <p>
-                                        <input type='checkbox' id='drop-remove' />
-                                        <label for='drop-remove'>Remove After Drop</label>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.col-lg-4 -->
-
-                </div>
-                <!-- /.row -->
-
-            </div>
-            <!-- /.page-content -->
-
-        </div>
+                    <!-- /.col-lg-6 -->
+      </div>
         <!-- /#page-wrapper -->
         <!-- end MAIN PAGE CONTENT -->
 
