@@ -9,61 +9,52 @@
                             <a style="color: inherit" href="/user/<%= user._id%>" data-toggle="tooltip" data-placement="top" title="back to user">
                                 <i class="fa fa-mail-reply"></i>
                             </a>                                       
-                            <span id='project-side-nav-name' class="last-name">Project Name</span>
+                            <span id='project-side-nav-name' class="last-name"><%= project.name%></span>
                         </p>
                         <div class="clearfix"></div>
                     </li>
                     <!-- end SIDE NAV USER PANEL -->
-                    <!-- begin SIDE NAV SEARCH -->
-                    <li class="nav-search">
-                        <form role="form">
-                            <input type="search" class="form-control" placeholder="Search...">
-                            <button class="btn">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </form>
-                    </li>
-                    <!-- end SIDE NAV SEARCH -->
+                  
                     <!-- begin DASHBOARD LINK -->
                     <li>
-                        <a href="">
+                        <a href="/project/<%= project._id%>">
                             <i class="fa fa-dashboard"></i> 项目主页
                         </a>
                     </li>
                     
                     <li>
-                        <a id='project-side-nav-taskboard' href="/project_taskboard">
+                        <a id='project-side-nav-taskboard' href="/project_taskboard/<%= project._id%>">
                             <i class="fa fa-edit"></i> 任务板
                         </a>
                     </li>
         
                     <li>
-                        <a href="/project_schedule">
+                        <a href="/project_cal/<%= project._id %>">
                             <i class="fa fa-calendar"></i> 日程
                         </a>
                     </li>
                     
                     <li>
-                        <a href="/project_issue">
+                        <a href="/project_issue/<%= project._id%>">
                             <i class="fa fa-table"></i> Issues
                         </a>
                     </li>
 
                     <li>
-                        <a href="/project_files">
+                        <a href="/project_files/<%= project._id%>">
                             <i class="fa fa-files-o"></i> 文件库
                         </a>
                     </li>
                                     
 
                     <li>
-                        <a href="/project_topic">
+                        <a href="/project_topic/<%= project._id%>">
                             <i class="fa fa-inbox"></i> 讨论区
                         </a>
                     </li>                   
 
                     <li>
-                        <a href="/project_settings">
+                        <a>
                             <i class="fa fa-wrench"></i> 设置
                         </a>
                     </li>        

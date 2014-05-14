@@ -35,12 +35,12 @@ a,
 a:hover,
 a:active,
 a:focus {
-    color: #34495e;
+    color: #000;
 }
 
 @media(min-width:768px) {
     body {
-        background: #34495e;
+        background: #FFFFFF;
     }
 }
 
@@ -200,7 +200,7 @@ a:focus {
 
  .navbar-top {
     margin-left: 0;
-    background-color: #2c3e50;
+    background-color: #E4C904;
     position: fixed;
 }
 
@@ -267,7 +267,7 @@ a:focus {
 .navbar-top>.nav-top>.nav>li>a:hover,
 .navbar-top>.nav-top>.nav>li>a:focus {
     color: #fff;
-    background-color: #142434;
+    background-color: #62F334;
 }
 
 .navbar-top .dropdown-messages {
@@ -529,7 +529,7 @@ a:focus {
 
 .navbar-side .side-user .name .last-name {
     font-weight: 400;
-    color: #fff;
+    color: #000;
 }
 
 .navbar-side .nav-search {
@@ -563,24 +563,27 @@ a:focus {
     margin-top: 0;
     margin-bottom: 0;
     border-bottom: 1px solid #54677a;
-    font-size: 13px;
+    font-size: 16px;
     background-color: #34495e;
 }
 
-.navbar-side .navbar-nav>li>a,
-.navbar-side .navbar-nav>li>a:focus,
-.navbar-side .navbar-nav>li>a:hover,
-.navbar-side .navbar-nav>li>a:active {
+.navbar-side .navbar-nav>li>a {
     text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
     outline: none;
-    color: #fff;
-    background-color: #34495e;
+    color: #000;
+    background-color: ##7BFF3D;
+}
+.navbar-side .navbar-nav>li>a:focus,
+.navbar-side .navbar-nav>li>a:hover,
+.navbar-side .navbar-nav>li>a:active{
+    color: #000;
+    background-color: #FFF;
 }
 
 .navbar-side .side-nav li,
 .navbar-side .side-nav li.panel {
-    border-top: 1px solid #54677a;
-    border-bottom: 1px solid #142638;
+    border-top: 1px solid #0569FF;
+    border-bottom: 1px solid #0569FF;
 }
 
 .navbar-side .side-nav li.panel ul li {
@@ -591,10 +594,9 @@ a:focus {
 .navbar-side .side-nav li.panel ul li a,
 .navbar-side .side-nav li.panel ul li a:hover,
 .navbar-side .side-nav li.panel ul li a:focus,
-.navbar-side .side-nav li.panel ul li a:active,
 .navbar-side .side-nav li.panel ul li .active {
     color: #333;
-    background-color: #ecf0f1;
+    background-color: #BEF806;
 }
 
 .navbar-side .side-nav li.panel i.fa,
@@ -656,14 +658,14 @@ a:focus {
 
     .navbar-side .side-nav > li > a:hover {
         color: #fff;
-        background-color: #3d566e;
+        background-color: #0BFF29;
     }
 
     .navbar-side .side-nav li.panel ul li a:hover,
     .navbar-side .side-nav li.panel ul li a:focus,
     .navbar-side .side-nav li.panel ul li a:active {
         background-color: #e0e7e8;
-    }
+    } 
 }
 
 /* Page Title Styles

@@ -34,11 +34,7 @@
 
 <body>
 
-    <div id="wrapper">
-
-        <% include topnav.html %>
-
-        <% include project_sidenav.html %>
+    <div id="wrapper">          
 
     <!-- begin MAIN PAGE CONTENT -->
     <div id="page-wrapper">
@@ -46,7 +42,7 @@
         <div class="page-content">
             <div id="header">
                 <div class="navbar navbar-fixed-top">
-                    <a class="navbar-brand" href="/">Taskboard</a>
+                    <a class="navbar-brand" href="/project/<%=project._id%>"><%= project.name%></a>
 
 
                     <ul id="navigation" class="nav navbar-nav" style="">
@@ -135,7 +131,7 @@
                             </div>
                         </li>
                     </ul>                
-
+                    
                 </div>
             </div>
 

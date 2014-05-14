@@ -4,7 +4,7 @@
         <ul id="side" class="nav navbar-nav side-nav">
             <!-- begin SIDE NAV USER PANEL -->
             <li class="side-user hidden-xs">
-                <img class="img-circle" src="/img/profile-pic.jpg" alt="">
+                <img class="img-circle" style="width:160px" src="/img/profile-pic.jpg" alt="">
                 
                 <p class="name tooltip-sidebar-logout">
                     
@@ -15,68 +15,40 @@
                 <div class="clearfix"></div>
             </li>
             <!-- end SIDE NAV USER PANEL -->
-            <!-- begin SIDE NAV SEARCH -->
-            <li class="nav-search">
-                <form role="form">
-                    <input type="search" class="form-control" placeholder="Search...">
-                    <button class="btn">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </form>
-            </li>
-            <!-- end SIDE NAV SEARCH -->
+
             <!-- begin DASHBOARD LINK -->
             <li>
-                <a href="">
+                <a href="/user/<%= user._id %>">
                     <i class="fa fa-dashboard"></i> 项目
                 </a>
             </li>
             <!-- end DASHBOARD LINK -->
             <!-- begin CHARTS DROPDOWN -->
             <li>
-                <a href="/user_task">
+                <a href="/user_task/<%= user._id %>">
                     <i class="fa fa-edit"></i> 我的任务
                 </a>
             </li>
             
             <!-- end CHARTS DROPDOWN -->
-            <!-- begin FORMS DROPDOWN -->
 
-            <!-- end FORMS DROPDOWN -->
             <!-- begin CALENDAR LINK -->
             <li>
-                <a href="/user_calendar">
+                <a href="/user_cal/<%= user._id %>">
                     <i class="fa fa-calendar"></i> 我的日程
                 </a>
             </li>
             <!-- end CALENDAR LINK -->                  
             <!-- begin MESSAGE CENTER DROPDOWN -->
-            <li class="panel">
-                <a href="javascript:;" data-parent="#side" data-toggle="collapse" class="accordion-toggle" data-target="#message-center">
-                    <i class="fa fa-inbox"></i> 消息中心 <i class="fa fa-caret-down"></i>
+            <li>
+                <a href="/user_message/<%= user._id %>">
+                    <i class="fa fa-inbox"></i> message
                 </a>
-                <ul class="collapse nav" id="message-center">
-                    <li>
-                        <a href="/user_message.html">
-                            <i class="fa fa-angle-double-right"></i> 消息
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/user_alert.html">
-                            <i class="fa fa-angle-double-right"></i> 提醒
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/chat.html">
-                            <i class="fa fa-angle-double-right"></i> 聊天
-                        </a>
-                    </li>
-                </ul>
-            </li>
+            </li>            
             <!-- end MESSAGE CENTER DROPDOWN -->
             <!-- begin UI ELEMENTS DROPDOWN -->
             <li>
-                <a href="/user_calendar.html">
+                <a herf='#alert'>
                      <i class="fa fa-wrench"></i> 设置
                 </a>
             </li>
