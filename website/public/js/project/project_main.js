@@ -27,10 +27,8 @@ function loadProjectInfo(){
                 {        
                     var p = data.project;                          
                     $('#project-side-nav-name').text(data.project.name);
-                    $('#project-des-title').html('<h1>'+p.name+'<small>created by '+p.owner.name+' in '+moment(p.createTime,'yyyy-MM-dd')+'</small> </h1>');
-                    $('#project-des-body').html('<strong> description: </strong>'+p.description);
-                    $('#project-side-nav-sprint').attr('href','/project_sprint/'+p._id);
-                    $('#project-side-nav-taskboard').attr('href','/project_taskboard/'+p._id);
+                    $('#project-des-title').html('<h1>'+p.name+'<small> created by '+p.owner.name+' in '+moment(p.createTime).format('YYYY-MM-DD')+'</small> </h1>');
+                    $('#project-des-body').html('<strong> description: </strong>'+p.description);                    
                 }
             }            
         });
