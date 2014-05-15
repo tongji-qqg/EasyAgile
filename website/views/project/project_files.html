@@ -53,15 +53,34 @@
                 <!-- end PAGE TITLE ROW -->
 <div class="panel panel-default">
   <!-- Default panel contents -->
-  <div class="panel-heading">Panel heading</div>
-  <div class="panel-body">
-    <p>...</p>
-  </div>
-
+  <div class="panel-heading">文件库</div>
+                                                   
   <!-- Table -->
   <table class="table">
+
                                         <thead>
+                                            <div class="mailbox-nav">
+                                            <ul class="nav navbar-nav button-tooltips">
+                                            
+                                            <li class="message-actions" style="float:right;">
+                                                <div class="btn-group navbar-btn">
+                                                    <button type="button" class="btn btn-white" data-toggle="tooltip" data-placement="bottom" title="Archive"><i class="fa fa-download">下载</i>
+                                                    </button>
+                                                    
+                                                    <button type="button" class="btn btn-white fileinput-button" data-toggle="tooltip" data-placement="bottom" title="Mark as Important">
+                                                    <input id="fileupload" type="file" name="files[]" multiple="" style="width: 60px;height: 40px;cursor: pointer;font-size: 30px;outline: medium none;position: absolute;filter:alpha(opacity=0);-moz-opacity:0;opacity:0; left:0px;top: 0px;">
+                                                    <i class="fa fa-upload">上传</i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-white" data-toggle="tooltip" data-placement="bottom" title="Trash"><i class="fa fa-trash-o">删除</i>
+                                                    </button>
+                                                </div>
+                                            </li>
+                                            </ul>
+                                            </div>
                                             <tr>
+                                                <th class="checkall checkbox-col">
+                                                <input type="checkbox" id="selectall" data-toggle="tooltip" data-placement="bottom" title="Select All">
+                                                </th>
                                                 <th>名称</th>
                                                 <th>创建者</th>
                                                 <th>大小</th>
@@ -71,25 +90,72 @@
                                         </thead>
                                         <tbody>
                                             <tr>
+                                                <td class="checkbox-col">
+                                                   <input type="checkbox" class="selectedId" name="selectedId">
+                                                </td>
                                                 <td>文件1</td>
                                                 <td>夏雅楠</td>
                                                 <td>0</td>
                                                 <td>2014/1/1</td>
                                             </tr>
                                             <tr>
+                                                <td class="checkbox-col">
+                                                   <input type="checkbox" class="selectedId" name="selectedId">
+                                                </td>
                                                 <td>文件2</td>
                                                 <td>杨帆</td>
                                                 <td>0</td>
                                                 <td>2014/1/1</td>
                                             </tr>
                                             <tr>
+                                                <td class="checkbox-col">
+                                                   <input type="checkbox" class="selectedId" name="selectedId">
+                                                </td>
                                                 <td>文件3</td>
                                                 <td>李丝琦</td>
                                                 <td>0</td>
                                                 <td>2014/1/1</td>
                                             </tr>
+                                            <tr>
+                                                <td class="checkbox-col">
+                                                   <input type="checkbox" class="selectedId" name="selectedId">
+                                                </td>
+                                                <td>文件4</td>
+                                                <td>宁婧</td>
+                                                <td>0</td>
+                                                <td>2014/1/1</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="checkbox-col">
+                                                   <input type="checkbox" class="selectedId" name="selectedId">
+                                                </td>
+                                                <td>文件5</td>
+                                                <td>亓庆国</td>
+                                                <td>0</td>
+                                                <td>2014/1/1</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="checkbox-col">
+                                                   <input type="checkbox" class="selectedId" name="selectedId">
+                                                </td>
+                                                <td>文件6</td>
+                                                <td>周春晖</td>
+                                                <td>0</td>
+                                                <td>2014/1/1</td>
+                                            </tr>
                                         </tbody>
   </table>
+<div class="dataTables_paginate paging_bootstrap">
+         <ul class="pagination">
+             <li class="disabled"><a href="#" >&laquo;</a></li>
+             <li class="active"><a href="#">1<span class="sr-only">(current)</span></a></li>
+             <li><a href="#">2</a></li>
+             <li><a href="#">3</a></li>
+             <li><a href="#">4</a></li>
+             <li><a href="#">5</a></li>
+             <li><a href="#">&raquo;</a></li>
+        </ul>
+</div>
 </div>
                
             
