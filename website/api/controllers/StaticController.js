@@ -199,6 +199,18 @@ module.exports = {
   },
 
   /**
+   * get project topic page action, this will just shows login screen if user isn't logged in yet.
+   *
+   * @param   {req}   request     Request object
+   * @param   {res}  response    Response object
+   */
+  projectNewTopic: function(req, res) {
+      sails.log.verbose('Controller - api/controller/StaticController.projectTopic');      
+      
+      renderViewWithProject(req, res, 'project/project_newTopic');     
+  },
+
+  /**
    * Overrides for the settings in `config/controllers.js`
    * (specific to StaticController)
    */

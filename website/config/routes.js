@@ -48,6 +48,7 @@ module.exports.routes = {
   'get /project_issue/:pid'                     : 'static.projectIssue',
   'get /project_files/:pid'                     : 'static.projectFiles',
   'get /project_topic/:pid'                     : 'static.projectTopic',
+  'get /project_newTopic/:pid'                  : 'static.projectNewTopic',
   //auth 4
   'post /login'                                 : 'auth.login',
   'post /reg'                                   : 'auth.reg',                  //todo
