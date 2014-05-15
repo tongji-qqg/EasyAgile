@@ -94,6 +94,7 @@ module.exports.policies = {
 		projectIssue     :["checkLogin"],
 		projectFiles     :["checkLogin"],
 		projectTopic	 :["checkLogin"],
+		projectNewTopic	 :["checkLogin"],
     },
 
     "story": {
