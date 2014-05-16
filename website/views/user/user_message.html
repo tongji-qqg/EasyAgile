@@ -15,6 +15,9 @@
     .fa:hover{
         cursor: pointer;
     }
+    .deleteButton:hover{
+        color: #CCC;
+    }
     </style>
 
 </head>
@@ -32,74 +35,78 @@
         <!-- end SIDE NAVIGATION -->
 
 
-        <!-- begin MAIN PAGE CONTENT -->
+                <!-- begin MAIN PAGE CONTENT -->
         <div id="page-wrapper">
 
-           <div class="page-content">
+            <div class="page-content">
 
-                <!-- begin PAGE TITLE ROW -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="page-title">
-                            <h1>Calendar</h1>
-                            <ol class="breadcrumb">
-                                <li><i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                                </li>
-                                <li class="active">Calendar</li>
-                            </ol>
-                        </div>
-                    </div>
-                    <!-- /.col-lg-12 -->
-                </div>
-                <!-- /.row -->
-                <!-- end PAGE TITLE ROW -->
+            <!-- Basic Form Example -->
+            <div class="col-lg-12" style="margin-top:20px;">
 
-                <div class="row">
+                <div class="portlet portlet-default" style="border-style:none;"> 
 
-                    <div class="col-lg-8">
-                        <div class="portlet portlet-default">
-                            <div class="portlet-heading">
-                                <div class="portlet-title">
-                                    <h4>Calendar</h4>
-                                </div>
-                                <div class="clearfix"></div>
+                    <div id="basicFormExample" class="panel-collapse collapse in">
+                        <div class="portlet-body">
+                          <form role="form">
+                            <!-- begin PAGE TITLE ROW -->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                   <div class="page-title">
+                                       <h1>
+                                        所有通知
+                                        <small></small>
+                                        <button type="button" class="btn btn-white" style="float:right;margin-right:10px;">删除全部</button>
+                                       </h1>
+                                   </div>
+                               </div>
+                               <!-- /.col-lg-12 -->
                             </div>
-                            <div class="portlet-body">
-                                <div class="table-responsive">
-                                    <div id="calendar"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.col-lg-8 -->
-
-                    <div class="col-lg-4">
-                        <div class="portlet portlet-default">
-                            <div class="portlet-heading">
-                                <div class="portlet-title">
-                                    <h4>Draggable Events</h4>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="portlet-body">
-                                <div id='external-events'>
-                                    <div class='external-event'>Lunch</div>
-                                    <div class='external-event'>Meeting</div>
-                                    <div class='external-event'>Break</div>
-                                    <div class='external-event'>Client</div>
-                                    <div class='external-event'>Interview</div>
-                                    <p>
-                                        <input type='checkbox' id='drop-remove' />
-                                        <label for='drop-remove'>Remove After Drop</label>
+                            <!-- /.row -->
+                            <!-- end PAGE TITLE ROW --> 
+                            <div class="message">
+                                <h6 style="color:#CCC;">2014年5月15日</h6> 
+                                <div class="well" style="color:#3c763d;background-color:#dff0d8;border-color:#d6e9c6; ">
+                                    <div class="messageContent" style="width:93%;display:inline-block;">
+                                    <p > 
+                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. 
                                     </p>
+                                    </div>
+                                    <button class="deleteButton fa fa-trash-o"  style="margin-top:-10px;float:right;background-color:transparent;border:none;"></button>                            
                                 </div>
                             </div>
+                            <div class="message">
+                                <h6 style="color:#CCC;">2014年5月15日</h6> 
+                                <div class="well" style="color:#3c763d;background-color:#dff0d8;border-color:#d6e9c6; ">
+                                    <div class="messageContent" style="width:93%;display:inline-block;">
+                                    <p > 
+                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. 
+                                    </p>
+                                    </div>
+                                    <button class="deleteButton fa fa-trash-o"  style="margin-top:-10px;float:right;background-color:transparent;border:none;"></button>                            
+                                </div>
+                            </div>
+                            <div class="message">
+                                <h6 style="color:#CCC;">2014年5月15日</h6> 
+                                <div class="well" style="color:#3c763d;background-color:#dff0d8;border-color:#d6e9c6; ">
+                                    <div class="messageContent" style="width:93%;display:inline-block;">
+                                    <p > 
+                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. 
+                                    </p>
+                                    </div>
+                                    <button class="deleteButton fa fa-trash-o"  style="margin-top:-10px;float:right;background-color:transparent;border:none;"></button>                            
+                                </div>
+                            </div>
+                          </form>
                         </div>
-                    </div>
-                    <!-- /.col-lg-4 -->
-
+                     </div>
                 </div>
-                <!-- /.row -->
+                <!-- /.portlet -->
+            </div>
+            <!-- /.col-lg-12 (nested) -->
+            <!-- End Basic Form Example -->
+
+
+   
 
             </div>
             <!-- /.page-content -->
