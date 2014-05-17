@@ -83,11 +83,19 @@ function loadProjects(){
         if(project.cSprint.taskTotal && project.cSprint.taskTotal != 0)
             percent = project.cSprint.taskFinish / project.cSprint.taskTotal;     
         var div = 
-        '<div class="col-lg-3 col-sm-6"> <div class="tile '+color +' dash-demo-tile"> <h4><i class="fa '+icon+' fa-fw"></i>' + project.name + '</h4> <div class="easy-pie-chart" data-percent="'+percent+'"> <span class="percent"></span> </div> <a href=/project/'+project._id+' class="dash-demo-footer">More Info <i class="fa fa-chevron-circle-right"></i></a> </div> </div>' ;
+        '<div class="col-lg-3 col-sm-6"> <div class="tile '+color +' dash-demo-tile"> <h4><i class="fa '+icon+' fa-fw"></i>' + project.name + '<i class="fa fa-star fa-fw" style="float:right;margin-left:5px;"></i><i class="fa fa-pencil fa-fw" style="float:right;"></i></h4> <div class="easy-pie-chart" data-percent="'+percent+'"> <span class="percent"></span> </div> <a href=/project/'+project._id+' class="dash-demo-footer">More Info <i class="fa fa-chevron-circle-right"></i></a> </div> </div>' ;
         if(!project.done)
+        {
+            var div = 
+        '<div class="col-lg-3 col-sm-6"> <div class="tile '+color +' dash-demo-tile"> <h4><i class="fa '+icon+' fa-fw"></i>' + project.name + '<i class="fa fa-star fa-fw" style="float:right;margin-left:5px;"></i><i class="fa fa-pencil fa-fw" style="float:right;"></i></h4> <div class="easy-pie-chart" data-percent="'+percent+'"> <span class="percent"></span> </div> <a href=/project/'+project._id+' class="dash-demo-footer">More Info <i class="fa fa-chevron-circle-right"></i></a> </div> </div>' ;
             $('#current-project-row').append(div);
+        }
         else
+        {
+            var div = 
+        '<div class="col-lg-3 col-sm-6"> <div class="tile '+color +' dash-demo-tile"> <h4><i class="fa '+icon+' fa-fw"></i>' + project.name + '<i class="fa fa-refresh fa-fw" style="float:right;"></i></h4> <div class="easy-pie-chart" data-percent="'+percent+'"> <span class="percent"></span> </div> <a href=/project/'+project._id+' class="dash-demo-footer">More Info <i class="fa fa-chevron-circle-right"></i></a> </div> </div>' ;
             $('#finished-project-row').append(div);
+        }
     };  
     if(uid){
         $.ajax({
