@@ -160,7 +160,7 @@ exports.deleteFileOfProject = function(pid, fid, callback){
 }
 
 exports.setUserIcon = function(selfuid, icon, callback){
-	var path = 'public/icon';
+	var path = 'public/usericons';
 
 	async.waterfall([
 		function(callback){
@@ -177,9 +177,9 @@ exports.setUserIcon = function(selfuid, icon, callback){
 		},
 
 		function(callback){
-			sails.log.verbose('save file'+file);		
-			path += '/' + selfuid +_.str.fileExtension(file.name),
-	      	fs.readFile(file.path, function (err, data) {
+			sails.log.verbose('save file'+icon);		
+			path += '/' + selfuid + '.' +icon.name.split('.').pop()
+	      	fs.readFile(icon.path, function (err, data) {
 		      if (err) {
 		        callback(ErrorService.makeDbErr(err));
 		      } else {
@@ -194,7 +194,7 @@ exports.setUserIcon = function(selfuid, icon, callback){
 		function(callback){
 			DataService.getUserById(selfuid, function(err, user){
 				if(err)return  callback(err);
-				user.icon = path;
+				user.icon = 'usericons/'+selfuid+'.'+icon.name.split('.').pop();
 				user.save(function(err, result){
 					if(err) callback(ErrorService.makeDbErr(err));
 					else callback(null, DataService.makeUserInfo(result));

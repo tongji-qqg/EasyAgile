@@ -59,6 +59,7 @@ module.exports.routes = {
   'get  /auth/e/:email/t/:token'                : 'auth.activateEmail',
   //user 9
   'get  /API/u/name/:name'                      : 'user.getUserInfoLikeName',  
+  'get  /API/u/name'                            : 'user.getUserInfoLikeName',  
   'get  /API/u/email/:email'                    : 'user.getUserInfoByEmail',   
   'get  /API/u'                                 : 'user.getUserInfoById',
   'post /API/u'                                 : 'user.validateUserByEmail',

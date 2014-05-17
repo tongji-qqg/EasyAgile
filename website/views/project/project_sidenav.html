@@ -100,11 +100,12 @@
           <div class="form-group">
             <label for="user-name-input" class="col-sm-2 control-label">项目名称</label><br />
             <div class="col-sm-12">
-              <input type="text" class="form-control" id="project-name-input" placeholder="专综项目">
+              <input value='<%= project.name%>' type="text" class="form-control" id="project-name-input" placeholder="专综项目">
               <br />
             </div>
           </div>
           <br />
+          <!--
           <div class="form-group">
             <label for="user-profession-input" class="col-sm-2 control-label">项目类别</label>
             <div class="col-sm-12">
@@ -113,10 +114,11 @@
             </div>
           </div> 
           <br />
+          -->
           <div class="form-group">  
             <label for="user-birthday-input" class="col-sm-2 control-label">项目简介</label>              
             <div class="col-sm-12">
-              <textarea type="text" class="form-control" id="project-description-input" placeholder="介绍一下这个项目"></textarea>
+              <textarea type="text" class="form-control" id="project-description-input" placeholder="介绍一下这个项目"><%= project.description%></textarea>
               <br />
             </div>
           </div>
@@ -126,7 +128,7 @@
   </div>
   <div class="modal-footer" >
    <!--button id='set-setting-close' type="button" data-dismiss="modal" class="btn btn-default">关闭</button-->
-   <button id='set-setting-button' type="button" class="btn btn-info" style="width:100%;">保存</button>
+   <button id='project-setting-button' type="button" class="btn btn-info" style="width:100%;">保存</button>
 
 </div>
 
@@ -139,26 +141,31 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-sm-12">
-            <input type="text" class="form-control" id="project-name-input" placeholder="通过邮箱添加新成员...">
-            
+          <div class="col-sm-10">
+            <input type="email" class="form-control" id="add-member-email-input" placeholder="通过邮箱添加新成员...">
+             
           </div>
-                       
+             <button id='add-member-email-button' type="submit" class="btn btn-primary">sure</button>          
         </div>
       </div>
     
 
       <div class="modal-header">
-        <h4 class="modal-title">通过链接添加新成员</h4>
+        <h4 class="modal-title">通过ID添加新成员</h4>
       </div>
 
       <div class="modal-body">
+        <!--
         <p>分享下面的链接给项目成员，他们可以直接访问链接来加入，最适合分享到微信群或是QQ群</p>
+        -->
         <div class="row">
-          <div class="col-sm-12">
-            <input type="text" class="form-control" id="project-name-input" placeholder="通过连接添加新成员...">
+          <div class="col-sm-10">
+            <select id='search-member-box' class="combobox input-large form-control" >
+              <option></option>  
+            </select>  
           </div>
-                       
+          
+          <button id='add-member-id-button' type="submit" class="btn btn-primary">sure</button>             
         </div>
 
       </div>
@@ -171,33 +178,43 @@
       <div class="modal-body">
         
         <div class="row" style="margin-bottom:10px;">
-          <div class="col-sm-10">
-            <img src="/img/myicon.jpg" class="img-circle" style="width:40px; "><label class="control-label">夏雅楠·管理员</label>
-          </div>   
-          <div class="col-sm-2">
-            <button id='user-delete-button' type="button" class="btn btn-red">移除成员</button>
-          </div>          
+          <div class="col-sm-12">
+            <%if(project.owner.icon){%>
+            <img src="/<%= project.owner.icon%>" class="img-circle" style="width:40px; ">
+            <%}else{%>
+            <img src="/usericons/default.jpg" class="img-circle" style="width:40px; ">
+            <%}%>
+            <label class="control-label"><%=project.owner.name%>·owner</label>
+          </div>             
         </div>
         <hr />
-
-        <div class="row" style="margin-bottom:10px;">
-          <div class="col-sm-10">
-            <img src="/img/myicon.jpg" class="img-circle" style="width:40px; "><label class="control-label">杨帆·管理员</label>
-          </div> 
-          <div class="col-sm-2">
-            <button id='user-delete-button' type="button" class="btn btn-red">移除成员</button>
-          </div>           
-        </div>
-        <hr /> 
-
-        <div class="row" style="margin-bottom:10px;">
-          <div class="col-sm-10">
-            <img src="/img/myicon.jpg" class="img-circle" style="width:40px; "><label class="control-label">李丝琦·管理员</label>
-          </div>  
-          <div class="col-sm-2">
-            <button id='user-delete-button' type="button" class="btn btn-red">移除成员</button>
-          </div>       
-        </div>
+        
+        <% project.members.forEach(function(member){ %>
+          <div class="row" style="margin-bottom:10px;">
+            <div class="col-sm-8">
+              <%if(member.icon){%>
+              <img src="/<%= member.icon%>" class="img-circle" style="width:40px; ">
+              <%}else{%>
+              <img src="/usericons/default.jpg" class="img-circle" style="width:40px; ">
+              <%}%>
+              <label class="control-label"><%=member.name%>
+                <% if(member.isAdmin){%>
+                ·管理员
+                <%} %>
+              </label>
+            </div> 
+            <div class="col-sm-4">
+              <% if(!member.isAdmin){%>
+              <button uid='<%= member._id%>' type="button" class="btn btn-green set-admin-button">管理员</button>
+              <%} else {%>
+              <button uid='<%= member._id%>' type="button" class="btn btn-green unset-admin-button">no管理员</button>
+              <%}%>
+              <button  uid='<%= member._id%>' type="button" class="btn btn-red delete-member-button">移除成员</button>
+            </div>           
+          </div>
+          <hr />
+        <%})%>
+                 
 
       </div>
       
@@ -244,15 +261,7 @@
     
 </div>
 
-
-
-    
-
-
-
-
-
-
-
-
-
+<script type="text/javascript">
+  var projectid = '<%= project._id%>';
+</script>
+<script type="text/javascript" src='/js/project/project_setting.js'></script>

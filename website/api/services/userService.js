@@ -36,23 +36,23 @@ exports.register = function(userInfo, callback){
 			var localAppURL = 'http://' + process.env.host + ':' + process.env.port;
 			var link = localAppURL + '/auth/e/'+user.email+'/t/'+token;
 			sails.log.verbose('generate link:'+link);
+			user.save(function(err, result){
+				if(err) return callback(ErrorService.makeDbErr(err));	
+				callback(null, user, link);	
+			});	
+			
+		},
+		function(user, link, callback){
 			EmailService.send(user.email
 				, 'Activate your account'
 				, 'please click this link <a href="'+link+'">'+link+'</a>to activate your account'
 				, function(err, result){
 					if(err) {
 						sails.log.error('send activate email to '+user.email+' fail'+err);
-						callback(err);
-					}
-					else
-						callback(null, user);
-				});
-		},
-		function(user, callback){
-			user.save(function(err, result){
-				if(err) return callback(ErrorService.makeDbErr(err));	
-				callback(null);	
-			});					
+						//callback(err);
+					}						
+				});		
+			callback(null, user);		
 		}
 	],callback);		
 };
@@ -70,7 +70,9 @@ exports.findUserByEmail = function(email, callback){
 
 exports.findUserLikeName = function(name, callback){
 
-	userModel.find({name:new RegExp('\w*'+name+'\w*', "i")}, function(err, result){
+	var select = {};
+	if(name) select = {name:new RegExp('\w*'+name+'\w*', "i")};
+	userModel.find(select , function(err, result){
 		if(err) return callback(ErrorService.makeDbErr(err));
 		if(!result) return callback(ErrorService.userNotFindError);
 		else{			
@@ -88,7 +90,7 @@ exports.loginByEmail = function(email, password, callback){
 	var md5 = crypto.createHash('md5');
     password = md5.update(password).digest('base64');
 
-	DataService.getUserByEmail(email, function(err, result){
+	DataService.getUserByEmail(email.toLowerCase(), function(err, result){
 		if(err) return callback(ErrorService.makeDbErr(err));
 		else if(result.emailToken) 
 			callback(ErrorService.notValidateEmailError);
@@ -148,6 +150,10 @@ exports.findUserById = function(id, callback){
 
 exports.updateUserInfo = function(id, toUser, callback){
 
+	if(toUser.password){
+		var md5 = crypto.createHash('md5');
+    	toUser.password = md5.update(toUser.password).digest('base64');
+	}
 	userModel.findOneAndUpdate({'_id':id},{ $set: toUser},function(err){
 		if(err) callback(ErrorService.makeDbErr(err));
 		else DataService.getUserById(id,callback);

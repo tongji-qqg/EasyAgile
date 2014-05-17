@@ -94,14 +94,15 @@ module.exports = {
 		var targetUser = {					
 		};
 		if(req.body.name)targetUser.name = req.body.name;
-		if(req.body.icon)targetUser.icon = req.body.icon;
+		//if(req.body.icon)targetUser.icon = req.body.icon;
 		if(req.body.phone)targetUser.phone = req.body.phone;
 		if(req.body.birthday)targetUser.birthday = req.body.birthday;
 
 		if(targetUser === {}) return res.json(ErrorService.success);
-		userService.updateUserInfo(req.session.user._id, targetUser, function(err){
-			if(err) res.json(err);
-			else res.json(ErrorService.success);
+		userService.updateUserInfo(req.session.user._id, targetUser, function(err,user){
+			if(err) return res.json(err);					
+			req.session.user = user;
+			res.json(ErrorService.success);
 		});
 	},
 
@@ -117,7 +118,7 @@ module.exports = {
 			if(err) res.json(err);
 			else {
 				req.session.user = user;
-				res.json(ErrorService.success);
+				res.json(ErrorService.successWithValue('user', user));
 			}
 		});
 	},

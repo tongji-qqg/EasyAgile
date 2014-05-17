@@ -19,7 +19,7 @@
 var F = require('./functions');
 
 function renderViewWithProject(req, res, view){
-  DataService.getProjectById(req.params.pid, function(err, project){
+  DataService.getProjectInfoById(req.params.pid, function(err, project){
         if(err) res.view(view,{                
           user:req.session.user,
           project:{ _id: req.params.pid, cSprint: 0 }
