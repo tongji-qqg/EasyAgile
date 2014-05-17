@@ -96,6 +96,7 @@ module.exports.policies = {
 		projectFiles     :["checkLogin", "hasProjectAccess"],
 		projectTopic	 :["checkLogin", "hasProjectAccess"],
 		projectNewTopic	 :["checkLogin", "hasProjectAccess"],
+		projectOneTopic	 :["checkLogin", "hasProjectAccess"],
 		projectEditor    :["checkLogin", "hasProjectAccess"],
     },
 
