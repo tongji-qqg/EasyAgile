@@ -62,7 +62,7 @@ jQuery(document).ready(function() {
                 if(data.state === 'success')
                 {                    
                     //location.href = "user/"+data.user._id;
-                    alert('register success, please activate your account within 1 day')
+                    bootbox.alert('register success, please activate your account within 1 day')
                 }
             }            
         });

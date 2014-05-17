@@ -64,6 +64,7 @@ exports.modifyTaskById = function(selfuid, pid, sid, tid, taskInfo, callback){
 	    	task.type     = taskInfo.type || task.type;
 	    	task.state    = taskInfo.state || task.state;
 	    	task.executer = taskInfo.executer || task.executer;
+	    	task.progress = taskInfo.progress || task.progress;
        		task.save(function(err){
        			if(err) return callback(ErrorService.makeDbErr(err));
        			else callback(null,task);

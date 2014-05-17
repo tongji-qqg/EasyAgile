@@ -167,6 +167,32 @@ module.exports = {
 	},
 
 	/**
+	 * put /API/u/:uid/t/:tid
+	 * 
+	 * @param   {req}   request     Request object
+	 * @param   {res}  response    Response object
+	 */
+	setTask: function (req, res) {
+	   	sails.log.verbose('Controller - api/controller/UserController.setTask');
+		taskService.modifyTaskById(req.session.user._id, null, null, req.params.tid, {
+			description: req.body.description,
+			deadline   : req.body.deadline,
+			startTime  : req.body.startTime,
+			title      : req.body.title,
+			type       : req.body.type,
+			state      : req.body.state,			
+			progress   : req.body.progress
+		}, function(err,task){
+			if(err) res.json(err);
+			else{
+				SocketService.updateSprint(req,res);
+				res.json(ErrorService.successWithValue('task', task));
+			}
+		});
+	},
+
+
+	/**
 	 * get /API/u/:uid/projects
 	 * 
 	 * @param   {req}   request     Request object
@@ -181,6 +207,8 @@ module.exports = {
 			}
 		});
 	},
+
+
 
 	/**
 	 * get  /API/m

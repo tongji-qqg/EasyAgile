@@ -67,6 +67,7 @@ module.exports.routes = {
   'get  /API/u/ta'                              : 'user.getAllUserTask',       
   'get  /API/u/tc'                              : 'user.getCurrentUserTask',   
   'get  /API/u/projects'                        : 'user.getUserProjects',
+  'put  /API/u/:uid/t/:tid'                     : 'user.setTask',
   'post /API/u/:uid/icon'                       : 'user.setUserIconById',
   //message 7
   'get  /API/m'                                 : 'user.getUserMessage',       

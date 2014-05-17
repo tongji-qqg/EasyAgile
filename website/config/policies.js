@@ -151,6 +151,7 @@ module.exports.policies = {
     	getCurrentUserTask   :["checkUser"],
     	getUserProjects      :["checkUser"],
     	setUserIconById      :["checkUser"],
+    	setTask              :["checkUser","validateTaskOwner"],
 
     	getUserMessage       :["checkUser"], 
 		sendMessage          :["checkUser"],    	
