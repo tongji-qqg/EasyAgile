@@ -88,12 +88,13 @@ module.exports.policies = {
 		userTask         :["checkLogin"],
 		userCal          :["checkLogin"],
 		userMessage      :["checkLogin"],
-		projectMain      :["checkLogin"],
-		projectTaskboard :["checkLogin"],
-		projectCal       :["checkLogin"],
-		projectIssue     :["checkLogin"],
-		projectFiles     :["checkLogin"],
-		projectTopic	 :["checkLogin"],
+		projectMain      :["checkLogin", "hasProjectAccess"],
+		projectTaskboard :["checkLogin", "hasProjectAccess"],
+		projectCal       :["checkLogin", "hasProjectAccess"],
+		projectIssue     :["checkLogin", "hasProjectAccess"],
+		projectFiles     :["checkLogin", "hasProjectAccess"],
+		projectTopic	 :["checkLogin", "hasProjectAccess"],
+		projectEditor    :["checkLogin", "hasProjectAccess"],
     },
 
     "story": {
@@ -147,6 +148,7 @@ module.exports.policies = {
     	getAllUserTask       :["checkUser"],
     	getCurrentUserTask   :["checkUser"],
     	getUserProjects      :["checkUser"],
+    	setUserIconById      :["checkUser"],
 
     	getUserMessage       :["checkUser"], 
 		sendMessage          :["checkUser"],    	
@@ -159,7 +161,21 @@ module.exports.policies = {
     "socketio":{
     	"*": false,
     	subscribeToSprint  : [],//["checkUser", "hasProjectAccess", "sprintInProject"],
-    	subscribeToProject : [],//["checkUser", "hasProjectAccess"],
+    	subscribeToProject : [],//["checkUser", "hasProjectAccess"], not work for socket connect
+    },
+    "file":{
+    	"*":false,
+    	getFileListOfProject    : ["checkUser","hasProjectAccess"],
+		uploadFilesToProject    : ["checkUser","hasProjectAccess"],
+		getOneFileOfProject     : ["checkUser","hasProjectAccess"],
+		deleteOneFileOfProject  : ["checkUser","hasProjectAdmin"],
+    },
+    "editor":{
+    	"*": false,
+    	get         : ["checkUser","hasProjectAccess"],
+    	create      : ["checkUser","hasProjectAccess"],
+    	edit        : ["checkUser","hasProjectAccess"],
+    	delete      : ["checkUser","hasProjectAccess"],
     }
   /*
 	// Here's an example of adding some policies to a controller

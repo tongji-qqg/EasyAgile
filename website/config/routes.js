@@ -48,11 +48,14 @@ module.exports.routes = {
   'get /project_issue/:pid'                     : 'static.projectIssue',
   'get /project_files/:pid'                     : 'static.projectFiles',
   'get /project_topic/:pid'                     : 'static.projectTopic',
+  'get /project_editor/:pid'                    : 'static.projectEditor',
+
   //auth 4
   'post /login'                                 : 'auth.login',
-  'post /reg'                                   : 'auth.reg',                  //todo
+  'post /reg'                                   : 'auth.reg',                  
   'get  /logout'                                : 'auth.logout',
   'get  /API/logout'                            : 'auth.apilogout',
+  'get  /auth/e/:email/t/:token'                : 'auth.activateEmail',
   //user 9
   'get  /API/u/name/:name'                      : 'user.getUserInfoLikeName',  
   'get  /API/u/email/:email'                    : 'user.getUserInfoByEmail',   
@@ -63,6 +66,7 @@ module.exports.routes = {
   'get  /API/u/ta'                              : 'user.getAllUserTask',       
   'get  /API/u/tc'                              : 'user.getCurrentUserTask',   
   'get  /API/u/projects'                        : 'user.getUserProjects',
+  'post /API/u/:uid/icon'                       : 'user.setUserIconById',
   //message 7
   'get  /API/m'                                 : 'user.getUserMessage',       
   'post /API/m/u/:uid'                          : 'user.sendMessage',          
@@ -82,7 +86,12 @@ module.exports.routes = {
   'delete  /API/p/:pid/mid/:uid'                : 'project.removeMemberById',
   'put     /API/p/:pid/ma/:uid'                 : 'project.setMemberAdmin',
   'delete  /API/p/:pid/ma/:uid'                 : 'project.removeMemberAdmin', 
-  
+  //editor 6
+  'get     /API/p/:pid/e'                       : 'editor.get',
+  'post    /API/p/:pid/e'                       : 'editor.create',
+  'get     /API/p/:pid/e/:eid'                  : 'editor.edit',     //this return static
+  'delete  /API/p/:pid/e/:eid'                  : 'editor.delete',
+
   //backlog 6
   'get     /API/p/:pid/s/:sid/b'                : 'backlog.getBacklogOfProject',
   'post    /API/p/:pid/s/:sid/b'                : 'backlog.addBacklogOfProject',
@@ -134,4 +143,10 @@ module.exports.routes = {
   //socket.io
   'get     /API/p/:pid/sub'                     :  'socketio.subscribeToProject',
   'get     /API/p/:pid/s/:sid/sub'              :  'socketio.subscribeToSprint',
+
+  //files
+  'get      /API/p/:pid/f'                      :  'file.getFileListOfProject',
+  'post     /API/p/:pid/f'                      :  'file.uploadFilesToProject',
+  'get      /API/p/:pid/f/:fid'                 :  'file.getOneFileOfProject',
+  'delete   /API/p/:pid/f/:fid'                 :  'file.deleteOneFileOfProject',
 }

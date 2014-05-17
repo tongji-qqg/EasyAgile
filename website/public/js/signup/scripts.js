@@ -61,7 +61,8 @@ jQuery(document).ready(function() {
                     alert('error! '+ data.message);
                 if(data.state === 'success')
                 {                    
-                    location.href = "user/"+data.user._id;
+                    //location.href = "user/"+data.user._id;
+                    alert('register success, please activate your account within 1 day')
                 }
             }            
         });

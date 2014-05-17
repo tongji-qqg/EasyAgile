@@ -34,17 +34,12 @@ module.exports = {
                     res.json(err);                  
                 }
                 else{
-                    console.log('register successs! '+ user._id);
-                    req.session.user = user; //用户信息存入session
-                    req.session.save();
-
-                    var r = {
-                        state : 'success',
-                        errorNumber : 0,
-                        user  : user
-                    };
+                    console.log('register successs! ');
+                    //req.session.user = user; //用户信息存入session
+                    //req.session.save();
+                  
                     //res.header('Access-Control-Allow-Credentials', 'true');                 
-                    res.json(r);
+                    res.json(ErrorService.success);
                 }
             });     
     },
@@ -64,7 +59,7 @@ module.exports = {
     },
 
     apiLogout: function(req, res) {
-        sails.log.verbose('Controller - api/controller/AuthController.logout');
+        sails.log.verbose('Controller - api/controller/AuthController.apilogout');
         req.session.user = null;        
         res.json(ErrorService.success);
     },
@@ -82,7 +77,7 @@ module.exports = {
         userService.loginByEmail(req.body.emailaddress, req.body.password,function(err,result){
             if(err){
                 console.log(err);
-                req.flash('message', 'welcome key is not present');
+                req.flash('message', err.message);
                 res.redirect('/login');
             }
             else{
@@ -91,5 +86,15 @@ module.exports = {
                 res.redirect('/user/'+result._id);
             }
          });
+    },
+
+    activateEmail: function(req, res){
+        sails.log.verbose('Controller - api/controller/AuthController.activateEmail');
+        userService.activateEmail(req.params.email, req.params.token, function(err, user){
+            if(err) return res.json(err);
+            req.session.user = user; //用户信息存入session
+            res.redirect('/user/'+user._id);
+            //req.session.save();
+        })
     }
 };

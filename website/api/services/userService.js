@@ -5,24 +5,54 @@ var taskModel = require('../schemas/taskSchema');
 var projectModel = require('../schemas/projectSchema');
 
 var _  = require('underscore');
-
+var validator = require('validator');
 var async = require('async');
-
+var crypto = require('crypto');
 var errorDef = require('./errorDefine');
 
 exports.register = function(userInfo, callback){		
-
+	var endDay = new Date();
+	endDay.setDate(endDay.getDate()+1);
 	async.waterfall([
 		function(callback){
+			userInfo.email = userInfo.email.toLowerCase();
+
+			if(! validator.isEmail(userInfo.email)) 
+				return callback(ErrorService.emailFormatError);
+			userInfo.tokenVaildUntil = endDay;
+			var md5 = crypto.createHash('md5');
+    		userInfo.password = md5.update(userInfo.password).digest('base64');
 			var user = new userModel(userInfo);
+    		callback(null, user);
+		},
+		function(user, callback){
+			crypto.randomBytes(48, function(ex, buf) {
+  				var token = buf.toString('hex');
+  				callback(null, user, token);
+			});
+		},
+		function(user, token, callback){
+			user.emailToken = token;
+			var localAppURL = 'http://' + process.env.host + ':' + process.env.port;
+			var link = localAppURL + '/auth/e/'+user.email+'/t/'+token;
+			sails.log.verbose('generate link:'+link);
+			EmailService.send(user.email
+				, 'Activate your account'
+				, 'please click this link <a href="'+link+'">'+link+'</a>to activate your account'
+				, function(err, result){
+					if(err) {
+						sails.log.error('send activate email to '+user.email+' fail'+err);
+						callback(err);
+					}
+					else
+						callback(null, user);
+				});
+		},
+		function(user, callback){
 			user.save(function(err, result){
 				if(err) return callback(ErrorService.makeDbErr(err));	
 				callback(null);	
 			});					
-		},
-
-		function(callback){			
-			DataService.getUserByEmail(userInfo.email, callback);
 		}
 	],callback);		
 };
@@ -55,17 +85,54 @@ exports.findUserLikeName = function(name, callback){
 };
 
 exports.loginByEmail = function(email, password, callback){
+	var md5 = crypto.createHash('md5');
+    password = md5.update(password).digest('base64');
 
 	DataService.getUserByEmail(email, function(err, result){
 		if(err) return callback(ErrorService.makeDbErr(err));
-		
+		else if(result.emailToken) 
+			callback(ErrorService.notValidateEmailError);
 		else if( ! _.isEqual(password, result.password))
 			callback(ErrorService.passwordNotRightError);
 		else{						
 			callback(null,DataService.makeUserInfo(result));
 		}
 	});
+}
 
+exports.activateEmail = function(email, token, callback){
+
+	async.waterfall([
+		function(callback){
+			var now = new Date();
+			DataService.getUserByEmail(email, function(err, result){
+				if(err) return callback(ErrorService.makeDbErr(err));
+				else if(!result)
+					callback(ErrorService.userNotFindError);
+				else if(!result.emailToken || ! result.tokenVaildUntil)
+					callback(ErrorService.alreadyValidateEmailError);
+				else if(result.tokenVaildUntil < now){
+					userModel.findOneAndRemove(result._id, function(){
+						callback(ErrorService.activateLateError);	
+					});					
+				}
+				else if( ! _.isEqual(token, result.emailToken))
+					callback(ErrorService.tokenNotMatchError);
+				else{						
+					callback(null,result);
+				}
+			});			
+		},
+		function(user, callback){
+			user.emailToken = null;
+			user.tokenVaildUntil = null;
+			user.save(function(err,result){
+				if(err) callback(ErrorService.makeDbErr(err));
+				else callback(null, DataService.makeUserInfo(result));
+			})
+		}
+	],callback);
+	
 }
 
 exports.findUserById = function(id, callback){

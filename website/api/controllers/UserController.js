@@ -106,6 +106,23 @@ module.exports = {
 	},
 
 	/**
+	 * post /API/u/:uid/icon
+	 * 
+	 * @param   {req}   request     Request object
+	 * @param   {res}  response    Response object
+	 */
+	setUserIconById: function (req, res) {
+	   	sails.log.verbose('Controller - api/controller/UserController.setUserIconById');
+		FileService.setUserIcon(req.session.user._id, req.files.icon, function(err,user){
+			if(err) res.json(err);
+			else {
+				req.session.user = user;
+				res.json(ErrorService.success);
+			}
+		});
+	},
+
+	/**
 	 * put /API/u/pw/:uid
 	 * 
 	 * @param   {req}   request     Request object

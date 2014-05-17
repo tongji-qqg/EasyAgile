@@ -36,11 +36,18 @@ var projectSchema = new Schema({
   
   files: [{ 
             name: String, 
-            url: String,
+            path: String,
+            size: Number,
             createTime: {type:Date,default: Date.now},
             owner: { type: ObjectId, ref: 'User' }
          }],
 
+  editor:[{
+    type: {type:Number, default:0}, //0 is doc, 1 is src, more type not define
+    name: String,    
+    createTime: {type:Date,default:Date.now},    
+  }],
+  
 
   cSprint: { type: ObjectId, ref: 'Sprint' },
   sprints: [{ type: ObjectId, ref: 'Sprint' }] //assume no more than 100 sprints, so can return less than 0.1s

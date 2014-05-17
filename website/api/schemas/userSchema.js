@@ -4,8 +4,10 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
   
 var userSchema = new Schema({
   name    : { type: String, required: true},
-  password: String,
+  password: { type: String, required: true},
   email   : { type: String, required: true, unique:true},
+  emailToken : String,
+  tokenVaildUntil : Date,
 
   regDate: { type: Date, default: Date.now },  
   birthday : { type: Date },

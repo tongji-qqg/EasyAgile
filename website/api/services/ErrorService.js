@@ -143,8 +143,36 @@ exports.urlError = {
 	errorNumber: 22,    //may be other numbers
 	message: 'unsupported url'
 };
-
-
+exports.notValidateEmailError = {
+	state: "error",
+	errorNumber: 23,    //may be other numbers
+	message: 'Email not vaildate'	
+}
+exports.alreadyValidateEmailError = {
+	state: "error",
+	errorNumber: 24,    //may be other numbers
+	message: 'Email already vaildate'	
+}
+exports.tokenNotMatchError = {
+	state: "error",
+	errorNumber: 25,    //may be other numbers
+	message: 'token not match'	
+}
+exports.emailFormatError = {
+	state: "error",
+	errorNumber: 26,    //may be other numbers
+	message: 'email format error'	
+}
+exports.activateLateError = {
+	state: "error",
+	errorNumber: 26,    //may be other numbers
+	message: 'activate late error'	
+}
+exports.fileNotFindError = {
+	state: "error",
+	errorNumber: 26,    //may be other numbers
+	message: 'file not find error'	
+}
 exports.successWithValue = function(key, value){
 
     var s = _.clone(exports.success);

@@ -13,6 +13,10 @@ module.exports.bootstrap = function (cb) {
 	var mongoose = require('mongoose');
 
 	mongoose.connect('mongodb://localhost/easyagile');
+
+	process.env.port = sails.config.port;
+	process.env.host = sails.config.host;
+	//sails.log.info('hostname '+sails.config.host+' hostport '+sails.config.port);
   // It's very important to trigger this callack method when you are finished 
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
   cb();

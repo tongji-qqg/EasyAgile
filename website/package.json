@@ -14,7 +14,11 @@
         "async" : "*",
         "randomstring" : "*",
         "mongoose": "*",
-        "moment-timezone": "*"
+        "moment-timezone": "*",
+        "nodemailer" : "*",
+        "crypto": "*",
+        "validator": "*",
+        "mkdirp":"*"
     }
 }
 

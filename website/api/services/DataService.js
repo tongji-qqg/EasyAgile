@@ -113,7 +113,7 @@ exports.getProjectInfoById = function(pid, callback){
 					if(err) return callback(ErrorService.makeDbErr(err));
 					if(result == null) callback(ErrorService.projectNotFindError);
 					else callback(null,result);	
-				});				
+				});
 }
 
 exports.getProjectTopicsById = function(pid, callback){
