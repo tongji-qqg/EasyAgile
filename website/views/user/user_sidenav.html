@@ -4,8 +4,10 @@
         <ul id="side" class="nav navbar-nav side-nav">
             <!-- begin SIDE NAV USER PANEL -->
             <li class="side-user hidden-xs">
+                <input id="fileupload" type="file" name="files[]" multiple="" style="width: 160px;height: 160px;cursor: pointer;font-size: 30px;outline: medium none;position: absolute;filter:alpha(opacity=0);-moz-opacity:0;opacity:0; left:0px;top: 0px;">
                 <img class="img-circle" style="width:160px" src="/img/profile-pic.jpg" alt="">
-                
+                </img>
+                <i class="fa fa-pencil" style="color:#FFF;position:relative;top:-30px;left:48px;"></i>
                 <p class="name tooltip-sidebar-logout">
                     
                     <span id='user-side-nav-username' class="last-name"><%= user.name %></span>
