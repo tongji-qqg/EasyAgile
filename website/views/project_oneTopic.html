@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Flex Admin - Responsive Admin Theme</title>
+
+    <% include ../header.html%>
+    <style type="text/css">
+    .fa:hover{
+        cursor: pointer;
+    }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- begin TOP NAVIGATION -->
+        <% include ../topnav.html %>
+        <!-- end TOP NAVIGATION -->
+
+        <!-- begin SIDE NAVIGATION -->
+        <% include project_sidenav.html %>        
+        <!-- end SIDE NAVIGATION -->
+<!-- begin MAIN PAGE CONTENT -->
+        <div id="page-wrapper">
+
+            <div class="page-content">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="page-title">
+                            <h1>
+                                项目名称
+                                <small></small>
+                            </h1>
+                        </div>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <!-- end PAGE TITLE ROW -->  
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                       <div class="panel-heading">
+                            <h4 class="panel-title">
+                                Topic名称
+                                <button type="button" class="btn btn-white" style="float:right;margin-top:-8px;">删除</button>
+                           </h4>
+                       </div>
+                       <div id="collapseOne" class="panel-collapse collapse in">
+                         <div class="panel-body">
+                           <h5>
+                              <img class="img-circle" src="img/icon.jpg" style="margin-top:5px;width:50px;height:50px;">
+                              发起者名字
+                              <div class="Date" style="color:#CCC;display:inline-block;width:100px;"> 3月5日</div>
+                           </h5>
+                           <div class="well" style="margin-left:55px;margin-right:55px;background-color:#d9edf7;color:#31708f;">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                          </div>
+                          <!--    Comment List  -->
+                          <div class="portlet portlet-default" style="margin-top:30px; border-style:none;">
+                            
+                            <div class="portlet-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                         <tbody>
+                                            <tr>
+                                                <td>                                                  
+                                                   <h5>
+                                                      <img class="img-circle" src="img/icon.jpg" style="margin-top:5px;width:50px;">
+                                                      评论者名字
+                                                      <div class="Date" style="color:#CCC;display:inline-block;width:100px;"> 3月5日</div>
+                                                   </h5> 
+                                                   <div class="well" style="margin-left:55px;margin-right:55px;background-color:#fcf8e3;color:#8a6d3b;">
+                                                   This is the first comment.
+                                                   </div>
+                                                </td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                   <h5>
+                                                      <img class="img-circle" src="img/icon.jpg" style="margin-top:5px;width:50px;">
+                                                      评论者名字
+                                                      <div class="Date" style="color:#CCC;display:inline-block;width:100px;"> 3月5日</div>
+                                                   </h5> 
+                                                   <div class="well" style="margin-left:55px;margin-right:55px;background-color:#fcf8e3;color:#8a6d3b;">
+                                                   This is the first comment.
+                                                   </div>
+                                                </td>     
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                   <img class="img-circle" src="img/icon.jpg" style="margin-top:5px;width:50px;">
+                                                   <input id="newComment" class="form-control input-lg" type="text" placeholder="点击发表评论" style="display:inline-block;width:80%;margin-left:10px;margin-top:10px;border-radius:5px;" onclick="editComment()">
+                                                   <div id="summernote"></div>
+                                                   <div id="commentOption" style="margin-left:65px;display:none;">
+                                                   <h4 style="font-weight:normal;">发送通知给:</h4>
+                                                   <div class="group-member" style="margin-top:20px;">
+                                                        <label style="margin-right:60px;font-weight:normal;"><input type="checkbox" value="">member1</label>
+                                                        <label style="margin-right:60px;font-weight:normal;"><input type="checkbox" value="">member1</label>
+                                                   </div>
+                                                   <div class="publishTopic" style="margin-top:20px;">
+                                                        <button class="btn btn-primary" style="margin-top:5px;">发表评论</button>
+                                                        <a style="vertical-align:middle;margin-left:30px;font-size:15px;cursor:pointer;" onclick="cancelComment()">取消</a>
+                                                   </div>
+                                                   </div>
+                                                                                               
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.portlet -->
+                     <!--   /Comment List  -->
+                    </div>
+                 </div>
+              </div>
+
+   
+
+            </div>
+            <!-- /.page-content -->
+
+        </div>
+        <!-- /#page-wrapper -->
+        <!-- end MAIN PAGE CONTENT -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <% include ../footer.html %>
+
+     <script>
+
+    $(document).ready(function() {
+
+        $('#summernote').summernote({
+            height: 300,
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+            ]
+
+        });
+        $('.note-editor').css("width","80%");
+        $('.note-editor').css("margin-left","65px");
+        $('.note-editor').css("margin-top","10px");
+        $('.note-editor').css("display","none");
+    });
+    function editComment(){
+      $('#newComment').css("display","none");
+      $('.note-editor').css("display","block");
+      $('#commentOption').css("display","block");
+      $('.note-editor').css("margin-top","-40px");
+    }
+    function cancelComment(){
+      $('#newComment').css("display","inline-block");
+      $('.note-editor').css("display","none");
+      $('#commentOption').css("display","none");
+    }
+
+    </script>
+
+
+</body>
+
+</html>

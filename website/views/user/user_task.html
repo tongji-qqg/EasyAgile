@@ -42,13 +42,13 @@
                     <div class="col-lg-12">
                         <div class="page-title">
                             <h1>
-                                Blank Page
+                                我的任务
                                 <small>For Customization</small>
                             </h1>
                             <ol class="breadcrumb">
                                 <li><i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
                                 </li>
-                                <li class="active">Blank Page</li>
+                                <li class="active">我的任务</li>
                             </ol>
                         </div>
                     </div>
@@ -57,7 +57,95 @@
                 <!-- /.row -->
                 <!-- end PAGE TITLE ROW -->
 
-            </div>
+
+
+                <div class="panel panel-default">
+             <!-- Default panel contents -->
+                    <div class="panel-heading">我的任务</div>
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <div class="row">
+                            <div class="col-sm-2"><h4 class="modal-title">今天的任务</h4></div>
+                            <div class="col-sm-2"><h4 class="modal-title">×2</h4></div>
+                        </div>                       
+                    </div>
+                    <div class="modal-body">
+                        <!--p>One fine body&hellip;</p-->
+                        <h4 style="font-weight:900;">专业方向综合项目</h4><br />
+                        <div class="row">
+                            <div class="col-sm-11">
+                            <input type="checkbox" class="selectedTask" name="selectedTask">
+                            <label style="font-size:medium;">
+                            <a href="#set-task-form" data-toggle="modal">我的任务1</a>
+                            </label><a href="#">#任务板</a>
+                            </div>
+                            <div class="col-sm-1">
+                                <span class="label label-info"><i class="fa fa-calendar">
+                                <a href="#set-task-form" data-toggle="modal" style="color: #FFF;font-weight:900;" >今天</a></i></span> 
+                            </div>                           
+                        </div>  
+                        <hr /> 
+                        <div class="row">
+                            <div class="col-sm-11">
+                            <input type="checkbox" class="selectedTask" name="selectedTask">
+                            <label style="font-size:medium;">
+                            <a href="#set-task-form" data-toggle="modal">我的任务2</a>
+                            </label><a href="#">#任务板</a>
+                            </div>
+                            <div class="col-sm-1">
+                                <span class="label label-info"><i class="fa fa-calendar">
+                                <a href="#set-task-form" data-toggle="modal" style="color: #FFF;font-weight:900;">今天</a></i></span> 
+                            </div>                            
+                        </div> 
+                        <hr />  
+
+                        
+                    </div>
+                    </div>
+                <div class="panel panel-default">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <div class="row">
+                            <div class="col-sm-2"><h4 class="modal-title">未来的任务</h4></div>
+                            <div class="col-sm-2"><h4 class="modal-title">×3</h4></div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                       
+                         <!--p>One fine body&hellip;</p-->
+                        <h4 style="font-weight:900;">专业方向综合项目2</h4><br />
+                        <div class="row">
+                            <div class="col-sm-11">
+                            <input type="checkbox" class="selectedTask" name="selectedTask" checked>
+                            <label style="font-size:medium;">
+                            <a href="#set-task-form" data-toggle="modal">我的任务3</a>
+                            </label><a href="#">#任务板</a>
+                            </div>                       
+                        </div>  
+                        <hr /> 
+                        <div class="row">
+                            <div class="col-sm-11">
+                            <input type="checkbox" class="selectedTask" name="selectedTask" checked>
+                            <label style="font-size:medium;">
+                            <a href="#set-task-form" data-toggle="modal">我的任务4</a>
+                            </label><a href="#">#任务板</a>
+                            </div>                        
+                        </div> 
+                        <hr />  
+                        <div class="row">
+                            <div class="col-sm-11">
+                            <input type="checkbox" class="selectedTask" name="selectedTask" checked>
+                            <label style="font-size:medium;">
+                            <a href="#set-task-form" data-toggle="modal">我的任务5</a>
+                            </label><a href="#">#任务板</a>
+                            </div>                          
+                        </div> 
+                        <hr />  
+                    </div>
+                    <!--div class="well" style="background:#FFF;">lalalal</div-->
+                       
+
+               </div>
             <!-- /.page-content -->
 
         </div>
@@ -66,6 +154,73 @@
 
     </div>
     <!-- /#wrapper -->
+
+
+
+
+    <div id="set-task-form" class="modal fade" tabindex="-1" data-width="760" style="display: none;">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-sm-1">
+                     <img src="/img/myicon.jpg" class="img-circle" style="width:45px; ">
+                </div>    
+                <div class="col-sm-5" >
+                     <label style="margin-top:12px;">XYN</label>
+                </div>    
+                <div class="col-sm-2" style="margin-top:12px;">
+                     <label>
+                         <i class="fa fa-calendar" style="margin-right:12px;"></i>今天
+                     </label>
+                </div>  
+                <div class="col-sm-2" style="margin-top:12px;">
+                     <label>
+                         <i class="fa fa-building-o" style="margin-right:12px;"></i>未完成
+                     </label>
+                     
+                </div> 
+                <div class="col-sm-2" style="margin-top:12px;" >
+                      <label>
+                         <i class="fa fa-trash-o" style="margin-right:12px;"></i>删除
+                      </label>
+                     
+                </div>                       
+            </div>  
+        </div>
+      </div>
+        
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+              <input type="checkbox" class="selectedTask" name="selectedTask">
+              <label style="font-size:large;"> 我的任务1</label>            
+            </div>               
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-sm-12">
+              <i class="fa fa-pencil"></i><label>任务描述</label>         
+            </div> 
+            <div class="col-sm-10">
+              <textarea type="text" class="form-control" id="task-description-input" placeholder="介绍一下这个任务..."></textarea>   
+            </div>  
+            <div class="col-sm-2">
+              <button class="btn btn-blue" style="margin-top:20px;">保存</button>
+            </div>            
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <!--button id='set-task-close' type="button" data-dismiss="modal" class="btn btn-info">关闭</button-->
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+    </div>
+
+
+
+
+
+
 
     <!-- GLOBAL SCRIPTS -->
     <% include ../footer.html %>

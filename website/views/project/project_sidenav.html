@@ -59,7 +59,7 @@
                     </li>                   
 
                     <li>
-                        <a>
+                        <a href="#set-project-form" data-toggle="modal" class="dash-demo-footer">
                             <i class="fa fa-wrench"></i> 设置
                         </a>
                     </li>        
@@ -71,3 +71,185 @@
         </nav>
         <!-- /.navbar-side -->
         <!-- end SIDE NAVIGATION -->
+
+
+          <!-- begin SET PROJECT AREA -->
+    <div id="set-project-form" class="modal fade" tabindex="-1" data-width="660"  style="display: none;">
+      <div class="modal-header" style="background-color:#39b3d7">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title" style="color:#FFF;">项目设置</h4>  
+        <div style="text-align:center;"><img src="/img/myicon.jpg" class="img-circle" style="margin:0 auto; width:150px; "></div>
+      </div>
+
+<ul class="nav nav-tabs">
+  <li><a href="#project" data-toggle="tab">项目信息</a></li>
+  <li><a href="#member" data-toggle="tab">成员管理</a></li>
+  <li><a href="#advance" data-toggle="tab">高级设置</a></li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+<!--项目信息-->
+  <div class="tab-pane active" id="project">
+  <div class="modal-body">
+      <div class="row">
+          <!--form class="form-horizontal" role="form"-->
+          <div class="form-group">
+            <label for="user-name-input" class="col-sm-2 control-label">项目名称</label><br />
+            <div class="col-sm-12">
+              <input type="text" class="form-control" id="project-name-input" placeholder="专综项目">
+              <br />
+            </div>
+          </div>
+          <br />
+          <div class="form-group">
+            <label for="user-profession-input" class="col-sm-2 control-label">项目类别</label>
+            <div class="col-sm-12">
+              <input type="text" class="form-control" id="project-type-input" placeholder="课程项目">
+              <br />
+            </div>
+          </div> 
+          <br />
+          <div class="form-group">  
+            <label for="user-birthday-input" class="col-sm-2 control-label">项目简介</label>              
+            <div class="col-sm-12">
+              <textarea type="text" class="form-control" id="project-description-input" placeholder="介绍一下这个项目"></textarea>
+              <br />
+            </div>
+          </div>
+            
+        <!--/form-->
+      </div>
+  </div>
+  <div class="modal-footer" >
+   <!--button id='set-setting-close' type="button" data-dismiss="modal" class="btn btn-default">关闭</button-->
+   <button id='set-setting-button' type="button" class="btn btn-info" style="width:100%;">保存</button>
+
+</div>
+
+  </div>
+
+<!--成员管理-->
+  <div class="tab-pane" id="member">
+      <div class="modal-header">
+        <h4 class="modal-title">通过邮箱添加新成员</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <input type="text" class="form-control" id="project-name-input" placeholder="通过邮箱添加新成员...">
+            
+          </div>
+                       
+        </div>
+      </div>
+    
+
+      <div class="modal-header">
+        <h4 class="modal-title">通过链接添加新成员</h4>
+      </div>
+
+      <div class="modal-body">
+        <p>分享下面的链接给项目成员，他们可以直接访问链接来加入，最适合分享到微信群或是QQ群</p>
+        <div class="row">
+          <div class="col-sm-12">
+            <input type="text" class="form-control" id="project-name-input" placeholder="通过连接添加新成员...">
+          </div>
+                       
+        </div>
+
+      </div>
+
+
+      <div class="modal-header">
+        <h4 class="modal-title">项目成员列表</h4>
+      </div>
+
+      <div class="modal-body">
+        
+        <div class="row" style="margin-bottom:10px;">
+          <div class="col-sm-10">
+            <img src="/img/myicon.jpg" class="img-circle" style="width:40px; "><label class="control-label">夏雅楠·管理员</label>
+          </div>   
+          <div class="col-sm-2">
+            <button id='user-delete-button' type="button" class="btn btn-red">移除成员</button>
+          </div>          
+        </div>
+        <hr />
+
+        <div class="row" style="margin-bottom:10px;">
+          <div class="col-sm-10">
+            <img src="/img/myicon.jpg" class="img-circle" style="width:40px; "><label class="control-label">杨帆·管理员</label>
+          </div> 
+          <div class="col-sm-2">
+            <button id='user-delete-button' type="button" class="btn btn-red">移除成员</button>
+          </div>           
+        </div>
+        <hr /> 
+
+        <div class="row" style="margin-bottom:10px;">
+          <div class="col-sm-10">
+            <img src="/img/myicon.jpg" class="img-circle" style="width:40px; "><label class="control-label">李丝琦·管理员</label>
+          </div>  
+          <div class="col-sm-2">
+            <button id='user-delete-button' type="button" class="btn btn-red">移除成员</button>
+          </div>       
+        </div>
+
+      </div>
+      
+  </div>
+<!--高级设置-->
+  <div class="tab-pane" id="advance">
+      <div class="modal-header">
+        <h4 class="modal-title">归档项目</h4>
+      </div>
+
+      <div class="modal-body">
+        <p>如果项目已经完成或是暂时中止，你可以先将项目归档。归档的项目可以很容易地再次激活，并且不会有数据丢失</p>
+        <div class="row">
+          <div class="col-sm-12">
+            <button id='project-pigeonhole-button' type="button" class="btn btn-red" style="width:100%;">归档项目</button>
+          </div>
+                       
+        </div>
+
+      </div><br />
+
+      <div class="modal-header">
+        <h4 class="modal-title">退出项目</h4>
+      </div>
+
+      <div class="modal-body">
+        <p>一旦你退出了该项目，你将不能查看任何关于该项目的信息。退出项目后，如果想重新加入，请联系项目管理员</p>
+        <div class="row">
+          <div class="col-sm-12">
+            <button id='set-exiting-button' type="button" class="btn btn-red" style="width:100%;">退出项目</button>
+          </div>
+                       
+        </div>
+
+      </div><br />
+        
+
+ 
+    </div>
+
+</div>
+
+</div>
+    
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+

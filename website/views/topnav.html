@@ -489,34 +489,37 @@
 
         <!-- begin NEW PROJECT AREA -->
     <div id="set-user-form" class="modal fade" tabindex="-1" data-width="660"  style="display: none;">
-      <div class="modal-header">
+      <div class="modal-header" style="background-color:#39b3d7">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title">设置</h4>
+        <h4 class="modal-title" style="color:#FFF;">个人设置</h4>  
+        <div style="text-align:center;"><img src="/img/myicon.jpg" class="img-circle" style="margin:0 auto; width:150px; "></div>
       </div>
 
 <ul class="nav nav-tabs">
   <li><a href="#person" data-toggle="tab">个人信息</a></li>
   <li><a href="#security" data-toggle="tab">安全设置</a></li>
   <li><a href="#alert" data-toggle="tab">消息提醒</a></li>
-  <li><a href="#settings" data-toggle="tab">Settings</a></li>
 </ul>
 
 <!-- Tab panes -->
 <div class="tab-content">
+<!--个人设置-->
   <div class="tab-pane active" id="person">
   <div class="modal-body">
       <div class="row">
-          <form class="form-horizontal" role="form">
+          <!--form class="form-horizontal" role="form"-->
           <div class="form-group">
             <label for="user-name-input" class="col-sm-2 control-label">姓名</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" id="user-name-input" placeholder="您的姓名">
+              <br />
             </div>
           </div>
           <div class="form-group">
             <label for="user-profession-input" class="col-sm-2 control-label">职业</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" id="user-profession-input" placeholder="您的职业">
+              <br />
             </div>
           </div> 
           <div class="form-group">  
@@ -553,6 +556,7 @@
                 <option>5</option>
                 <option>6</option>
                 </select>
+                <br />
               </div>
           </div>
 
@@ -560,7 +564,9 @@
             <label for="user-place-input" class="col-sm-2 control-label">所在地</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" id="user-place-input" placeholder="您的所在地">
+              <br />
             </div>
+
           </div> 
 
           <div class="form-group">
@@ -570,22 +576,169 @@
             </div>
           </div> 
             
-        </form>
+        <!--/form-->
       </div>
   </div>
-  </div>
-
-  <div class="tab-pane" id="security">安全设置</div>
-  <div class="tab-pane" id="alert">消息提醒</div>
-  <div class="tab-pane" id="settings">d</div>
+  <div class="modal-footer" >
+   <!--button id='set-setting-close' type="button" data-dismiss="modal" class="btn btn-default">关闭</button-->
+   <button id='set-setting-button' type="button" class="btn btn-primary">保存</button>
 </div>
 
-<div class="modal-footer" >
-   <button id='set-setting-close' type="button" data-dismiss="modal" class="btn btn-default">关闭</button>
-   <button id='set-setting-button' type="button" class="btn btn-primary">保存</button>
+  </div>
+
+<!--安全设置-->
+  <div class="tab-pane" id="security">
+      <div class="modal-header">
+        <h4 class="modal-title">登陆账号管理</h4>
+      </div>
+      <div class="modal-body">
+        <p>主邮箱帐号用于接收系统提醒，进行密码重置等操作；你可以添加多个备用邮箱用于登录EasyAgile.</p>
+        <div class="row">
+          <div class="col-sm-12">
+            <ol class="breadcrumb">
+                  <li class="active"> 854654242@qq.com<span class="label label-primary">主邮箱</span></li>                           
+            </ol>
+          </div>
+                       
+        </div>
+
+        <div class="row">
+        <div class="col-sm-10">
+            <input type="text" class="form-control" placeholder="添加备用邮箱">
+        </div>
+        <div class="col-sm-2">           
+            <button id='add-mail-button' type="button" class="btn btn-primary">保存</button>
+        </div>       
+        </div>
+        
+
+      </div>
+      <br />
+
+      <div class="modal-header">
+        <h4 class="modal-title">密码管理</h4>
+      </div>
+      <div class="modal-body">
+      <p>点击按钮后,我们将发送重设密码邮件到你的主要邮箱</p>
+        <div class="row">
+        <div class="col-sm-0"> </div>
+        <div class="col-sm-8">
+          <button id='change-password-button' type="button" class="btn btn-primary">修改登陆密码</button>  
+        </div>
+        </div>
+      </div>
+      
+  </div>
+<!--提醒设置-->
+  <div class="tab-pane" id="alert">
+      <div class="modal-header">
+         <div class="row">
+            <div class="col-sm-8"></div>
+            <div class="col-sm-2"><h4 class="modal-title">邮箱</h4></div>
+            <div class="col-sm-2"><h4 class="modal-title">手机</h4></div>            
+        </div>
+     </div>
+
+     <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-8"><label>收到『新分享』提醒</label></div>
+            <div class="col-sm-2">
+                <div class="switch switch-large">
+                    <input type="checkbox"  />
+                </div>
+
+            </div>
+            <div class="col-sm-2">
+                <div class="switch switch-large">
+                    <input type="checkbox" checked />
+                </div>  
+            </div>            
+        </div>
+        <br />
+
+        <div class="row">
+            <div class="col-sm-8"><label>收到『新任务』提醒</label></div>
+            <div class="col-sm-2">
+                <div class="switch switch-large">
+                    <input type="checkbox"  />
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="switch switch-large">
+                    <input type="checkbox" checked />
+                </div> 
+            </div>            
+        </div>
+        <br />
+
+        <div class="row">
+            <div class="col-sm-8"><label>收到『新文件』提醒</label></div>
+            <div class="col-sm-2">
+                <div class="switch switch-large">
+                    <input type="checkbox"  />
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="switch switch-large">
+                    <input type="checkbox" checked />
+                </div>  
+            </div>            
+        </div>
+        <br />
+
+        <div class="row">
+            <div class="col-sm-8"><label>被添加参与者提醒</label></div>
+            <div class="col-sm-2">
+                <div class="switch switch-large">
+                    <input type="checkbox" />
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="switch switch-large">
+                    <input type="checkbox" checked />
+                </div> 
+            </div>            
+        </div>
+        <br />
+
+        <div class="row">
+            <div class="col-sm-8"><label>任务，文件内容更新时提醒</label></div>
+            <div class="col-sm-2">
+                <div class="switch switch-large">
+                    <input type="checkbox"  />
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="switch switch-large">
+                    <input type="checkbox" checked />
+                </div>   
+            </div>            
+        </div>
+        <br />
+
+        <div class="row">
+            <div class="col-sm-8"><label>每日工作事项邮件提醒</label></div>
+            <div class="col-sm-2">
+                <div class="switch switch-large">
+                    <input type="checkbox"  />
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="switch switch-large">
+                    <input type="checkbox" checked />
+                </div> 
+            </div>            
+        </div>
+        
+    </div>
+
+</div>
+
 </div>
     
 </div>
+
+
 
     
 

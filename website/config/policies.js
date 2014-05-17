@@ -88,12 +88,14 @@ module.exports.policies = {
 		userTask         :["checkLogin"],
 		userCal          :["checkLogin"],
 		userMessage      :["checkLogin"],
+
 		projectMain      :["checkLogin", "hasProjectAccess"],
 		projectTaskboard :["checkLogin", "hasProjectAccess"],
 		projectCal       :["checkLogin", "hasProjectAccess"],
 		projectIssue     :["checkLogin", "hasProjectAccess"],
 		projectFiles     :["checkLogin", "hasProjectAccess"],
 		projectTopic	 :["checkLogin", "hasProjectAccess"],
+		projectNewTopic	 :["checkLogin", "hasProjectAccess"],
 		projectEditor    :["checkLogin", "hasProjectAccess"],
     },
 
