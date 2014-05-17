@@ -55,7 +55,7 @@
                 <!-- /.row -->
                 <!-- end PAGE TITLE ROW -->
                  <div class="panel-group" id="accordion">
-                    <div class="panel panel-default">
+                    <div class="panel panel-info">
                        <div class="panel-heading">
                             <h4 class="panel-title">
                                 Project名称
@@ -68,9 +68,9 @@
                                         <thead>
                                             <tr>
                                                <th style="width:100%;">
-                                                   <div style="width:240px;display:inline-block;vertical-align:middle;">
+                                                   <div style="width:160px;display:inline-block;vertical-align:middle;">
                                                        <div class="btn-group btn-group-justified">
-                                                            <a id="openIssue" class="btn btn-white" role="button" style="background-color:#CCC;"onclick="openClick()">OPEN</a>
+                                                            <a id="openIssue" class="btn btn-white" role="button" style="background-color:#d9edf7;"onclick="openClick()">OPEN</a>
                                                             <a id="closeIssue" class="btn btn-white" role="button" onclick="closeClick()">CLOSED</a>
                                                        </div>
                                                   </div>
@@ -92,9 +92,11 @@
                                         <tbody>
                                             <tr>
                                                 <td>
+
                                                     <div class="checkbox">
+
                                                         <label><input type="checkbox" value="" style="margin-top:10px;">全选</label>
-                                                        <button class="btn btn-white" style="margin-left:50px;">close</button>
+                                                        <button class="btn btn-white" style="margin-left:48px;">close</button>
                                                      </div>
 
                                                 </td>
@@ -103,31 +105,32 @@
                                             <tr>
                                                 <td> 
                                                    <div class="col-sm-10" style="margin-left:0px;padding-left:0px">
-                                                       <textarea class="form-control" id="textArea" placeholder="新建Issue描述" style="width:100%;border-radius:8px;"></textarea>
+                                                       <textarea class="form-control" id="textArea" placeholder="新建Issue描述" style="width:100%;border-radius:8px;margin-top:15px;margin-bottom:15px;"></textarea>
                                                     </div>
-                                                       <button class="btn btn-white">提交</button>                                                                 
+                                                       <button class="btn btn-white" style="margin-top:15px;">提交</button>                                                                 
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td>
-                                                <div class="well" style="background-color:#d9edf7;border-color:#bce8f1;color:#31708f;">
+                                              </tbody>
+                                    </table>
+                                            <div class="row" style="margin-left:10px;width:95%;">
+                                            
+                                                <div class="well well-sm" style="background-color:#d9edf7;border-color:#bce8f1;color:#31708f;border-radius:10px;">
+                                                    <h6 style="color:#CCC;">2014年5月15日&nbsp;&nbsp;发布者</h6>
                                                     <div class="checkbox">
                                                          <label><input type="checkbox" value="">issue1</label>
                                                     </div>
                                                 </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                <div class="well" style="background-color:#d9edf7;border-color:#bce8f1;color:#31708f;">
+                                            
+                                                <div class="well well-sm" style="background-color:#d9edf7;border-color:#bce8f1;color:#31708f;border-radius:10px;">
+                                                    <h6 style="color:#CCC;">2014年5月15日&nbsp;&nbsp;发布者</h6>
                                                     <div class="checkbox">
                                                          <label><input type="checkbox" value="">issue2</label>
                                                     </div>
                                                 </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                                
+                                                </div>
+                                            
+                                      
                                 </div>
                         </div>
                     </div>
@@ -142,12 +145,12 @@
     <% include ../footer.html %>
     <script>
     function openClick(){
-      $('#openIssue').css("background-color","#CCC");
+      $('#openIssue').css("background-color","#d9edf7");
       $('#closeIssue').css("background-color","#fff");
     }
     function closeClick(){
       $('#openIssue').css("background-color","#fff");
-      $('#closeIssue').css("background-color","#CCC");
+      $('#closeIssue').css("background-color","#d9edf7");
     }
     
     function newIssue(){
