@@ -222,6 +222,66 @@ exports.getUserCurrentTask = function(selfuid, callback){
 	         });	         
 };
 
+exports.getUserCurrentTaskInProject = function(selfuid, callback){
+
+	async.waterfall([
+		function(callback){
+			exports.getUserCurrentTask(selfuid, callback);
+		},
+		function(tasks, callback){
+			var lprojects = [];
+			var projects = [];
+			var fprojects = [];
+			var query = [];
+			var now = new Date();
+			function makeQuery(task){ 
+				function pushArray(arr, p){
+					var project = _.findWhere(arr, {'_id': p._id});
+					if(!project){
+						project = {
+							'_id': p._id,
+							'name':p.name,
+							'task':[]
+						};
+						project.task.push(task);
+						arr.push(project);
+					}else{
+						project.task.push(task);
+					}
+				}
+				return function(callback){
+				sprintModel.findOne({'tasks': task._id},function(err,s){
+						if(err) return callback(ErrorService.makeDbErr(err));
+						if(!s) return callback(ErrorService.sprintNotFindError);
+						projectModel.findOne({'sprints':s._id}, function(err,p){
+							if(err) return callback(ErrorService.makeDbErr(err));
+							if(!p) return callback(ErrorService.projectNotFindError);
+							if(task.deadline < now){
+								pushArray(lprojects, p);
+							} else if(task.startTime < now ) {
+								pushArray(projects, p);
+							}else{
+								pushArray(fprojects, p);
+							}
+							callback(null);
+						});
+					})
+				}
+			}
+			tasks.forEach(function(t){
+				query.push(makeQuery(t));
+			});
+			async.parallel(query,function(err){
+				
+				if(err) return callback(err);
+ 				else{
+					callback(null, lprojects, projects, fprojects);
+				}
+			});	
+		}
+	],callback);
+}
+
 exports.getAllMessage = function(selfuid, callback){
 
 	userModel.findById(selfuid)

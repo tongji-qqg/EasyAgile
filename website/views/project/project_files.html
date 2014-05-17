@@ -1,192 +1,149 @@
-<!DOCTYPE html>
-<html lang="en">
+    <!DOCTYPE html>
+    <html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-    <title>Flex Admin - Responsive Admin Theme</title>
+        <title>Flex Admin - Responsive Admin Theme</title>
 
-    <% include ../header.html%>
-    <style type="text/css">
-    .fa:hover{
-        cursor: pointer;
-    }
-    </style>
+        <% include ../header.html%>
+        <style type="text/css">
+        .fa:hover{
+            cursor: pointer;
+        }
+        </style>
 
-</head>
+    </head>
 
-<body>
+    <body>
 
-    <div id="wrapper">
+        <div id="wrapper">
 
-        <!-- begin TOP NAVIGATION -->
-        <% include ../topnav.html %>
-        <!-- end TOP NAVIGATION -->
+            <!-- begin TOP NAVIGATION -->
+            <% include ../topnav.html %>
+            <!-- end TOP NAVIGATION -->
 
-        <!-- begin SIDE NAVIGATION -->
-        <% include project_sidenav.html %>        
-        <!-- end SIDE NAVIGATION -->
+            <!-- begin SIDE NAVIGATION -->
+            <% include project_sidenav.html %>        
+            <!-- end SIDE NAVIGATION -->
 
-        <!-- begin MAIN PAGE CONTENT -->
-        <div id="page-wrapper">
+            <!-- begin MAIN PAGE CONTENT -->
+            <div id="page-wrapper">
 
-           <div class="page-content">
+               <div class="page-content">
+                        
 
-                <!-- begin PAGE TITLE ROW -->
-                <div class="row">
-                    <div class="col-lg-12">
-
-                        <form id="uploadForm"
-                            enctype="multipart/form-data"
-                            action="/API/p/<%=project._id%>/f"
-                            method="post" >
-                            <input id="fileupload" type="file" name="files" multiple>
-                            <button type="submit">submit</button>  
-                        </form>
-                    </div>
-                    <!-- /.col-lg-12 -->
-                </div>                
-
-                <div class="page-title">
-                    <h1>文件库</h1>
-                    <ol class="breadcrumb">
-                        <li><i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                        </li>
-                        <li class="active">文件库</li>
-                    </ol>
-                </div>
-                   
-                <!-- end PAGE TITLE ROW -->
-                <div class="panel panel-default">
-                  <!-- Default panel contents -->
-                      <div class="panel-heading">文件库</div>
-                                                                       
-                      <!-- Table -->
-                    <table class="table">
-
-                        <thead>
-                            <div class="mailbox-nav">
-                            <ul class="nav navbar-nav button-tooltips">
-                            
-                            <li class="message-actions" style="float:right;">
-                                <div class="btn-group navbar-btn">
-                                    <button type="button" class="btn btn-white" data-toggle="tooltip" data-placement="bottom" title="Archive"><i class="fa fa-download">下载</i>
-                                    </button>
-                                    
-                                    <button type="button" class="btn btn-white fileinput-button" data-toggle="tooltip" data-placement="bottom" title="Mark as Important">
-                                    <input id="fileupload" type="file" name="files[]" multiple="" style="width: 60px;height: 40px;cursor: pointer;font-size: 30px;outline: medium none;position: absolute;filter:alpha(opacity=0);-moz-opacity:0;opacity:0; left:0px;top: 0px;">
-                                    <i class="fa fa-upload">上传</i>
-                                    </button>
-                                    <button type="button" class="btn btn-white" data-toggle="tooltip" data-placement="bottom" title="Trash"><i class="fa fa-trash-o">删除</i>
-                                    </button>
-                                </div>
+                    <div class="page-title">
+                        <h1>文件库</h1>
+                        <ol class="breadcrumb">
+                            <li><i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
                             </li>
-                            </ul>
-                            </div>
-                            <tr>
-                                <th class="checkall checkbox-col">
-                                <input type="checkbox" id="selectall" data-toggle="tooltip" data-placement="bottom" title="Select All">
-                                </th>
-                                <th>名称</th>
-                                <th>创建者</th>
-                                <th>大小</th>
-                                <th>时间</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="checkbox-col">
-                                   <input type="checkbox" class="selectedId" name="selectedId">
-                                </td>
-                                <td>文件1</td>
-                                <td>夏雅楠</td>
-                                <td>0</td>
-                                <td>2014/1/1</td>
-                            </tr>
-                            <tr>
-                                <td class="checkbox-col">
-                                   <input type="checkbox" class="selectedId" name="selectedId">
-                                </td>
-                                <td>文件2</td>
-                                <td>杨帆</td>
-                                <td>0</td>
-                                <td>2014/1/1</td>
-                            </tr>
-                            <tr>
-                                <td class="checkbox-col">
-                                   <input type="checkbox" class="selectedId" name="selectedId">
-                                </td>
-                                <td>文件3</td>
-                                <td>李丝琦</td>
-                                <td>0</td>
-                                <td>2014/1/1</td>
-                            </tr>
-                            <tr>
-                                <td class="checkbox-col">
-                                   <input type="checkbox" class="selectedId" name="selectedId">
-                                </td>
-                                <td>文件4</td>
-                                <td>宁婧</td>
-                                <td>0</td>
-                                <td>2014/1/1</td>
-                            </tr>
-                            <tr>
-                                <td class="checkbox-col">
-                                   <input type="checkbox" class="selectedId" name="selectedId">
-                                </td>
-                                <td>文件5</td>
-                                <td>亓庆国</td>
-                                <td>0</td>
-                                <td>2014/1/1</td>
-                            </tr>
-                            <tr>
-                                <td class="checkbox-col">
-                                   <input type="checkbox" class="selectedId" name="selectedId">
-                                </td>
-                                <td>文件6</td>
-                                <td>周春晖</td>
-                                <td>0</td>
-                                <td>2014/1/1</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="dataTables_paginate paging_bootstrap">
-                             <ul class="pagination">
-                                 <li class="disabled"><a href="#" >&laquo;</a></li>
-                                 <li class="active"><a href="#">1<span class="sr-only">(current)</span></a></li>
-                                 <li><a href="#">2</a></li>
-                                 <li><a href="#">3</a></li>
-                                 <li><a href="#">4</a></li>
-                                 <li><a href="#">5</a></li>
-                                 <li><a href="#">&raquo;</a></li>
-                            </ul>
+                            <li class="active">文件库</li>
+                        </ol>
+                        <!-- 进度条 -->
+                        <div id="progress" class="progress progress-success progress-striped">
+                            <div class="bar"></div>
+                        </div>
                     </div>
-                </div>
-
                        
+                    <!-- end PAGE TITLE ROW -->
+                    <div class="panel panel-default">
+                      <!-- Default panel contents -->
+                          <div class="panel-heading">文件库</div>
+                                                                           
+                          <!-- Table -->
+                        <table class="table">
+
+                            <thead>
+                                <div class="mailbox-nav">
+                                <ul class="nav navbar-nav button-tooltips">
+                                
+                                <li class="message-actions" style="float:right;">
+                                    <div class="btn-group navbar-btn">
+                                                                          
+                                        <button type="button" class="btn btn-white fileinput-button" data-toggle="tooltip" data-placement="bottom" title="Mark as Important">          
+                                        <input id="projectfileupload" type="file" name="files" multiple style="width: 60px;height: 40px;cursor: pointer;font-size: 30px;outline: medium none;position: absolute;filter:alpha(opacity=0);-moz-opacity:0;opacity:0; left:0px;top: 0px;">
+                                        <i class="fa fa-upload">上传</i>
+                                        </button>
+                                    
+                                     <button id='deleteFileButton' style="margin-left:20px" type="button" class="btn btn-white" data-toggle="tooltip" data-placement="bottom" title="Trash"><i class="fa fa-trash-o">删除</i>
+                                    </button>
+                                       
+                                    </div>
+                                    
+                                    
+                                </li>
+                                </ul>
+                                </div>
+                                <tr>
+                                    <th class="checkall checkbox-col">
+                                    <input type="checkbox" id="selectall" data-toggle="tooltip" data-placement="bottom" title="Select All">
+                                    </th>
+                                    <th>名称</th>
+                                    <th>创建者</th>
+                                    <th>大小</th>
+                                    <th>时间</th>
+                                    <th>op</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% project.files.forEach(function(f){ %>
+                                    <tr fid='<%=f._id%>' class='file-tr'>
+                                        <td class="checkbox-col">
+                                           <input type="checkbox" class="selectedId" name="selectedId">
+                                        </td>
+                                        <td><%=f.name %></td>
+                                        <td>夏雅楠</td>
+                                        <td><%=f.size%></td>
+                                        <td><%=f.createTime.getFullYear()%>/<%=f.createTime.getMonth()+1%>/<%=f.createTime.getDate()%></td>
+                                        <td>
+                                            <a href='/API/p/<%=project._id%>/f/<%=f._id%>' type="button" class="btn btn-white" data-toggle="tooltip" data-placement="bottom" title="download"><i class="fa fa-download">下载</i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <%})%>
+                                                          
+                            </tbody>
+                        </table>
+                        <!--
+                        <div class="dataTables_paginate paging_bootstrap">
+                                 <ul class="pagination">
+                                     <li class="disabled"><a href="#" >&laquo;</a></li>
+                                     <li class="active"><a href="#">1<span class="sr-only">(current)</span></a></li>
+                                     <li><a href="#">2</a></li>
+                                     <li><a href="#">3</a></li>
+                                     <li><a href="#">4</a></li>
+                                     <li><a href="#">5</a></li>
+                                     <li><a href="#">&raquo;</a></li>
+                                </ul>
+                        </div>
+                        -->
+                    </div>
+
+                           
+                </div>
+                <!-- /.page-content -->
+
             </div>
-            <!-- /.page-content -->
+            <!-- /#page-wrapper -->
+            <!-- end MAIN PAGE CONTENT -->
+
+
 
         </div>
-        <!-- /#page-wrapper -->
-        <!-- end MAIN PAGE CONTENT -->
+        <!-- /#wrapper -->
 
+        <% include ../footer.html %>
+        <script src='/plugins/jquery-file-upload/js/vendor/jquery.ui.widget.js'></script>
+        <script src='/plugins/jquery-file-upload/js/jquery.iframe-transport.js'></script>
+        <script src='/plugins/jquery-file-upload/js/jquery.fileupload.js'></script>
+        <script type="text/javascript">
+        $('#fileupload').fileupload();      
+        </script>
+        <script src="/js/project/project_file.js"></script>
+    </body>
 
-
-    </div>
-    <!-- /#wrapper -->
-
-    <% include ../footer.html %>
-    <script src='/plugins/jquery-file-upload/js/vendor/jquery.ui.widget.js'></script>
-    <script src='/plugins/jquery-file-upload/js/jquery.iframe-transport.js'></script>
-    <script src='/plugins/jquery-file-upload/jquery.fileupload.js'></script>
-    <script type="text/javascript">
-    $('#fileupload').fileupload();      
-    </script>
-</body>
-
-</html>
+    </html>

@@ -93,9 +93,20 @@ module.exports = {
    */
   userTask: function(req, res) {
       sails.log.verbose('Controller - api/controller/StaticController.userTask');      
-      res.view('user/user_task',{               
+      userService.getUserCurrentTaskInProject(req.session.user._id, function(err,lp, p,fp){
+        if(err) return res.json(err);
+        res.view('user/user_task',{               
           user:req.session.user,                
-        });
+          'lp':lp,
+          'p':p,
+          'fp':fp
+        })
+      });
+      //res.json({'lp':lp,'p':p,'fp':fp})
+      //})
+      /*res.view('user/user_task',{               
+          user:req.session.user,                
+        });*/
   },
 
   /**

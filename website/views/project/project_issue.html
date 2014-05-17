@@ -58,7 +58,7 @@
                     <div class="panel panel-info">
                        <div class="panel-heading">
                             <h4 class="panel-title">
-                                Project名称
+                                <%=project.name%>
                             </h4>
                         </div>
                     <div id="collapseOne" class="panel-collapse collapse in">
@@ -104,31 +104,27 @@
                                             </tr>
                                             <tr>
                                                 <td> 
+                                                  
                                                    <div class="col-sm-10" style="margin-left:0px;padding-left:0px">
-                                                       <textarea class="form-control" id="textArea" placeholder="新建Issue描述" style="width:100%;border-radius:8px;margin-top:15px;margin-bottom:15px;"></textarea>
+                                                       <textarea name='description' class="form-control" id="textArea" placeholder="新建Issue描述" style="width:100%;border-radius:8px;margin-top:15px;margin-bottom:15px;"></textarea>
                                                     </div>
-                                                       <button class="btn btn-white" style="margin-top:15px;">提交</button>                                                                 
+                                                       <button class="btn btn-white" style="margin-top:15px;">提交</button>
+                                                  
                                                 </td>
                                             </tr>
                                               </tbody>
                                     </table>
                                             <div class="row" style="margin-left:10px;width:95%;">
-                                            
+                                              
+                                              <% project.issues.forEach(function(i){ %>
                                                 <div class="well well-sm" style="background-color:#d9edf7;border-color:#bce8f1;color:#31708f;border-radius:10px;">
-                                                    <h6 style="color:#CCC;">2014年5月15日&nbsp;&nbsp;发布者</h6>
+                                                    <h6 style="color:#CCC;"><%=i.discoverTime.getYear()%>年<%=i.discoverTime.getMonth()+1%>月<%=i.discoverTime.getDate()%>日&nbsp;&nbsp;发布者</h6>
                                                     <div class="checkbox">
-                                                         <label><input type="checkbox" value="">issue1</label>
+                                                         <label><input type="checkbox" value=""><%=i.description%></label>
                                                     </div>
                                                 </div>
-                                            
-                                                <div class="well well-sm" style="background-color:#d9edf7;border-color:#bce8f1;color:#31708f;border-radius:10px;">
-                                                    <h6 style="color:#CCC;">2014年5月15日&nbsp;&nbsp;发布者</h6>
-                                                    <div class="checkbox">
-                                                         <label><input type="checkbox" value="">issue2</label>
-                                                    </div>
-                                                </div>
-                                                
-                                                </div>
+                                              <%}) %>                                             
+                                            </div>
                                             
                                       
                                 </div>
