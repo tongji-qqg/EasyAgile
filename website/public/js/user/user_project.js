@@ -1,9 +1,9 @@
 var uid;
 
 $(function() {
-    uid =  window.location.href.split('/')[4];
+    uid = uid || window.location.href.split('/')[4];
         
-    loadUserInfo();
+    //loadUserInfo();
 
     loadProjects();
     
@@ -80,21 +80,52 @@ function loadProjects(){
             icon = icons[1];   
         var percent = 0;
 
-        if(project.cSprint.taskTotal && project.cSprint.taskTotal != 0)
-            percent = project.cSprint.taskFinish / project.cSprint.taskTotal;     
-        
-        if(!project.done)
-        {
-            var div = 
-        '<div class="col-lg-3 col-sm-6"> <div class="tile '+color +' dash-demo-tile"> <h4>' + project.name + '<i class="fa fa-star fa-fw" style="float:right;margin-left:5px;"></i><i class="fa fa-pencil fa-fw" style="float:right;"></i></h4> <div class="easy-pie-chart" data-percent="'+percent+'"> <span class="percent"></span> </div> <a href=/project/'+project._id+' class="dash-demo-footer">More Info <i class="fa fa-chevron-circle-right"></i></a> </div> </div>' ;
-            $('#current-project-row').append(div);
-        }
-        else
-        {
-            var div = 
-        '<div class="col-lg-3 col-sm-6"> <div class="tile '+color +' dash-demo-tile"> <h4>' + project.name + '<i class="fa fa-refresh fa-fw" style="float:right;"></i></h4> <div class="easy-pie-chart" data-percent="'+percent+'"> <span class="percent"></span> </div> <a href=/project/'+project._id+' class="dash-demo-footer">More Info <i class="fa fa-chevron-circle-right"></i></a> </div> </div>' ;
-            $('#finished-project-row').append(div);
-        }
+        $.ajax({
+            type: 'GET',
+            url: '/API/p/'+project._id+'/s/'+project.cSprint._id+'/t',
+            dataType: 'json',                       
+            success: function(data){
+
+                if(data.state === 'error')
+                    alert('error! '+ data.message);
+                if(data.state === 'success')
+                {   
+                    var total = data.tasks.length;
+                    var finish = 0;
+                    data.tasks.forEach(function(t){
+                        if(t.state == 1) finish ++;
+                    })
+                    if(total != 0)
+                    percent = finish * 100 / total ;  
+                    //alert('total '+total+' finish '+finish)     
+                    //alert(percent)  
+                    if(!project.done)
+                    {
+                        var div = 
+                    '<div class="col-lg-3 col-sm-6"> <div class="tile '+color +' dash-demo-tile"> <h4>' + project.name + '<i class="fa fa-star fa-fw" style="float:right;margin-left:5px;"></i><i class="fa fa-pencil fa-fw" style="float:right;"></i></h4> <div class="easy-pie-chart" data-percent="'+percent+'%"> <span class="percent"></span> </div> <a href=/project/'+project._id+' class="dash-demo-footer">More Info <i class="fa fa-chevron-circle-right"></i></a> </div> </div>' ;
+                        $('#current-project-row').append(div);
+                    }
+                    else
+                    {
+                        var div = 
+                    '<div class="col-lg-3 col-sm-6"> <div class="tile '+color +' dash-demo-tile"> <h4>' + project.name + '<i class="fa fa-refresh fa-fw" style="float:right;"></i></h4> <div class="easy-pie-chart" data-percent="'+percent+'"> <span class="percent"></span> </div> <a href=/project/'+project._id+' class="dash-demo-footer">More Info <i class="fa fa-chevron-circle-right"></i></a> </div> </div>' ;
+                        $('#finished-project-row').append(div);
+                    }
+                    $('.easy-pie-chart').easyPieChart({
+                        barColor: "rgba(255,255,255,.5)",
+                        trackColor: "rgba(255,255,255,.5)",
+                        scaleColor: "rgba(255,255,255,.5)",
+                        lineWidth: 20,
+                        animate: 1500,
+                        size: 175,
+                        onStep: function(from, to, percent) {
+                            $(this.el).find('.percent').text(Math.round(percent));
+                        }
+                    });        
+                }
+            }            
+        });
+                
     };  
     if(uid){
         $.ajax({
@@ -114,23 +145,13 @@ function loadProjects(){
                     $('#current-project-row').empty(); 
                     $('#current-project-row').append(newProjectDiv);
                     data.projects.forEach(buildProjectDiv);      
-                    $('.easy-pie-chart').easyPieChart({
-                        barColor: "rgba(255,255,255,.5)",
-                        trackColor: "rgba(255,255,255,.5)",
-                        scaleColor: "rgba(255,255,255,.5)",
-                        lineWidth: 20,
-                        animate: 1500,
-                        size: 175,
-                        onStep: function(from, to, percent) {
-                            $(this.el).find('.percent').text(Math.round(percent));
-                        }
-                    });              
+                          
                 }
             }            
         });
     }
 }
-
+/*
 function loadUserInfo(){    
     if(uid){
         $.ajax({
@@ -155,3 +176,4 @@ function loadUserInfo(){
         });
     }
 }
+*/

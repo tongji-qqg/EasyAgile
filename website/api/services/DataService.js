@@ -107,7 +107,9 @@ exports.getProjectInfoById = function(pid, callback){
 	projectModel.findById(pid)
 				.where({'deleted': false})
                 .populate('owner','_id name icon')
+                .populate('owner','_id name icon')                
             	.populate('sprints')
+            	.populate('topics')
 	            .exec(function(err, result){
 					if(err) return callback(ErrorService.makeDbErr(err));
 					if(result == null) callback(ErrorService.projectNotFindError);

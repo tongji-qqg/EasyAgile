@@ -199,6 +199,18 @@ module.exports = {
   },
 
   /**
+   * get project topic page action, this will just shows login screen if user isn't logged in yet.
+   *
+   * @param   {req}   request     Request object
+   * @param   {res}  response    Response object
+   */
+  projectOneTopic: function(req, res) {
+      sails.log.verbose('Controller - api/controller/StaticController.projectOneTopic');      
+      
+      renderViewWithProject(req, res, 'project/project_oneTopic');     
+  },
+
+  /**
    * get project editor page action, this will just shows login screen if user isn't logged in yet.
    *
    * @param   {req}   request     Request object
