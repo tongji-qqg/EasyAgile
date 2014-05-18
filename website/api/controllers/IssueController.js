@@ -78,7 +78,8 @@ module.exports = {
 	    sails.log.verbose('Controller - api/controller/IssueController.modifyOneIssue');
 	    StoryService.modifyOne(req.params.pid, req.params.iid, TYPE, {
 			description: req.body.description, 
-			level: req.body.level
+			level: req.body.level,
+			solved: req.body.solved
 		},function(err){
 			if(err) res.json(err);
 			else res.json(ErrorService.success);

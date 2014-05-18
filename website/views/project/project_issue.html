@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Flex Admin - Responsive Admin Theme</title>
+    <title>Issues</title>
 
     <% include ../header.html%>
     <style type="text/css">
@@ -70,8 +70,8 @@
                                                <th style="width:100%;">
                                                    <div style="width:160px;display:inline-block;vertical-align:middle;">
                                                        <div class="btn-group btn-group-justified">
-                                                            <a id="openIssue" class="btn btn-white" role="button" style="background-color:#d9edf7;"onclick="openClick()">OPEN</a>
-                                                            <a id="closeIssue" class="btn btn-white" role="button" onclick="closeClick()">CLOSED</a>
+                                                            <a id="openIssue" class="btn btn-white" role="button" style="background-color:#d9edf7;">OPEN</a>
+                                                            <a id="closeIssue" class="btn btn-white" role="button" >CLOSED</a>
                                                        </div>
                                                   </div>
                                                   <div class="btn-group" style="margin-left:135px;">
@@ -96,7 +96,7 @@
                                                     <div class="checkbox">
 
                                                         <label><input type="checkbox" value="" style="margin-top:10px;">全选</label>
-                                                        <button class="btn btn-white" style="margin-left:48px;">close</button>
+                                                        <button id='closeIssueButton' class="btn btn-white" style="margin-left:48px;">close</button>
                                                      </div>
 
                                                 </td>
@@ -106,14 +106,16 @@
                                                 <td> 
                                                   
                                                    <div class="col-sm-10" style="margin-left:0px;padding-left:0px">
-                                                       <textarea name='description' class="form-control" id="textArea" placeholder="新建Issue描述" style="width:100%;border-radius:8px;margin-top:15px;margin-bottom:15px;"></textarea>
+                                                       <textarea id='issueDescription' class="form-control"  placeholder="新建Issue描述" style="width:100%;border-radius:8px;margin-top:15px;margin-bottom:15px;"></textarea>
                                                     </div>
-                                                       <button class="btn btn-white" style="margin-top:15px;">提交</button>
+                                                       <button id='postIssueButton' class="btn btn-white" style="margin-top:15px;">提交</button>
                                                   
                                                 </td>
                                             </tr>
                                               </tbody>
                                     </table>
+                                      <div id='allIssueDiv'>
+                                        <!--
                                             <div class="row" style="margin-left:10px;width:95%;">
                                               
                                               <% project.issues.forEach(function(i){ %>
@@ -125,7 +127,8 @@
                                                 </div>
                                               <%}) %>                                             
                                             </div>
-                                            
+                                          -->
+                                      </div>
                                       
                                 </div>
                         </div>
@@ -152,9 +155,8 @@
     function newIssue(){
       $('#textArea').focus();
     }
-
     </script>
-
+    <script src="/js/project/project_issue.js"></script>
 
 </body>
 

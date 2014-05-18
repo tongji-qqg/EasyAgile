@@ -64,9 +64,9 @@
                 <!-- /.row -->
                 <!-- end PAGE TITLE ROW -->  
 
-                <input class="form-control input-lg" type="text" placeholder="话题" style="margin-top:20px;margin-bottom:20px;">
+                <input id='newTopicTitleInput' class="form-control input-lg" type="text" placeholder="话题Title" style="margin-top:20px;margin-bottom:20px;">
 
-
+                 <input id='newTopicBodyInput' class="form-control input-lg" type="text" placeholder="话题Body" style="margin-top:20px;margin-bottom:20px;">
                 <div id="summernote">       
                 </div>
                 <h4 style="font-weight:normal;">发送通知给:</h4>
@@ -75,8 +75,8 @@
                       <label style="margin-right:60px;font-weight:normal;"><input type="checkbox" value="">member1</label>
                 </div>
                 <div class="publishTopic" style="margin-top:20px;">
-                <button class="btn btn-primary" style="margin-top:5px;">发起讨论</button>
-                <a href="project_topic.html" style="vertical-align:middle;margin-left:30px;font-size:15px;text-decoration:none">取消</a>
+                <button id='postTopicButton' class="btn btn-primary" style="margin-top:5px;">发起讨论</button>
+                <a href="/project_topic/<%=project._id%>" style="vertical-align:middle;margin-left:30px;font-size:15px;text-decoration:none">取消</a>
                 </div>
 
 
@@ -88,38 +88,29 @@
                                 <div class="table-responsive">
                                     <table class="table">
                                          <tbody>
-                                            <tr>
-                                                <td style="width:20%;">
-                                                   <img class="img-circle" src="/img/icon.jpg" style="margin-top:5px;width:50px;">
-                                                   <h5>发起者Name</h5>
-                                              
-                                                </td>
-                                                <td>
-                                                    <h4><a href="#" style="text-decoration:none">Topic Title</a></h4>
-                                                    <p> Topic Content</p>
-                                                </td>
-                                                <td style="width:10%;">
-                                                    <h6 style="color:#CCC;"> 3月5日</h6>
-                                                    <button type="button" class="deleteButton fa fa-trash-o" style="background-color:transparent;border:none;"></button>
-                                                </td>
+                                           <% topics.forEach(function(t){ %>
+
                                                 
-                                            </tr>
-                                            <tr>
-                                                <td style="width:20%;">
-                                                   <img class="img-circle" src="/img/icon.jpg" style="margin-top:5px;width:50px;">
-                                                   <h5>发起者Name</h5>
-                                              
-                                                </td>
-                                                <td>
-                                                    <h4><a href="#" style="text-decoration:none">Topic Title</a></h4>
-                                                    <p> Topic Content</p>
-                                                </td>
-                                                <td style="width:10%;">
-                                                    <h6 style="color:#CCC;"> 3月5日</h6>
-                                                    <button type="button" class="deleteButton fa fa-trash-o" style="background-color:transparent;border:none;"></button>
-                                                </td>
-                                                
-                                            </tr>
+                                                 <tr>
+                                                     <td style="width:20%;">
+                                                      <%if(!t.author.icon){%>
+                                                        <img class="img-circle" src="/img/profile-pic.jpg" style="margin-top:5px;width:50px;">
+                                                        <%}else{%>
+                                                        <img class="img-circle" src="/<%=t.author.icon%>" style="margin-top:5px;width:50px;">
+                                                        <%}%>
+                                                        <h5><%= t.author.name%></h5>
+                                                     </td>
+                                                     <td>
+                                                        <h4><a href="/project_oneTopic/<%=project._id%>/t/<%=t._id%>" style="text-decoration:none"><%=t.title%></a></h4>
+                                                        <p><%=t.body%> </p>
+                                                     </td>
+                                                     <td style="width:10%;">
+                                                        <h6 style="color:#CCC;"> <%=t.date.getMonth()+1%>月<%=t.date.getDate()%>日</h6>
+                                                         <button tid='<%=t._id%>' type="button" class="deleteButton fa fa-trash-o" style="background-color:transparent;border:none;"></button>
+                                                     </td>
+                                                 </tr>
+
+                                              <%})%>
                                         </tbody>
                                     </table>
                                 </div>
@@ -140,7 +131,7 @@
     <!-- /#wrapper -->
 
     <% include ../footer.html %>
-
+    <script src="/js/project/project_newTopic.js"></script>
 
 </body>
 

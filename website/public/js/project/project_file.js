@@ -45,7 +45,7 @@ $(function(){
 	$('#deleteFileButton').click(function(){
 
 		$("tr.file-tr").each(function(i, tr) {
-    		var value = $("input.selectedId", tr).is(':checked')
+    		var value = $("input.selectedId", tr).is(':checked');
     		var fid = $(tr).attr('fid');
     		if(value) deleteFile(fid);
 		});

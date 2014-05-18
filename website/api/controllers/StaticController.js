@@ -17,7 +17,7 @@
 "use strict";
 
 var F = require('./functions');
-
+var async = require('async');
 function renderViewWithProject(req, res, view){
   DataService.getProjectInfoById(req.params.pid, function(err, project){
         if(err) res.view(view,{                
@@ -29,6 +29,46 @@ function renderViewWithProject(req, res, view){
           project:project
         });
       });  
+}
+function renderViewWithProjectAndTopics(req, res, view){
+  async.waterfall([
+    function(callback){
+      DataService.getProjectInfoById(req.params.pid, callback)
+    },
+    function(project, callback){
+      topicService.getTopicListOfProject(null, req.params.pid, function(err, topics){
+        if(err) callback(err);
+        else callback(null, project, topics);
+      })
+    }
+  ],function(err,project,topics){
+      if(err) res.json(err);
+      else res.view(view,{
+        user: req.session.user,
+        project:project ,
+        topics: topics
+      })
+  });
+}
+function renderViewWithProjectAndOneTopic(req, res, view){
+  async.waterfall([
+    function(callback){
+      DataService.getProjectInfoById(req.params.pid, callback)
+    },
+    function(project, callback){
+      topicService.getTopic(null, req.params.pid, req.params.tid, false, function(err, topic){
+        if(err) callback(err);
+        else callback(null, project, topic);
+      })
+    }
+  ],function(err,project,topic){
+      if(err) res.json(err);
+      else res.view(view,{
+        user: req.session.user,
+        project:project ,
+        topic: topic
+      })
+  });
 }
 module.exports = {
     
@@ -206,7 +246,7 @@ module.exports = {
   projectTopic: function(req, res) {
       sails.log.verbose('Controller - api/controller/StaticController.projectTopic');      
       
-      renderViewWithProject(req, res, 'project/project_topic');     
+      renderViewWithProjectAndTopics(req, res, 'project/project_topic');     
   },
 
   /**
@@ -218,7 +258,7 @@ module.exports = {
   projectOneTopic: function(req, res) {
       sails.log.verbose('Controller - api/controller/StaticController.projectOneTopic');      
       
-      renderViewWithProject(req, res, 'project/project_oneTopic');     
+      renderViewWithProjectAndOneTopic(req, res, 'project/project_oneTopic');     
   },
 
   /**
@@ -241,7 +281,7 @@ module.exports = {
   projectNewTopic: function(req, res) {
       sails.log.verbose('Controller - api/controller/StaticController.projectTopic');      
       
-      renderViewWithProject(req, res, 'project/project_newTopic');     
+      renderViewWithProjectAndTopics(req, res, 'project/project_newTopic');     
   },
 
   /**

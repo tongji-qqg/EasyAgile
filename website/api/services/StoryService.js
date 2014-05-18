@@ -136,8 +136,9 @@ exports.modifyOne = function(pid, rid, type, info, cb){
 		    	var r = targetProject[type].id(rid);
 		    	if(r == null) return callback(ErrorService.notFindError);
 
-		    	r.description = info.description;
-		    	r.level = info.level;
+		    	r.description = info.description || r.description;
+		    	r.level = info.level || r.level;
+		    	r.solved = info.solved;
 
 		    	targetProject.save(function(err){
 		    		if(err) callback(err);

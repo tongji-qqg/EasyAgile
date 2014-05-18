@@ -38,7 +38,7 @@
                     <div class="col-lg-12">
                         <div class="page-title">
                             <h1>
-                                项目名称
+                                <%=project.name%>
                                 <small></small>
                             </h1>
                         </div>
@@ -51,19 +51,24 @@
                     <div class="panel panel-default">
                        <div class="panel-heading">
                             <h4 class="panel-title">
-                                Topic名称
+                                <%=topic.title%>
                                 <button type="button" class="glyphicon glyphicon-trash" style="float:right;margin-right:10px;margin-top:-3px;background-color:transparent;border:none;width:24px;"></button>
                            </h4>
                        </div>
                        <div id="collapseOne" class="panel-collapse collapse in">
                          <div class="panel-body">
                            <h5>
-                              <img class="img-circle" src="img/icon.jpg" style="margin-top:5px;width:50px;height:50px;">
-                              发起者名字
-                              <div class="Date" style="color:#CCC;display:inline-block;width:100px;"> 3月5日</div>
+                            <%if(topic.author.icon){%>
+                            <img class="img-circle" src="/<%=topic.author.icon%>" style="margin-top:5px;width:50px;height:50px;">
+                            <%}else{%>
+                            <img class="img-circle" src="img/icon.jpg" style="margin-top:5px;width:50px;height:50px;">
+                            <%}%>
+                              
+                              <%=topic.author.name%>
+                              <div class="Date" style="color:#CCC;display:inline-block;width:100px;"> <%=topic.date.getMonth()+1%>月<%=topic.date.getDate()%>日</div>
                            </h5>
                            <div class="well" style="margin-left:55px;margin-right:55px;background-color:#d9edf7;color:#31708f;">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                           <%=topic.body%>
                           </div>
                           <!--    Comment List  -->
                           <div class="portlet portlet-default" style="margin-top:30px; border-style:none;">
@@ -99,7 +104,11 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                   <img class="img-circle" src="img/icon.jpg" style="margin-top:5px;width:50px;">
+                                                  <% if(user.icon) {%>
+                                                  <img class="img-circle" src="/<%=user.icon%>" style="margin-top:5px;width:50px;">
+                                                  <%}else{%>
+                                                  <img class="img-circle" src="/usericons/default.jpg" style="margin-top:5px;width:50px;">
+                                                  <%}%>          
                                                    <input id="newComment" class="form-control input-lg" type="text" placeholder="点击发表评论" style="display:inline-block;width:80%;margin-left:10px;margin-top:10px;border-radius:5px;" onclick="editComment()">
                                                    <div id="summernote"></div>
                                                    <div id="commentOption" style="margin-left:65px;display:none;">
