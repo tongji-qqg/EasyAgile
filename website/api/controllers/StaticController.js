@@ -18,6 +18,7 @@
 
 var F = require('./functions');
 var async = require('async');
+var _ = require('underscore');
 function renderViewWithProject(req, res, view){
   DataService.getProjectInfoById(req.params.pid, function(err, project){
         if(err) res.view(view,{                
@@ -29,6 +30,26 @@ function renderViewWithProject(req, res, view){
           project:project
         });
       });  
+}
+function renderViewWithProjectAndFiles(req, res, view){
+  async.waterfall([
+    function(callback){
+      DataService.getProjectInfoById(req.params.pid, callback)
+    },
+    function(project, callback){
+      FileService.getFileListOfProject( req.params.pid, function(err, files){
+        if(err) callback(err);
+        else callback(null, project, files);
+      })
+    }
+  ],function(err,project,files){
+      if(err) res.json(err);
+      else res.view(view,{
+        user: req.session.user,
+        project:project ,
+        files: files
+      })
+  });
 }
 function renderViewWithProjectAndTopics(req, res, view){
   async.waterfall([
@@ -67,6 +88,41 @@ function renderViewWithProjectAndOneTopic(req, res, view){
         user: req.session.user,
         project:project ,
         topic: topic
+      })
+  });
+}
+function renderViewWithProjectAndTopicsFilesTasks(req, res, view){
+  async.waterfall([
+    function(callback){
+      DataService.getProjectInfoById(req.params.pid, callback)
+    },
+    function(project, callback){
+      topicService.getTopicListOfProject(null, req.params.pid, function(err, topics){
+        if(err) callback(err);
+        else callback(null, project, topics);
+      })
+    },
+    function(project, topics, callback){
+      FileService.getFileListOfProject( req.params.pid, function(err, files){
+        if(err) callback(err);
+        else callback(null, project, topics, files);
+      })
+    },
+    function(project, topics, files, callback){
+      taskService.getTasks(req.session.user._id, req.params.pid, project.cSprint, function(err, tasks){
+        if(err) res.json(err);
+        else callback(null, project, topics, files, tasks);
+      });
+    }
+  ],function(err,project,topics, files, tasks){
+      if(err) res.json(err);
+      else res.view(view,{
+        user: req.session.user,
+        project:project ,
+        issues: project.issues.reverse().slice(0,10),
+        topics: topics.reverse().slice(0,10),
+        files: files.reverse().slice(0,10),
+        tasks: tasks.reverse().slice(0,10)
       })
   });
 }
@@ -186,7 +242,7 @@ module.exports = {
   projectMain: function(req, res) {
       sails.log.verbose('Controller - api/controller/StaticController.projectMain '+ req.params.pid);      
       
-      renderViewWithProject(req, res, 'project/project_main');
+      renderViewWithProjectAndTopicsFilesTasks(req, res, 'project/project_main');
   },
 
   /**
@@ -234,7 +290,7 @@ module.exports = {
   projectFiles: function(req, res) {
       sails.log.verbose('Controller - api/controller/StaticController.projectFiles');      
 
-      renderViewWithProject(req, res, 'project/project_files');           
+      renderViewWithProjectAndFiles(req, res, 'project/project_files');           
   },
 
    /**

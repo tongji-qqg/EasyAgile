@@ -61,64 +61,38 @@
                         <h3 class="panel-title">重要任务</h3>
                    </div>
                    <div class="panel-body">
+
+                    <% var now = new Date();
+                       var y = now.getYear();
+                       var m = now.getMonth();
+                       var d = now.getDate(); 
+                    tasks.forEach(function(t){ 
+                        var ty = t.createTime.getYear();
+                        var tm = t.createTime.getMonth();
+                        var td = t.createTime.getDate();
+                    %>
                        <div class="row">
                             <div class="col-sm-9">
                             <input type="checkbox" class="selectedTask" name="selectedTask">
                             <label style="font-size:medium;">
-                            <a href="#set-task-form" data-toggle="modal">我的任务1</a>
-                            </label><a href="#">#任务板</a>
+                            <a href="#set-task-form" data-toggle="modal"><%=t.title%></a>
+                            </label><a href="/project_taskboard/<%=project._id%>">#任务板</a>
                             </div>
+                            <%if(ty==y && tm==m && td == d){%>
                             <div class="col-sm-3">
                                 <span class="label label-info"><i class="fa fa-calendar">
                                 <a href="#set-task-form" data-toggle="modal" style="color: #FFF;font-weight:900;" >今天</a></i></span> 
-                            </div>                           
-                        </div>  
-                        <hr /> 
-
-                        <div class="row">
-                            <div class="col-sm-9">
-                            <input type="checkbox" class="selectedTask" name="selectedTask">
-                            <label style="font-size:medium;">
-                            <a href="#set-task-form" data-toggle="modal">我的任务2</a>
-                            </label><a href="#">#任务板</a>
                             </div>
-                            <div class="col-sm-3">
-                                <span class="label label-info"><i class="fa fa-calendar">
-                                <a href="#set-task-form" data-toggle="modal" style="color: #FFF;font-weight:900;">今天</a></i></span> 
-                            </div>                            
-                        </div> 
-                        <hr />
-                        <div class="row">
-                            <div class="col-sm-11">
-                            <input type="checkbox" class="selectedTask" name="selectedTask" checked>
-                            <label style="font-size:medium;">
-                            <a href="#set-task-form" data-toggle="modal">我的任务3</a>
-                            </label><a href="#">#任务板</a>
-                            </div>                       
+                            <%}%>                           
                         </div>  
                         <hr /> 
-                        <div class="row">
-                            <div class="col-sm-11">
-                            <input type="checkbox" class="selectedTask" name="selectedTask" checked>
-                            <label style="font-size:medium;">
-                            <a href="#set-task-form" data-toggle="modal">我的任务4</a>
-                            </label><a href="#">#任务板</a>
-                            </div>                        
-                        </div> 
-                        <hr />  
-                        <div class="row">
-                            <div class="col-sm-11">
-                            <input type="checkbox" class="selectedTask" name="selectedTask" checked>
-                            <label style="font-size:medium;">
-                            <a href="#set-task-form" data-toggle="modal">我的任务5</a>
-                            </label><a href="#">#任务板</a>
-                            </div>                          
-                        </div> 
-                        <hr />
+                    <%})%>
+                      
+                        
                         <div class="row" >
                             <div class="col-sm-9"></div>
                             <div class="col-sm-3"  >
-                                <label> <a href="#" style="color:#5bc0de;font-size:medium;"> 进入任务板</a></label>
+                                <label> <a href="/project_taskboard/<%=project._id%>" style="color:#5bc0de;font-size:medium;"> 进入任务板</a></label>
                             </div>                        
 
                         </div>
@@ -137,33 +111,24 @@
                    <div class="panel-body">
                         <table class="table">
                         <tbody>
-                        <tr>
-                            <td>                                              
-                                <label>issue1</label>                                                                                                
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label>issue2</label>                                                 
-                                </td>
-                         </tr>
-                         <tr>
-                            <td>
-                                <label>issue3</label>                                                 
-                                </td>
-                         </tr>
-                         <tr>
-                            <td>
-                                <label>issue4</label>                                                 
-                                </td>
-                         </tr>
+                          <%issues.forEach(function(i){ 
+                            if(!i.solved){
+                          %>
+                            <tr>
+                              <td>                                              
+                                <label><%=i.description%></label> 
+                              </td>
+                            </tr>
+                          <%}})%>
+                        
+                        
                         </tbody>
                         </table>
                         <hr />
                           <div class="row" >
                             <div class="col-sm-9"></div>
                             <div class="col-sm-3"  >
-                                <label> <a href="#" style="color:#fa8072;font-size:medium;"> 进入问题板</a></label>
+                                <label> <a href="/project_issue/<%=project._id%>" style="color:#fa8072;font-size:medium;"> 进入问题板</a></label>
                             </div>                        
                         </div> 
                    </div>
@@ -191,30 +156,21 @@
                             </tr>
                          </thead>
                          <tbody>
+                          <%files.forEach(function(f){%>
                             <tr>
-                                <td>文件1</td>
-                                <td>夏雅楠</td>
-                                <td>0</td>
-                                <td>2014/1/1</td>
-                            </tr>
-                            <tr>
-                                <td>文件2</td>
-                                <td>杨帆</td>
-                                <td>0</td>
-                                <td>2014/1/1</td>
-                            </tr>
-                            <tr>
-                                <td>文件3</td>
-                                <td>亓庆国</td>
-                                <td>0</td>
-                                <td>2014/1/1</td>
-                            </tr>
+                                <td><%=f.name%></td>
+                                <td><%=f.owner.name%></td>
+                                <td><%=f.size%></td>
+                                <td><%=f.createTime.getFullYear()%>/<%=f.createTime.getMonth()+1%>/<%=f.createTime.getDate()%></td>
+                            </tr>                            
+                          <%})%>
+                            
                      </table>
                      <hr />
                      <div class="row" >
                             <div class="col-sm-9"></div>
                             <div class="col-sm-3"  >
-                                <label> <a href="#" style="color:#ffd700;font-size:medium;"> 进入文件库</a></label>
+                                <label> <a href="/project_files/<%=project._id%>" style="color:#ffd700;font-size:medium;"> 进入文件库</a></label>
                             </div>                        
 
                     </div>
@@ -232,42 +188,35 @@
                         <h3 class="panel-title">最新话题</h3>
                    </div>
                    <div class="panel-body">
-                        <table class="table">
-                                                <tbody>
-                                                   <tr>
-                                                       <td style="width:20%;">
-                                                          <img class="img-circle" src="/img/myicon.jpg" style="margin-top:5px;width:50px;">
-                                                          <h5>发起者Name</h5>
-                                                       </td>
-                                                       <td>
-                                                          <h5><a href="#">Topic Title</a></h5>
-                                                          <p> Topic Content</p>
-                                                       </td>
-                                                       <td style="width:20%;">
-                                                          <h6 style="color:#CCC;"> 3月5日</h6>
-                                                      </td>
-                                                   </tr>
-                                                   <tr>
-                                                       <td style="width:20%;">
-                                                          <img class="img-circle" src="/img/myicon.jpg" style="margin-top:5px;width:50px;">
-                                                          <h5>发起者Name</h5>
-                                                       </td>
-                                                       <td>
-                                                          <h5><a href="#">Topic Title</a></h5>
-                                                          <p> Topic Content</p>
-                                                       </td>
-                                                       <td style="width:20%;">
-                                                          <h6 style="color:#CCC;"> 3月5日</h6>
-                                                      </td>     
-                                                   </tr>
-
-                                                </tbody>
+                        <table class="table">                          
+                            <tbody>
+                              <%topics.forEach(function(t){%>
+                                 <tr>
+                                   <td style="width:20%;">
+                                    <%if(t.author.icon){%>
+                                    <img class="img-circle" src="/<%=t.author.icon%>" style="margin-top:5px;width:50px;">
+                                    <%}else{%>
+                                    <img class="img-circle" src="/usericon/default.jpg" style="margin-top:5px;width:50px;">
+                                    <%}%>
+                                      
+                                      <h5><%=t.author.name%></h5>
+                                   </td>
+                                   <td>
+                                      <h5><a href="#"><%=t.title%></a></h5>
+                                      <p> <%=t.body%></p>
+                                   </td>
+                                   <td style="width:20%;">
+                                      <h6 style="color:#CCC;"> <%=t.date.getMonth()+1%>月<%=t.date.getDate()%>日</h6>
+                                  </td>
+                               </tr>
+                              <%})%>                              
+                            </tbody>
                             </table>
                           <hr />
                           <div class="row" >
                             <div class="col-sm-9"></div>
                             <div class="col-sm-3"  >
-                                <label> <a href="#" style="color:#4cae4c;font-size:medium;"> 进入讨论区</a></label>
+                                <label> <a href="/project_topic/<%=project._id%>" style="color:#4cae4c;font-size:medium;"> 进入讨论区</a></label>
                             </div>                        
                         </div>
                    </div>

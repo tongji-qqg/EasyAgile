@@ -90,13 +90,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <% project.files.forEach(function(f){ %>
+                                <% files.forEach(function(f){ %>
                                     <tr fid='<%=f._id%>' class='file-tr'>
                                         <td class="checkbox-col">
                                            <input type="checkbox" class="selectedId" name="selectedId">
                                         </td>
                                         <td><%=f.name %></td>
-                                        <td>夏雅楠</td>
+                                        <td><%=f.owner.name%></td>
                                         <td><%=f.size%></td>
                                         <td><%=f.createTime.getFullYear()%>/<%=f.createTime.getMonth()+1%>/<%=f.createTime.getDate()%></td>
                                         <td>
