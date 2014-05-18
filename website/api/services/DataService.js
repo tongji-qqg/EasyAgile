@@ -106,14 +106,17 @@ exports.getProjectInfoById = function(pid, callback){
 	
 	projectModel.findById(pid)
 				.where({'deleted': false})
-                .populate('owner','_id name icon')
-                .populate('owner','_id name icon')                
+                .populate('owner','_id name icon')                           
             	.populate('sprints')
             	.populate('topics')
 	            .exec(function(err, result){
 					if(err) return callback(ErrorService.makeDbErr(err));
 					if(result == null) callback(ErrorService.projectNotFindError);
-					else callback(null,result);	
+					//else callback(null,result);	
+					userModel.populate(result.members, {path:'_id', select:'_id name icon'},function(err){
+						if(err) return callback(ErrorService.makeDbErr(err));
+						else return callback(null,result);	
+					})
 				});
 }
 

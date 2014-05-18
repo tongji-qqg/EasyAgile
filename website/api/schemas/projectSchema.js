@@ -14,7 +14,7 @@ var projectSchema = new Schema({
 
   members: [{ 
     name: String,   //change when user change
-    _id: ObjectId, 
+    _id: { type: ObjectId, ref: 'User' }, 
     icon: String,   //change when user change
     isAdmin: { type: Boolean, default: false } 
   }],

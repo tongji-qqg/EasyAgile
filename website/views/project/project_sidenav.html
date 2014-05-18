@@ -192,12 +192,12 @@
         <% project.members.forEach(function(member){ %>
           <div class="row" style="margin-bottom:10px;">
             <div class="col-sm-8">
-              <%if(member.icon){%>
-              <img src="/<%= member.icon%>" class="img-circle" style="width:40px; ">
+              <%if(member._id.icon){%>
+              <img src="/<%= member._id.icon%>" class="img-circle" style="width:40px; ">
               <%}else{%>
               <img src="/usericons/default.jpg" class="img-circle" style="width:40px; ">
               <%}%>
-              <label class="control-label"><%=member.name%>
+              <label class="control-label"><%=member._id.name%>
                 <% if(member.isAdmin){%>
                 ·管理员
                 <%} %>
