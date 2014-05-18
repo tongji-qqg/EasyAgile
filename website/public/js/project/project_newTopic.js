@@ -17,7 +17,7 @@ $(function(){
                     alert('error! '+ data.message);
                 if(data.state === 'success')
                 {                                  
-                	alert('success!')
+                	//alert('success!')
         			window.location.replace('/project_topic/'+projectid);          			       
                 }
             }            
@@ -27,8 +27,9 @@ $(function(){
 		e.preventDefault();
 		var title = $('#newTopicTitleInput').val();
 		var body  = $('#summernote').code();       
-        alert(body); 
+        //alert(body); 
 		postTopic(title, body)
 		
 	})
 })
+

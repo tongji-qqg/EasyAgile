@@ -201,9 +201,9 @@
                                       
                                       <h5><%=t.author.name%></h5>
                                    </td>
-                                   <td>
-                                      <h5><a href="#"><%=t.title%></a></h5>
-                                      <p> <%-t.body%></p>
+                                   <td style="word-wrap:break-word;" >
+                                      <h5><a href="/project_oneTopic/<%=project._id%>/t/<%=t._id%>"><%=t.title%></a></h5>
+                                      <p style="width:200px"> <%-t.body%></p>
                                    </td>
                                    <td style="width:20%;">
                                       <h6 style="color:#CCC;"> <%=t.date.getMonth()+1%>月<%=t.date.getDate()%>日</h6>

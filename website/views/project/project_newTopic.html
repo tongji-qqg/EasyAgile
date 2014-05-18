@@ -90,31 +90,7 @@
                             <div class="portlet-body">
                                 <div class="table-responsive">
                                     <table class="table">
-                                         <tbody>
-                                           <% topics.forEach(function(t){ %>
-
-                                                
-                                                 <tr>
-                                                     <td style="width:20%;">
-                                                      <%if(!t.author.icon){%>
-                                                        <img class="img-circle" src="/usericons/default.jpg" style="margin-top:5px;width:50px;">
-                                                        <%}else{%>
-                                                        <img class="img-circle" src="/<%=t.author.icon%>" style="margin-top:5px;width:50px;">
-                                                        <%}%>
-                                                        <h5><%= t.author.name%></h5>
-                                                     </td>
-                                                     <td>
-                                                        <h4><a href="/project_oneTopic/<%=project._id%>/t/<%=t._id%>" style="text-decoration:none"><%=t.title%></a></h4>
-                                                        <p><%-t.body%> </p>
-                                                     </td>
-                                                     <td style="width:10%;">
-                                                        <h6 style="color:#CCC;"> <%=t.date.getMonth()+1%>月<%=t.date.getDate()%>日</h6>
-                                                         <button tid='<%=t._id%>' type="button" class="deleteButton fa fa-trash-o" style="background-color:transparent;border:none;"></button>
-                                                     </td>
-                                                 </tr>
-
-                                              <%})%>
-                                        </tbody>
+                                        <% include topicTable.html%>
                                     </table>
                                 </div>
                             </div>
@@ -135,6 +111,7 @@
 
     <% include ../footer.html %>
     <script src="/js/project/project_newTopic.js"></script>
+    <script src="/js/project/deleteTopic.js"></script>
      <script>
     $(document).ready(function() {
         $('#summernote').summernote({

@@ -95,9 +95,16 @@ exports.deleteTopic = function(selfuid, pid, tid, cb){
 	    		topic.deleted = true;
 	    		topic.save(function(err){
 	    			if(err) callback(ErrorService.makeDbErr(err));
-	    			else callback(null);
+	    			else callback(null, targetProject);
 	    		});
 	    	});	    		    			    
+	    },
+	    function(project, callback){
+	    	project.topics.remove(tid);
+	    	project.save(function(err){
+	    		if(err) callback(err);
+	    		else callback(null);
+	    	});
 	    }
 	   
 	], cb);
