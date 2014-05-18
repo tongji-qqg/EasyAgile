@@ -79,31 +79,27 @@
                                 <div class="table-responsive">
                                     <table class="table">
                                          <tbody>
+                                          <% topic.comments.forEach(function(c){%>
                                             <tr>
-                                                <td>                                                  
+                                                <td>  
                                                    <h5>
-                                                      <img class="img-circle" src="img/icon.jpg" style="margin-top:5px;width:50px;">
-                                                      评论者名字
-                                                      <div class="Date" style="color:#CCC;display:inline-block;width:100px;"> 3月5日</div>
+                                                    <%if(c.owner.icon){ %>
+                                                    <img class="img-circle" src="/<%=c.owner.icon%>" style="margin-top:5px;width:50px;">
+                                                    <%}else{%>
+                                                    <img class="img-circle" src="/usericons/default.jpg" style="margin-top:5px;width:50px;">
+                                                    <%}%>
+                                                      
+                                                      <%=c.owner.name%>
+                                                      <div class="Date" style="color:#CCC;display:inline-block;width:100px;"> <%=c.date.getMonth()+1%>月<%=c.date.getDate()%>日</div>
                                                    </h5> 
                                                    <div class="well" style="margin-left:55px;margin-right:55px;background-color:#fcf8e3;color:#8a6d3b;">
-                                                   This is the first comment.
+                                                   <%-c.body%>
                                                    </div>
                                                 </td>
-                                                
                                             </tr>
-                                            <tr>
-                                                <td>
-                                                   <h5>
-                                                      <img class="img-circle" src="img/icon.jpg" style="margin-top:5px;width:50px;">
-                                                      评论者名字
-                                                      <div class="Date" style="color:#CCC;display:inline-block;width:100px;"> 3月5日</div>
-                                                   </h5> 
-                                                   <div class="well" style="margin-left:55px;margin-right:55px;background-color:#fcf8e3;color:#8a6d3b;">
-                                                   This is the first comment.
-                                                   </div>
-                                                </td>     
-                                            </tr>
+                                          <%})%>
+                                            
+                                            
                                             <tr>
                                                 <td>
                                                   <% if(user.icon) {%>
@@ -112,7 +108,7 @@
                                                   <img class="img-circle" src="/usericons/default.jpg" style="margin-top:5px;width:50px;">
                                                   <%}%>          
                                                    <input id="newComment" class="form-control input-lg" type="text" placeholder="点击发表评论" style="display:inline-block;width:80%;margin-left:10px;margin-top:10px;border-radius:5px;" onclick="editComment()">
-                                                   <div id="summernote"></div>
+                                                   <div tid='<%=topic._id%>' id="summernote"></div>
                                                    <div id="commentOption" style="margin-left:65px;display:none;">
                                                    <h4 style="font-weight:normal;">发送通知给:</h4>
                                                    <div class="group-member" style="margin-top:20px;">
@@ -120,7 +116,7 @@
                                                         <label style="margin-right:60px;font-weight:normal;"><input type="checkbox" value="">member1</label>
                                                    </div>
                                                    <div class="publishTopic" style="margin-top:20px;">
-                                                        <button class="btn btn-primary" style="margin-top:5px;">发表评论</button>
+                                                        <button id='postCommentButton' class="btn btn-primary" style="margin-top:5px;">发表评论</button>
                                                         <a style="vertical-align:middle;margin-left:30px;font-size:15px;cursor:pointer;" onclick="cancelComment()">取消</a>
                                                    </div>
                                                    </div>
@@ -184,7 +180,7 @@
     }
 
     </script>
-
+    <script src="/js/project/project_newComment.js"></script>
 
 </body>
 
