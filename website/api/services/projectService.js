@@ -153,7 +153,7 @@ exports.removeMemberById = function(selfuid,pid, uid, cb){
 
 	    function(targetProject, toDelMember, callback){
 	    		    	
-	    	targetProject.members.remove(uid);	    	
+	    	targetProject.members.remove(uid);
 
 	    	toDelMember.projects.remove(pid);	    	
 	    	

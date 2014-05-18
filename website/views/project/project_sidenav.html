@@ -192,12 +192,12 @@
         <% project.members.forEach(function(member){ %>
           <div class="row" style="margin-bottom:10px;">
             <div class="col-sm-8">
-              <%if(member._id.icon){%>
-              <img src="/<%= member._id.icon%>" class="img-circle" style="width:40px; ">
+              <%if(member.ref.icon){%>
+              <img src="/<%= member.ref.icon%>" class="img-circle" style="width:40px; ">
               <%}else{%>
               <img src="/usericons/default.jpg" class="img-circle" style="width:40px; ">
               <%}%>
-              <label class="control-label"><%=member._id.name%>
+              <label class="control-label"><%=member.ref.name%>
                 <% if(member.isAdmin){%>
                 ·管理员
                 <%} %>
@@ -205,11 +205,11 @@
             </div> 
             <div class="col-sm-4">
               <% if(!member.isAdmin){%>
-              <button uid='<%= member._id%>' type="button" class="btn btn-green set-admin-button">管理员</button>
+              <button uid='<%= member.ref._id%>' type="button" class="btn btn-green set-admin-button">管理员</button>
               <%} else {%>
-              <button uid='<%= member._id%>' type="button" class="btn btn-green unset-admin-button">普通成员</button>
+              <button uid='<%= member.ref._id%>' type="button" class="btn btn-green unset-admin-button">普通成员</button>
               <%}%>
-              <button  uid='<%= member._id%>' type="button" class="btn btn-red delete-member-button">移除成员</button>
+              <button  uid='<%= member.ref._id%>' type="button" class="btn btn-red delete-member-button">移除成员</button>
             </div>           
           </div>
           <hr />

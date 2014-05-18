@@ -112,8 +112,11 @@ exports.getProjectInfoById = function(pid, callback){
 	            .exec(function(err, result){
 					if(err) return callback(ErrorService.makeDbErr(err));
 					if(result == null) callback(ErrorService.projectNotFindError);
-					//else callback(null,result);	
-					userModel.populate(result.members, {path:'_id', select:'_id name icon'},function(err){
+					//else callback(null,result);
+					result.members.forEach(function(m){
+						if(!m.ref) m.ref = m._id;
+					})
+					userModel.populate(result.members, {path:'ref', select:'_id name icon'},function(err){
 						if(err) return callback(ErrorService.makeDbErr(err));
 						else return callback(null,result);	
 					})
