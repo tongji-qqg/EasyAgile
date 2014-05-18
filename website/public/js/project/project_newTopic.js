@@ -26,7 +26,7 @@ $(function(){
 	$('#postTopicButton').click(function(e){
 		e.preventDefault();
 		var title = $('#newTopicTitleInput').val();
-		var body  = $('#newTopicBodyInput').val();		
+		var body  = $('#summernote').code();        
 		postTopic(title, body)
 		
 	})
