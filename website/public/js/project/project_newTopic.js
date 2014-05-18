@@ -1,5 +1,6 @@
 $(function(){
 
+
 	function postTopic(title, body){
 		if(!projectid)return;
 		$.ajax({  

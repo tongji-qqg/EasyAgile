@@ -66,7 +66,7 @@
 
                 <input id='newTopicTitleInput' class="form-control input-lg" type="text" placeholder="话题Title" style="margin-top:20px;margin-bottom:20px;">
 
-                 <input id='newTopicBodyInput' class="form-control input-lg" type="text" placeholder="话题Body" style="margin-top:20px;margin-bottom:20px;">
+                 <!--input id='newTopicBodyInput' class="form-control input-lg" type="text" placeholder="话题Body" style="margin-top:20px;margin-bottom:20px;"-->
                 <div id="summernote">       
                 </div>
                 <h4 style="font-weight:normal;">发送通知给:</h4>
@@ -132,6 +132,20 @@
 
     <% include ../footer.html %>
     <script src="/js/project/project_newTopic.js"></script>
+     <script>
+    $(document).ready(function() {
+        $('#summernote').summernote({
+            height: 300,
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+            ]
+
+        });
+    });
+    </script>
 
 </body>
 
