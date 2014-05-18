@@ -17,7 +17,7 @@ var backlogBootBox = (function() {
 				if (data.state === 'error')
 					alert('error! ' + data.message);
 				if (data.state === 'success') {
-					alert('success');
+					//alert('success');
 					$('body').trigger("loadSprint");
 				}
 			}

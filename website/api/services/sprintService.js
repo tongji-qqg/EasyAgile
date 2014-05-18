@@ -115,3 +115,19 @@ exports.setSprintState = function (selfuid, pid, sid, state, callback){
 		else callback(null);
 	});	 				
 };
+
+exports.setCurrentSprint = function(selfuid, pid, sid, callback){
+
+	async.waterfall([
+		function(callback){
+			DataService.getProjectById(pid, callback);
+		},
+		function(project, callback){
+			project.cSprint = sid;
+			project.save(function(err){
+				if(err)callback(ErrorService.makeDbErr(err));
+				else callback(null);
+			})
+		}
+	],callback);
+}

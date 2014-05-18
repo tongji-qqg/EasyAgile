@@ -42,6 +42,9 @@ function init() {
     function loadProject() {
         var selectedSprintLi;
         var buildSprintList = function(sprintId, liClass, aClass, spanText) {
+
+            if(sprintId === sid)
+                spanText += '*';
             var sprintList = $('#allSprints');
 
             var li = $("<li />", {
@@ -108,6 +111,23 @@ function init() {
     }
 
     function loadSprintManagement() {
+        function setAsCurrentSprint(){
+            if (!pid || pid == 0) return;
+            if (!sid || sid == 0) return;
+            $.ajax({
+                type: 'GET',
+                url: '/API/p/' + pid + '/s/' + sid + '/start',
+                dataType: 'json',                
+                success: function(data) {
+                    if (data.state === 'error')
+                        alert('error! ' + data.message);
+                    if (data.state === 'success') {
+                        alert('success');
+                        body.trigger("loadProject");
+                    }
+                }
+            });
+        }
         $('#addSprintLink').unbind('click');
         $('#addSprintLink').on('click', function() {
             sprintBootBox.addBox().modal('show');
@@ -119,6 +139,10 @@ function init() {
         $('#showSprintChartsLink').unbind('click');
         $('#showSprintChartsLink').on('click', function() {
             alert('click')
+        });
+        $('#setCurrentSprintLink').unbind('click');
+        $('#setCurrentSprintLink').on('click', function() {
+            setAsCurrentSprint();
         });
     }
 

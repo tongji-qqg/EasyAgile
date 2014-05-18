@@ -116,10 +116,15 @@ module.exports = {
     startSprint: function (req, res) {
       
 	    sails.log.verbose('Controller - api/controller/SprintController.startSprint');
-	    sprintService.setSprintState(req.session.user._id, req.params.pid, req.params.sid, 1, function(err){
+	    /*sprintService.setSprintState(req.session.user._id, req.params.pid, req.params.sid, 1, function(err){
 			if(err) res.json(err);
 			else res.json(ErrorService.success);
-		});		
+		});
+		*/
+		sprintService.setCurrentSprint(req.session.user._id, req.params.pid, req.params.sid, function(err){
+			if(err) res.json(err);
+			else res.json(ErrorService.success);
+		})	
     },
 
     /**
