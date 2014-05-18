@@ -184,7 +184,7 @@
             <%}else{%>
             <img src="/usericons/default.jpg" class="img-circle" style="width:40px; ">
             <%}%>
-            <label class="control-label"><%=project.owner.name%>·owner</label>
+            <label class="control-label"><%=project.owner.name%>·管理员</label>
           </div>             
         </div>
         <hr />
@@ -207,7 +207,7 @@
               <% if(!member.isAdmin){%>
               <button uid='<%= member._id%>' type="button" class="btn btn-green set-admin-button">管理员</button>
               <%} else {%>
-              <button uid='<%= member._id%>' type="button" class="btn btn-green unset-admin-button">no管理员</button>
+              <button uid='<%= member._id%>' type="button" class="btn btn-green unset-admin-button">普通成员</button>
               <%}%>
               <button  uid='<%= member._id%>' type="button" class="btn btn-red delete-member-button">移除成员</button>
             </div>           
