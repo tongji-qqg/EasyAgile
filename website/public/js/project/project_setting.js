@@ -1,7 +1,127 @@
 var g_project;
 $(function(){
+	function setAdminClick(){
+		//alert($(this).attr('uid'));
 
-	function loadProject(){
+		var mid = $(this).attr('uid');
+		if(mid){
+			//put     /API/p/:pid/ma/:uid
+			$.ajax({
+            type: 'PUT',
+            url: '/API/p/'+projectid+'/ma/'+mid,
+            dataType: 'json',            
+            success: function(data){
+
+	                if(data.state === 'error')
+	                    alert('error! '+ data.message);
+	                if(data.state === 'success') {
+	                	alert('success');                               
+	                    $('body').trigger('loadProjectSetting');
+	                }
+	            }  
+	        });
+		}
+	}
+	function unsetAdminClick(){
+		//alert($(this).attr('uid'));
+		
+		var mid = $(this).attr('uid');
+		if(mid){
+			//delete  /API/p/:pid/mid/:uid
+			$.ajax({
+	            type: 'DELETE',
+	            url: '/API/p/'+projectid+'/ma/'+mid,
+	            dataType: 'json',            
+	            success: function(data){
+
+	                if(data.state === 'error')
+	                    alert('error! '+ data.message);
+	                if(data.state === 'success') {
+	                	alert('success');                               
+	                    $('body').trigger('loadProjectSetting');
+	                }
+	            }//end success  
+			});
+		}
+	}
+	function deleteMemberClick(){
+		//alert($(this).attr('uid'));		
+		var mid = $(this).attr('uid');
+		if(mid){
+			//delete  /API/p/:pid/mid/:uid
+			$.ajax({
+            type: 'DELETE',
+            url: '/API/p/'+projectid+'/mid/'+mid,
+            dataType: 'json',            
+            success: function(data){
+
+	                if(data.state === 'error')
+	                    alert('error! '+ data.message);
+	                if(data.state === 'success') {
+	                	alert('success');                               
+	                    $('body').trigger('loadProjectSetting');
+	                }
+	            }  
+			});
+		}
+	}
+	function buildProjectMemberPanel(){
+		var DEFAULT_ICON = '/usericons/default.jpg';
+		var panel = $('#projectMemberPanelDiv').empty();
+		function owner(){
+			var rowDiv = $('<div >',{'class':'row','style':'margin-bottom:10px;'}).appendTo(panel);
+			var div = $('<div >',{'class':'col-sm-12'}).appendTo(rowDiv);
+			var icon = DEFAULT_ICON;
+			if(g_project.owner.icon) icon = '/'+g_project.owner.icon;
+			
+			$('<img >',{'src':icon,'class':'img-circle','style':'width:40px;'}).appendTo(div);
+			$('<label >',{'class':'control-label'}).text(g_project.owner.name+'·管理员').appendTo(div);	
+		}
+		owner();
+		panel.append($('<hr >'));
+		///////////////////////////////////////////////////////////////////////
+		g_project.members.forEach(function(member){
+			var rowDiv = $('<div >',{'class':'row','style':'margin-bottom:10px;'}).appendTo(panel);
+			var leftDiv = $('<div >',{'class':'col-sm-8'}).appendTo(rowDiv);
+			var icon = DEFAULT_ICON;
+			if(member.ref.icon) icon = '/'+member.ref.icon;
+			$('<img >',{'src':icon,'class':'img-circle','style':'width:40px;'}).appendTo(leftDiv);
+			var name = member.ref.name;
+			if(member.isAdmin) name+='·管理员';
+			else name +='·普通';
+			$('<label >', {'class':'control-label'}).text(name).appendTo(leftDiv);
+			//--------------------------------------------------------------//
+			var rightDiv = $('<div >',{'class':'col-sm-4'}).appendTo(rowDiv);
+			if(member.isAdmin){
+				$('<button >',{
+					'uid':member.ref._id,
+					'type':'button',
+					'class':'btn btn-green unset-admin-button'
+				}).text('普通成员')
+				  .click(unsetAdminClick)
+				  .appendTo(rightDiv);
+			}
+			else{
+				$('<button >',{
+					'uid':member.ref._id,
+					'type':'button',
+					'class':'btn btn-green set-admin-button'
+				}).text('管理员')
+				  .click(setAdminClick)
+				  .appendTo(rightDiv);
+			}
+			$('<button >',{
+				'uid':member.ref._id,
+				'type':'button',
+				'class':'btn btn-red delete-member-button'
+			}).text('移除成员')
+			  .click(deleteMemberClick)
+			  .appendTo(rightDiv);
+			panel.append($('<hr >'));
+		})
+	}
+	function loadProjectSetting(){
+		if(!projectid)return;
 		$.ajax({
 	        type: 'GET',
 	        url: '/API/p/'+projectid,
@@ -13,36 +133,17 @@ $(function(){
 	            if(data.state === 'success')
 	            {                                  
 	                g_project = data.project;
-	                $('body').trigger('loadUserList');
+	                $('#project-name-input').text(g_project.name);
+	                $('#project-description-input').text(g_project.description);
+	                buildProjectMemberPanel();
 	            }
 	        }            
 	    });
 	}
-	function loadUserList(){
-		$.ajax({
-            type: 'GET',
-            url: '/API/u/name/',
-            dataType: 'json',            
-            success: function(data){
-                if(data.state === 'error')
-                    alert('error! '+ data.message);
-                if(data.state === 'success')
-                {                                  
-                    data.user.forEach(function(u){
-                    	if(_.findWhere(g_project.members, {'_id':u._id})) return;
-                    	if(g_project.owner._id == u._id) return;
-                    	var opt = $('<option >',{'value':u._id}).text(u.name);
-                    	//var opt = $('<option >',{'value':'avoid'}).text('avoid');
-                    	opt.appendTo($('#search-member-box'));
-                    })
-                    $('#search-member-box').combobox();
-                }
-            }            
-        });
-	}
-	$('body').on('loadProject',loadProject);
-	$('body').on('loadUserList',loadUserList);
-	$('body').trigger('loadProject');
+	
+	$('body').on('loadProjectSetting',loadProjectSetting);
+	
+	$('body').trigger('loadProjectSetting');
 })
 $(function(){
 
@@ -65,8 +166,9 @@ $(function(){
                 if(data.state === 'error')
                     alert('error! '+ data.message);
                 if(data.state === 'success')
-                {                                  
-                    window.location.reload();
+                {       
+                	alert('success');
+                    $('body').trigger('loadProjectSetting');
                 }
             }            
         });
@@ -74,8 +176,8 @@ $(function(){
 })
 $(function(){
 	$('#add-member-id-button').click(function(){
-		var uid = $('#search-member-box').val();
-		if(uid){
+		var uid = $('#search-member-box').attr('uid');			
+		if(uid && uid.length==24){
 			//post /API/p/:pid/mid/:uid
 			$.ajax({
             type: 'POST',
@@ -88,14 +190,62 @@ $(function(){
                 if(data.state === 'success')
                 {   
                 	alert('success');                               
-                    window.location.reload();
+                    $('body').trigger('loadProjectSetting');
                 }
             }            
         });
 		}
 	})
 })
+function searchUserInputChange(inputBox){
 
+	function loadUserList(inputName){
+		$.ajax({
+            type: 'GET',
+            url: '/API/u/name/'+inputName,
+            dataType: 'json',            
+            success: function(data){
+                if(data.state === 'error')
+                    alert('error! '+ data.message);
+                if(data.state === 'success')
+                {     
+                	var findUserArr = [];                             
+                    data.user.forEach(function(u){
+                    	if(_.findWhere(g_project.members, {'_id':u._id})) return;
+                    	if(g_project.owner._id == u._id) return;
+                    	findUserArr.push(u);
+                    });                    
+					
+					if (findUserArr.length > 0) {
+						userList.attr('style','');
+						findUserArr.forEach(function(u){
+							var div = $('<div >').text(u.name)
+							    .mouseover(function(){this.style.backgroundColor="#ccc";})
+							    .mouseout(function () {this.style.backgroundColor="white";})
+							    .click(function () {
+							    	inputBox.value = this.innerHTML;
+							    	$('#search-member-box').attr('uid', u._id);
+							    	$("#userListResult").attr('style','display:none');
+							    })
+							    .appendTo(userList);
+						})						
+					} else {
+						userList.attr('style','display:none');
+					}
+                }//end if
+            }            
+        });
+	}
+	var userList = $("#userListResult");			
+	userList.empty();
+	var value = inputBox.value;
+	if (value == '') {
+		userList.attr('style','');
+		return;
+	}
+	loadUserList(value);
+}
+/*
 $(function(){
 	$('.set-admin-button').click(function(){
 		//alert($(this).attr('uid'));
@@ -112,7 +262,7 @@ $(function(){
 	                    alert('error! '+ data.message);
 	                if(data.state === 'success') {
 	                	alert('success');                               
-	                    window.location.reload();
+	                    $('body').trigger('loadProjectSetting');
 	                }
 	            }  
 	        });
@@ -133,7 +283,7 @@ $(function(){
 	                    alert('error! '+ data.message);
 	                if(data.state === 'success') {
 	                	alert('success');                               
-	                    window.location.reload();
+	                    $('body').trigger('loadProjectSetting');
 	                }
 	            }  
 			});
@@ -154,11 +304,11 @@ $(function(){
                     alert('error! '+ data.message);
                 if(data.state === 'success') {
                 	alert('success');                               
-                    window.location.reload();
+                    $('body').trigger('loadProjectSetting');
                 }
             }  
 		});
 		}
 	});
 });
-
+*/

@@ -16,11 +16,11 @@ module.exports.policies = {
 
   	// Default policy for all controllers and actions
   	// (`true` allows public access) 
-  	'*': true,
+  	'*': false,
 
   	// whitelist the auth controller, this is used for login
     "auth": {
-        "*": true,
+        "*": false,
 
         // Custom actions
         login    :["flashMessage", "checkNotLogin"],
@@ -31,51 +31,51 @@ module.exports.policies = {
         "*": false,
 
         // Custom actions
-		getBacklogOfProject       :["checkUser"],
-		addBacklogOfProject       :["checkUser"],
-		modifyBacklogOfProject    :["checkUser"],
-		modifyAllBacklogOfProject :["checkUser"],
-		deleteBacklogOfProject    :["checkUser"],
-		deleteAllBacklogOfProject :["checkUser"],
+		getBacklogOfProject       :["validateURLID", "checkUser"],
+		addBacklogOfProject       :["validateURLID", "checkUser"],
+		modifyBacklogOfProject    :["validateURLID", "checkUser"],
+		modifyAllBacklogOfProject :["validateURLID", "checkUser"],
+		deleteBacklogOfProject    :["validateURLID", "checkUser"],
+		deleteAllBacklogOfProject :["validateURLID", "checkUser"],
     },
     "issue": {
         "*": false,
 
         // Custom actions
-		getAllIssues    : ["checkUser", "hasProjectAccess"],
-		deleteAllIssues : ["checkUser", "hasProjectAdmin"],
-		addOneIssue     : ["checkUser", "hasProjectAccess"],
-		modifyOneIssue  : ["checkUser", "hasProjectAccess"],
-		modifyAllIssue  : ["checkUser", "hasProjectAccess"],
-		deleteOneIssue  : ["checkUser", "hasProjectAdmin"],
+		getAllIssues    : ["validateURLID", "checkUser", "hasProjectAccess"],
+		deleteAllIssues : ["validateURLID", "checkUser", "hasProjectAdmin"],
+		addOneIssue     : ["validateURLID", "checkUser", "hasProjectAccess"],
+		modifyOneIssue  : ["validateURLID", "checkUser", "hasProjectAccess"],
+		modifyAllIssue  : ["validateURLID", "checkUser", "hasProjectAccess"],
+		deleteOneIssue  : ["validateURLID", "checkUser", "hasProjectAdmin"],
     },
     "project": {
         "*": true,
 
         // Custom actions
 		createProject      : ["checkUser"],
-		getProjectInfo     : ["checkUser", "hasProjectAccess"],
-		editProjectInfo    : ["checkUser", "hasProjectAdmin"],
-		deleteProject      : ["checkUser", "hasProjectOwner"],
-		finishProject      : ["checkUser", "hasProjectAdmin"],
-		inviteMemberById   : ["checkUser", "hasProjectAdmin"],
-		inviteMemberByEmail: ["checkUser", "hasProjectAdmin"],
-		removeMemberById   : ["checkUser", "hasProjectAdmin"],
-		setMemberAdmin     : ["checkUser", "hasProjectAdmin"],
-		removeMemberAdmin  : ["checkUser", "hasProjectAdmin"],
+		getProjectInfo     : ["validateURLID", "checkUser", "hasProjectAccess"],
+		editProjectInfo    : ["validateURLID", "checkUser", "hasProjectAdmin"],
+		deleteProject      : ["validateURLID", "checkUser", "hasProjectOwner"],
+		finishProject      : ["validateURLID", "checkUser", "hasProjectAdmin"],
+		inviteMemberById   : ["validateURLID", "checkUser", "hasProjectAdmin"],
+		inviteMemberByEmail: ["validateURLID", "checkUser", "hasProjectAdmin"],
+		removeMemberById   : ["validateURLID", "checkUser", "hasProjectAdmin"],
+		setMemberAdmin     : ["validateURLID", "checkUser", "hasProjectAdmin"],
+		removeMemberAdmin  : ["validateURLID", "checkUser", "hasProjectAdmin"],
 		
     },
     "sprint": {
         "*": false,
 
         // Custom actions
-		getAllSprints : ["checkUser", "hasProjectAccess"],
-		createSprint  : ["checkUser", "hasProjectAdmin"],
-		getOneSprint  : ["checkUser", "hasProjectAccess", "sprintInProject"],		
-		deleteSprint  : ["checkUser", "hasProjectAdmin", "sprintInProject"],
-		modifySprint  : ["checkUser", "hasProjectAdmin", "sprintInProject"],
-		startSprint   : ["checkUser", "hasProjectAdmin", "sprintInProject"],
-		finishSprint  : ["checkUser", "hasProjectAdmin", "sprintInProject"],
+		getAllSprints : ["validateURLID", "checkUser", "hasProjectAccess"],
+		createSprint  : ["validateURLID", "checkUser", "hasProjectAdmin"],
+		getOneSprint  : ["validateURLID", "checkUser", "hasProjectAccess", "sprintInProject"],		
+		deleteSprint  : ["validateURLID", "checkUser", "hasProjectAdmin", "sprintInProject"],
+		modifySprint  : ["validateURLID", "checkUser", "hasProjectAdmin", "sprintInProject"],
+		startSprint   : ["validateURLID", "checkUser", "hasProjectAdmin", "sprintInProject"],
+		finishSprint  : ["validateURLID", "checkUser", "hasProjectAdmin", "sprintInProject"],
     },
     "static": {
         "*": false,
@@ -84,59 +84,59 @@ module.exports.policies = {
         index            :[true],
 		reg              :["flashMessage", "checkNotLogin"],
 		login            :["flashMessage", "checkNotLogin"],
-		userMain         :["checkLogin"],
-		userTask         :["checkLogin"],
-		userCal          :["checkLogin"],
-		userMessage      :["checkLogin"],
+		userMain         :["validateURLID", "checkLogin"],
+		userTask         :["validateURLID", "checkLogin"],
+		userCal          :["validateURLID", "checkLogin"],
+		userMessage      :["validateURLID", "checkLogin"],
 
-		projectMain      :["checkLogin", "hasProjectAccess"],
-		projectTaskboard :["checkLogin", "hasProjectAccess"],
-		projectCal       :["checkLogin", "hasProjectAccess"],
-		projectIssue     :["checkLogin", "hasProjectAccess"],
-		projectFiles     :["checkLogin", "hasProjectAccess"],
-		projectTopic	 :["checkLogin", "hasProjectAccess"],
-		projectNewTopic	 :["checkLogin", "hasProjectAccess"],
-		projectOneTopic	 :["checkLogin", "hasProjectAccess"],
-		projectEditor    :["checkLogin", "hasProjectAccess"],
+		projectMain      :["validateURLID", "checkLogin", "hasProjectAccess"],
+		projectTaskboard :["validateURLID", "checkLogin", "hasProjectAccess"],
+		projectCal       :["validateURLID", "checkLogin", "hasProjectAccess"],
+		projectIssue     :["validateURLID", "checkLogin", "hasProjectAccess"],
+		projectFiles     :["validateURLID", "checkLogin", "hasProjectAccess"],
+		projectTopic	 :["validateURLID", "checkLogin", "hasProjectAccess"],
+		projectNewTopic	 :["validateURLID", "checkLogin", "hasProjectAccess"],
+		projectOneTopic	 :["validateURLID", "checkLogin", "hasProjectAccess"],
+		projectEditor    :["validateURLID", "checkLogin", "hasProjectAccess"],
     },
 
     "story": {
         "*": false,
 
         // Custom actions
-		getAllStorys    :["checkUser", "hasProjectAccess"],
-		deleteAllStorys :["checkUser", "hasProjectAccess"],
-		addOneStory     :["checkUser", "hasProjectAccess"],
-		modifyOneStory  :["checkUser", "hasProjectAccess"],
-		modifyAllStory  :["checkUser", "hasProjectAccess"],
-		deleteOneStory  :["checkUser", "hasProjectAccess"],
+		getAllStorys    :["validateURLID", "checkUser", "hasProjectAccess"],
+		deleteAllStorys :["validateURLID", "checkUser", "hasProjectAccess"],
+		addOneStory     :["validateURLID", "checkUser", "hasProjectAccess"],
+		modifyOneStory  :["validateURLID", "checkUser", "hasProjectAccess"],
+		modifyAllStory  :["validateURLID", "checkUser", "hasProjectAccess"],
+		deleteOneStory  :["validateURLID", "checkUser", "hasProjectAccess"],
     },
     "task": {
         "*": false,
 
         // Custom actions
-		getTasksOfSprint     : ["checkUser", "hasProjectAccess", "sprintInProject"],
-		addTaskOfSprint      : ["checkUser", "hasProjectAccess", "sprintInProject", "validateTaskOwner"],
-		modifyTaskOfSprint   : ["checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint", "validateTaskOwner"],
-		setTaskProgress      : ["checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint"],
-		deleteTaskOfSprint   : ["checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint"],
-		setTaskToBacklog     : ["checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint"],
-		unsetTaskToBacklog   : ["checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint"],
-		assignTaskToMember   : ["checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint"],
-		removeTaskFromMember : ["checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint"],
-		removeAllTaskOwner   : ["checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint"],
+		getTasksOfSprint     : ["validateURLID", "checkUser", "hasProjectAccess", "sprintInProject"],
+		addTaskOfSprint      : ["validateURLID", "checkUser", "hasProjectAccess", "sprintInProject", "validateTaskOwner"],
+		modifyTaskOfSprint   : ["validateURLID", "checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint", "validateTaskOwner"],
+		setTaskProgress      : ["validateURLID", "checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint"],
+		deleteTaskOfSprint   : ["validateURLID", "checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint"],
+		setTaskToBacklog     : ["validateURLID", "checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint"],
+		unsetTaskToBacklog   : ["validateURLID", "checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint"],
+		assignTaskToMember   : ["validateURLID", "checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint"],
+		removeTaskFromMember : ["validateURLID", "checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint"],
+		removeAllTaskOwner   : ["validateURLID", "checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint"],
     },
     "topic": {
         "*": false,
 
         // Custom actions
-		getAllTopics  : ["checkUser", "hasProjectAccess"],
-		getOneTopic   : ["checkUser", "hasProjectAccess"],
-		createTopic   : ["checkUser", "hasProjectAccess"],
-		deleteTopic   : ["checkUser", "hasProjectAdmin"],
-		commentTopic  : ["checkUser", "hasProjectAccess"],
-		getComments   : ["checkUser", "hasProjectAccess"],
-		deleteComment : ["checkUser", "hasProjectAdmin"],
+		getAllTopics  : ["validateURLID", "checkUser", "hasProjectAccess"],
+		getOneTopic   : ["validateURLID", "checkUser", "hasProjectAccess"],
+		createTopic   : ["validateURLID", "checkUser", "hasProjectAccess"],
+		deleteTopic   : ["validateURLID", "checkUser", "hasProjectAdmin"],
+		commentTopic  : ["validateURLID", "checkUser", "hasProjectAccess"],
+		getComments   : ["validateURLID", "checkUser", "hasProjectAccess"],
+		deleteComment : ["validateURLID", "checkUser", "hasProjectAdmin"],
     },
     "user": {
         "*": false,
@@ -151,16 +151,16 @@ module.exports.policies = {
     	getAllUserTask       :["checkUser"],
     	getCurrentUserTask   :["checkUser"],
     	getUserProjects      :["checkUser"],
-    	setUserIconById      :["checkUser"],
-    	setTask              :["checkUser","validateTaskOwner"],
+    	setUserIconById      :["validateURLID", "checkUser"],
+    	setTask              :["validateURLID", "checkUser","validateTaskOwner"],
 
-    	getUserMessage       :["checkUser"], 
-		sendMessage          :["checkUser"],    	
+    	getUserMessage       :["validateURLID", "checkUser"], 
+		sendMessage          :["validateURLID", "checkUser"],    	
 		getAllUserMessage    :["checkUser"],
-		readMessage          :["checkUser"],
+		readMessage          :["validateURLID", "checkUser"],
 		getUserAlert         :["checkUser"],
 		getAllUserAlert      :["checkUser"],
-		readAlert            :["checkUser"]
+		readAlert            :["validateURLID", "checkUser"]
     },
     "socketio":{
     	"*": false,
@@ -169,17 +169,17 @@ module.exports.policies = {
     },
     "file":{
     	"*":false,
-    	getFileListOfProject    : ["checkUser","hasProjectAccess"],
-		uploadFilesToProject    : ["checkUser","hasProjectAccess"],
-		getOneFileOfProject     : ["checkUser","hasProjectAccess"],
-		deleteOneFileOfProject  : ["checkUser","hasProjectAdmin"],
+    	getFileListOfProject    : ["validateURLID", "checkUser","hasProjectAccess"],
+		uploadFilesToProject    : ["validateURLID", "checkUser","hasProjectAccess"],
+		getOneFileOfProject     : ["validateURLID", "checkUser","hasProjectAccess"],
+		deleteOneFileOfProject  : ["validateURLID", "checkUser","hasProjectAdmin"],
     },
     "editor":{
     	"*": false,
-    	get         : ["checkUser","hasProjectAccess"],
-    	create      : ["checkUser","hasProjectAccess"],
-    	edit        : ["checkUser","hasProjectAccess"],
-    	delete      : ["checkUser","hasProjectAccess"],
+    	get         : ["validateURLID", "checkUser","hasProjectAccess"],
+    	create      : ["validateURLID", "checkUser","hasProjectAccess"],
+    	edit        : ["validateURLID", "checkUser","hasProjectAccess"],
+    	delete      : ["validateURLID", "checkUser","hasProjectAccess"],
     }
   /*
 	// Here's an example of adding some policies to a controller
