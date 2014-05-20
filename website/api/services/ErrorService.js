@@ -165,13 +165,18 @@ exports.emailFormatError = {
 }
 exports.activateLateError = {
 	state: "error",
-	errorNumber: 26,    //may be other numbers
+	errorNumber: 27,    //may be other numbers
 	message: 'activate late error'	
 }
 exports.fileNotFindError = {
 	state: "error",
-	errorNumber: 26,    //may be other numbers
+	errorNumber: 28,    //may be other numbers
 	message: 'file not find error'	
+}
+exports.wrongURLID = {
+	state: "error",
+	errorNumber: 29,    //may be other numbers
+	message: 'parameter in url not valid'	
 }
 exports.successWithValue = function(key, value){
 

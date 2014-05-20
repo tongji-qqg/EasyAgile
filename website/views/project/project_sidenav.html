@@ -160,9 +160,9 @@
         -->
         <div class="row">
           <div class="col-sm-10">
-            <select id='search-member-box' class="combobox input-large form-control" >
-              <option></option>  
-            </select>  
+            <input id='search-member-box' class="input-large form-control" oninput="searchUserInputChange(this);" placeholder="通过ID添加新成员..."></input>
+            <div style="border-left:1 black solid;width:200px;border-bottom:1 black solid;border-right:1 black solid;display:none;" id="userListResult"> 
+            </div>
           </div>
           
           <button id='add-member-id-button' type="submit" class="btn btn-primary">sure</button>             
@@ -175,8 +175,8 @@
         <h4 class="modal-title">项目成员列表</h4>
       </div>
 
-      <div class="modal-body">
-        
+      <div id='projectMemberPanelDiv' class="modal-body">
+        <!--
         <div class="row" style="margin-bottom:10px;">
           <div class="col-sm-12">
             <%if(project.owner.icon){%>
@@ -215,7 +215,7 @@
           <hr />
         <%})%>
                  
-
+      -->
       </div>
       
   </div>
