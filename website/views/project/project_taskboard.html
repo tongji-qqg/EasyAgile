@@ -13,7 +13,7 @@
     <link href='/fonts/google/google-fonts-yanone.css' rel='stylesheet' type='text/css'>
     <!--STYLES-->
     <link href="/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/bootstrap-responsive.css" rel="stylesheet">
+    
     <link href="/plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet">
     <link href="/plugins/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css" rel="stylesheet">
     <link href="/plugins/bootstrap-multiselect/css/bootstrap-multiselect.css" rel="stylesheet">
@@ -61,14 +61,7 @@
                                 </div>
 
                                 <span class="input-group-addon dropdown">
-                                <div style="display: none;">
-                                    <a href="javascript: void(0);" class="tooltipTitle" title="Add new sprint" data-placement="bottom" data-bind="
-                                            click: $root.actionSprintAdd,
-                                            visible: $root.role() &lt; 0
-                                        " style="">
-                                        <i class="fa fa-plus"></i>
-                                    </a>
-                                </div>
+                                
 
                                 <div>
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="100">
@@ -152,8 +145,8 @@
 
                         <div id="board">
 
-                            <table id="boardTable" class="table table-bordered" style="margin-top: 39px;">
-                                <thead style="position: fixed; z-index: 200; margin-top: -39px; left: 0px; width: 100%;">
+                            <table id="boardTable" class="table table-bordered" style="">
+                                <thead style="z-index: 200; left: 0px; width: 100%;">
                                     <tr id="boardHeader">
                                         <th style="width: 222px; text-align: left;">
                                             <span>Backlogs</span>

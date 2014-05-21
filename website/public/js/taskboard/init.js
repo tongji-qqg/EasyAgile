@@ -9,8 +9,7 @@ $(init);
 var g_project, g_sprint;
 
 function init() {
-
-    //pid =  window.location.href.split('/')[4];	
+    
     var body = jQuery("body");
 
     body.on('loadUser', loadUser);
@@ -87,14 +86,14 @@ function init() {
                 if (data.state === 'error')
                     alert('error! ' + data.message);
                 if (data.state === 'success') {
-                    sid = sid || data.project.cSprint._id;
+                    sid = sid || data.project.cSprint;
                     g_project = data.project;
 
                     $('#navTitle').text(data.project.name);
                     $('#navTitle').attr('href','/project/'+data.project._id);
                     var sprintList = $('#allSprints');
                     sprintList.empty();
-                    buildSprintList('tipSprintLi', '', "select-dummy-option text-muted", "Choose sprint to show");
+                    //buildSprintList('tipSprintLi', '', "select-dummy-option text-muted", "Choose sprint to show");
 
                     data.project.sprints.forEach(function(sprint) {
                         if (sprint._id == sid) {
@@ -149,28 +148,7 @@ function init() {
     function loadSprint() {
         var tmpTasksRef;
 
-        function addTask() {
-            if (!pid || pid == 0) return;
-            if (!sid || sid == 0) return;
-            $.ajax({
-                type: 'POST',
-                url: '/API/p/' + pid + '/s/' + sid + '/t',
-                dataType: 'json',
-                data: {
-                    title: 'this is a task',
-                    description: 'this is des',
-                    level: 1,
-                    type: 2
-                },
-                success: function(data) {
-                    if (data.state === 'error')
-                        alert('error! ' + data.message);
-                    if (data.state === 'success') {
-                        body.trigger("loadSprint");
-                    }
-                }
-            });
-        }
+      
 
         function setTaskState(tid, state) {
             if (!pid || pid == 0) return;
@@ -419,9 +397,7 @@ function init() {
                     $('#addBacklogButton').unbind('click');
                     $('#addBacklogButton').on('click', function() {
 
-                        backlogBootBox.addBox().modal('show');
-
-                        //taskBootBox.addBox().modal('show');                                               
+                        backlogBootBox.addBox().modal('show');                                                            
                     });
                     ////////////////////////////////////////
                     //////////load sprint task info/////////
@@ -466,4 +442,27 @@ function init() {
         }
     });
 
+
+  function addTask() {
+            if (!pid || pid == 0) return;
+            if (!sid || sid == 0) return;
+            $.ajax({
+                type: 'POST',
+                url: '/API/p/' + pid + '/s/' + sid + '/t',
+                dataType: 'json',
+                data: {
+                    title: 'this is a task',
+                    description: 'this is des',
+                    level: 1,
+                    type: 2
+                },
+                success: function(data) {
+                    if (data.state === 'error')
+                        alert('error! ' + data.message);
+                    if (data.state === 'success') {
+                        body.trigger("loadSprint");
+                    }
+                }
+            });
+        }
 */
