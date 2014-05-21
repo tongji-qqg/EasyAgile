@@ -48,8 +48,8 @@ module.exports = {
 	    	type: req.body.type	    	
 	    },function(err,p){
 	    	if(err) res.json(err);
-	    	//else res.json(ErrorService.successWithValue('file', _.last(p.editor)));
-	    	else res.redirect('/project_editor/'+req.params.pid);
+	    	else res.json(ErrorService.successWithValue('file', _.last(p.editor)));
+	    	//else res.redirect('/project_editor/'+req.params.pid);
 	    })
     },
 
@@ -74,7 +74,11 @@ module.exports = {
     delete: function (req, res) {
       
 	    sails.log.verbose('Controller - api/controller/EditorController.delete');
-	    
+	    EditorService.delete(req.params.pid, req.params.eid, function(err, editors){
+
+	    	if(err) res.json(err);
+	    	else res.json(ErrorService.successWithValue('editor', editors));
+	    })
     },    
 
   /**

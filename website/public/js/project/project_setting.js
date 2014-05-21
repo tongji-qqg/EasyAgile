@@ -189,7 +189,8 @@ $(function(){
                     alert('error! '+ data.message);
                 if(data.state === 'success')
                 {   
-                	alert('success');                               
+                	alert('success');     
+                	$('#search-member-box').val('');                          
                     $('body').trigger('loadProjectSetting');
                 }
             }            

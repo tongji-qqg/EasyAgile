@@ -326,7 +326,7 @@ module.exports = {
   projectEditor: function(req, res) {
       sails.log.verbose('Controller - api/controller/StaticController.projectEditor');      
       
-      renderViewWithProject(req, res, 'project/project_editor');     
+      renderViewWithProject(req, res, 'project/project_editor_new');     
   },
   /**
    * get project topic page action, this will just shows login screen if user isn't logged in yet.

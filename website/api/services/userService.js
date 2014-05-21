@@ -80,6 +80,7 @@ exports.findUserLikeName = function(name, callback){
 			result.forEach(function(r){
 				users.push(DataService.makeUserInfo(r));
 			});
+			users.slice(0,10);
 			callback(null,users);
 		}
 	});
