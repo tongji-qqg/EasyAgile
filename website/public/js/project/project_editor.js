@@ -208,6 +208,7 @@ $(function(){
 			
 			var firepad ;			
 			var codeMirror;
+			var firepadUserList;
 			icon.click(function(){
 				if(firepad) return;
 				var firepadRef = new Firebase(e.path);
@@ -230,13 +231,17 @@ $(function(){
 					
 				}
 	        	
-		        var firepadUserList = FirepadUserList.fromDiv(firepadRef.child('users'),
+		        firepadUserList = FirepadUserList.fromDiv(firepadRef.child('users'),
 		        document.getElementById('userlist_'+e._id), uid, userName);	        	
 			});
 			close.click(function(){
-				if(firepad) {
-					firepad = null;
+				if(firepad) {					
 					firepad.dispose();
+					firepadUserList.dispose();
+					content.empty();
+					$('<div >',{'style':'float:left','id':'userlist_'+e._id}).appendTo(content);
+					$('<div >',{'class':'','style':'margin-left: 165px;','id':'firepad_'+e._id}).appendTo(content);					
+					firepad = null;
 				}
 			});			
 		});
