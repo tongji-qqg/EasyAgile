@@ -23,9 +23,10 @@ module.exports.policies = {
         "*": false,
 
         // Custom actions
-        login    :["flashMessage", "checkNotLogin"],
-		reg      :["flashMessage", "checkNotLogin"],
-		logout   :["flashMessage", "checkLogin"]
+        login         :["flashMessage", "checkNotLogin"],
+		reg           :["flashMessage", "checkNotLogin"],
+		logout   	  :["flashMessage", "checkLogin"],
+		activateEmail : [true],
     },
     "backlog": {
         "*": false,
@@ -98,6 +99,7 @@ module.exports.policies = {
 		projectNewTopic	 :["validateURLID", "checkLogin", "hasProjectAccess"],
 		projectOneTopic	 :["validateURLID", "checkLogin", "hasProjectAccess"],
 		projectEditor    :["validateURLID", "checkLogin", "hasProjectAccess"],
+		projectMembers   :["validateURLID", "checkLogin", "hasProjectAccess"],
     },
 
     "story": {
