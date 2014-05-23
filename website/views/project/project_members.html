@@ -51,23 +51,23 @@
 
                 
                         
-                <div class="row" ondrop="drop(event)" ondragover="allowDrop(event)" style="min-height:150px;">
+                <div class="row" style="min-height:150px;">
 
                                 <div class="col-lg-2" style="color: #9cb073; margin-bottom:15px;">
                                     <div class="col-lg-4"><img src="/img/add.jpg" class="img-circle" style="width:45px;"></div>
                                     <div class="col-lg-8" style="margin-top:10px;">添加成员</div>
                                 </div>
                                 
-                                <div class="col-lg-2" style="margin-bottom:15px;cursor:pointer;" draggable="true" ondragstart="drag(event)" id="drag-member-1">
+                                <div class="col-lg-2" style="margin-bottom:15px;cursor:pointer;" draggable="true" ondragstart="drag(event)" id="drag-member-1"  >
                                     <div class="col-lg-3"><img src="/img/memicon.jpg" class="img-circle" style="width:45px;"></div>
-                                    <div class="col-lg-9">
+                                    <div class="col-lg-9" >
                                         <div class="col-lg-12"><span >夏雅楠</span></div>
                                         <div class="col-lg-12"><span style="color: #999;" >管理员</span></div>
                                     </div>                              
                                 </div>
-                                <div class="col-lg-2" style="margin-bottom:15px;cursor:pointer;" draggable="true" ondragstart="drag(event)" id="drag-member-2">
+                                <div class="col-lg-2" style="margin-bottom:15px;cursor:pointer;" draggable="true" ondragstart="drag(event)" id="drag-member-2" >
                                     <div class="col-lg-3"><img src="/img/memicon.jpg" class="img-circle" style="width:45px;"></div>
-                                    <div class="col-lg-9">
+                                    <div class="col-lg-9" ondrop="drop1(event)" ondragover="allowDrop1(event)" >
                                         <div class="col-lg-12"><span >杨帆</span></div>
                                         <div class="col-lg-12"><span  style="color: #999;">管理员</span></div>
                                     </div>                              
@@ -112,13 +112,19 @@
                     <div class="col-lg-1">
                         <div class="col-lg-12"><label class="label label-info" style="margin-top=10px;">开发部小组</label></div>
                     </div>
-                    <div class="col-lg-11">
+                    <div class="col-lg-1">
+                        <div class="col-lg-12"><label class="label label-click" style="color:#008B8B;font-size:small;cursor:pointer;">点我</label></div>
+                    </div>  
+                    
+                    <div class="col-lg-10">
                         <div class="col-lg-12"><hr style="border-top-color:#fff;margin-top:10px;}"></div>
-                    </div>                                    
+                    </div>   
+
+                                                   
                     
                 </div> 
                 <!--小组区域-->  
-                    <div class="row" ondrop="drop(event)" ondragover="allowDrop(event)" style="min-height:150px;">
+                    <div class="row groupdiv" ondrop="drop(event)" ondragover="allowDrop(event)" style="min-height:150px;">
                     <br />
                     <!--div class="col-lg-12" ondrop="drop(event)" ondragover="allowDrop(event)">
                         <div class="col-lg-12" style="min-height:150px;background-color:#fff;"></div>
@@ -133,7 +139,10 @@
                     <div class="col-lg-1">
                         <div class="col-lg-12"><label class="label label-warning" style="margin-top=10px;">技术部小组</label></div>
                     </div>
-                    <div class="col-lg-11">
+                    <div class="col-lg-1">
+                        <div class="col-lg-12"><label class="label label-click" style="color:#008B8B;font-size:small;cursor:pointer;">点我</label></div>
+                    </div>    
+                    <div class="col-lg-10">
                         <div class="col-lg-12"><hr style="border-top-color:#fff;margin-top:10px;}"></div>
                     </div>                                    
                     
@@ -154,7 +163,10 @@
                     <div class="col-lg-1">
                         <div class="col-lg-12"><label class="label label-success" style="margin-top=10px;">UI设计小组</label></div>
                     </div>
-                    <div class="col-lg-11">
+                    <div class="col-lg-1">
+                        <div class="col-lg-12"><label class="label label-click" style="color:#008B8B;font-size:small;cursor:pointer;">点我</label></div>
+                    </div>    
+                    <div class="col-lg-10">
                         <div class="col-lg-12"><hr style="border-top-color:#fff;margin-top:10px;}"></div>
                     </div>                                    
                     
@@ -218,6 +230,10 @@
     $("#form-addgroup").hide();
     $("#link-addgroup").show();
   });
+   $(".label-click").click(function(){
+    $(this).parent().parent().parent().next().toggle();
+    
+  });
 
 </script>
 
@@ -236,8 +252,18 @@ function drop(ev)
 {
 ev.preventDefault();
 var data=ev.dataTransfer.getData("Text");
+
 ev.target.appendChild(document.getElementById(data));
 }
+function allowDrop1(ev)
+{
+
+}
+function drop1(ev)
+{
+
+}
+
 </script>
 
 </body>
