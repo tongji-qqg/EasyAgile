@@ -76,6 +76,9 @@
                 </div>
                 <h4 style="font-weight:normal;">发送通知给:</h4>
                 <div class="team-member" style="margin-top:20px;">
+                <div class="col-lg-12">
+                     <label><input type="checkbox" onclick="selectAll(this)" id="all"><span style="margin-left:10px;">全部</span></label>
+                </div>
                 <div class="col-lg-2">
                    <label><input type="checkbox" value="" onclick="selectAllGroup(this,'group1')"><span class="label label-info" style="margin-left:15px;">开发部小组</span></label>
                  </div>
@@ -150,6 +153,19 @@
 
         });
     });
+    function selectAll(o){
+      var member = document.getElementsByTagName("input");
+      for(var i=0;i<member.length;i++)
+      {
+          if(member[i].type=="checkbox")
+        {
+           if(o.checked==true)
+              member[i].checked=true;
+           else if(o.checked==false)
+              member[i].checked=false;
+        }
+      }
+    }
     function selectAllGroup(o,name){
         var member = document.getElementsByName(name);
         for(var i=0;i<member.length;i++)
