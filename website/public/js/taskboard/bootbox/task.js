@@ -149,7 +149,7 @@ var taskBootBox = (function() {
 
 	function buildAdd(title, bid) {
 		var buttons = [{
-			label: "Add new Task",
+			label: "新建任务",
 			className: "btn-primary pull-right",
 			callback: function() {
 				newTaskAjax(bid)
@@ -292,7 +292,7 @@ var taskBootBox = (function() {
 
 	function buildEdit(title, task) {
 		var buttons = [{
-			label: "Save",
+			label: "保存",
 			className: "btn-primary pull-right",
 			callback: function() {
 				editTaskAjax(task._id);
@@ -300,7 +300,7 @@ var taskBootBox = (function() {
 				return false;
 			}
 		}, {
-			label: "DeleteThisTask",
+			label: "删除这条任务",
 			className: "btn-danger pull-right",
 			callback: function() {
 				deleteTaskAjax(task._id);
@@ -350,9 +350,9 @@ var taskBootBox = (function() {
 	var addHtml =
 		'<form id="formTaskNew" class="form-horizontal">'
 
-	+ '<div class="form-group required">' + '<label class="col-lg-3 control-label" for="formTaskNewTitle">Title</label>' + '<div class="col-lg-9">' + '<input id="formTaskNewTitle" name="title" type="text" placeholder="enter task title" class="form-control" required="required">' + '</div>' + '</div>'
+	+ '<div class="form-group required">' + '<label class="col-lg-3 control-label" for="formTaskNewTitle">名称</label>' + '<div class="col-lg-9">' + '<input id="formTaskNewTitle" name="title" type="text" placeholder="任务名称" class="form-control" required="required">' + '</div>' + '</div>'
 	//slider
-	+ '<div class="form-group required">' + '<label class="col-lg-3 control-label" for="taskEstimate">Estimate</label>' 
+	+ '<div class="form-group required">' + '<label class="col-lg-3 control-label" for="taskEstimate">工作量预估</label>' 
 
 	+ '<div class="col-lg-9">' + '<div id="taskEstimateSlider" class="col-lg-6 taskEstimateSlider"' + 'data-slider-min="0"' + 'data-slider-max="11"' + 'data-slider-step="1"' + 'data-slider-value="-1"' + '></div>'
 
@@ -360,31 +360,32 @@ var taskBootBox = (function() {
 
 	+ '<span  class="badge badge-slider taskSliderValue">???</span>' + '</div>' + '</div>'
 	//slide end
-	+ '<div class="form-group required">' + '<label class="col-lg-3 control-label" for="formSprintNewDateStart">Duration</label>' + '<label class="col-lg-3 control-label" for="formSprintNewDateEnd" style="display: none;"></label>' + '<div class="col-lg-9">' + '<div class="input-group date dateStart">' + '<input id="formSprintNewDateStart" name="dateStart" type="text" class="dateInput form-control" size="16" required="required"' + 'data-validate-type="daterange"' + 'data-role="start"' + 'data-pair="formSprintNewDateEnd"' + 'data-focus="false"' + 'data-type="sprint"/>' + '<span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>' + '</div>' + '<span class="separator">&mdash;</span>' + '<div class="input-group date dateEnd">' + '<input id="formSprintNewDateEnd" name="dateEnd" type="text" class="dateInput form-control" size="16" required="required"' + 'data-validate-type="daterange"' + 'data-role="end"' + 'data-pair="formSprintNewDateStart"' + 'data-focus="false"' + 'data-type="sprint"/>' + '<span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>' + '</div>' + '</div>' + '</div>'
+	+ '<div class="form-group required">' + '<label class="col-lg-3 control-label" for="formSprintNewDateStart">持续时间</label>' + '<label class="col-lg-3 control-label" for="formSprintNewDateEnd" style="display: none;"></label>' + '<div class="col-lg-9">' + '<div class="input-group date dateStart">' + '<input id="formSprintNewDateStart" name="dateStart" type="text" class="dateInput form-control" size="16" required="required"' + 'data-validate-type="daterange"' + 'data-role="start"' + 'data-pair="formSprintNewDateEnd"' + 'data-focus="false"' + 'data-type="sprint"/>' + '<span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>' + '</div>' + '<span class="separator">&mdash;</span>' + '<div class="input-group date dateEnd">' + '<input id="formSprintNewDateEnd" name="dateEnd" type="text" class="dateInput form-control" size="16" required="required"' + 'data-validate-type="daterange"' + 'data-role="end"' + 'data-pair="formSprintNewDateStart"' + 'data-focus="false"' + 'data-type="sprint"/>' + '<span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>' + '</div>' + '</div>' + '</div>'
 
-	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formTaskNewTypeId">Type</label>' + '<div class="col-lg-9">' + '<select id="formTaskNewTypeId" name="typeId" class="form-control in-modal show-tick show-menu-arrow">'
+	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formTaskNewTypeId">类型</label>' + '<div class="col-lg-9">' + '<select id="formTaskNewTypeId" name="typeId" class="form-control in-modal show-tick show-menu-arrow">'
 
-	+ '<option value="0" selected="selected">Normal</option>' + '<option value="1">Test</option>' + '<option value="2">Debug</option>' + '</select>' + '</div>' + '</div>'
+	+ '<option value="0" selected="selected">开发</option>' + '<option value="1">测试</option>' + '<option value="2">设计</option>' + '<option value="2">其他</option>' + '</select>' + '</div>' + '</div>'
 
-	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formTaskNewOwner">Owner</label>' + '<div class="col-lg-9">' + '<select id="formTaskNewOwner" multiple="multiple" name="userId" class="multiselect"' + '>' + '</select>' + '</div>' + '</div>'
+	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formTaskEditTypeId">所属小组</label>' + '<div class="col-lg-9">' + '<select id="formTaskEditTypeId" name="typeId" class="form-control in-modal show-tick show-menu-arrow">' + '<option value="0" selected="selected">开发部小组</option>' + '<option value="1">技术部小组</option>' + '<option value="2">UI设计组</option>' + '</select>' + '</div>' + '</div>'
 
-	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formTaskNewDescription">Description</label>' + '<div class="col-lg-9">' + '<textarea id="formTaskNewDescription" name="description" class="form-control" data-wysiwyg="true" placeholder="enter task description"></textarea>' + '</div>' + '</div>'
+
+	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formTaskNewOwner">执行者</label>' + '<div class="col-lg-9">' + '<select id="formTaskNewOwner" multiple="multiple" name="userId" class="multiselect"' + '>' + '</select>' + '</div>' + '</div>'
+
+	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formTaskNewDescription">描述</label>' + '<div class="col-lg-9">' + '<textarea id="formTaskNewDescription" name="description" class="form-control" data-wysiwyg="true" placeholder="添加任务描述"></textarea>' + '</div>' + '</div>'
 
 	+ '</form>';
 	var editHtml =
-		'<ul class="nav nav-tabs">' + '<li class="active"> <a href="#basic" data-toggle="tab">Basic</a> </li>'
+		'<ul class="nav nav-tabs">' + '<li class="active"> <a href="#basic" data-toggle="tab">基本信息</a> </li>'
 
-	+ '<li> <a id="tasksTab" href="#statistics" data-toggle="tab">Progress</a> </li>'
+	+ '<li> <a id="tasksTab" href="#statistics" data-toggle="tab">进度</a> </li>'
 
-	+ '<li> <a href="#comments" data-toggle="tab">Comments</a> </li>'
-
-	+ '<li> <a href="#history"data-toggle="tab">History</a> </li>' + '</ul>'
+	+ '<li> <a href="#history"data-toggle="tab">历史记录</a> </li>' + '</ul>'
 
 	+ '<div class="tab-content">' + '<div class="tab-pane active" id="basic">' + '<form id="formTaskEdit" class="form-horizontal">'
 
-	+ '<div class="form-group required">' + '<label class="col-lg-3 control-label" for="formTaskEditTitle">Title</label>' + '<div class="col-lg-9">' + '<input id="formTaskEditTitle" name="title" type="text" placeholder="enter task title" class="form-control" required="required">' + '</div>' + '</div>'
+	+ '<div class="form-group required">' + '<label class="col-lg-3 control-label" for="formTaskEditTitle">名称</label>' + '<div class="col-lg-9">' + '<input id="formTaskEditTitle" name="title" type="text" placeholder="enter task title" class="form-control" required="required">' + '</div>' + '</div>'
 	//slider
-	+ '<div class="form-group required">' + '<label class="col-lg-3 control-label" for="taskEstimate">Estimate</label>' 
+	+ '<div class="form-group required">' + '<label class="col-lg-3 control-label" for="taskEstimate">工作量预估</label>' 
 
 	+ '<div class="col-lg-9">' + '<div id="taskEstimateSlider" class="col-lg-6 taskEstimateSlider"' + 'data-slider-min="0"' + 'data-slider-max="11"' + 'data-slider-step="1"' + 'data-slider-value="-1"' + '></div>'
 
@@ -392,16 +393,19 @@ var taskBootBox = (function() {
 
 	+ '<span  class="badge badge-slider taskSliderValue">???</span>' + '</div>' + '</div>'
 	//slide end
-	+ '<div class="form-group required">' + '<label class="col-lg-3 control-label" for="formSprintNewDateStart">Duration</label>' + '<label class="col-lg-3 control-label" for="formSprintNewDateEnd" style="display: none;"></label>' + '<div class="col-lg-9">' + '<div class="input-group date dateStart">' + '<input id="formSprintEditDateStart" name="dateStart" type="text" class="dateInput form-control" size="16" required="required"' + 'data-validate-type="daterange"' + 'data-role="start"' + 'data-pair="formSprintNewDateEnd"' + 'data-focus="false"' + 'data-type="sprint"/>' + '<span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>' + '</div>' + '<span class="separator">&mdash;</span>' + '<div class="input-group date dateEnd">' + '<input id="formSprintEditDateEnd" name="dateEnd" type="text" class="dateInput form-control" size="16" required="required"' + 'data-validate-type="daterange"' + 'data-role="end"' + 'data-pair="formSprintNewDateStart"' + 'data-focus="false"' + 'data-type="sprint"/>' + '<span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>' + '</div>' + '</div>' + '</div>'
+	+ '<div class="form-group required">' + '<label class="col-lg-3 control-label" for="formSprintNewDateStart">持续时间</label>' + '<label class="col-lg-3 control-label" for="formSprintNewDateEnd" style="display: none;"></label>' + '<div class="col-lg-9">' + '<div class="input-group date dateStart">' + '<input id="formSprintEditDateStart" name="dateStart" type="text" class="dateInput form-control" size="16" required="required"' + 'data-validate-type="daterange"' + 'data-role="start"' + 'data-pair="formSprintNewDateEnd"' + 'data-focus="false"' + 'data-type="sprint"/>' + '<span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>' + '</div>' + '<span class="separator">&mdash;</span>' + '<div class="input-group date dateEnd">' + '<input id="formSprintEditDateEnd" name="dateEnd" type="text" class="dateInput form-control" size="16" required="required"' + 'data-validate-type="daterange"' + 'data-role="end"' + 'data-pair="formSprintNewDateStart"' + 'data-focus="false"' + 'data-type="sprint"/>' + '<span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>' + '</div>' + '</div>' + '</div>'
 
 
-	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formTaskEditTypeId">Type</label>' + '<div class="col-lg-9">' + '<select id="formTaskEditTypeId" name="typeId" class="form-control in-modal show-tick show-menu-arrow">' + '<option value="0" selected="selected">Normal</option>' + '<option value="1">Test</option>' + '<option value="2">Debug</option>' + '</select>' + '</div>' + '</div>'
+	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formTaskEditTypeId">类型</label>' + '<div class="col-lg-9">' + '<select id="formTaskEditTypeId" name="typeId" class="form-control in-modal show-tick show-menu-arrow">' + '<option value="0" selected="selected">开发</option>' + '<option value="1">测试</option>' + '<option value="2">设计</option>' + '<option value="2">其他</option>' + '</select>' + '</div>' + '</div>'
 
-	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formTaskEditOwner">Owner</label>' + '<div class="col-lg-9">' + '<select id="formTaskEditOwner" name="userId" multiple="multiple" name="userId" class="multiselect">' + '</select>' + '</div>' + '</div>'
+	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formTaskEditTypeId">所属小组</label>' + '<div class="col-lg-9">' + '<select id="formTaskEditTypeId" name="typeId" class="form-control in-modal show-tick show-menu-arrow">' + '<option value="0" selected="selected">开发部小组</option>' + '<option value="1">技术部小组</option>' + '<option value="2">UI设计组</option>' + '</select>' + '</div>' + '</div>'
 
-	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formTaskEditDescription">Description</label>' + '<div class="col-lg-9">' + '<textarea id="formTaskEditDescription" name="description" class="form-control" data-wysiwyg="true" placeholder="enter task description"></textarea>' + '</div>' + '</div>' + '</form>' + '</div>'
 
-	+ '<div class="tab-pane" id="statistics">' + '<form class="form-horizontal">' + '<div class="form-group ">' + '<label class="col-lg-3 control-label" for="formTaskProgress">Progress</label>' + '<div class="col-lg-9">' + '<div class="col-lg-6 progressSlider"' + 'data-slider-min="0"' + 'data-slider-max="100"' + 'data-slider-step="1"' + 'data-slider-value="0"' + '></div>'
+	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formTaskEditOwner">执行者</label>' + '<div class="col-lg-9">' + '<select id="formTaskEditOwner" name="userId" multiple="multiple" name="userId" class="multiselect">' + '</select>' + '</div>' + '</div>'
+
+	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formTaskEditDescription">描述</label>' + '<div class="col-lg-9">' + '<textarea id="formTaskEditDescription" name="description" class="form-control" data-wysiwyg="true" placeholder="添加任务描述"></textarea>' + '</div>' + '</div>' + '</form>' + '</div>'
+
+	+ '<div class="tab-pane" id="statistics">' + '<form class="form-horizontal">' + '<div class="form-group ">' + '<label class="col-lg-3 control-label" for="formTaskProgress">进度</label>' + '<div class="col-lg-9">' + '<div class="col-lg-6 progressSlider"' + 'data-slider-min="0"' + 'data-slider-max="100"' + 'data-slider-step="1"' + 'data-slider-value="0"' + '></div>'
 
 	+ '<input id="formTaskProgress" name="estimate" type="hidden" value="-1" />'
 

@@ -292,7 +292,7 @@ function init() {
                         }
                 });
                 div.dblclick(function() {
-                    taskBootBox.editBox('edit task: &lt;' + task.title + '&gt;', task).modal('show');
+                    taskBootBox.editBox('编辑任务: &lt;' + task.title + '&gt;', task).modal('show');
                 });
             //}
             
@@ -321,13 +321,13 @@ function init() {
             if (other) {
                 addTaskButton.on('click', function() {
 
-                    taskBootBox.addBox('create task').modal('show');
+                    taskBootBox.addBox('创建任务').modal('show');
 
                 });
             } else {
                 addTaskButton.on('click', function() {
 
-                    taskBootBox.addBox('create task to backlog &lt;' + backlog.description + '&gt;', backlog._id).modal('show');
+                    taskBootBox.addBox('创建任务到backlog &lt;' + backlog.title + '&gt;', backlog._id).modal('show');
                 });
             }
             addTaskButton.html('<i class="fa fa-plus"></i>');

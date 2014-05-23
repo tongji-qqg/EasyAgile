@@ -54,7 +54,7 @@ var backlogBootBox = (function() {
 
 	function buildAddBox() {
 		var buttons = [{
-			label: "Add new backlog",
+			label: "新建Backlog",
 			className: "btn-primary pull-right",
 			callback: function() {
 				newBacklogAjax();
@@ -62,7 +62,7 @@ var backlogBootBox = (function() {
 				return false;
 			}
 		}, ];
-		var modal = createBootboxDialog('New backlog', addHtml, buttons);
+		var modal = createBootboxDialog('新建Backlog', addHtml, buttons);
 
 		initSlider(modal);
 
@@ -117,7 +117,7 @@ var backlogBootBox = (function() {
 
 	function buildEditBox(backlog) {
 		var buttons = [{
-			label: "Save",
+			label: "保存",
 			className: "btn-primary pull-right",
 			callback: function() {
 				editBacklogAjax(backlog._id);
@@ -125,7 +125,7 @@ var backlogBootBox = (function() {
 				return false;
 			}
 		}, {
-			label: "Delete This Backlog",
+			label: "删除这条Backlog",
 			className: "btn-danger pull-right",
 			callback: function() {
 				deleteBacklogAjax(backlog._id);
@@ -133,7 +133,7 @@ var backlogBootBox = (function() {
 				return false;
 			}
 		}];
-		var modal = createBootboxDialog('Edit backlog &lt;' + backlog.title + '&gt;', addHtml, buttons);
+		var modal = createBootboxDialog('编辑Backlog &lt;' + backlog.title + '&gt;', addHtml, buttons);
 
 		initSlider(modal);
 
@@ -150,15 +150,15 @@ var backlogBootBox = (function() {
 	var addHtml =
 		'<form id="formStoryNew" class="form-horizontal">'
 
-	+ '<div class="tab-content">' + '<div class="tab-pane active" id="basic">' + '<div class="form-group required">' + '<label class="col-lg-3 control-label" for="formStoryNewTitle">Title</label>' + '<div class="col-lg-9">' + '<input id="formStoryNewTitle" name="title" type="text" placeholder="enter story name" class="form-control" required="required" />' + '</div>' + '</div>'
+	+ '<div class="tab-content">' + '<div class="tab-pane active" id="basic">' + '<div class="form-group required">' + '<label class="col-lg-3 control-label" for="formStoryNewTitle">名称</label>' + '<div class="col-lg-9">' + '<input id="formStoryNewTitle" name="title" type="text" placeholder="添加故事名称" class="form-control" required="required" />' + '</div>' + '</div>'
 
-	+ '<div class="form-group required">' + '<label class="col-lg-3 control-label" for="formStoryNewEstimate">Estimate</label>' + '<div class="col-lg-9">' + '<div class="col-lg-6 estimateSlider"' + 'data-slider-min="0"' + 'data-slider-max="11"' + 'data-slider-step="1"' + 'data-slider-value="-1"' + '></div>'
+	+ '<div class="form-group required">' + '<label class="col-lg-3 control-label" for="formStoryNewEstimate">工作量预估</label>' + '<div class="col-lg-9">' + '<div class="col-lg-6 estimateSlider"' + 'data-slider-min="0"' + 'data-slider-max="11"' + 'data-slider-step="1"' + 'data-slider-value="-1"' + '></div>'
 
 	+ '<input id="formStoryNewEstimate" name="estimate" type="hidden" value="-1" />'
 
 	+ '<span class="badge badge-slider sliderValue">???</span>' + '</div>' + '</div>'
 
-	+ '<div class="form-group required">' + '<label class="col-lg-3 control-label" for="formStoryNewDescription">Description</label>' + '<div class="col-lg-9">' + '<textarea id="formStoryNewDescription" name="description" class="form-control" required="required" data-wysiwyg="true" placeholder="enter user story description"></textarea>' + '</div>' + '</div>' + '</div>'
+	+ '<div class="form-group required">' + '<label class="col-lg-3 control-label" for="formStoryNewDescription">描述</label>' + '<div class="col-lg-9">' + '<textarea id="formStoryNewDescription" name="description" class="form-control" required="required" data-wysiwyg="true" placeholder="添加用户故事描述"></textarea>' + '</div>' + '</div>' + '</div>'
 
 	+ '</div>' + '</form>';
 
