@@ -21,7 +21,8 @@ exports.send = function(to, subject, text, callback){
     var mailOptions = {
         from: "no reply ✔",       // sender address
         to: to,                   // list of receivers
-        subject: subject,         // Subject line        
+        subject: subject,         // Subject line    
+        text: 'Welcome to use EasyAgile',    
         html: text                // html body
     };
 

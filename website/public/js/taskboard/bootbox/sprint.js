@@ -50,7 +50,7 @@ var sprintBootBox = (function() {
 			},
 			success: function(data) {
 				if (data.state === 'error')
-					alert('error! ' + data.message);
+					bootbox.alert('error! ' + data.message);
 				if (data.state === 'success') {
 
 					$('body').trigger("loadProject");
@@ -62,7 +62,6 @@ var sprintBootBox = (function() {
 	function editSPrintAjax() {
 		if (!pid || pid == 0) return;
 		if (!sid || sid == 0) return;
-
 		$.ajax({
 			type: 'PUT',
 			url: '/API/p/' + pid + '/s/' + sid,
@@ -74,8 +73,9 @@ var sprintBootBox = (function() {
 				endTime: new Date($('#formSprintNewDateEnd').val()),
 			},
 			success: function(data) {
+				//console.log(data.message);
 				if (data.state === 'error')
-					alert('error! ' + data.message);
+					bootbox.alert('error! ' + data.message);
 				if (data.state === 'success') {
 
 					$('body').trigger("loadProject");

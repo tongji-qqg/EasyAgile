@@ -19,6 +19,7 @@ var taskSchema = new Schema({
   state: { type: Number, default: 0},    
   type: {type:Number, default:0 },
   level:Number,
+  estimate: {type: Number, default: 0},
 
   progress: { type: Number, default: 0 }, //0~100,0%~100%  
 

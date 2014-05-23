@@ -18,6 +18,7 @@
     <link href="/plugins/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css" rel="stylesheet">
     <link href="/plugins/bootstrap-multiselect/css/bootstrap-multiselect.css" rel="stylesheet">
     <link href="/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+    <link href="/plugins/bootstrap-switch/bootstrap-switch.min.css" rel="stylesheet">
     <link href="/icons/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/jquery.ui.min.css" rel="stylesheet">
     <link href="/css/taskboard/charts.css" rel="stylesheet">
@@ -130,14 +131,27 @@
                                 </div>
                             </span>
                             </div>
+                        </li>                        
+                    </ul>    
+                    <ul class="nav navbar-nav pull-right" style="margin-top:10px;">
+                        <li>
+                            <div  class="switch">
+                                <input id='show-my-task' type="checkbox" checked />
+                            </div>
                         </li>
-                    </ul>                
-                    
+                    </ul>            
+                    <!--
+                    <ul id="navigation-static" class="nav navbar-nav pull-right">        
+                        <li class="dropdown">
+                            <a href="#" id="full-screen" data-toggle="tooltip" data-placement="right" title="Full Screen">
+                                <i class="fa fa-expand"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    -->
                 </div>
-            </div>
-
+            </div>                                        
            
-
             <div id="container">
                 <div class="container">
 
@@ -174,7 +188,7 @@
                                         </th>
 
                                         <th style="width: 205px;">
-                                            <span>Reviewed</span>
+                                            <span>In review</span>
                                             <span id='reviewedSum' class="phaseTaskCount">(0)</span>
                                         </th>
 
@@ -214,6 +228,7 @@
     <script src="/plugins/bootstrap/bootstrap.min.js"></script>
     <script src="/plugins/bootbox/bootbox.min.js"></script>
     <script src="/plugins/bootstrap-select/bootstrap-select.js"></script>
+    <script src="/plugins/bootstrap-switch/bootstrap-switch.min.js"></script>
     <script src="/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
     <script src="/plugins/bootstrap-multiselect/js/bootstrap-multiselect.js"></script>
     <script src="/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.js"></script>

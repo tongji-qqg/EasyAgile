@@ -42,9 +42,9 @@
                             <div class="col-lg-12">
                                 <div class="page-title">
                                     <h1>
-                                我的任务
-                                <small>For Customization</small>
-                            </h1>
+                                        我的任务
+                                        <small>For Customization</small>
+                                    </h1>
 
                                 </div>
                             </div>
@@ -58,144 +58,68 @@
                         <div class="panel panel-default">
                             <!-- Default panel contents -->
                             <div class="panel-heading">我的任务</div>
+                            <%  var now = new Date();
+                                    p.forEach(function(x){%>
                             <div class="modal-header">
 
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <h4 style="color:#31708f;" class="modal-title">今天的任务</h4>
+                                        <h4 style="color:#31708f;" class="modal-title"><%=x.name%></h4>
                                     </div>
                                     <div class="col-sm-2">
-                                        <h4 class="modal-title">×
-
-                                            <% 
-                                            var t = 0;
-                                            p.forEach(function(x){
-                                                t += x.task.length;
-                                            %>                                            
-                                            <%})%>                                      
-                                            <%=t%>
-                                        </h4>
+                                        <h4 class="modal-title">× <%=x.task.length%> </h4>
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-body">
                                 <!--p>One fine body&hellip;</p-->
-                                <% p.forEach(function(x){%>
-                                    <h4 style="font-weight:900;"><%=x.name%></h4>
-                                    <br />
-                                    <% x.task.forEach(function(y){%>
+                                
+                                    
+                                    <% x.task.forEach(function(y){
+                                        var progress = y.progress;
+                                        var stateName = '';
+                                        if(y.state == 0) stateName = 'Waiting';
+                                        if(y.state == 2) stateName = 'inProcess';
+                                        if(y.state == 3) stateName = 'toReview';
+                                        if(y.state == 4) stateName = 'inReview';
+                                        if(y.state == 1) stateName = 'Done';
+                                        if(y.state == 0 || y.state ==3 || y.state == 1) progress = 100;
+                                        var type = 'warning';
+                                        if(y.deadline < now) type='danger';
+                                        if(y.startTime > now) type='success';
+                                    %>
                                         <div class="row">
-                                            <div class="col-sm-11">
-                                                <input type="checkbox" class="selectedTask" name="selectedTask">
+                                            <div class="col-sm-10">
+                                               
                                                 <label style="font-size:medium;">
-                                                    <a href="#set-task-form" data-toggle="modal"><%= y.title%></a>
-                                                </label><a href="/project_taskboard/<%=x._id%>"> #任务板</a>
+                                                    <a href="#set-task-form" data-toggle="modal"><%= y.title%></a> 
+                                                </label>                             
                                             </div>
-                                            <div class="col-sm-1">
+
+                                            <div class="col-sm-2">
                                                 <span class="label label-info"><i class="fa fa-calendar">
-                                        <a href="#set-task-form" data-toggle="modal" style="color: #FFF;font-weight:900;" >今天</a></i></span> 
+                                                <a href="/project_taskboard/<%=x._id%>" data-toggle="modal" style="color: #FFF;font-weight:900;" >go to taskboard</a></i></span> 
                                             </div>
-                                        </div>
+                                            
+                                        </div> 
+                                        <div class="progress progress-striped active">
+                                            <div class="progress-bar progress-bar-<%=type%>" role="progressbar" aria-valuenow="<%=progress%>" aria-valuemin="0" aria-valuemax="100" style="width: <%=progress%>%;">
+                                                <%if(progress < 10 ){%>
+                                                <label style="font-size:medium;color:black">
+                                                <%}else{%>
+                                                <label style="font-size:medium;">
+                                                <%}%>
+                                                    <%=stateName%>
+                                                </label>
+                                            </div>
+                                        </div>                                       
                                         <hr />        
                                     <%}) %>
-                                <%})%>                                
-                            </div>
+                            </div> 
+                            <%})%>                   
                         </div>
                         <!-- end current ROW -->
-
-
-                        <div class="panel panel-default">
-                            <!-- Default panel contents -->                           
-                            <div class="modal-header">
-
-                                <div class="row">
-                                    <div class="col-sm-2">
-                                        <h4 style="color:#a94442;" class="modal-title">过期的任务</h4>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <h4 class="modal-title">×
-
-                                            <% 
-                                            var t = 0;
-                                            lp.forEach(function(x){
-                                                t += x.task.length;
-                                            %>                                           
-                                            <%})%>                                      
-                                             <%=t%>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-body">
-                                <!--p>One fine body&hellip;</p-->
-                                <% lp.forEach(function(x){%>
-                                    <h4 style="font-weight:900;"><%=x.name%></h4>
-                                    <br />
-                                    <% x.task.forEach(function(y){%>
-                                        <div class="row">
-                                            <div class="col-sm-11">
-                                                <input type="checkbox" class="selectedTask" name="selectedTask">
-                                                <label style="font-size:medium;">
-                                                    <a href="#set-task-form" data-toggle="modal"><%= y.title%></a>
-                                                </label><a href="/project_taskboard/<%=x._id%>"> #任务板</a>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <span class="label label-info"><i class="fa fa-calendar">
-                                        <a href="#set-task-form" data-toggle="modal" style="color: #FFF;font-weight:900;" >今天</a></i></span> 
-                                            </div>
-                                        </div>
-                                        <hr />        
-                                    <%}) %>
-                                <%})%>                                
-                            </div>
-                        </div>
-
-
-
-                        <div class="panel panel-default">
-                            <div class="modal-header">
-
-                                <div class="row">
-                                    <div class="col-sm-2">
-                                        <h4 style="color:#3c763d;" class="modal-title">未来的任务</h4>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <h4 class="modal-title">×
-                                            <% 
-                                            var t = 0;
-                                            fp.forEach(function(x){
-                                                t += x.task.length;
-                                            %>
-                                            
-                                            <%})%> 
-                                            <%=t%>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-body">
-
-                                <!--p>One fine body&hellip;</p-->
-                                <% fp.forEach(function(x){%>
-                                <h4 style="font-weight:900;"><%=x.name%></h4>
-                                <br />
-                                <% x.task.forEach(function(y){%>
-                                <div class="row">
-                                    <div class="col-sm-11">
-                                        <input type="checkbox" class="selectedTask" name="selectedTask" checked>
-                                        <label style="font-size:medium;">
-                                            <a href="#set-task-form" data-toggle="modal"><%=y.title%></a>
-                                        </label><a href="/project_taskboard/<%=x._id%>">#任务板</a>
-                                    </div>
-                                </div>                                
-                                <hr />
-                                <%}) %>
-                                <%}) %>
-                            </div>
-                            <!--div class="well" style="background:#FFF;">lalalal</div-->
-
-
-                        </div>
+                        
                         <!-- /.page-content -->
 
                     </div>
@@ -266,12 +190,6 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                 </div>
-
-
-
-
-
-
 
                 <!-- GLOBAL SCRIPTS -->
                 <% include ../footer.html %>
