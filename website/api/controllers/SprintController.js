@@ -96,6 +96,7 @@ module.exports = {
     modifySprint: function (req, res) {
       
 	    sails.log.verbose('Controller - api/controller/SprintController.modifySprint');
+	    sails.log.warn(req.body.endTime);
 	    sprintService.modifySprintById(req.session.user._id, req.params.pid, req.params.sid, {
 			name: req.body.name,
 			description: req.body.description,

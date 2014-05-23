@@ -1,16 +1,25 @@
-$(
-    function() {
+$(function() {
         var datepicker = $.fn.datepicker.noConflict();
         $.fn.bootstrapDP = datepicker;
-    });
+});
+
 
 $(init);
+
+$(function(){
+    $('#show-my-task').bootstrapSwitch({
+        'onText':'我的任务',
+        'offText':'全部任务',
+        'onSwitchChange':function(event, state){
+            jQuery("body").trigger("loadSprint");        
+        }
+    });    
+})
 
 var g_project, g_sprint;
 
 function init() {
-
-    //pid =  window.location.href.split('/')[4];	
+    
     var body = jQuery("body");
 
     body.on('loadUser', loadUser);
@@ -85,16 +94,16 @@ function init() {
             success: function(data) {
 
                 if (data.state === 'error')
-                    alert('error! ' + data.message);
+                    bootbox.alert('error! ' + data.message);
                 if (data.state === 'success') {
-                    sid = sid || data.project.cSprint._id;
+                    sid = sid || data.project.cSprint;
                     g_project = data.project;
 
                     $('#navTitle').text(data.project.name);
                     $('#navTitle').attr('href','/project/'+data.project._id);
                     var sprintList = $('#allSprints');
                     sprintList.empty();
-                    buildSprintList('tipSprintLi', '', "select-dummy-option text-muted", "Choose sprint to show");
+                    //buildSprintList('tipSprintLi', '', "select-dummy-option text-muted", "Choose sprint to show");
 
                     data.project.sprints.forEach(function(sprint) {
                         if (sprint._id == sid) {
@@ -120,9 +129,9 @@ function init() {
                 dataType: 'json',                
                 success: function(data) {
                     if (data.state === 'error')
-                        alert('error! ' + data.message);
+                        bootbox.alert('error! ' + data.message);
                     if (data.state === 'success') {
-                        alert('success');
+                        bootbox.alert('success');
                         body.trigger("loadProject");
                     }
                 }
@@ -138,7 +147,7 @@ function init() {
         });
         $('#showSprintChartsLink').unbind('click');
         $('#showSprintChartsLink').on('click', function() {
-            alert('click')
+            bootbox.alert('click')
         });
         $('#setCurrentSprintLink').unbind('click');
         $('#setCurrentSprintLink').on('click', function() {
@@ -149,28 +158,7 @@ function init() {
     function loadSprint() {
         var tmpTasksRef;
 
-        function addTask() {
-            if (!pid || pid == 0) return;
-            if (!sid || sid == 0) return;
-            $.ajax({
-                type: 'POST',
-                url: '/API/p/' + pid + '/s/' + sid + '/t',
-                dataType: 'json',
-                data: {
-                    title: 'this is a task',
-                    description: 'this is des',
-                    level: 1,
-                    type: 2
-                },
-                success: function(data) {
-                    if (data.state === 'error')
-                        alert('error! ' + data.message);
-                    if (data.state === 'success') {
-                        body.trigger("loadSprint");
-                    }
-                }
-            });
-        }
+      
 
         function setTaskState(tid, state) {
             if (!pid || pid == 0) return;
@@ -185,7 +173,7 @@ function init() {
                 },
                 success: function(data) {
                     if (data.state === 'error')
-                        alert('error! ' + data.message);
+                        bootbox.alert('error! ' + data.message);
                     if (data.state === 'success') {
                         body.trigger("loadSprint");
                     }
@@ -205,7 +193,7 @@ function init() {
                 data: {},
                 success: function(data) {
                     if (data.state === 'error')
-                        alert('error! ' + data.message);
+                        bootbox.alert('error! ' + data.message);
                     if (data.state === 'success') {
                         setTaskState(tid, state);
                     }
@@ -224,7 +212,7 @@ function init() {
                 data: {},
                 success: function(data) {
                     if (data.state === 'error')
-                        alert('error! ' + data.message);
+                        bootbox.alert('error! ' + data.message);
                     if (data.state === 'success') {
                         setTaskState(tid, state);
                     }
@@ -269,6 +257,12 @@ function init() {
         }
 
         function buildTaskDiv(task) {
+            var permission = false;
+            for(var i=0;i<task.executer.length;i++)
+                if(task.executer[i]._id == uid){
+                    permission = true;
+                }                
+            if(!permission && $('#show-my-task').is( ":checked" ))return;
             var divClass = 'task sticky taped generated_qtip alert alert-warning';
             if (task.type == 1)
                 divClass = 'task sticky taped alert alert-success';
@@ -287,16 +281,21 @@ function init() {
             }).appendTo(div);
             var h3 = $('<h3 >').appendTo(div);
             h3.text(task.title);
-            div.draggable({
-                revert: "invalid",
-                revertDuration: 200,
-                start: function() {
-                    dragClone = $(this).clone();
-                }
-            });
-            div.dblclick(function() {
-                taskBootBox.editBox('edit task: &lt;' + task.title + '&gt;', task).modal('show');
-            })
+            
+            if(g_project.owner._id == uid) permission = true;            
+            //if(permission){
+                div.draggable({
+                        revert: "invalid",
+                        revertDuration: 200,
+                        start: function() {
+                            dragClone = $(this).clone();
+                        }
+                });
+                div.dblclick(function() {
+                    taskBootBox.editBox('编辑任务: &lt;' + task.title + '&gt;', task).modal('show');
+                });
+            //}
+            
             return div;
         }
 
@@ -322,13 +321,13 @@ function init() {
             if (other) {
                 addTaskButton.on('click', function() {
 
-                    taskBootBox.addBox('create task').modal('show');
+                    taskBootBox.addBox('创建任务').modal('show');
 
                 });
             } else {
                 addTaskButton.on('click', function() {
 
-                    taskBootBox.addBox('create task to backlog &lt;' + backlog.description + '&gt;', backlog._id).modal('show');
+                    taskBootBox.addBox('创建任务到backlog &lt;' + backlog.title + '&gt;', backlog._id).modal('show');
                 });
             }
             addTaskButton.html('<i class="fa fa-plus"></i>');
@@ -390,7 +389,7 @@ function init() {
             success: function(data) {
 
                 if (data.state === 'error')
-                    alert('error! ' + data.message);
+                    bootbox.alert('error! ' + data.message);
                 if (data.state === 'success') {
                     g_sprint = data.sprint;
                     setSum($('#backlogSum'), data.sprint.backlogs.length);
@@ -419,9 +418,7 @@ function init() {
                     $('#addBacklogButton').unbind('click');
                     $('#addBacklogButton').on('click', function() {
 
-                        backlogBootBox.addBox().modal('show');
-
-                        //taskBootBox.addBox().modal('show');                                               
+                        backlogBootBox.addBox().modal('show');                                                            
                     });
                     ////////////////////////////////////////
                     //////////load sprint task info/////////
@@ -466,4 +463,27 @@ function init() {
         }
     });
 
+
+  function addTask() {
+            if (!pid || pid == 0) return;
+            if (!sid || sid == 0) return;
+            $.ajax({
+                type: 'POST',
+                url: '/API/p/' + pid + '/s/' + sid + '/t',
+                dataType: 'json',
+                data: {
+                    title: 'this is a task',
+                    description: 'this is des',
+                    level: 1,
+                    type: 2
+                },
+                success: function(data) {
+                    if (data.state === 'error')
+                        alert('error! ' + data.message);
+                    if (data.state === 'success') {
+                        body.trigger("loadSprint");
+                    }
+                }
+            });
+        }
 */

@@ -1,19 +1,20 @@
 var FirepadUserList = (function() {
-  function FirepadUserList(ref, place, userId) {
-    if (!(this instanceof FirepadUserList)) { return new FirepadUserList(ref, place, userId); }
+  function FirepadUserList(ref, place, userId, userName) {
+    if (!(this instanceof FirepadUserList)) { return new FirepadUserList(ref, place, userId, userName); }
 
     this.ref_ = ref;
     this.userId_ = userId;
     this.place_ = place;
     this.firebaseCallbacks_ = [];
+    this.userName_ = userName;
 
     var self = this;
     this.displayName_ = 'Guest ' + Math.floor(Math.random() * 1000);
     this.firebaseOn_(ref.root().child('.info/connected'), 'value', function(s) {
-      if (s.val() === true && self.displayName_) {
+      if (s.val() === true && self.displayName_ && self.userName_) {
         var nameRef = ref.child(self.userId_).child('name');
         nameRef.onDisconnect().remove();
-        nameRef.set(self.displayName_);
+        nameRef.set(self.userName_);
       }
     });
 
@@ -66,9 +67,9 @@ var FirepadUserList = (function() {
     });
 
     var nameInput = elt('input', null, { type: 'text', 'class': 'firepad-userlist-name-input'} );
-    nameInput.value = this.displayName_;
+    nameInput.value = this.userName_;
 
-    var nameHint = elt('div', 'ENTER YOUR NAME', { 'class': 'firepad-userlist-name-hint'} );
+    var nameHint = elt('div', 'ENTER YOUR NAME', { 'class': 'firepad-userlist-name-hint','style':'display:none'} );
 
     // Update Firebase when name changes.
     on(nameInput, 'change', function(e) {

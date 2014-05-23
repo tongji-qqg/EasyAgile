@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Project Schedule</title>
+
+    <% include ../header.html%>
+    <style type="text/css">
+    .fa:hover{
+        cursor: pointer;
+    }
+    </style>
+
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- begin TOP NAVIGATION -->
+        <% include ../topnav.html %>
+        <!-- end TOP NAVIGATION -->
+
+        <!-- begin SIDE NAVIGATION -->
+        <% include project_sidenav.html %>        
+        <!-- end SIDE NAVIGATION -->
+
+        <!-- begin MAIN PAGE CONTENT -->
+        <div id="page-wrapper">
+
+           <div class="page-content">
+
+                
+                
+
+            </div>
+            <!-- /.page-content -->
+            <div class="row">
+                    <div class="col-lg-12">
+                        <div class="page-header">
+                        <h3 style="text-align:center;">相比到达的地方，同行的人更重要 <small>分组时拖动成员到相应组里即可</small></h3>
+                        </div>
+                    </div>
+                </div>
+
+                
+                        
+                <div class="row" style="min-height:150px;">
+
+                                <div class="col-lg-2" style="color: #9cb073; margin-bottom:15px;">
+                                    <div class="col-lg-4"><img src="/img/add.jpg" class="img-circle" style="width:45px;"></div>
+                                    <div class="col-lg-8" style="margin-top:10px;">添加成员</div>
+                                </div>
+                                
+                                <div class="col-lg-2" style="margin-bottom:15px;cursor:pointer;" draggable="true" ondragstart="drag(event)" id="drag-member-1"  >
+                                    <div class="col-lg-3"><img src="/img/memicon.jpg" class="img-circle" style="width:45px;"></div>
+                                    <div class="col-lg-9" >
+                                        <div class="col-lg-12"><span >夏雅楠</span></div>
+                                        <div class="col-lg-12"><span style="color: #999;" >管理员</span></div>
+                                    </div>                              
+                                </div>
+                                <div class="col-lg-2" style="margin-bottom:15px;cursor:pointer;" draggable="true" ondragstart="drag(event)" id="drag-member-2" >
+                                    <div class="col-lg-3"><img src="/img/memicon.jpg" class="img-circle" style="width:45px;"></div>
+                                    <div class="col-lg-9" ondrop="drop1(event)" ondragover="allowDrop1(event)" >
+                                        <div class="col-lg-12"><span >杨帆</span></div>
+                                        <div class="col-lg-12"><span  style="color: #999;">管理员</span></div>
+                                    </div>                              
+                                </div>
+                                <div class="col-lg-2" style="margin-bottom:15px;cursor:pointer;" draggable="true" ondragstart="drag(event)" id="drag-member-3">
+                                    <div class="col-lg-3"><img src="/img/memicon.jpg" class="img-circle" style="width:45px;"></div>
+                                    <div class="col-lg-9">
+                                        <div class="col-lg-12"><span >亓庆国</span></div>
+                                        <div class="col-lg-12"><span  style="color: #999;">管理员</span></div>
+                                    </div>                              
+                                </div>
+                                <div class="col-lg-2" style="margin-bottom:15px;cursor:pointer;" draggable="true" ondragstart="drag(event)" id="drag-member-4">
+                                    <div class="col-lg-3"><img src="/img/memicon.jpg" class="img-circle" style="width:45px;"></div>
+                                    <div class="col-lg-9">
+                                        <div class="col-lg-12"><span >李丝琦</span></div>
+                                        <div class="col-lg-12"><span  style="color: #999;">管理员</span></div>
+                                    </div>                              
+                                </div>
+                                <div class="col-lg-2" style="margin-bottom:15px;cursor:pointer;" draggable="true" ondragstart="drag(event)" id="drag-member-5">
+                                    <div class="col-lg-3"><img src="/img/memicon.jpg" class="img-circle" style="width:45px;"></div>
+                                    <div class="col-lg-9">
+                                        <div class="col-lg-12"><span >宁婧</span></div>
+                                        <div class="col-lg-12"><span  style="color: #999;">管理员</span></div>
+                                    </div>                              
+                                </div>
+
+                                <div class="col-lg-2" style="margin-bottom:15px;cursor:pointer;" draggable="true" ondragstart="drag(event)" id="drag-member-6">
+                                    <div class="col-lg-3"><img src="/img/memicon.jpg" class="img-circle" style="width:45px;"></div>
+                                    <div class="col-lg-9">
+                                        <div class="col-lg-12"><span >周春晖</span></div>
+                                        <div class="col-lg-12"><span  style="color: #999;">管理员</span></div>
+                                    </div>                              
+                                </div>
+
+                                
+                         
+                            
+                </div>  
+                <!--小组标题 和 横线-->
+                <div class="row" >
+                    <br /><br />
+                    <div class="col-lg-1">
+                        <div class="col-lg-12"><label class="label label-info" style="margin-top=10px;">开发部小组</label></div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div class="col-lg-12"><label class="label label-click" style="color:#008B8B;font-size:small;cursor:pointer;">点我</label></div>
+                    </div>  
+                    
+                    <div class="col-lg-10">
+                        <div class="col-lg-12"><hr style="border-top-color:#fff;margin-top:10px;}"></div>
+                    </div>   
+
+                                                   
+                    
+                </div> 
+                <!--小组区域-->  
+                    <div class="row groupdiv" ondrop="drop(event)" ondragover="allowDrop(event)" style="min-height:150px;">
+                    <br />
+                    <!--div class="col-lg-12" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <div class="col-lg-12" style="min-height:150px;background-color:#fff;"></div>
+                    </div-->
+                                                   
+                    
+                   </div>  
+
+                   <!--小组标题 和 横线-->
+                <div class="row" >
+                    <br /><br />
+                    <div class="col-lg-1">
+                        <div class="col-lg-12"><label class="label label-warning" style="margin-top=10px;">技术部小组</label></div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div class="col-lg-12"><label class="label label-click" style="color:#008B8B;font-size:small;cursor:pointer;">点我</label></div>
+                    </div>    
+                    <div class="col-lg-10">
+                        <div class="col-lg-12"><hr style="border-top-color:#fff;margin-top:10px;}"></div>
+                    </div>                                    
+                    
+                </div> 
+                <!--小组区域-->  
+                    <div class="row groupdiv" ondrop="drop(event)" ondragover="allowDrop(event)" style="min-height:150px;">
+                    <br />
+                    <!--div class="col-lg-12">
+                        <div class="col-lg-12" style="min-height:150px;background-color:#fff;"></div>
+                    </div-->
+                                                   
+                    
+                </div>  
+
+                <!--小组标题 和 横线-->
+                <div class="row" >
+                    <br /><br />
+                    <div class="col-lg-1">
+                        <div class="col-lg-12"><label class="label label-success" style="margin-top=10px;">UI设计小组</label></div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div class="col-lg-12"><label class="label label-click" style="color:#008B8B;font-size:small;cursor:pointer;">点我</label></div>
+                    </div>    
+                    <div class="col-lg-10">
+                        <div class="col-lg-12"><hr style="border-top-color:#fff;margin-top:10px;}"></div>
+                    </div>                                    
+                    
+                </div> 
+                <!--小组区域-->  
+                    <div class="row groupdiv" ondrop="drop(event)" ondragover="allowDrop(event)" style="min-height:150px;">
+                    <br />
+                    <!--div class="col-lg-12">
+                        <div class="col-lg-12" style="min-height:150px;background-color:#fff;"></div>
+                    </div-->
+                                                   
+                    
+                </div> 
+
+                <div class="row">
+
+                  <br/><br />
+                  <div class="col-lg-12">
+
+                    <div class="group-hd" >
+                        <a id="link-addgroup" class="group-new-action"  title="点击这里创建小组" style="display: inline-block; color: rgb(66, 152, 186);">+ 新建小组</a>
+                    <div class="group-form" id="form-addgroup" style="display:none;">
+                    <form class="form" >
+                        <input type="text" placeholder="例如：技术部、客服小组" style="height:40px;border-radius:10px;">
+                        <button class="btn btn-info " type="submit" data-disabled-with="正在保存...">保存</button>
+                        <button id="btn-cancel-addgroup" type="button" class="btn btn-default cancel">取消</button>
+                    </form>
+                    </div>
+
+                    </div> 
+
+                  </div>
+
+
+
+                    
+                </div>
+
+                
+             
+
+         
+
+        </div>
+        <!-- /#page-wrapper -->
+        <!-- end MAIN PAGE CONTENT -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <% include ../footer.html %>
+<script src="/js/project/project_cal.js"></script>   
+
+<script type="text/javascript">
+
+  $("#link-addgroup").click(function(){
+    $("#link-addgroup").hide();
+    $("#form-addgroup").show();
+  });
+   $("#btn-cancel-addgroup").click(function(){
+    $("#form-addgroup").hide();
+    $("#link-addgroup").show();
+  });
+   $(".label-click").click(function(){
+    $(this).parent().parent().parent().next().toggle();
+    
+  });
+  
+
+
+</script>
+
+<script type="text/javascript">
+function allowDrop(ev)
+{
+ev.preventDefault();
+}
+
+function drag(ev)
+{
+ev.dataTransfer.setData("Text",ev.target.id);
+$(".groupdiv").css("border","2px dashed #31708f");
+
+}
+
+function drop(ev)
+{
+ev.preventDefault();
+var data=ev.dataTransfer.getData("Text");
+
+ev.target.appendChild(document.getElementById(data));
+$(".groupdiv").css("border","0px");
+
+}
+function allowDrop1(ev)
+{
+
+}
+function drop1(ev)
+{
+
+}
+
+</script>
+
+</body>
+
+</html>

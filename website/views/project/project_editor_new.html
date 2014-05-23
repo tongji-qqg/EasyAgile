@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=emulateie8" />
+<meta name="description" content="JavaScript desktop environment built with jQuery." />
+<title>jQuery Desktop</title>
+<!--[if lt IE 7]>
+<script>
+window.top.location = 'http://desktop.sonspring.com/ie.html';
+</script>
+<![endif]-->
+
+
+<link rel="stylesheet" href="/plugins/jQuery-Desktop/assets/stylesheets/html.css" />
+<link rel="stylesheet" href="/plugins/jQuery-Desktop/assets/stylesheets/desktop.css" />
+
+<!--for fire base-->
+<script src="/plugins/firepad/firebase.js"></script>
+<!-- Include CodeMirror -->
+<script src="/plugins/firepad/codemirror/lib/codemirror.js"></script>
+<script src="/plugins/firepad/codemirror/mode/javascript/javascript.js"></script>
+<script src="/plugins/firepad/codemirror/mode/clike/clike.js"></script>
+<script src="/plugins/firepad/codemirror/mode/css/css.js"></script>
+<script src="/plugins/firepad/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+<script src="/plugins/firepad/codemirror/mode/xml/xml.js"></script>
+<script src="/plugins/firepad/codemirror/mode/sql/sql.js"></script>
+<script src="/plugins/firepad/codemirror/mode/shell/shell.js"></script>
+<link rel="stylesheet" href="/plugins/firepad/codemirror/lib/codemirror.css" />
+
+<!-- Include Firepad -->
+<script src="/plugins/firepad/firepad.js"></script>
+<link rel="stylesheet" href="/plugins/firepad/firepad.css" />
+
+<!-- Include userlist. -->
+<script src="/plugins/firepad/firepad-userlist.js"></script>
+<link rel="stylesheet" href="/plugins/firepad/firepad-userlist.css" />
+<!--[if lt IE 9]>
+<link rel="stylesheet" href="/plugins/jQuery-Desktop/assets/stylesheets/ie.css" />
+<![endif]-->
+</head>
+<body>
+<div class="abs" id="wrapper">
+	<div class="abs" id="desktop">
+		<!-- reserve this for future reference
+		<a class="abs icon" style="left:20px;top:20px;" href="#icon_dock_computer">
+			<img src="/plugins/jQuery-Desktop/assets/images/icons/icon_32_computer.png" />
+			Computer
+		</a>
+		
+		<div id="window_computer" class="abs window">
+			<div class="abs window_inner">
+				<div class="window_top">
+					<span class="float_left">
+						<img src="/plugins/jQuery-Desktop/assets/images/icons/icon_16_computer.png" />
+						Computer
+					</span>
+					<span class="float_right">
+						<a href="#" class="window_min"></a>
+						<a href="#" class="window_resize"></a>
+						<a href="#icon_dock_computer" class="window_close"></a>
+					</span>
+				</div>
+				<div class="abs window_content">
+					<div class="window_aside">
+						Hello. You look nice today!
+					</div>
+					<div class="window_main">
+						<table class="data">
+							<thead>
+								<tr>
+									<th class="shrink">&nbsp;
+										
+									</th>
+									<th>
+										Name
+									</th>
+									<th>
+										Date Modified
+									</th>
+									<th>
+										Date Created
+									</th>
+									<th>
+										Size
+									</th>
+									<th>
+										Kind
+									</th>
+								</tr>
+							</thead>
+						
+						</table>
+					</div>
+				</div>
+				<div class="abs window_bottom">
+					Build: TK421
+				</div>
+			</div>
+			<span class="abs ui-resizable-handle ui-resizable-se"></span>
+		</div>
+		-->
+	</div>
+	<div class="abs" id="bar_top">
+		<span class="float_right" id="clock"></span>		
+		<ul>
+			<li>
+				<a class="menu_trigger" href="/project/<%=project._id%>"><%=project.name%></a>				
+			</li>			
+			<li>
+				<a class="menu_trigger" href="#"><%=user.name%></a>
+				<ul class="menu">
+					<li>
+						<a href="/user/<%= user._id %>">我的项目</a>
+					</li>
+					<li>
+						<a href="/user_task/<%= user._id %>">我的任务</a>
+					</li>
+					<li>
+						<a href="/user_cal/<%= user._id %>">我的日程</a>
+					</li>
+					<li>
+						<a href="/user_message/<%= user._id %>">我的消息</a>
+					</li>					
+				</ul>
+			</li>
+			<li>
+				<a class="menu_trigger" href="#"><%= project.name%></a>
+				<ul class="menu">
+					<li>
+						<a href="/project/<%= project._id%>">项目主页</a>
+					</li>
+					<li>
+						<a href="/project_taskboard/<%= project._id%>">任务板</a>
+					</li>
+					<li>
+						<a href="/project_cal/<%= project._id %>">项目日程</a>
+					</li>
+					<li>
+						<a href="/project_issue/<%= project._id%>">Issues</a>
+					</li>
+					<li>
+						<a href="/project_files/<%= project._id%>">文件库</a>
+					</li>
+					<li>
+						<a href="/project_topic/<%= project._id%>">讨论区</a>
+					</li>
+				</ul>
+			</li>
+			
+		</ul>
+	</div>
+	<div class="abs" id="bar_bottom">
+		<a class="float_left" href="#" id="show_desktop" title="Show Desktop">
+			<img src="/plugins/jQuery-Desktop/assets/images/icons/icon_22_desktop.png" />
+		</a>
+		<ul id="dock">
+			<!-- reserve this for future reference
+			<li id="icon_dock_computer">
+				<a href="#window_computer">
+					<img src="/plugins/jQuery-Desktop/assets/images/icons/icon_22_computer.png" />
+					Computer
+				</a>
+			</li>		
+			-->
+		</ul>
+		<a class="float_right" href="/" title="Easy Agile">
+			<img src="/img/flex-admin-logo.png" />
+		</a>
+	</div>
+</div>
+
+<script src="/plugins/jQuery-Desktop/assets/javascripts/jquery.js"></script>
+<script src="/plugins/jQuery-Desktop/assets/javascripts/jquery.ui.js"></script>
+<script src="/plugins/jQuery-Desktop/assets/javascripts/jquery.desktop.js"></script>
+
+
+<script type="text/javascript">
+	var projectid = '<%=project._id%>';
+	var uid = '<%=user._id%>';
+	var userName = '<%=user.name%>'
+</script>
+<script src="/js/project/project_editor.js"></script>
+</body>
+</html>

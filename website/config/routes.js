@@ -49,6 +49,7 @@ module.exports.routes = {
   'get /project_files/:pid'                     : 'static.projectFiles',
   'get /project_topic/:pid'                     : 'static.projectTopic',
   'get /project_editor/:pid'                    : 'static.projectEditor',
+  'get /project_members/:pid'                   : 'static.projectMembers',
   'get /project_newTopic/:pid'                  : 'static.projectNewTopic',
   'get /project_oneTopic/:pid/t/:tid'           : 'static.projectOneTopic',
   //auth 4
@@ -92,7 +93,7 @@ module.exports.routes = {
   //editor 6
   'get     /API/p/:pid/e'                       : 'editor.get',
   'post    /API/p/:pid/e'                       : 'editor.create',
-  'get     /API/p/:pid/e/:eid'                  : 'editor.edit',     //this return static
+  'get     /API/p/:pid/e/:eid'                  : 'editor.edit',     
   'delete  /API/p/:pid/e/:eid'                  : 'editor.delete',
 
   //backlog 6

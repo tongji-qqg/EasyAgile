@@ -158,7 +158,7 @@ function createBootboxDialog(title, content, buttons) {
 
     // Every dialog has close button.
     buttonsToShow.push({
-        label: "Close",
+        label: "关闭",
         className: "btn btn-default pull-left",
         callback: function() {
             

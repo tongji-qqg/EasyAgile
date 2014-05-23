@@ -80,6 +80,7 @@ exports.findUserLikeName = function(name, callback){
 			result.forEach(function(r){
 				users.push(DataService.makeUserInfo(r));
 			});
+			users.slice(0,10);
 			callback(null,users);
 		}
 	});
@@ -236,7 +237,11 @@ exports.getUserCurrentTaskInProject = function(selfuid, callback){
 			var now = new Date();
 			function makeQuery(task){ 
 				function pushArray(arr, p){
-					var project = _.findWhere(arr, {'_id': p._id});
+					var project = null;
+					//var project = _.findWhere(arr, {'_id': p._id});
+					for(var i=0;i<arr.length;i++)
+						if(arr[i]._id.equals(p._id))
+							project = arr[i];
 					if(!project){
 						project = {
 							'_id': p._id,
@@ -248,6 +253,7 @@ exports.getUserCurrentTaskInProject = function(selfuid, callback){
 					}else{
 						project.task.push(task);
 					}
+					//sails.log.verbose(arr);
 				}
 				return function(callback){
 				sprintModel.findOne({'tasks': task._id},function(err,s){
@@ -256,13 +262,15 @@ exports.getUserCurrentTaskInProject = function(selfuid, callback){
 						projectModel.findOne({'sprints':s._id}, function(err,p){
 							if(err) return callback(ErrorService.makeDbErr(err));
 							if(!p) return callback(ErrorService.projectNotFindError);
-							if(task.deadline < now){
+							/*if(task.deadline < now){
 								pushArray(lprojects, p);
 							} else if(task.startTime < now ) {
 								pushArray(projects, p);
 							}else{
 								pushArray(fprojects, p);
-							}
+							}*/
+							if(!p.cSprint.equals(s._id)) return callback(null);
+							pushArray(projects, p);
 							callback(null);
 						});
 					})
@@ -271,7 +279,7 @@ exports.getUserCurrentTaskInProject = function(selfuid, callback){
 			tasks.forEach(function(t){
 				query.push(makeQuery(t));
 			});
-			async.parallel(query,function(err){
+			async.series(query,function(err){
 				
 				if(err) return callback(err);
  				else{

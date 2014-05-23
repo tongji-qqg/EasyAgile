@@ -50,7 +50,7 @@ var sprintBootBox = (function() {
 			},
 			success: function(data) {
 				if (data.state === 'error')
-					alert('error! ' + data.message);
+					bootbox.alert('error! ' + data.message);
 				if (data.state === 'success') {
 
 					$('body').trigger("loadProject");
@@ -62,7 +62,6 @@ var sprintBootBox = (function() {
 	function editSPrintAjax() {
 		if (!pid || pid == 0) return;
 		if (!sid || sid == 0) return;
-
 		$.ajax({
 			type: 'PUT',
 			url: '/API/p/' + pid + '/s/' + sid,
@@ -74,8 +73,9 @@ var sprintBootBox = (function() {
 				endTime: new Date($('#formSprintNewDateEnd').val()),
 			},
 			success: function(data) {
+				//console.log(data.message);
 				if (data.state === 'error')
-					alert('error! ' + data.message);
+					bootbox.alert('error! ' + data.message);
 				if (data.state === 'success') {
 
 					$('body').trigger("loadProject");
@@ -87,7 +87,7 @@ var sprintBootBox = (function() {
 
 	function buildAdd() {
 		var buttons = [{
-			label: "Add new Sprint",
+			label: "新建Sprint",
 			className: "btn-primary pull-right",
 			callback: function() {
 				addSprintAjax();
@@ -95,7 +95,7 @@ var sprintBootBox = (function() {
 				return false;
 			}
 		}];
-		var modal = createBootboxDialog('create sprint', addHtml, buttons);
+		var modal = createBootboxDialog('创建Sprint', addHtml, buttons);
 
 		modal.on("shown.bs.modal", function() {
 
@@ -106,7 +106,7 @@ var sprintBootBox = (function() {
 
 	function buildEdit() {
 		var buttons = [{
-			label: "Save",
+			label: "保存",
 			className: "btn-primary pull-right",
 			callback: function() {
 				editSPrintAjax();
@@ -114,7 +114,7 @@ var sprintBootBox = (function() {
 				return false;
 			}
 		}];
-		var modal = createBootboxDialog('Edit sprint &lt;' + g_sprint.name + '&gt;', addHtml, buttons);
+		var modal = createBootboxDialog('编辑Sprint &lt;' + g_sprint.name + '&gt;', addHtml, buttons);
 		modal.on("shown.bs.modal", function() {
 			$('#formSprintNewTitle').val(g_sprint.name);
 			$('#formSprintNewDescription').val(g_sprint.description);
@@ -136,11 +136,11 @@ var sprintBootBox = (function() {
 	var addHtml =
 		'<form id="formSprintNew" class="form-horizontal">'
 
-	+ '<div class="form-group required">' + '<label class="col-lg-3 control-label" for="formSprintNewTitle">Title</label>' + '<div class="col-lg-9">' + '<input id="formSprintNewTitle" name="title" type="text" placeholder="enter sprint name" class="form-control" required="required" />' + '</div>' + '</div>'
+	+ '<div class="form-group required">' + '<label class="col-lg-3 control-label" for="formSprintNewTitle">名称</label>' + '<div class="col-lg-9">' + '<input id="formSprintNewTitle" name="title" type="text" placeholder="Sprint名称" class="form-control" required="required" />' + '</div>' + '</div>'
 
-	+ '<div class="form-group required">' + '<label class="col-lg-3 control-label" for="formSprintNewDateStart">Duration</label>' + '<label class="col-lg-3 control-label" for="formSprintNewDateEnd" style="display: none;"></label>' + '<div class="col-lg-9">' + '<div class="input-group date dateStart">' + '<input id="formSprintNewDateStart" name="dateStart" type="text" class="dateInput form-control" size="16" required="required"' + 'data-validate-type="daterange"' + 'data-role="start"' + 'data-pair="formSprintNewDateEnd"' + 'data-focus="false"' + 'data-type="sprint"/>' + '<span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>' + '</div>' + '<span class="separator">&mdash;</span>' + '<div class="input-group date dateEnd">' + '<input id="formSprintNewDateEnd" name="dateEnd" type="text" class="dateInput form-control" size="16" required="required"' + 'data-validate-type="daterange"' + 'data-role="end"' + 'data-pair="formSprintNewDateStart"' + 'data-focus="false"' + 'data-type="sprint"' + '/>' + '<span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>' + '</div>' + '</div>' + '</div>'
+	+ '<div class="form-group required">' + '<label class="col-lg-3 control-label" for="formSprintNewDateStart">持续时间</label>' + '<label class="col-lg-3 control-label" for="formSprintNewDateEnd" style="display: none;"></label>' + '<div class="col-lg-9">' + '<div class="input-group date dateStart">' + '<input id="formSprintNewDateStart" name="dateStart" type="text" class="dateInput form-control" size="16" required="required"' + 'data-validate-type="daterange"' + 'data-role="start"' + 'data-pair="formSprintNewDateEnd"' + 'data-focus="false"' + 'data-type="sprint"/>' + '<span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>' + '</div>' + '<span class="separator">&mdash;</span>' + '<div class="input-group date dateEnd">' + '<input id="formSprintNewDateEnd" name="dateEnd" type="text" class="dateInput form-control" size="16" required="required"' + 'data-validate-type="daterange"' + 'data-role="end"' + 'data-pair="formSprintNewDateStart"' + 'data-focus="false"' + 'data-type="sprint"' + '/>' + '<span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>' + '</div>' + '</div>' + '</div>'
 
-	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formSprintNewDescription">Description</label>' + '<div class="col-lg-9">' + '<textarea id="formSprintNewDescription" name="description" class="form-control" data-wysiwyg="true" placeholder="enter sprint description"></textarea>' + '</div>' + '</div>' + '</form>';
+	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formSprintNewDescription">描述</label>' + '<div class="col-lg-9">' + '<textarea id="formSprintNewDescription" name="description" class="form-control" data-wysiwyg="true" placeholder="添加Sprint描述"></textarea>' + '</div>' + '</div>' + '</form>';
 
 	return {
 		addBox: buildAdd,

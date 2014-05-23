@@ -46,6 +46,7 @@ var projectSchema = new Schema({
   editor:[{
     type: {type:Number, default:0}, //0 is doc, 1 is src, more type not define
     name: String,    
+    path: String,
     createTime: {type:Date,default:Date.now},    
   }],
   

@@ -46,7 +46,7 @@ module.exports = {
 			startTime  : req.body.startTime,
 			deadline   : req.body.deadline,
 			type       : req.body.type,
-			
+			estimate   : req.body.estimate
 		};
 		if(req.body.executer) info.executer = req.body.executer;	    
 
@@ -76,7 +76,8 @@ module.exports = {
 			title      : req.body.title,
 			type       : req.body.type,
 			state      : req.body.state,
-			executer   : req.body.executer
+			executer   : req.body.executer,
+			estimate   : req.body.estimate
 		}, function(err,task){
 			if(err) res.json(err);
 			else{
