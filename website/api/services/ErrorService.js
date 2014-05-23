@@ -178,6 +178,11 @@ exports.wrongURLID = {
 	errorNumber: 29,    //may be other numbers
 	message: 'parameter in url not valid'	
 }
+exports.notHaveChangeTaskPermission = {
+	state: "error",
+	errorNumber: 30,    //may be other numbers
+	message: 'you dont have change task permission'	
+}
 exports.successWithValue = function(key, value){
 
     var s = _.clone(exports.success);

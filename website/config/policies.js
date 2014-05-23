@@ -23,9 +23,10 @@ module.exports.policies = {
         "*": false,
 
         // Custom actions
-        login    :["flashMessage", "checkNotLogin"],
-		reg      :["flashMessage", "checkNotLogin"],
-		logout   :["flashMessage", "checkLogin"]
+        login         :["flashMessage", "checkNotLogin"],
+		reg           :["flashMessage", "checkNotLogin"],
+		logout   	  :["flashMessage", "checkLogin"],
+		activateEmail : [true],
     },
     "backlog": {
         "*": false,
@@ -98,6 +99,7 @@ module.exports.policies = {
 		projectNewTopic	 :["validateURLID", "checkLogin", "hasProjectAccess"],
 		projectOneTopic	 :["validateURLID", "checkLogin", "hasProjectAccess"],
 		projectEditor    :["validateURLID", "checkLogin", "hasProjectAccess"],
+		projectMembers   :["validateURLID", "checkLogin", "hasProjectAccess"],
     },
 
     "story": {
@@ -117,11 +119,11 @@ module.exports.policies = {
         // Custom actions
 		getTasksOfSprint     : ["validateURLID", "checkUser", "hasProjectAccess", "sprintInProject"],
 		addTaskOfSprint      : ["validateURLID", "checkUser", "hasProjectAccess", "sprintInProject", "validateTaskOwner"],
-		modifyTaskOfSprint   : ["validateURLID", "checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint", "validateTaskOwner"],
-		setTaskProgress      : ["validateURLID", "checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint"],
+		modifyTaskOfSprint   : ["validateURLID", "checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint", "validateTaskOwner","hasTaskOwnerOrAdmin"],
+		setTaskProgress      : ["validateURLID", "checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint", "hasTaskOwnerOrAdmin"],
 		deleteTaskOfSprint   : ["validateURLID", "checkUser", "hasProjectAdmin",  "sprintInProject", "taskInSprint"],
-		setTaskToBacklog     : ["validateURLID", "checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint"],
-		unsetTaskToBacklog   : ["validateURLID", "checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint"],
+		setTaskToBacklog     : ["validateURLID", "checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint", "hasTaskOwnerOrAdmin"],
+		unsetTaskToBacklog   : ["validateURLID", "checkUser", "hasProjectAccess", "sprintInProject", "taskInSprint", "hasTaskOwnerOrAdmin"],
 		assignTaskToMember   : ["validateURLID", "checkUser", "hasProjectAdmin",  "sprintInProject", "taskInSprint"],
 		removeTaskFromMember : ["validateURLID", "checkUser", "hasProjectAdmin",  "sprintInProject", "taskInSprint"],
 		removeAllTaskOwner   : ["validateURLID", "checkUser", "hasProjectAdmin",  "sprintInProject", "taskInSprint"],

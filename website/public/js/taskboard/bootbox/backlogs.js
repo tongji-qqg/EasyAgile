@@ -15,7 +15,7 @@ var backlogBootBox = (function() {
 			},
 			success: function(data) {
 				if (data.state === 'error')
-					alert('error! ' + data.message);
+					bootbox.alert('error! ' + data.message);
 				if (data.state === 'success') {
 					//alert('success');
 					$('body').trigger("loadSprint");
@@ -87,7 +87,7 @@ var backlogBootBox = (function() {
 			},
 			success: function(data) {
 				if (data.state === 'error')
-					alert('error! ' + data.message);
+					bootbox.alert('error! ' + data.message);
 				if (data.state === 'success') {
 					$('body').trigger("loadSprint");
 				}
@@ -107,7 +107,7 @@ var backlogBootBox = (function() {
 			data: {},
 			success: function(data) {
 				if (data.state === 'error')
-					alert('error! ' + data.message);
+					bootbox.alert('error! ' + data.message);
 				if (data.state === 'success') {
 					$('body').trigger("loadSprint");
 				}
