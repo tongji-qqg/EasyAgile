@@ -40,7 +40,7 @@ a:focus {
 
 @media(min-width:768px) {
     body {
-        background: #ecf0f1;
+        background: #34495e;
     }
 }
 
@@ -200,14 +200,8 @@ a:focus {
 
  .navbar-top {
     margin-left: 0;
-    background-image: -webkit-gradient(linear, left 0%, left 100%, from(#ffffff), to(#f8f8f8));
-    background-image: -webkit-linear-gradient(top, #ffffff, 0%, #f8f8f8, 100%);
-    background-image: -moz-linear-gradient(top, #ffffff 0%, #f8f8f8 100%);
-    background-image: linear-gradient(to bottom, #ffffff 0%, #f8f8f8 100%);
-    background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff8f8f8', GradientType=0);
-    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 5px rgba(0, 0, 0, 0.075);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 5px rgba(0, 0, 0, 0.075);
+    background-color: #2c3e50;
+    position: fixed;
 }
 
 .navbar-top .navbar-brand a {
@@ -224,14 +218,7 @@ a:focus {
 }
 
 .navbar-top .navbar-header {
-    background-image: -webkit-gradient(linear, left 0%, left 100%, from(#ffffff), to(#f8f8f8));
-    background-image: -webkit-linear-gradient(top, #ffffff, 0%, #f8f8f8, 100%);
-    background-image: -moz-linear-gradient(top, #ffffff 0%, #f8f8f8 100%);
-    background-image: linear-gradient(to bottom, #ffffff 0%, #f8f8f8 100%);
-    background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff8f8f8', GradientType=0);
-    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 5px rgba(0, 0, 0, 0.075);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 5px rgba(0, 0, 0, 0.075);
+    background-color: #142434;
 }
 
 .navbar-top .navbar-toggle {
@@ -239,14 +226,14 @@ a:focus {
     margin-bottom: auto;
     border-color: #999;
     outline: none;
-    color: #2980b9;
-    background-color: transparent;
+    color: #333;
+    background-color: #fff;
 }
 
 .navbar-top .navbar-toggle:active,
 .navbar-top .navbar-toggle:focus,
 .navbar-top .navbar-toggle:hover {
-    background-color: #ddd;
+    background-color: #fff;
 }
 
 .navbar-top .dropdown-toggle {
@@ -274,13 +261,13 @@ a:focus {
 .navbar-top>.nav-top>.nav>li>a {
     height: 50px;
     padding-top: 15px;
-    color: #2980b9;
+    color: #fff;
 }
 
 .navbar-top>.nav-top>.nav>li>a:hover,
 .navbar-top>.nav-top>.nav>li>a:focus {
-    color: #666;
-    background-color: transparent;
+    color: #fff;
+    background-color: #142434;
 }
 
 .navbar-top .dropdown-messages {
@@ -372,7 +359,8 @@ a:focus {
 .navbar-top .dropdown-messages .dropdown-footer,
 .navbar-top .dropdown-messages .dropdown-footer a,
 .navbar-top .dropdown-messages .dropdown-footer a:hover {
-    color: #333;   
+    color: #fff;
+    background: #16a085 !important;
 }
 
 .navbar-top .alerts-link,
@@ -381,7 +369,8 @@ a:focus {
 .navbar-top .dropdown-alerts .dropdown-footer,
 .navbar-top .dropdown-alerts .dropdown-footer a,
 .navbar-top .dropdown-alerts .dropdown-footer a:hover {
-    color: #333;    
+    color: #fff;
+    background: #f39c12 !important;
 }
 
 .navbar-top .alert-icon {
@@ -397,7 +386,8 @@ a:focus {
 .navbar-top .dropdown-tasks .dropdown-footer,
 .navbar-top .dropdown-tasks .dropdown-footer a,
 .navbar-top .dropdown-tasks .dropdown-footer a:hover {
-    color: #333;    
+    color: #fff;
+    background: #2980b9 !important;
 }
 
 .navbar-top .dropdown-tasks .progress {
@@ -417,8 +407,7 @@ a:focus {
     text-align: center;
     font-size: 11px;
     line-height: 20px;
-    background-color: #eee;
-    border-color: #2980b9;
+    background-color: #2c3e50;
 }
 
 @media(min-width:768px) {
@@ -434,7 +423,7 @@ a:focus {
 
     .navbar-top .navbar-header {
         width: 225px;
-        max-height: 50px;
+        background-color: transparent;
     }
 
     .navbar-top .navbar-left {
@@ -442,9 +431,7 @@ a:focus {
     }
 
     .navbar-top #sidebar-toggle {
-        display: inline-block;                
-        color: #2980b9;
-        background-color: transparent;
+        display: inline-block;
     }
 
     .navbar-top .nav-top {
@@ -511,7 +498,8 @@ a:focus {
     display: block;
     width: 100%;
     padding: 15px;
-    border-top: none !important;    
+    border-top: none !important;
+    border-bottom: 1px solid #142638;
     text-align: center;
 }
 
@@ -524,7 +512,7 @@ a:focus {
 .navbar-side .side-user .welcome {
     margin: 0;
     font-style: italic;
-    color: #000;
+    color: #9aa4af;
 }
 
 .navbar-side .side-user .welcome .fa {
@@ -536,12 +524,12 @@ a:focus {
     font-family: "Ubuntu","Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 20px;
     font-weight: 300;
-    color: #000;
+    color: #ccd1d7;
 }
 
 .navbar-side .side-user .name .last-name {
     font-weight: 400;
-    color: #000;
+    color: #fff;
 }
 
 .navbar-side .nav-search {
@@ -576,27 +564,23 @@ a:focus {
     margin-bottom: 0;
     border-bottom: 1px solid #54677a;
     font-size: 13px;
-    background-color: transparent;
+    background-color: #34495e;
 }
 
-.navbar-side .navbar-nav>li>a {
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
-    outline: none;
-    font-weight: 400;
-    color: #000;
-    /*background-color: #34495e;*/
-    background-color: transparent;
-}
-
+.navbar-side .navbar-nav>li>a,
 .navbar-side .navbar-nav>li>a:focus,
 .navbar-side .navbar-nav>li>a:hover,
-.navbar-side .navbar-nav>li>a:active {    
-    background-color: #fffcad;   
+.navbar-side .navbar-nav>li>a:active {
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+    outline: none;
+    color: #fff;
+    background-color: #34495e;
 }
+
 .navbar-side .side-nav li,
 .navbar-side .side-nav li.panel {
-    border-top: 1px solid #2980b9;
-    /*border-bottom: 1px solid #2980b9;*/
+    border-top: 1px solid #54677a;
+    border-bottom: 1px solid #142638;
 }
 
 .navbar-side .side-nav li.panel ul li {
@@ -671,10 +655,8 @@ a:focus {
     }
 
     .navbar-side .side-nav > li > a:hover {
-        /*color: #fff;
-        background-color: #3d566e;*/
-        color: #000;
-        background-color: #fffcad;
+        color: #fff;
+        background-color: #3d566e;
     }
 
     .navbar-side .side-nav li.panel ul li a:hover,
@@ -699,16 +681,14 @@ a:focus {
 
 */
 
- .page-title {    
-    padding-bottom: 9px;
-    margin: 30px 0 20px;
-    border-bottom: 1px solid #1A9642;
+ .page-title {
+    margin: 30px 0;
 }
 
 .page-title h1 {
     margin: 0;
     margin-bottom: 15px;
-    font-size: 26px;    
+    font-size: 26px;
 }
 
 .page-title small {
@@ -2087,4 +2067,3 @@ input[type="checkbox"]:checked::after,
         margin-left: 0;
     }
 }
-

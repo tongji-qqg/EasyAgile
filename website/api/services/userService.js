@@ -269,6 +269,7 @@ exports.getUserCurrentTaskInProject = function(selfuid, callback){
 							}else{
 								pushArray(fprojects, p);
 							}*/
+							if(!p.cSprint.equals(s._id)) return callback(null);
 							pushArray(projects, p);
 							callback(null);
 						});
