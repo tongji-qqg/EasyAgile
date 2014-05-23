@@ -65,7 +65,7 @@ $('#new-project-button').click(function(){
 
 function loadProjects(){  
     
-    var newProjectDiv = '<div class="col-lg-3 col-sm-6"> <div class="tile light-gray dash-demo-tile"> <h4><i class="fa fa-plus fa-fw"></i> New Project</h4> <a  href="#new-project-form" data-toggle="modal" class="dash-demo-footer"> <div id="easy-pie-1" class="easy-pie-chart"> <div style="font-size: 44px;margin-top: 55px"> <i class="fa fa-plus-square-o"></i> </div> </div> </a> </div> </div>';
+    var newProjectDiv = '<div class="col-lg-3 col-sm-6"> <div class="tile light-gray dash-demo-tile"> <h4><i class="fa fa-plus fa-fw"></i>新建项目</h4> <a  href="#new-project-form" data-toggle="modal" class="dash-demo-footer"> <div id="easy-pie-1" class="easy-pie-chart"> <div style="font-size: 44px;margin-top: 55px"> <i class="fa fa-plus-square-o"></i> </div> </div> </a> </div> </div>';
 
     function h2d(h) {return parseInt(h,16);} 
     var buildProjectDiv = function(project){

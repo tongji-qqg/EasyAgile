@@ -70,13 +70,13 @@
                                     </a>
 
                                     <ul class="dropdown-menu">
-                                        <li class="nav-header text-info">Basic functions</li>
+                                        <li class="nav-header text-info">基本功能</li>
 
                                         <!-- ko if: $root.role() < 0 -->
                                         <li>
                                             <a id='addSprintLink' href="javascript: void(0);" data-placement="bottom" data-bind="click: $root.actionSprintAdd">
                                                 <i class="fa fa-plus"></i>
-                                                Add new sprint
+                                                新建sprint
                                             </a>
                                         </li>
                                         <!-- /ko -->
@@ -85,17 +85,17 @@
 
                                         <li class="divider"></li>
 
-                                        <li class="nav-header text-info">Management</li>
+                                        <li class="nav-header text-info">管理</li>
                                         <li>
                                             <a id='editSprintLink' href="javascript: void(0);" data-bind="click: $root.actionSprintEdit">
                                                 <i class="fa fa-wrench"></i>
-                                                Edit sprint
+                                                编辑sprint
                                             </a>
                                         </li>
                                         <li>
                                             <a id='setCurrentSprintLink'>
                                                 <i class="fa fa-list-ol"></i>
-                                                Set as current sprint
+                                                设置为当前sprint
                                             </a>
                                         </li>
 
@@ -110,19 +110,19 @@
                                         <li>
                                             <a id='showSprintChartsLink' href="javascript: void(0);" data-bind="click: $root.actionSprintCharts">
                                                 <i class="fa fa-bar-chart-o"></i>
-                                                Charts
+                                                燃尽图
                                             </a>
                                         </li>
 
                                         <!-- ko if: $root.role() < 0 -->
                                         <li class="divider"></li>
 
-                                        <li class="nav-header text-info">Danger zone</li>
+                                        <li class="nav-header text-info">注意！</li>
 
                                         <li>
                                             <a href="javascript: void(0);" class="text-danger" data-bind="click: $root.actionSprintDelete">
                                                 <i class="fa fa-trash-o"></i>
-                                                Delete sprint
+                                                删除sprint
                                             </a>
                                         </li>
 
@@ -173,27 +173,29 @@
 
                                         <!-- ko foreach: $root.sortedPhases -->
                                         <th style="width: 205px;">
-                                            <span>Waiting</span>
+                                            <span>等待</span>
                                             <span id='waitingSum' class="phaseTaskCount">(3)</span>
                                         </th>
 
                                         <th style="width: 205px;">
-                                            <span data-bind="text: title">In process</span>
+                                            <span data-bind="text: title">进行中</span>
                                             <span id='inProcessSum' class="phaseTaskCount">(0)</span>
                                         </th>
 
                                         <th style="width: 205px;">
-                                            <span>To review</span>
+                                            <span>待审核</span>
                                             <span id='toReviewSum' class="phaseTaskCount">(0)</span>
                                         </th>
 
                                         <th style="width: 205px;">
-                                            <span>In review</span>
+
+                                            <span>审核中</span>
+                                            
                                             <span id='reviewedSum' class="phaseTaskCount">(0)</span>
                                         </th>
 
                                         <th style="width: 225px;">
-                                            <span>Done</span>
+                                            <span>已完成</span>
                                             <span id='doneSum' class="phaseTaskCount"></span>
                                         </th>
                                         <!-- /ko -->
