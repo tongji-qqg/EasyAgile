@@ -148,7 +148,7 @@
                     
                 </div> 
                 <!--小组区域-->  
-                    <div class="row" ondrop="drop(event)" ondragover="allowDrop(event)" style="min-height:150px;">
+                    <div class="row groupdiv" ondrop="drop(event)" ondragover="allowDrop(event)" style="min-height:150px;">
                     <br />
                     <!--div class="col-lg-12">
                         <div class="col-lg-12" style="min-height:150px;background-color:#fff;"></div>
@@ -172,7 +172,7 @@
                     
                 </div> 
                 <!--小组区域-->  
-                    <div class="row" ondrop="drop(event)" ondragover="allowDrop(event)" style="min-height:150px;">
+                    <div class="row groupdiv" ondrop="drop(event)" ondragover="allowDrop(event)" style="min-height:150px;">
                     <br />
                     <!--div class="col-lg-12">
                         <div class="col-lg-12" style="min-height:150px;background-color:#fff;"></div>
@@ -234,6 +234,8 @@
     $(this).parent().parent().parent().next().toggle();
     
   });
+  
+
 
 </script>
 
@@ -246,6 +248,8 @@ ev.preventDefault();
 function drag(ev)
 {
 ev.dataTransfer.setData("Text",ev.target.id);
+$(".groupdiv").css("border","2px dashed #31708f");
+
 }
 
 function drop(ev)
@@ -254,6 +258,8 @@ ev.preventDefault();
 var data=ev.dataTransfer.getData("Text");
 
 ev.target.appendChild(document.getElementById(data));
+$(".groupdiv").css("border","0px");
+
 }
 function allowDrop1(ev)
 {
