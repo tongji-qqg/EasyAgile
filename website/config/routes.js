@@ -35,6 +35,7 @@ module.exports.routes = {
 
   //static 13
   'get /'                                       : 'static.index',
+  'get /mobile'                                 : 'static.mobile',
   'get /reg'                                    : 'static.reg',
   'get /login'                                  : 'static.login',
   'get /user/:uid'                              : 'static.userMain',

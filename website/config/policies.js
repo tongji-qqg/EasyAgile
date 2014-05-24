@@ -85,6 +85,7 @@ module.exports.policies = {
 
         // Custom actions
         index            :[true],
+        mobile           :[true],
 		reg              :["flashMessage", "checkNotLogin"],
 		login            :["flashMessage", "checkNotLogin"],
 		userMain         :["validateURLID", "checkLogin"],
