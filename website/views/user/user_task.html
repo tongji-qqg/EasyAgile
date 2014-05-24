@@ -78,11 +78,11 @@
                                     <% x.task.forEach(function(y){
                                         var progress = y.progress;
                                         var stateName = '';
-                                        if(y.state == 0) stateName = 'Waiting';
-                                        if(y.state == 2) stateName = 'inProcess';
-                                        if(y.state == 3) stateName = 'toReview';
-                                        if(y.state == 4) stateName = 'inReview';
-                                        if(y.state == 1) stateName = 'Done';
+                                        if(y.state == 0) stateName = '等待';
+                                        if(y.state == 2) stateName = '进行中';
+                                        if(y.state == 3) stateName = '待审核';
+                                        if(y.state == 4) stateName = '审核中';
+                                        if(y.state == 1) stateName = '已完成';
                                         if(y.state == 0 ) progress = 0;
                                         if(y.state == 1 ) progress = 100;
                                         var type = 'warning';
@@ -99,15 +99,16 @@
 
                                             <div class="col-sm-2">
                                                 <span class="label label-info"><i class="fa fa-calendar">
-                                                <a href="/project_taskboard/<%=x._id%>" data-toggle="modal" style="color: #FFF;font-weight:900;" >go to taskboard</a></i></span> 
+                                                <a href="/project_taskboard/<%=x._id%>" data-toggle="modal" style="color: #FFF;font-weight:900;" >进入任务板</a></i></span> 
                                             </div>
                                             
                                         </div> 
                                         <div class="progress progress-striped active">
                                             <div class="progress-bar progress-bar-<%=type%>" role="progressbar" aria-valuenow="<%=progress%>" aria-valuemin="0" aria-valuemax="100" style="width: <%=progress%>%;">
                                                 <%if(progress < 10 ){%>
-                                                <label style="font-size:medium;color:black">
-                                                <%}else{%>
+                                                <label style="font-size:medium;color:black;">
+                                                <%}
+                                                else{%>
                                                 <label style="font-size:medium;">
                                                 <%}%>
                                                     <%=stateName%>
