@@ -8,8 +8,8 @@ $(init);
 
 $(function(){
     $('#show-my-task').bootstrapSwitch({
-        'onText':'我的任务',
-        'offText':'全部任务',
+        'onText':'全部任务',
+        'offText':'我的任务',
         'onSwitchChange':function(event, state){
             jQuery("body").trigger("loadSprint");        
         }
@@ -147,7 +147,8 @@ function init() {
         });
         $('#showSprintChartsLink').unbind('click');
         $('#showSprintChartsLink').on('click', function() {
-            bootbox.alert('click')
+            //bootbox.alert('click')
+            chartBootBox.burndownChartBox().modal('show');
         });
         $('#setCurrentSprintLink').unbind('click');
         $('#setCurrentSprintLink').on('click', function() {
@@ -262,7 +263,7 @@ function init() {
                 if(task.executer[i]._id == uid){
                     permission = true;
                 }                
-            if(!permission && $('#show-my-task').is( ":checked" ))return;
+            if(!permission && !$('#show-my-task').is( ":checked" ))return;
             var divClass = 'task sticky taped generated_qtip alert alert-warning';
             if (task.type == 1)
                 divClass = 'task sticky taped alert alert-success';

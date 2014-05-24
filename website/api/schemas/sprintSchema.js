@@ -37,6 +37,11 @@ var sprintSchema = new Schema({
     who: { type: ObjectId, ref: 'User' },   
     what: String
   }],
+
+  burndown:[{
+    date:{type:Date},
+    remain:Number
+  }]
 });
 
 /*

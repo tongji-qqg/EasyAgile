@@ -4,7 +4,7 @@ var sprintModel = require('../schemas/sprintSchema');
 var taskModel  =  require('../schemas/taskSchema');
 
 var async = require('async');
-
+var _ = require('underscore');
 
 exports.createSprint = function (selfuid, pid, sprintInfo, cb){
 	
@@ -73,6 +73,7 @@ exports.getSprintById = function(selfuid, pid, sid, callback){
 			    });		
 		},
 		function(sprint, callback){
+
 			var queries = [];
 	     	function makeQuery(task){
 
@@ -130,4 +131,71 @@ exports.setCurrentSprint = function(selfuid, pid, sid, callback){
 			})
 		}
 	],callback);
+}
+
+function formatDate(date){
+	return date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
+}
+exports.collectBurnDownData = function(tid,sid){
+	//sails.log.warn('collectBurnDownData tid: '+tid +" sid "+sid);
+	async.waterfall([
+		function(callback){
+			if(tid){
+				sprintModel.findOne({'tasks':tid})
+						   .populate('tasks')
+						   .exec(function(err,sprint){
+								if(err) return callback(ErrorService.makeDbErr(err));
+								if(!sprint) return callback(ErrorService.sprintNotFindError);								
+								callback(null, sprint);
+							});
+			}
+			else{
+				sprintModel.findOne({'_id':sid})
+						   .populate('tasks')
+						   .exec(function(err,sprint){
+								if(err) return callback(ErrorService.makeDbErr(err));
+								if(!sprint) return callback(ErrorService.sprintNotFindError);								
+								callback(null, sprint);
+							});	
+			}
+		},
+		
+		function(sprint, callback){					
+			var today = new Date(formatDate(new Date()));
+			if(!sprint.burndown) sprint.burndown = [];
+			var data ;
+			for(var i=0;i<sprint.burndown.length;i++){
+				if(sprint.burndown[i].date.getTime() == today.getTime()){
+					data = sprint.burndown[i];
+					break;
+				}					
+			}
+			sails.log.warn(data);
+			if(!data){
+				data = {
+					date:today,
+					remain:0
+				};
+				sprint.burndown.push(data); //objects are pushed by ref
+			}
+			var remain = 0;
+			
+			if(sprint.tasks){
+				sprint.tasks.forEach(function(t){
+					remain+= t.estimate * (100 - t.progress) / 100;
+				});
+			}
+			data.remain = remain;
+			callback(null);
+			// console.log(sprint);
+			// console.log(remain);
+			sprint.save(function(err){
+				if(err)callback(err);
+				else callback(null);
+			})
+		}
+	],function(err){
+		if(err)sails.log.err('collectBurnDownData error');
+		else sails.log.verbose('collectBurnDownData success');
+	})
 }
