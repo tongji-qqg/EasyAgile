@@ -68,7 +68,10 @@ module.exports = {
 		}
 		sprintService.createSprint(req.session.user._id, req.params.pid, sprintInfo,function(err){
 			if(err) res.json(err);
-			else res.json(ErrorService.success);
+			else {
+				SocketService.updateProject(req,res);
+				res.json(ErrorService.success);
+			}
 		});		
     },
 
@@ -83,7 +86,10 @@ module.exports = {
 	    sails.log.verbose('Controller - api/controller/SprintController.deleteSprint');
 	    sprintService.deleteSprint(req.session.user._id, req.params.pid, req.params.sid, function(err){
 			if(err) res.json(err);
-			else res.json(ErrorService.success);
+			else {
+				SocketService.deleteSprint(req,res);
+				res.json(ErrorService.success);
+			}
 		});			
     },
 
@@ -104,7 +110,10 @@ module.exports = {
 			endTime:req.body.endTime
 		}, function(err){
 			if(err) res.json(err);
-			else res.json(ErrorService.success);
+			else {
+				SocketService.updateSprint(req,res);
+				res.json(ErrorService.success);
+			}
 		});				
     },
 
@@ -124,7 +133,10 @@ module.exports = {
 		*/
 		sprintService.setCurrentSprint(req.session.user._id, req.params.pid, req.params.sid, function(err){
 			if(err) res.json(err);
-			else res.json(ErrorService.success);
+			else {
+				SocketService.updateProject(req,res);
+				res.json(ErrorService.success);
+			}
 		})	
     },
 

@@ -40,15 +40,50 @@ exports.createSprint = function (selfuid, pid, sprintInfo, cb){
 
 exports.deleteSprint = function(selfuid, pid, sid, cb){
 
-	sprintModel.findById(sid, function(err, sprint){
-		if(err) return callback(ErrorService.makeDbErr(err));	
-		if(!sprint) return callback(ErrorService.sprintNotFindError);
-		sprint.deleted = true;
-		sprint.save(function(err){
-			if(err) callback(ErrorService.makeDbErr(err));
-			callback(null);
-		})
-	});	    		    				    	
+	async.waterfall([
+		function(callback){
+			DataService.getProjectById(pid, function(err,project){
+				if(err) return callback(err);
+				if(project.cSprint == sid)
+					callback(ErrorService.cannotDeleteCurrentSprint);				
+				else callback(null, project);
+			});		    			
+		},
+		function(project, callback){
+			project.sprints.remove(sid);
+			project.save(function(err){
+				if(err) callback(err);
+				else callback(null);
+			});
+		},
+		function(callback){
+			DataService.getSprintById(sid,callback);
+		},
+		function(sprint, callback){
+			var query = [];
+			function makeDeleteQuery(tid){
+				return function(callb){
+					taskModel.findByIdAndRemove(tid, function(err){
+			    		if(err) return callb(ErrorService.makeDbErr(err));
+			    		callb(null);
+			    	});
+				}
+			}
+			sprint.tasks.forEach(function(t){
+				query.push(makeDeleteQuery(t));
+			});
+			async.parallel(query,function(err){
+				if(err)callback(err);
+				else callback(null);
+			});
+		},
+		function(callback){
+			sprintModel.findByIdAndRemove(sid, function(err){
+				if(err)return callback(ErrorService.makeDbErr(err));
+				callback(null);
+			})
+		}
+	],cb);
 };
 
 exports.getSprintListOfProject = function(selfuid, pid, callback){

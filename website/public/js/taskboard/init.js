@@ -40,6 +40,14 @@ function init() {
             if(message.sid === sid)
                 loadSprint();
         });
+        socket.on('sprintDelete',function updateSprint(message){
+            //alert('update sprint '+ message.what);
+            if(message.sid === sid){
+                sid = g_project.cSprint;                
+            }
+            body.trigger("loadProject");
+            body.trigger("loadSprint");                
+        });
     }
     subscribe();
 
@@ -153,6 +161,29 @@ function init() {
         $('#setCurrentSprintLink').unbind('click');
         $('#setCurrentSprintLink').on('click', function() {
             setAsCurrentSprint();
+        });
+        $('#deleteSprintLink').unbind('click');
+        $('#deleteSprintLink').on('click', function() {
+            bootbox.confirm('are you sure?',function(result){
+                if(result){
+                    console.log('message');
+                    $.ajax({
+                        type: 'DELETE',
+                        url: '/API/p/' + pid + '/s/' + sid,
+                        dataType: 'json',                
+                        success: function(data) {
+                            if (data.state === 'error')
+                                bootbox.alert('error! ' + data.message);
+                            if (data.state === 'success') {
+                                bootbox.alert('success');
+                                sid = g_project.cSprint;
+                                body.trigger("loadProject");
+                                body.trigger('loadSprint');
+                            }
+                        }
+                    });
+                }
+            })
         });
     }
 
@@ -269,6 +300,8 @@ function init() {
                 divClass = 'task sticky taped alert alert-success';
             if (task.type == 2)
                 divClass = 'task sticky taped alert alert-danger';
+            if (task.type == 3)
+                divClass = 'task sticky taped alert alert-info'
 
             var div = $('<div >', {
                 'id': task._id,
