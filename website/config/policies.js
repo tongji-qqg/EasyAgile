@@ -64,7 +64,9 @@ module.exports.policies = {
 		removeMemberById   : ["validateURLID", "checkUser", "hasProjectAdmin"],
 		setMemberAdmin     : ["validateURLID", "checkUser", "hasProjectAdmin"],
 		removeMemberAdmin  : ["validateURLID", "checkUser", "hasProjectAdmin"],
-		
+		setMemberGroup     : ["validateURLID", "checkUser", "hasProjectAdmin"],
+		addGroup           : ["validateURLID", "checkUser", "hasProjectAdmin"],
+		deleteGroup        : ["validateURLID", "checkUser", "hasProjectAdmin"],
     },
     "sprint": {
         "*": false,

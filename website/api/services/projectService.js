@@ -124,7 +124,6 @@ exports.addMemberById = function(selfuid, pid, uid, cb){
 };
 
 
-
 exports.removeMemberById = function(selfuid,pid, uid, cb){
 
 	async.waterfall([
@@ -197,3 +196,79 @@ exports.setAdmin = function(pid, uid, bSet, cb){
 	], cb);
 
 };
+
+exports.setMemberToGroup = function(selfuid, pid, uid, group, callback){
+
+	async.waterfall([
+		function(callback){
+
+		    	DataService.getProjectById(pid,callback);        
+		},
+
+		function(targetProject, callback){	   
+
+				if(uid == targetProject.owner)
+					targetProject.ownerGroup = group;
+				else{
+			    	var member = targetProject.members.id(uid);
+			    	if(member == null) return callback(ErrorService.memberNotFindError);
+			    	member.group = group;
+				}
+
+		    	targetProject.save(function(err){
+		    		if(err) callback(err);
+		    		else callback(null);
+		    	});
+		}
+	],callback);		 	 
+
+}
+
+exports.addGroup = function(selfuid, pid, group, callback){
+
+	async.waterfall([
+		function(callback){
+
+		    	DataService.getProjectById(pid,callback);        
+		},
+
+		function(project, callback){
+			group = group.trim();	   
+			if(group == null || _.contains(project.groups,group))
+				return callback(null);
+			project.groups.push(group);
+	    	project.save(function(err){
+	    		if(err) callback(err);
+	    		else callback(null);
+	    	});
+		}
+	],callback);		 	 
+
+}
+
+exports.deleteGroup = function(selfuid, pid, group, callback){
+
+	async.waterfall([
+		function(callback){
+
+		    	DataService.getProjectById(pid,callback);        
+		},
+
+		function(project, callback){	   
+			group = group.trim();
+			if(group == null || ! _.contains(project.groups, group))
+				return callback(null);
+			project.groups = _.without(project.groups,  group);
+			if(project.ownerGroup == group) project.ownerGroup = undefined;
+			project.members.forEach(function(m){
+				if(m.group == group)
+					m.group = undefined;
+			})
+	    	project.save(function(err){
+	    		if(err) callback(err);
+	    		else callback(null);
+	    	});
+		}
+	],callback);		 	 
+
+}

@@ -83,7 +83,8 @@
                                         if(y.state == 3) stateName = 'toReview';
                                         if(y.state == 4) stateName = 'inReview';
                                         if(y.state == 1) stateName = 'Done';
-                                        if(y.state == 0 || y.state ==3 || y.state == 1) progress = 100;
+                                        if(y.state == 0 ) progress = 0;
+                                        if(y.state == 1 ) progress = 100;
                                         var type = 'warning';
                                         if(y.deadline < now) type='danger';
                                         if(y.startTime > now) type='success';

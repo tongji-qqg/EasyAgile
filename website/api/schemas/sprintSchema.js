@@ -30,7 +30,13 @@ var sprintSchema = new Schema({
     index: Number
   }],
   
-  tasks: [{ type: ObjectId, ref: 'Task' }]
+  tasks: [{ type: ObjectId, ref: 'Task' }],
+
+  history: [{
+    when:  { type: Date, default: Date.now },
+    who: { type: ObjectId, ref: 'User' },   
+    what: String
+  }],
 });
 
 /*

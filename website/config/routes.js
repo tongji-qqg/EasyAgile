@@ -90,6 +90,9 @@ module.exports.routes = {
   'delete  /API/p/:pid/mid/:uid'                : 'project.removeMemberById',
   'put     /API/p/:pid/ma/:uid'                 : 'project.setMemberAdmin',
   'delete  /API/p/:pid/ma/:uid'                 : 'project.removeMemberAdmin', 
+  'put     /API/p/:pid/mg/:uid'                 : 'project.setMemberGroup',
+  'post    /API/p/:pid/g'                       : 'project.addGroup',
+  'delete  /API/p/:pid/g'                       : 'project.deleteGroup',
   //editor 6
   'get     /API/p/:pid/e'                       : 'editor.get',
   'post    /API/p/:pid/e'                       : 'editor.create',
