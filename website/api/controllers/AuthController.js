@@ -77,7 +77,7 @@ module.exports = {
         userService.loginByEmail(req.body.emailaddress, req.body.password,function(err,result){
             if(err){
                 console.log(err);
-                req.flash('message', err.message);
+                req.flash('info', err.message);
                 res.redirect('/login');
             }
             else{

@@ -35,9 +35,9 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="about.html">About</a>
+                    <li><a href="/">首页</a>
                     </li>
-                    <li><a href="services.html">Services</a>
+                    <li><a href="/mobile">移动版</a>
                     </li>
 
                     <% if(user) {%>    
@@ -47,9 +47,9 @@
                         </a>
                     </li>                              
                     <% } else { %>
-                    <li><a class='btn  btn-primary' style='color:white' href="login">Login</a>
+                    <li><a class='btn  btn-primary' style='color:white' href="login">登陆</a>
                     </li>                    
-                    <li><a class='btn  btn-success' style='color:white' href="reg">Register</a>
+                    <li><a class='btn  btn-success' style='color:white' href="reg">注册</a>
                     </li>                    
                     <% } %>
                 </ul>
@@ -108,84 +108,21 @@
         <div class="container">
 
             <div class="row">
-                <div class="col-lg-4 col-md-4">
-                    <h3><i class="fa fa-check-circle"></i> 适合敏捷开发的高效任务管理</h3>
-                    <p>The 'Modern Business' website template by <a href="http://startbootstrap.com">Start Bootstrap</a> is built with <a href="http://getbootstrap.com">Bootstrap 3</a>. Make sure you're up to date with latest Bootstrap documentation!</p>
+                <div class="col-lg-3 col-md-3">
+                    <h3><i class="fa fa-tasks"></i> 任务管理 & 项目进度管理</h3>
+                    <p>创建和管理Sprint，创建每一次Sprint的backlog，以及创建任务并分配到个人。个人可以查看和管理自己的任务。</p>
                 </div>
-                <div class="col-lg-4 col-md-4">
-                    <h3><i class="fa fa-pencil"></i> 高效的项目进度管理</h3>
-                    <p>You're ready to go with this pre-built page structure, now all you need to do is add your own custom stylings! You can see some free themes over at <a href="http://bootswatch.com">Bootswatch</a>, or come up with your own using <a href="http://getbootstrap.com/customize/">the Bootstrap customizer</a>!</p>
+                <div class="col-lg-3 col-md-3">
+                    <h3><i class="fa fa-user"></i> 敏捷团队管理</h3>
+                    <p>团队成员添加删除分组与任务分配。</p>
                 </div>
-                <div class="col-lg-4 col-md-4">
-                    <h3><i class="fa fa-folder-open"></i> 文件分享</h3>
-                    <p>This template features many common pages that you might see on a business website. Pages include: about, contact, portfolio variations, blog, pricing, FAQ, 404, services, and general multi-purpose pages.</p>
+                <div class="col-lg-3 col-md-3">
+                    <h3><i class="fa fa-calendar"></i> 个人日程与任务</h3>
+                    <p>查看个人任务，在日历上轻松排日程</p>
                 </div>
-            </div>
-            <!-- /.row -->
-
-        </div>
-        <!-- /.container -->
-
-    </div>
-    <!-- /.section -->
-
-    <div class="section-colored text-center">
-
-        <div class="container">
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2>Modern Business: A Clean &amp; Simple Full Website Template by Start Bootstrap</h2>
-                    <p>A complete website design featuring various single page templates from Start Bootstraps library of free HTML starter templates.</p>
-                    <hr>
-                </div>
-            </div>
-            <!-- /.row -->
-
-        </div>
-        <!-- /.container -->
-
-    </div>
-    <!-- /.section-colored -->
-
-    <div class="section">
-
-        <div class="container">
-
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>Display Some Work on the Home Page Portfolio</h2>
-                    <hr>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <a href="portfolio-item.html">
-                        <img class="img-responsive img-home-portfolio" src="http://placehold.it/700x450">
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <a href="portfolio-item.html">
-                        <img class="img-responsive img-home-portfolio" src="http://placehold.it/700x450">
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <a href="portfolio-item.html">
-                        <img class="img-responsive img-home-portfolio" src="http://placehold.it/700x450">
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <a href="portfolio-item.html">
-                        <img class="img-responsive img-home-portfolio" src="http://placehold.it/700x450">
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <a href="portfolio-item.html">
-                        <img class="img-responsive img-home-portfolio" src="http://placehold.it/700x450">
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <a href="portfolio-item.html">
-                        <img class="img-responsive img-home-portfolio" src="http://placehold.it/700x450">
-                    </a>
+                <div class="col-lg-3 col-md-3">
+                    <h3><i class="fa fa-folder-open"></i> 文件分享 & 在线文档协同编辑</h3>
+                    <p>上传文件到文件库，为文件提供云端存储。支持在线文档协同编辑。</p>
                 </div>
             </div>
             <!-- /.row -->
@@ -195,6 +132,11 @@
 
     </div>
     <!-- /.section -->
+
+    
+
+
+
 
     <div class="section-colored">
 
@@ -202,17 +144,15 @@
 
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6">
-                    <h2>Modern Business Features Include:</h2>
+                    <h2><i class="fa fa-tasks"></i>  任务板</h2>
+                    <h3>即刻了解项目全貌</h3>
                     <ul>
-                        <li>Bootstrap 3 Framework</li>
-                        <li>Mobile Responsive Design</li>
-                        <li>Predefined File Paths</li>
-                        <li>Working PHP Contact Page</li>
-                        <li>Minimal Custom CSS Styles</li>
-                        <li>Unstyled: Add Your Own Style and Content!</li>
-                        <li>Font-Awesome fonts come pre-installed!</li>
-                        <li>100% <strong>Free</strong> to Use</li>
-                        <li>Open Source: Use for any project, private or commercial!</li>
+                        <li>创建Sprint</li>
+                        <li>为每一个Sprint创建Backlog</li>
+                        <li>创建任务</li>
+                        <li>将任务分类，分配到个人</li>
+                        <li>筛选自己的任务并可修改任务进度</li>
+                        <li>查看Sprint的燃尽图</li>    
                     </ul>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
@@ -236,17 +176,64 @@
                     <img class="img-responsive" src="http://placehold.it/700x450">
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
-                    <h2>Modern Business Features Include:</h2>
+                    <h2><i class="fa fa-calendar"></i>  日程</h2>
+                    <h3>在日历上纵览任务</h3>
                     <ul>
-                        <li>Bootstrap 3 Framework</li>
-                        <li>Mobile Responsive Design</li>
-                        <li>Predefined File Paths</li>
-                        <li>Working PHP Contact Page</li>
-                        <li>Minimal Custom CSS Styles</li>
-                        <li>Unstyled: Add Your Own Style and Content!</li>
-                        <li>Font-Awesome fonts come pre-installed!</li>
-                        <li>100% <strong>Free</strong> to Use</li>
-                        <li>Open Source: Use for any project, private or commercial!</li>
+                        <li>个人日程，可以查看自己的任务</li>
+                        <li>项目日程，可以查看项目的所有任务</li>                      
+                    </ul>
+                </div>
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.section -->
+    
+    <div class="section-colored">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <h2><i class="fa fa-folder-open"></i>  文件库与在线文档协同编辑</h2>
+                    <h3>云存储 实时协作</h3>
+                    <ul>
+                        <li>上传文件到文件库</li>
+                        <li>项目成员从文件库下载文件</li>
+                        <li>与项目成员一起进行文档的在线协同编辑</li> 
+                    </ul>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <img class="img-responsive" src="http://placehold.it/700x450/ffffff/cccccc">
+                </div>
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.section-colored -->
+
+
+    <div class="section">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <img class="img-responsive" src="http://placehold.it/700x450">
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <h2><i class="fa fa-calendar"></i>  讨论区与Issue</h2>
+                    <h3>及时讨论与反馈</h3>
+                    <ul>
+                        <li>就某一话题发起讨论</li>
+                        <li>报告Issue</li>      
+                        <li>解决并关闭Issue</li>            
                     </ul>
                 </div>
             </div>
@@ -262,11 +249,11 @@
 
         <div class="row well">
             <div class="col-lg-8 col-md-8">
-                <h4>'Modern Business' is a ready-to-use, Bootstrap 3 updated, multi-purpose HTML theme!</h4>
-                <p>For more templates and more page options that you can integrate into this website template, visit Start Bootstrap!</p>
+                <h4>安卓端 v0.5上线了!</h4>
+                <p>用手机接收查看通知，实时掌握项目进展，浏览任务。</p>
             </div>
             <div class="col-lg-4 col-md-4">
-                <a class="btn btn-lg btn-primary pull-right" href="http://startbootstrap.com">See More Templates!</a>
+                <a class="btn btn-lg btn-primary pull-right" href="mobile.html">点击下载</a>
             </div>
         </div>
         <!-- /.row -->
@@ -281,7 +268,7 @@
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; Company 2013</p>
+                    <p>Copyright &copy; TJ 2014</p>
                 </div>
             </div>
         </footer>

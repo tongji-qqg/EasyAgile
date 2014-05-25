@@ -21,7 +21,7 @@
     <link href="/plugins/bootstrap-switch/bootstrap-switch.min.css" rel="stylesheet">
     <link href="/icons/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/jquery.ui.min.css" rel="stylesheet">
-    <link href="/css/taskboard/charts.css" rel="stylesheet">
+    <link href="/css/taskboard/chart.css" rel="stylesheet">
     <link href="/css/taskboard/comment.css" rel="stylesheet">
     <link href="/css/taskboard/form.css" rel="stylesheet">
     <link href="/css/taskboard/jqueryui.css" rel="stylesheet">
@@ -120,7 +120,7 @@
                                         <li class="nav-header text-info">注意！</li>
 
                                         <li>
-                                            <a href="javascript: void(0);" class="text-danger" data-bind="click: $root.actionSprintDelete">
+                                            <a id='deleteSprintLink' href="javascript: void(0);" class="text-danger">
                                                 <i class="fa fa-trash-o"></i>
                                                 删除sprint
                                             </a>
@@ -239,11 +239,16 @@
     <script src="/plugins/bootstrap-wysiwyg/bootstrap-wysiwyg.js"></script>
     <script src="/plugins/bootstrap-wysiwyg/external/jquery.hotkeys.js"></script>
     <script src="/plugins/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js"></script>
+    <!-- Morris Charts -->
+    <script src="/plugins/morris/raphael-2.1.0.min.js"></script>
+    <script src="/plugins/morris/morris.js"></script>
+
     <script src="/js/taskboard/initBootbox.js"></script>
     <script src="/js/taskboard/common.js"></script>
     <script src="/js/taskboard/bootbox/task.js"></script>
     <script src="/js/taskboard/bootbox/backlogs.js"></script>
     <script src="/js/taskboard/bootbox/sprint.js"></script>
+    <script src="/js/taskboard/bootbox/chart.js"></script>
     <script type="text/javascript">
         <%
         if (typeof project !== 'undefined') { %>

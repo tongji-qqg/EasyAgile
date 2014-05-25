@@ -8,8 +8,8 @@ $(init);
 
 $(function(){
     $('#show-my-task').bootstrapSwitch({
-        'onText':'我的任务',
-        'offText':'全部任务',
+        'onText':'全部任务',
+        'offText':'我的任务',
         'onSwitchChange':function(event, state){
             jQuery("body").trigger("loadSprint");        
         }
@@ -39,6 +39,14 @@ function init() {
             //alert('update sprint '+ message.what);
             if(message.sid === sid)
                 loadSprint();
+        });
+        socket.on('sprintDelete',function updateSprint(message){
+            //alert('update sprint '+ message.what);
+            if(message.sid === sid){
+                sid = g_project.cSprint;                
+            }
+            body.trigger("loadProject");
+            body.trigger("loadSprint");                
         });
     }
     subscribe();
@@ -147,11 +155,35 @@ function init() {
         });
         $('#showSprintChartsLink').unbind('click');
         $('#showSprintChartsLink').on('click', function() {
-            bootbox.alert('click')
+            //bootbox.alert('click')
+            chartBootBox.burndownChartBox().modal('show');
         });
         $('#setCurrentSprintLink').unbind('click');
         $('#setCurrentSprintLink').on('click', function() {
             setAsCurrentSprint();
+        });
+        $('#deleteSprintLink').unbind('click');
+        $('#deleteSprintLink').on('click', function() {
+            bootbox.confirm('are you sure?',function(result){
+                if(result){
+                    console.log('message');
+                    $.ajax({
+                        type: 'DELETE',
+                        url: '/API/p/' + pid + '/s/' + sid,
+                        dataType: 'json',                
+                        success: function(data) {
+                            if (data.state === 'error')
+                                bootbox.alert('error! ' + data.message);
+                            if (data.state === 'success') {
+                                bootbox.alert('success');
+                                sid = g_project.cSprint;
+                                body.trigger("loadProject");
+                                body.trigger('loadSprint');
+                            }
+                        }
+                    });
+                }
+            })
         });
     }
 
@@ -262,12 +294,14 @@ function init() {
                 if(task.executer[i]._id == uid){
                     permission = true;
                 }                
-            if(!permission && $('#show-my-task').is( ":checked" ))return;
+            if(!permission && !$('#show-my-task').is( ":checked" ))return;
             var divClass = 'task sticky taped generated_qtip alert alert-warning';
             if (task.type == 1)
                 divClass = 'task sticky taped alert alert-success';
             if (task.type == 2)
                 divClass = 'task sticky taped alert alert-danger';
+            if (task.type == 3)
+                divClass = 'task sticky taped alert alert-info'
 
             var div = $('<div >', {
                 'id': task._id,

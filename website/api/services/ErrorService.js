@@ -183,6 +183,16 @@ exports.notHaveChangeTaskPermission = {
 	errorNumber: 30,    //may be other numbers
 	message: 'you dont have change task permission'	
 }
+exports.cannotDeleteCurrentSprint = {
+	state: "error",
+	errorNumber: 31,    //may be other numbers
+	message: 'you cannot delete current sprint!'	
+}
+exports.projectIsArchived = {
+	state: "error",
+	errorNumber: 32,    //may be other numbers
+	message: 'project is archived'	
+}
 exports.successWithValue = function(key, value){
 
     var s = _.clone(exports.success);

@@ -143,6 +143,19 @@ module.exports = {
     });
   },
 
+  /**
+   * get /mobile
+   * 
+   * @param   {Request}   request     Request object
+   * @param   {Response}  response    Response object
+   */
+  mobile: function (req, res) {
+    
+    sails.log.verbose('Controller - api/controller/StaticController.index');
+    return res.view('mobile',{
+      user:req.session.user
+    });
+  },
 
   /**
    * get /reg 

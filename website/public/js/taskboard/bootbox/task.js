@@ -364,7 +364,7 @@ var taskBootBox = (function() {
 
 	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formTaskNewTypeId">类型</label>' + '<div class="col-lg-9">' + '<select id="formTaskNewTypeId" name="typeId" class="form-control in-modal show-tick show-menu-arrow">'
 
-	+ '<option value="0" selected="selected">开发</option>' + '<option value="1">测试</option>' + '<option value="2">设计</option>' + '<option value="2">其他</option>' + '</select>' + '</div>' + '</div>'
+	+ '<option value="0" selected="selected">开发</option>' + '<option value="1">测试</option>' + '<option value="2">设计</option>' + '<option value="3">其他</option>' + '</select>' + '</div>' + '</div>'
 
 	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formTaskEditTypeId">所属小组</label>' + '<div class="col-lg-9">' + '<select id="formTaskEditTypeId" name="typeId" class="form-control in-modal show-tick show-menu-arrow">' + '<option value="0" selected="selected">开发部小组</option>' + '<option value="1">技术部小组</option>' + '<option value="2">UI设计组</option>' + '</select>' + '</div>' + '</div>'
 
@@ -396,7 +396,7 @@ var taskBootBox = (function() {
 	+ '<div class="form-group required">' + '<label class="col-lg-3 control-label" for="formSprintNewDateStart">持续时间</label>' + '<label class="col-lg-3 control-label" for="formSprintNewDateEnd" style="display: none;"></label>' + '<div class="col-lg-9">' + '<div class="input-group date dateStart">' + '<input id="formSprintEditDateStart" name="dateStart" type="text" class="dateInput form-control" size="16" required="required"' + 'data-validate-type="daterange"' + 'data-role="start"' + 'data-pair="formSprintNewDateEnd"' + 'data-focus="false"' + 'data-type="sprint"/>' + '<span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>' + '</div>' + '<span class="separator">&mdash;</span>' + '<div class="input-group date dateEnd">' + '<input id="formSprintEditDateEnd" name="dateEnd" type="text" class="dateInput form-control" size="16" required="required"' + 'data-validate-type="daterange"' + 'data-role="end"' + 'data-pair="formSprintNewDateStart"' + 'data-focus="false"' + 'data-type="sprint"/>' + '<span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>' + '</div>' + '</div>' + '</div>'
 
 
-	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formTaskEditTypeId">类型</label>' + '<div class="col-lg-9">' + '<select id="formTaskEditTypeId" name="typeId" class="form-control in-modal show-tick show-menu-arrow">' + '<option value="0" selected="selected">开发</option>' + '<option value="1">测试</option>' + '<option value="2">设计</option>' + '<option value="2">其他</option>' + '</select>' + '</div>' + '</div>'
+	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formTaskEditTypeId">类型</label>' + '<div class="col-lg-9">' + '<select id="formTaskEditTypeId" name="typeId" class="form-control in-modal show-tick show-menu-arrow">' + '<option value="0" selected="selected">开发</option>' + '<option value="1">测试</option>' + '<option value="2">设计</option>' + '<option value="3">其他</option>' + '</select>' + '</div>' + '</div>'
 
 	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formTaskEditTypeId">所属小组</label>' + '<div class="col-lg-9">' + '<select id="formTaskEditTypeId" name="typeId" class="form-control in-modal show-tick show-menu-arrow">' + '<option value="0" selected="selected">开发部小组</option>' + '<option value="1">技术部小组</option>' + '<option value="2">UI设计组</option>' + '</select>' + '</div>' + '</div>'
 

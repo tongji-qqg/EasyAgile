@@ -175,7 +175,50 @@ module.exports = {
 		});
     },
 
-    
+    /**
+	 * put /API/p/:pid/mg/:uid
+	 * 
+	 * @param   {req}   request     Request object
+	 * @param   {res}  response    Response object
+	 */
+    setMemberGroup: function (req, res) {
+      
+	    sails.log.verbose('Controller - api/controller/ProjectController.setMemberGroup');
+	    projectService.setMemberToGroup(req.session.user._id,req.params.pid, req.params.uid, req.body.group, function(err){
+			if(err) res.json(err);
+			else res.json(ErrorService.success);
+		});
+    },
+
+    /**
+	 * post /API/p/:pid/g
+	 * 
+	 * @param   {req}   request     Request object
+	 * @param   {res}  response    Response object
+	 */
+    addGroup: function (req, res) {
+      
+	    sails.log.verbose('Controller - api/controller/ProjectController.addGroup');
+	    projectService.addGroup(req.session.user._id,req.params.pid, req.body.group, function(err){
+			if(err) res.json(err);
+			else res.json(ErrorService.success);
+		});
+    },
+
+    /**
+	 * delete /API/p/:pid/g
+	 * 
+	 * @param   {req}   request     Request object
+	 * @param   {res}  response    Response object
+	 */
+    deleteGroup: function (req, res) {
+      
+	    sails.log.verbose('Controller - api/controller/ProjectController.deleteGroup');
+	    projectService.deleteGroup(req.session.user._id,req.params.pid, req.body.group, function(err){
+			if(err) res.json(err);
+			else res.json(ErrorService.success);
+		});
+    },
 
   /**
    * Overrides for the settings in `config/controllers.js`

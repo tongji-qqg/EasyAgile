@@ -11,15 +11,17 @@ var projectSchema = new Schema({
   done: {type: Boolean, default:false},
   deleted : {type: Boolean, default: false},
   owner: { type: ObjectId, ref: 'User'},     
-
+  ownerGroup :String,
   members: [{ 
     name: String,   //change when user change
     _id: ObjectId,
     ref: { type: ObjectId, ref: 'User' },
     icon: String,   //change when user change
-    isAdmin: { type: Boolean, default: false } 
+    isAdmin: { type: Boolean, default: false },
+    group:String 
   }],
   
+  groups: [String],
   //releases: [{ editTime:Date, releaseTime: Date, description: String, realReleaseTime: Date }],
 
   topics: [{ type: ObjectId, ref: 'Topic' }],

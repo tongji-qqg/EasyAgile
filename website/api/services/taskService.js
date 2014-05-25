@@ -29,6 +29,10 @@ exports.createTask = function(selfuid, pid, sid, taskInfo, callback){
 	       			if(err) return callback(eErrorService.makeDbErr(err));
 	       			else callback(null,task);
 	       	});
+	    },
+	    function(task,callback){
+	    	sprintService.collectBurnDownData(null, sid);
+	    	callback(null, task);
 	    }	
 
 	], callback);
@@ -64,16 +68,27 @@ exports.modifyTaskById = function(selfuid, pid, sid, tid, taskInfo, callback){
 	    	task.type     = taskInfo.type || task.type;
 	    	task.state    = taskInfo.state || task.state;
 	    	task.executer = taskInfo.executer || task.executer;
-	    	task.progress = taskInfo.progress || task.progress;
+	    	//task.progress = taskInfo.progress || task.progress;
 	    	task.estimate = taskInfo.estimate || task.estimate;
-	    	if(taskInfo.state){
-	    		if(taskInfo.state == 0 || taskInfo.state == 1 || taskInfo.state == 3)
-	    			task.progress = 100;
-	    	}
+	    	// if(taskInfo.state){
+	    	// 	if(taskInfo.state == 0 )
+	    	// 		task.progress = 0;
+	    	// 	if(taskInfo.state == 1)
+	    	// 		task.progress = 100;
+	    	// 	if(task.progress == 0)
+	    	// 		task.state = 0;
+	    	// 	if(task.progress == 100)
+	    	// 		task.state == 1;
+	    	// }
        		task.save(function(err){
        			if(err) return callback(ErrorService.makeDbErr(err));
        			else callback(null,task);
        		});
+	    },
+	    function(task, callback){
+	    	if(taskInfo.estimate)
+	    		sprintService.collectBurnDownData(task._id,null);
+	    	callback(null,task);
 	    }	
 
 	], callback);
@@ -101,11 +116,23 @@ exports.setTaskProgressById = function(selfuid, pid, sid, tid, progress, callbac
 	    function(task, callback){	   
 	    		   
 	    	task.progress = progress;
+	    	if(task.progress == 0)
+	    		task.state = 0;
+	    	if(task.progress == 100)
+	    		task.state = 1;
+	    	if(task.state == 0)
+	    		task.process = 0;
+	    	if(task.state == 1)
+	    		task.process = 100;
 
        		task.save(function(err){
        			if(err) return callback(ErrorService.makeDbErr(err));
-       			else callback(null);
+       			else callback(null,task);
        		});       		
+	    },
+	    function(task,callback){
+	    	sprintService.collectBurnDownData(task._id,null);
+	    	callback(null);
 	    }	
 
 	], callback);
@@ -141,6 +168,10 @@ exports.deleteTaskById = function(selfuid, pid, sid, tid, callback){
        			if(err) return callback(ErrorService.makeDbErr(err));
        			else callback(null);
        		});
+	    },
+	    function(callback){
+	    	sprintService.collectBurnDownData(null,sid);
+	    	callback(null);
 	    }	
 
 	], callback);

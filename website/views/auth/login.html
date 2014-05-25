@@ -30,11 +30,29 @@
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
-
+    <style type="text/css">
+    .ea-alert {
+        position:fixed;
+        bottom:90%;
+        right:0;
+        margin-bottom:0;
+        font-size:1.2em;
+        padding:1em 1.3em;
+        z-index:2000;
+    }
+    </style>
 </head>
 
 <body class="login">
-
+    <%if(req.session.flash){%>
+        <script type="text/javascript">
+        var message =  '<%= req.flash("info") %>';        
+        </script>    
+    <%}%>
+    
+    <div class="ea-alert alert alert-info" style="display: none;">
+        <span>Hello world callback</span>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
@@ -89,7 +107,7 @@
             </div>
         </div>
     </div>
-
+    
     <!-- GLOBAL SCRIPTS -->
     <script src="/js/jquery-1.10.2.js"></script>
     <script src="/plugins/bootstrap/bootstrap.min.js"></script>
@@ -101,7 +119,16 @@
 
     <!-- THEME SCRIPTS -->
     <script src="/js/flex.js"></script>
-
+    <script src='/js/flashMessage.js'></script>
+    <script>
+        $(function() {
+            FlashMessage.init({
+                "selector": ".ea-alert"
+            });
+            if(message)
+                FlashMessage.show(message);       
+        });
+    </script>
 </body>
 
 </html>

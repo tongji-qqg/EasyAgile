@@ -112,7 +112,7 @@ $(function(){
 		var span_top_right = $('<span >',{'class':'float_right'}).appendTo(top);
 		$('<a >',{'class':'window_min','href':'#'}).appendTo(span_top_right);
 		$('<a >',{'class':'window_resize','href':'#'}).appendTo(span_top_right);
-		var closeBtn = $('<a >',{'class':'window_close','href':'#icon_dock_new'}).appendTo(span_top_right);
+		var closeBtn = $('<a >',{'class':'window_close','href':'#icon_dock_delete'}).appendTo(span_top_right);
 		////////
 		var content = $('<div >',{'class':'abs window_content'}).appendTo(innerWin);		
 		var winMain = $('<div >',{'class':'window_main'}).appendTo(content);

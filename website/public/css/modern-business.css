@@ -17,6 +17,10 @@ body {
  /* body padding for fixed top nav */
 }
 
+li {
+	font-size: 16px;
+}
+
 .img-home-portfolio,
 .img-customer,
 .portfolio-item {
