@@ -40,7 +40,7 @@ a:focus {
 
 @media(min-width:768px) {
     body {
-        background: #34495e;
+        background: #fff;
     }
 }
 
@@ -64,27 +64,27 @@ a:focus {
 /* Use these to cuztomize the background color of a div. These are used along with tiles, or any other div you want to customize. */
 
  .dark-blue {
-    background-color: #34495e;
+    background-color: #239cc5;
 }
 
 .green {
-    background-color: #16a085;
+    background-color: #66cdaa;
 }
 
 .blue {
-    background-color: #2980b9;
+    background-color: #add8e6;
 }
 
 .orange {
-    background-color: #f39c12;
+    background-color: #ffa07a;
 }
 
 .red {
-    background-color: #e74c3c;
+    background-color: #f08080;
 }
 
 .purple {
-    background-color: #8e44ad;
+    background-color: #dda0dd;
 }
 
 .dark-gray {
@@ -100,7 +100,7 @@ a:focus {
 }
 
 .yellow {
-    background-color: #f1c40f;
+    background-color: #66cdaa;
 }
 
 /* -- Text Color Helper Classes */
@@ -131,6 +131,9 @@ a:focus {
 
 .text-faded {
     color: rgba(255,255,255,0.7);
+}
+.text-yellow{
+	color: #239cc5;
 }
 
 /* Wrappers
@@ -163,7 +166,7 @@ a:focus {
         margin: 50px 0 0 225px;
         padding: 0 30px;
         min-height: 1300px;
-        border-left: 1px solid #2c3e50;
+        /*border-left: 1px solid #2c3e50;*/
     }
 
     #page-wrapper.collapsed {
@@ -200,7 +203,8 @@ a:focus {
 
  .navbar-top {
     margin-left: 0;
-    background-color: #2c3e50;
+    background-color: #fff;
+    border-bottom: 1px solid #dcdcdc;
     position: fixed;
 }
 
@@ -360,7 +364,7 @@ a:focus {
 .navbar-top .dropdown-messages .dropdown-footer a,
 .navbar-top .dropdown-messages .dropdown-footer a:hover {
     color: #fff;
-    background: #16a085 !important;
+    background: #66cdaa !important;
 }
 
 .navbar-top .alerts-link,
@@ -370,7 +374,7 @@ a:focus {
 .navbar-top .dropdown-alerts .dropdown-footer a,
 .navbar-top .dropdown-alerts .dropdown-footer a:hover {
     color: #fff;
-    background: #f39c12 !important;
+    background: #ffa07a !important;
 }
 
 .navbar-top .alert-icon {
@@ -387,7 +391,7 @@ a:focus {
 .navbar-top .dropdown-tasks .dropdown-footer a,
 .navbar-top .dropdown-tasks .dropdown-footer a:hover {
     color: #fff;
-    background: #2980b9 !important;
+    background: #239cc5 !important;
 }
 
 .navbar-top .dropdown-tasks .progress {
@@ -529,7 +533,7 @@ a:focus {
 
 .navbar-side .side-user .name .last-name {
     font-weight: 400;
-    color: #fff;
+    color: #383838;
 }
 
 .navbar-side .nav-search {
@@ -562,7 +566,7 @@ a:focus {
 .navbar-side ul.side-nav {
     margin-top: 0;
     margin-bottom: 0;
-    border-bottom: 1px solid #54677a;
+    border-bottom: 0.5px solid #fff;
     font-size: 13px;
     background-color: #34495e;
 }
@@ -573,14 +577,14 @@ a:focus {
 .navbar-side .navbar-nav>li>a:active {
     text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
     outline: none;
-    color: #fff;
-    background-color: #34495e;
+    color: #383838;
+    background-color: #fff;
 }
 
 .navbar-side .side-nav li,
 .navbar-side .side-nav li.panel {
-    border-top: 1px solid #54677a;
-    border-bottom: 1px solid #142638;
+    /*border-top: 1px solid #fff;*/
+    border-bottom: 1px solid #dcdcdc;
 }
 
 .navbar-side .side-nav li.panel ul li {
@@ -655,8 +659,8 @@ a:focus {
     }
 
     .navbar-side .side-nav > li > a:hover {
-        color: #fff;
-        background-color: #3d566e;
+        color: #000;
+        background-color: #efefef;
     }
 
     .navbar-side .side-nav li.panel ul li a:hover,
@@ -860,13 +864,13 @@ a:focus {
 .portlet-dark-blue,
 .portlet-default>.portlet-heading,
 .portlet-dark-blue>.portlet-heading {
-    border-color: #34495e;
+    border-color: #dcdcdc;
 }
 
 .portlet-default>.portlet-heading,
 .portlet-dark-blue>.portlet-heading {
-    color: #fff;
-    background-color: #34495e;
+    color: #000;
+    background-color: #add8e6;
 }
 
 .portlet-basic,
