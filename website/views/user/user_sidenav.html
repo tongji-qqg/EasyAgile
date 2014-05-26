@@ -7,10 +7,10 @@
                 <form id='iconFormSidenav' enctype="multipart/form-data">
                     <input id="iconUploadSidenav" type="file" name="icon" multiple="" style="width: 160px;height: 160px;cursor: pointer;font-size: 30px;outline: medium none;position: absolute;filter:alpha(opacity=0);-moz-opacity:0;opacity:0; left:0px;top: 0px;">
                     <% if(user.icon) {%>
-                    <img id='userIconSidenav' class="img-circle" style="width:160px" src="/<%= user.icon%>" alt='/usericons/default.jpg'>
+                    <img id='userIconSidenav' class="img-circle" style="width:160px;height:160px;" src="/<%= user.icon%>" alt='/usericons/default.jpg'>
                     </img>
                     <%}else{%>
-                    <img id='userIconSidenav' class="img-circle" style="width:160px" src="/usericons/default.jpg" alt='sorry file miss'>
+                    <img id='userIconSidenav' class="img-circle" style="width:160px;height:160px;" src="/usericons/default.jpg" alt='sorry file miss'>
                     </img>
                     <%}%>
                 </form>

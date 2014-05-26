@@ -84,9 +84,9 @@
                                                 <td>  
                                                    <h5>
                                                     <%if(c.owner.icon){ %>
-                                                    <img class="img-circle" src="/<%=c.owner.icon%>" style="margin-top:5px;width:50px;">
+                                                    <img class="img-circle" src="/<%=c.owner.icon%>" style="margin-top:5px;width:50px;height:50px;">
                                                     <%}else{%>
-                                                    <img class="img-circle" src="/usericons/default.jpg" style="margin-top:5px;width:50px;">
+                                                    <img class="img-circle" src="/usericons/default.jpg" style="margin-top:5px;width:50px;height:50px;">
                                                     <%}%>
                                                       
                                                       <%=c.owner.name%>
@@ -103,9 +103,9 @@
                                             <tr>
                                                 <td>
                                                   <% if(user.icon) {%>
-                                                  <img class="img-circle" src="/<%=user.icon%>" style="margin-top:5px;width:50px;">
+                                                  <img class="img-circle" src="/<%=user.icon%>" style="margin-top:5px;width:50px;height:50px;">
                                                   <%}else{%>
-                                                  <img class="img-circle" src="/usericons/default.jpg" style="margin-top:5px;width:50px;">
+                                                  <img class="img-circle" src="/usericons/default.jpg" style="margin-top:5px;width:50px;height:50px;">
                                                   <%}%>          
                                                    <input id="newComment" class="form-control input-lg" type="text" placeholder="点击发表评论" style="display:inline-block;width:80%;margin-left:10px;margin-top:10px;border-radius:5px;" onclick="editComment()">
                                                    <div tid='<%=topic._id%>' id="summernote"></div>

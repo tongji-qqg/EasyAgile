@@ -74,7 +74,7 @@ $(function(){
 			var icon = DEFAULT_ICON;
 			if(g_project.owner.icon) icon = '/'+g_project.owner.icon;
 			
-			$('<img >',{'src':icon,'class':'img-circle','style':'width:40px;'}).appendTo(div);
+			$('<img >',{'src':icon,'class':'img-circle','style':'width:40px;height:40px;'}).appendTo(div);
 			$('<label >',{'class':'control-label'}).text(g_project.owner.name+'·管理员').appendTo(div);	
 		}
 		owner();
@@ -85,7 +85,7 @@ $(function(){
 			var leftDiv = $('<div >',{'class':'col-sm-8'}).appendTo(rowDiv);
 			var icon = DEFAULT_ICON;
 			if(member.ref.icon) icon = '/'+member.ref.icon;
-			$('<img >',{'src':icon,'class':'img-circle','style':'width:40px;'}).appendTo(leftDiv);
+			$('<img >',{'src':icon,'class':'img-circle','style':'width:40px;height:40px;'}).appendTo(leftDiv);
 			var name = member.ref.name;
 			if(member.isAdmin) name+='·管理员';
 			else name +='·普通';

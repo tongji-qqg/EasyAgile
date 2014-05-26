@@ -486,10 +486,10 @@
             <form id='iconForm' enctype="multipart/form-data">
                 <input id="iconUpload" type="file" name="icon" multiple="" style="width: 150px;height: 150px;cursor: pointer;outline: medium none;position: absolute;filter:alpha(opacity=0);-moz-opacity:0;opacity:0; left:254px;top: 40px;">
                 <% if(user.icon) {%>
-                <img id='userSettingIcon' class="img-circle" style="width:150px" src="/<%= user.icon%>" alt='/usericons/default.jpg'>
+                <img id='userSettingIcon' class="img-circle" style="width:150px;height:150px;" src="/<%= user.icon%>" alt='/usericons/default.jpg'>
                 </img>
                 <%}else{%>
-                <img id='userSettingIcon' class="img-circle" style="width:150px" src="/usericons/default.jpg" alt='sorry file miss'>
+                <img id='userSettingIcon' class="img-circle" style="width:150px;height:150px;" src="/usericons/default.jpg" alt='sorry file miss'>
                 </img>
                 <%}%>                
             </form>            

@@ -91,7 +91,7 @@ $(function(){
     var allGroup;
     var addMemberHtml = '<div class="col-lg-2" style="color: #9cb073; margin-bottom:15px;">'
                             +'<div class="col-lg-4">'
-                                +'<img src="/img/add.jpg" class="img-circle" style="width:45px;">'
+                                +'<img src="/img/add.jpg" class="img-circle" style="width:45px;height:45px;">'
                             +'</div>'
                             +'<div class="col-lg-8" style="margin-top:10px;">添加成员</div>'
                         +'</div>';
@@ -175,7 +175,7 @@ $(function(){
         var divl = $('<div >',{'class':'col-lg-3'}).appendTo(div);
         var icon = '/usericons/default.jpg';
         if(member.icon) icon = '/'+member.icon;
-        $('<img >',{'src':icon,'class':'img-circle','style':'width:45px;'}).appendTo(divl);
+        $('<img >',{'src':icon,'class':'img-circle','style':'width:45px;height:45px;'}).appendTo(divl);
         var divr = $('<div >',{'class':'col-lg-9'}).appendTo(div);
         var divrl = $('<div >',{'class':'col-lg-12'}).appendTo(divr);
         $('<span >').text(member.name).appendTo(divrl);
