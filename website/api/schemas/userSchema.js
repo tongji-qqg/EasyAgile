@@ -13,6 +13,7 @@ var userSchema = new Schema({
   birthday : { type: Date },
   phone   : String,
   icon    : String,
+  iconid  : Number,
 
   otherAccount:[{
   	platfromName: String,
