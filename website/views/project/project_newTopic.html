@@ -67,8 +67,14 @@
                 </div>
                 <!-- /.row -->
                 <!-- end PAGE TITLE ROW -->  
-                <div class="portlet portlet-default" style="border-style:none;">
-                <div class="portlet-body">
+                <div class="panel panel-success">
+                  <div class="panel-heading">
+                     <div class="panel-title">
+                     <h4><%=project.name%></h4>
+                     </div>
+                  </div>
+
+                <div class="panel-body">
 
                 <input id='newTopicTitleInput' class="form-control input-lg" type="text" placeholder="话题题目" style="margin-top:20px;margin-bottom:20px;">
 
@@ -81,14 +87,14 @@
                      <label><input type="checkbox" onclick="selectAll(this)" id="all"><span style="margin-left:10px;">全部</span></label>
                 </div>
                 <div class="col-lg-2">
-                   <label><input type="checkbox" value="" onclick="selectAllGroup(this,'group1')"><span class="label label-info" style="margin-left:15px;">开发部小组</span></label>
+                   <label><input type="checkbox" value="" onclick="selectAllGroup(this,'group1')"><span class="label label-success" style="margin-left:15px;">开发部小组</span></label>
                  </div>
                  <div class="col-lg-10">  
                       <label style="margin-right:30px;font-weight:normal;"><input type="checkbox" name="group1"><span style="margin-left:10px;">member1</span></label>
                       <label style="margin-right:30px;font-weight:normal;"><input type="checkbox" name="group1"><span style="margin-left:10px;">member1</span></label>
                 </div>
                 <div class="col-lg-2">
-                   <label><input type="checkbox" onclick="selectAllGroup(this,'group2')"><span class="label label-info" style="margin-left:15px;">技术部小组</span></label>
+                   <label><input type="checkbox" onclick="selectAllGroup(this,'group2')"><span class="label label-success" style="margin-left:15px;">技术部小组</span></label>
                 </div>
                 <div class="col-lg-10">
                       <label style="margin-right:30px;font-weight:normal;"><input type="checkbox" name="group2"><span style="margin-left:10px;">member1</span></label>
@@ -97,16 +103,15 @@
                 </div>
 
                 <div class="col-lg-2">
-                   <label><input type="checkbox" onclick="selectAllGroup(this,'group3')"><span class="label label-info" style="margin-left:15px;">UI设计小组</span></label>
+                   <label><input type="checkbox" onclick="selectAllGroup(this,'group3')"><span class="label label-success" style="margin-left:15px;">UI设计小组</span></label>
                 </div>
                 <div class="col-lg-10">
                       <label style="margin-right:30px;font-weight:normal;"><input type="checkbox" name="group3"><span style="margin-left:10px;">member1</span></label>
                       <label style="margin-right:30px;font-weight:normal;"><input type="checkbox" name="group3"><span style="margin-left:10px;">member1</span></label>
                 </div>
                 </div>
-
                 <div class="publishTopic">
-                <button id='postTopicButton' class="btn btn-primary" style="margin-top:5px;">发起讨论</button>
+                <button id='postTopicButton' class="btn btn-white" style="margin-top:5px;">发起讨论</button>
                 <a href="/project_topic/<%=project._id%>" style="vertical-align:middle;margin-left:30px;font-size:15px;text-decoration:none">取消</a>
                 </div>
 

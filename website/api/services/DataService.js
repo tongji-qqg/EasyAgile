@@ -73,7 +73,8 @@ exports.makeUserInfo = function(u){
 		_id : u._id,
 		email: u.email,
 		name: u.name,
-		icon: u.icon
+		icon: u.icon,
+		iconid: u.iconid
 	};
 	return user;
 }

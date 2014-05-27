@@ -50,7 +50,7 @@
                 <!-- /.row -->
                 <!-- end PAGE TITLE ROW -->  
                 <div class="panel-group" id="accordion">
-                    <div class="panel panel-default">
+                    <div class="panel panel-success">
                        <div class="panel-heading">
                             <h4 class="panel-title">
                                 <%=topic.title%>
@@ -69,7 +69,7 @@
                               <%=topic.author.name%>
                               <div class="Date" style="color:#CCC;display:inline-block;width:100px;"> <%=topic.date.getMonth()+1%>月<%=topic.date.getDate()%>日</div>
                            </h5>
-                           <div class="well" style="margin-left:55px;margin-right:55px;background-color:#d9edf7;color:#31708f;">
+                           <div class="well" style="margin-left:55px;margin-right:55px;background-color:#dff0d8;color:#3c763d;border-color:#d6e9c6;">
                            <%=topic.body%>
                           </div>
                           <!--    Comment List  -->
@@ -84,9 +84,9 @@
                                                 <td>  
                                                    <h5>
                                                     <%if(c.owner.icon){ %>
-                                                    <img class="img-circle" src="/<%=c.owner.icon%>" style="margin-top:5px;width:50px;">
+                                                    <img class="img-circle" src="/<%=c.owner.icon%>" style="margin-top:5px;width:50px;height:50px;">
                                                     <%}else{%>
-                                                    <img class="img-circle" src="/usericons/default.jpg" style="margin-top:5px;width:50px;">
+                                                    <img class="img-circle" src="/usericons/default.jpg" style="margin-top:5px;width:50px;height:50px;">
                                                     <%}%>
                                                       
                                                       <%=c.owner.name%>
@@ -103,9 +103,9 @@
                                             <tr>
                                                 <td>
                                                   <% if(user.icon) {%>
-                                                  <img class="img-circle" src="/<%=user.icon%>" style="margin-top:5px;width:50px;">
+                                                  <img class="img-circle" src="/<%=user.icon%>" style="margin-top:5px;width:50px;height:50px;">
                                                   <%}else{%>
-                                                  <img class="img-circle" src="/usericons/default.jpg" style="margin-top:5px;width:50px;">
+                                                  <img class="img-circle" src="/usericons/default.jpg" style="margin-top:5px;width:50px;height:50px;">
                                                   <%}%>          
                                                    <input id="newComment" class="form-control input-lg" type="text" placeholder="点击发表评论" style="display:inline-block;width:80%;margin-left:10px;margin-top:10px;border-radius:5px;" onclick="editComment()">
                                                    <div tid='<%=topic._id%>' id="summernote"></div>

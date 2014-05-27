@@ -28,7 +28,7 @@ $(function(){
 			var m = t.getMonth()+1;
 			var d = t.getDate();
 			var row = $('<div >',{'class':'row', 'style':'margin-left:10px;width:95%;'})
-			var div = $('<div >',{'class':'well well-sm', 'style':'background-color:#d9edf7;border-color:#bce8f1;color:#31708f;border-radius:10px;'}).appendTo(row);
+			var div = $('<div >',{'class':'well well-sm', 'style':'background-color:#fcf8e3;border-color:#faebcc;color:#000;border-radius:10px;'}).appendTo(row);
 			$('<h6 >',{'style':'color:#CCC;'}).text(y+'年'+m+'月'+d+'日'+i.finder.name).appendTo(div);
 			var checkBoxDiv = $('<div >', {'class':'checkbox'}).appendTo(div);
 			var label = $('<label >').appendTo(checkBoxDiv);
@@ -83,15 +83,19 @@ $(function(){
 	function openClick(){
 		g_type = false;
 		$('#closeIssueButton').prop("disabled", false);
-		$('#openIssue').attr('style',"background-color:#d9edf7;");
+		$('#openIssue').attr('style',"background-color:#fcf8e3;");
+		$('#openIssue').attr('style',"border-color:#faebcc;");
 		$('#closeIssue').attr('style',"background-color:white;");
+		$('#closeIssue').attr('style',"border-color:#adadad;");
 		$('body').trigger('loadIssue');
 	}
 	function closeClick(){
 		g_type = true;
 		$('#closeIssueButton').prop("disabled", true);
-		$('#closeIssue').attr('style',"background-color:#d9edf7;");
+		$('#closeIssue').attr('style',"background-color:#fcf8e3;");
+		$('#closeIssue').attr('style',"border-color:#faebcc;");
 		$('#openIssue').attr('style',"background-color:white;");
+		$('#openIssue').attr('style',"border-color:#adadad;");
 		$('body').trigger('loadIssue');
 	}
 	$('#openIssue').click(openClick);

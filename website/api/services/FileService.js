@@ -195,6 +195,8 @@ exports.setUserIcon = function(selfuid, icon, callback){
 			DataService.getUserById(selfuid, function(err, user){
 				if(err)return  callback(err);
 				user.icon = 'usericons/'+selfuid+'.'+icon.name.split('.').pop();
+				user.iconid = user.iconid || 0;
+				user.iconid++;
 				user.save(function(err, result){
 					if(err) callback(ErrorService.makeDbErr(err));
 					else callback(null, DataService.makeUserInfo(result));

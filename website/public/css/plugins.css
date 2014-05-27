@@ -62,10 +62,10 @@
 /* Full Calendar Customization */
 
 .fc-state-default {
-    border-color: #15987e;
+    border-color: #bce8f1;
     text-shadow: none;
     color: #fff;
-    background-color: #16a085;
+    background-color: #239cc5;
     background-image: none;
     box-shadow: none;
 }
@@ -74,9 +74,9 @@
 .fc-state-down,
 .fc-state-active,
 .fc-state-disabled {
-    border-color: #138871;
+    border-color: #bce8f1;
     color: #fff;
-    background-color: #149077;
+    background-color: #add8e6;
 }
 
 .fc-state-hover {
@@ -85,7 +85,7 @@
 
 .fc-state-down,
 .fc-state-active {
-    background-color: #149077;
+    background-color: #add8e6;
 }
 
 #external-events {
@@ -116,9 +116,10 @@
 
 .fc-green,
 .fc-event {
-    border-color: #15987e;
+    border-color: #d6e9c6;
     color: #fff;
-    background-color: #16a085;
+    background-color: #66cdaa;
+    font-weight: bold;
 }
 
 .fc-orange {
@@ -134,9 +135,10 @@
 }
 
 .fc-red {
-    border-color: #db4839;
-    color: #fff;
-    background-color: #e74c3c;
+    border-color: #ebccd1;
+    color: #fffaf0;
+    background-color: #cd5c5c;
+    font-weight: bold;
 }
 
 .fc-purple {
