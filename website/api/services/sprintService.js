@@ -27,7 +27,14 @@ exports.createSprint = function (selfuid, pid, sprintInfo, cb){
 	    function(targetProject, newSprint, callback){	   
 	    	
 	    	targetProject.sprints.push(newSprint._id);
-
+	    	/////////////////////////////////////
+			//   project history
+			/////////////////////////////////////
+			targetProject.history.push({						
+				type: HistoryService.PROJECT_TYPE.sprint_new,
+				who : selfuid,
+				what: [newSprint.name,newSprint.description]
+			});
 	    	targetProject.save(function(err){
 	    		if(err) callback(ErrorService.makeDbErr(err));
 	    		else callback(null, newSprint);
@@ -49,16 +56,30 @@ exports.deleteSprint = function(selfuid, pid, sid, cb){
 				else callback(null, project);
 			});		    			
 		},
+
 		function(project, callback){
-			project.sprints.remove(sid);
-			project.save(function(err){
+			DataService.getSprintById(sid,function(err, result){
 				if(err) callback(err);
-				else callback(null);
+				else callback(null, project, result);
 			});
 		},
-		function(callback){
-			DataService.getSprintById(sid,callback);
+
+		function(project, sprint, callback){
+			project.sprints.remove(sid);
+			/////////////////////////////////////
+			//   project history
+			/////////////////////////////////////
+			project.history.push({						
+				type: HistoryService.PROJECT_TYPE.sprint_delete,
+				who : selfuid,
+				what: [sprint.name]
+			});
+			project.save(function(err){
+				if(err) callback(err);
+				else callback(null, sprint);
+			});
 		},
+		
 		function(sprint, callback){
 			var query = [];
 			function makeDeleteQuery(tid){
@@ -159,7 +180,21 @@ exports.setCurrentSprint = function(selfuid, pid, sid, callback){
 			DataService.getProjectById(pid, callback);
 		},
 		function(project, callback){
+			DataService.getSprintById(sid,function(err,sprint){
+				if(err) callback(err);
+				else callback(null, project, sprint);
+			});
+		},
+		function(project, sprint, callback){
 			project.cSprint = sid;
+			/////////////////////////////////////
+			//   project history
+			/////////////////////////////////////
+			project.history.push({						
+				type: HistoryService.PROJECT_TYPE.sprint_now,
+				who : selfuid,
+				what: [sprint.name]
+			});
 			project.save(function(err){
 				if(err)callback(ErrorService.makeDbErr(err));
 				else callback(null);

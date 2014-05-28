@@ -64,7 +64,7 @@ module.exports = {
     getOneFileOfProject: function (req, res) {
       
 	    sails.log.verbose('Controller - api/controller/FileController.getFileOfProject');
-	    FileService.downloadFileFromProject(req.params.pid, req.params.fid, function(err, file){
+	    FileService.downloadFileFromProject(req.session.user._id, req.params.pid, req.params.fid, function(err, file){
 	    	if(err) return res.json(err);	    	
 	    	res.download(file.path,file.name);
 	    });
@@ -79,7 +79,7 @@ module.exports = {
     deleteOneFileOfProject: function (req, res) {
       
 	    sails.log.verbose('Controller - api/controller/FileController.deleteFileOfProject');
-	    FileService.deleteFileOfProject(req.params.pid, req.params.fid, function(err, file){
+	    FileService.deleteFileOfProject(req.session.user._id, req.params.pid, req.params.fid, function(err, file){
 	    	if(err) res.json(err);	    	
 	    	else res.json(ErrorService.success);
 	    });

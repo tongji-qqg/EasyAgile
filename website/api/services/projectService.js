@@ -22,6 +22,14 @@ exports.createProject = function(selfuid, name, des, cb){
 				description: des,
 				owner: selfuid		
 			});
+			/////////////////////////////////////
+			//   project history
+			/////////////////////////////////////
+			project.history.push({						
+				type: HistoryService.PROJECT_TYPE.create,
+				who : selfuid,
+				what: [project.name,project.description]							
+			});
 			project.save(function(err){
 				if(err) callback(ErrorService.makeDbErr(err));
 				else callback(null, user, project);
@@ -39,11 +47,19 @@ exports.createProject = function(selfuid, name, des, cb){
 		function(user, project, callback){
 			sprintService.createSprint(selfuid, project._id, {
 				name: 'sprint 1',
-				description: 'first sprint'
+				description: 'first sprint',				
 			}, function(err, result){
 				if(err) callback(ErrorService.makeDbErr(err));
 				else{ 
 					project.cSprint = result._id;
+					/////////////////////////////////////
+					//   project history
+					/////////////////////////////////////
+					project.history.push({						
+						type: HistoryService.PROJECT_TYPE.sprint_new,
+						who : selfuid,
+						what: [result.name,result.description]
+					});
 					project.save(function(err){
 						if(err) callback(ErrorService.makeDbErr(err));
 						else callback(null, project);
@@ -66,14 +82,75 @@ exports.findProjectInfoById = function(pid, callback) {
 
 
 
-exports.updateProjectInfo = function(pid, toProject, callback){
-
-	projectModel.findOneAndUpdate({'_id':pid},{ $set: toProject},function(err){
-		if(err) callback(ErrorService.makeDbErr(err));
-		else callback(null);
-	});	    	   
+exports.updateProjectInfo = function(selfuid, pid, toProject, callback){
+	
+	DataService.getProjectById(pid, function(err, project){
+		if(err)return callback(err);
+		/////////////////////////////////////
+		//   project history
+		/////////////////////////////////////
+		var what = [];
+		if(toProject.name){
+			project.name = toProject.name;
+			what.push(toProject.name);
+		}
+		if(toProject.description){
+			project.description = toProject.description;
+			what.push(toProject.description);
+		}
+		project.history.push({
+			type: HistoryService.PROJECT_TYPE.info,
+			who : selfuid,
+			what: what
+		});
+		project.save(function(err,result){
+			if(err)callback(ErrorService.makeDbErr(err));
+			else callback(null);
+		})
+	})
+	// projectModel.findOneAndUpdate({'_id':pid},{ $set: toProject},function(err){
+	// 	if(err) callback(ErrorService.makeDbErr(err));
+	// 	else callback(null);
+	// });	    	   
 };
 
+exports.finishProject = function(selfuid, pid, cb){
+
+	DataService.getProjectById(pid, function(err, project){
+		if(err)return callback(err);
+		/////////////////////////////////////
+		//   project history
+		/////////////////////////////////////
+		project.history.push({
+			type: HistoryService.PROJECT_TYPE.finish,
+			who : selfuid,			
+		});
+		project.done = true;
+		project.save(function(err,result){
+			if(err)callback(ErrorService.makeDbErr(err));
+			else callback(null);
+		})
+	})
+}
+
+exports.deleteProject = function(selfuid, pid, cb){
+
+	DataService.getProjectById(pid, function(err, project){
+		if(err)return callback(err);
+		/////////////////////////////////////
+		//   project history
+		/////////////////////////////////////
+		project.history.push({
+			type: HistoryService.PROJECT_TYPE.del,
+			who : selfuid,
+		});
+		project.deleted = true;
+		project.save(function(err,result){
+			if(err)callback(ErrorService.makeDbErr(err));
+			else callback(null);
+		})
+	})
+}
 
 exports.addMemberById = function(selfuid, pid, uid, cb){
 
@@ -109,7 +186,14 @@ exports.addMemberById = function(selfuid, pid, uid, cb){
 	    		isAdmin: false
 	    	});
 	    	newMember.projects.push(targetProject._id);
-
+	    	/////////////////////////////////////
+			//   project history
+			/////////////////////////////////////
+			targetProject.history.push({
+				type: HistoryService.PROJECT_TYPE.member_invite,
+				who : selfuid,
+				toUser: newMember._id
+			});
 	    	targetProject.save(function(err){
 	    		if(err)return callback(ErrorService.makeDbErr(err));	    		
 	    	});
@@ -155,7 +239,14 @@ exports.removeMemberById = function(selfuid,pid, uid, cb){
 	    	targetProject.members.remove(uid);
 
 	    	toDelMember.projects.remove(pid);	    	
-	    	
+	    	/////////////////////////////////////
+			//   project history
+			/////////////////////////////////////
+			targetProject.history.push({
+				type: HistoryService.PROJECT_TYPE.member_remove,
+				who : selfuid,
+				toUser: toDelMember._id
+			});
 	    	targetProject.save(function(err){
 	    		if(err) return callback(ErrorService.makeDbErr(err));	    		
 	    	});
@@ -171,7 +262,7 @@ exports.removeMemberById = function(selfuid,pid, uid, cb){
 
 
 
-exports.setAdmin = function(pid, uid, bSet, cb){
+exports.setAdmin = function(selfuid, pid, uid, bSet, cb){
 
 	async.waterfall([
 	    
@@ -186,7 +277,14 @@ exports.setAdmin = function(pid, uid, bSet, cb){
 	    	if(member == null) return callback(ErrorService.memberNotFindError);
 
 	    	member.isAdmin = bSet;
-
+	    	/////////////////////////////////////
+			//   project history
+			/////////////////////////////////////
+	    	targetProject.history.push({
+	    		type: bSet? HistoryService.PROJECT_TYPE.member_admin : HistoryService.PROJECT_TYPE.member_normal,
+	    		who : selfuid,
+	    		toUser: member._id
+	    	});
 	    	targetProject.save(function(err){
 	    		if(err) callback(err);
 	    		else callback(null);
@@ -206,15 +304,25 @@ exports.setMemberToGroup = function(selfuid, pid, uid, group, callback){
 		},
 
 		function(targetProject, callback){	   
-
-				if(uid == targetProject.owner)
+				var toUser;
+				if(uid == targetProject.owner){
+					toUser = targetProject.owner;
 					targetProject.ownerGroup = group;
-				else{
+				} else{
 			    	var member = targetProject.members.id(uid);
 			    	if(member == null) return callback(ErrorService.memberNotFindError);
+			    	toUser = member._id;
 			    	member.group = group;
 				}
-
+				/////////////////////////////////////
+				//   project history
+				/////////////////////////////////////
+		    	targetProject.history.push({
+		    		type: HistoryService.PROJECT_TYPE.member_group,
+		    		who : selfuid,
+		    		toUser: toUser,
+		    		what: group==null ? []: [group]
+		    	});
 		    	targetProject.save(function(err){
 		    		if(err) callback(err);
 		    		else callback(null);
@@ -237,6 +345,14 @@ exports.addGroup = function(selfuid, pid, group, callback){
 			if(group == null || _.contains(project.groups,group))
 				return callback(null);
 			project.groups.push(group);
+			/////////////////////////////////////
+			//   project history
+			/////////////////////////////////////
+	    	project.history.push({
+	    		type: HistoryService.PROJECT_TYPE.group_new,
+	    		who : selfuid,	    		
+	    		what: [group]
+	    	});
 	    	project.save(function(err){
 	    		if(err) callback(err);
 	    		else callback(null);
@@ -264,6 +380,14 @@ exports.deleteGroup = function(selfuid, pid, group, callback){
 				if(m.group == group)
 					m.group = undefined;
 			})
+			/////////////////////////////////////
+			//   project history
+			/////////////////////////////////////
+	    	project.history.push({
+	    		type: HistoryService.PROJECT_TYPE.group_delete,
+	    		who : selfuid,
+	    		what: [group]
+	    	});
 	    	project.save(function(err){
 	    		if(err) callback(err);
 	    		else callback(null);

@@ -5,7 +5,7 @@ var _  = require('underscore');
 var async = require('async');
 
 
-exports.createOne = function(pid, type, info, cb){
+exports.createOne = function(selfuid, pid, type, info, cb){
 
 	return (function(pid, info, cb){
 		async.waterfall([
@@ -18,6 +18,15 @@ exports.createOne = function(pid, type, info, cb){
 		    function(targetProject, callback){	   
 		    	
 		    	targetProject[type].push(info);
+		    	/////////////////////////////////////
+				//   project history
+				/////////////////////////////////////
+		    	if(type == 'issues')
+		    		targetProject.history.push({
+		    			type: HistoryService.PROJECT_TYPE.issue_open,
+		    			who: selfuid,
+		    			what: [info.description]
+		    		});
 
 		    	targetProject.save(function(err){
 		    		if(err) callback(err);
@@ -120,7 +129,7 @@ exports.getAll = function(pid, type, cb){
 	
 };
 
-exports.modifyOne = function(pid, rid, type, info, cb){
+exports.modifyOne = function(selfuid, pid, rid, type, info, cb){
 
 	return (function(pid, rid, info, cb){
 
@@ -139,7 +148,16 @@ exports.modifyOne = function(pid, rid, type, info, cb){
 		    	r.description = info.description || r.description;
 		    	r.level = info.level || r.level;
 		    	r.solved = info.solved;
-
+		    	/////////////////////////////////////
+				//   project history
+				/////////////////////////////////////
+		    	if(type == 'issues' && info.solved)
+		    		targetProject.history.push({
+		    			type: HistoryService.PROJECT_TYPE.issue_close,
+		    			who: selfuid,
+		    			what: [r.description]
+		    		});
+		    	
 		    	targetProject.save(function(err){
 		    		if(err) callback(err);
 		    		else callback(null);
@@ -152,7 +170,7 @@ exports.modifyOne = function(pid, rid, type, info, cb){
 	
 };
 
-exports.deleteOne = function(pid, rid, type, cb){
+exports.deleteOne = function(selfuid, pid, rid, type, cb){
 
 	return (function(pid, rid, cb){
 		
@@ -167,7 +185,15 @@ exports.deleteOne = function(pid, rid, type, cb){
 		    	
 		    	var r = targetProject[type].id(rid);
 		    	if(r == null) return callback(ErrorService.notFindError);
-
+		    	/////////////////////////////////////
+				//   project history
+				/////////////////////////////////////
+		    	if(type == 'issues' && info.solved)
+		    		targetProject.history.push({
+		    			type: HistoryService.PROJECT_TYPE.issue_delete,
+		    			who: selfuid,
+		    			what: [r.description]
+		    		});
 		    	r.remove();
 		    	
 		    	targetProject.save(function(err){
