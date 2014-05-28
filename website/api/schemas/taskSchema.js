@@ -25,15 +25,11 @@ var taskSchema = new Schema({
 
   executer: [{ type: ObjectId, ref: 'User' }],
 
-  comments: [{    //assume comment no more than 100 so that return time less than 0.1s
-    body: String, 
-    date: { type: Date, default: Date.now },
-    owner: { type: ObjectId, ref: 'User' },
-  }],  
-
   history: [{
+    type: Number,
   	when:  { type: Date, default: Date.now },
   	who: { type: ObjectId, ref: 'User' },  	
+    toUser : [{ type: ObjectId, ref: 'User' }], 
   	what: String
   }],
 });

@@ -63,7 +63,7 @@ module.exports = {
 		if(req.body.endTime) toProject.endTime = req.body.endTime;
 		if(toProject === {}) res.json(ErrorService.success);
 
-		projectService.updateProjectInfo(req.params.pid, toProject, function(err){
+		projectService.updateProjectInfo(req.session.user._id, req.params.pid, toProject, function(err){
 			if(err) res.json(err);
 			else res.json(ErrorService.success);
 		});
@@ -78,7 +78,7 @@ module.exports = {
     finishProject: function (req, res) {
       
 	    sails.log.verbose('Controller - api/controller/ProjectController.finishProject');
-	    projectService.updateProjectInfo(req.params.pid, {realEndTime:new Date, done:true}, function(err){
+	    projectService.finishProject(req.session.user._id, req.params.pid, function(err){
 			if(err) res.json(err);
 			else res.json(ErrorService.success);
 		});
@@ -93,7 +93,7 @@ module.exports = {
     deleteProject: function (req, res) {
       
 	    sails.log.verbose('Controller - api/controller/ProjectController.deleteProject');
-	    projectService.updateProjectInfo(req.params.pid, {deleted: true}, function(err){
+	    projectService.deleteProject(req.session.user._id, req.params.pid, function(err){
 			if(err) res.json(err);
 			else res.json(ErrorService.success);
 		});
@@ -153,7 +153,7 @@ module.exports = {
     setMemberAdmin: function (req, res) {
       
 	    sails.log.verbose('Controller - api/controller/ProjectController.setMemberAdmin');
-	    projectService.setAdmin(req.params.pid, req.params.uid, true, function(err){
+	    projectService.setAdmin(req.session.user._id, req.params.pid, req.params.uid, true, function(err){
 			if(err) res.json(err);
 			else res.json(ErrorService.success);
 		});
@@ -169,7 +169,7 @@ module.exports = {
     removeMemberAdmin: function (req, res) {
       
 	    sails.log.verbose('Controller - api/controller/ProjectController.removeMemberAdmin');
-	    projectService.setAdmin(req.params.pid, req.params.uid, false, function(err){
+	    projectService.setAdmin(req.session.user._id, req.params.pid, req.params.uid, false, function(err){
 			if(err) res.json(err);
 			else res.json(ErrorService.success);
 		});

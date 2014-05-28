@@ -63,6 +63,14 @@ exports.uploadFileToProject = function(selfuid, pid, file, callback){
 				size:file.size,
 				owner:selfuid
 			});
+			/////////////////////////////////////
+			//   project history
+			/////////////////////////////////////
+			project.history.push({						
+				type: HistoryService.PROJECT_TYPE.file_upload,
+				who : selfuid,
+				what: [file.name]
+			});
 			project.save(callback);
 		}
 	],callback)
@@ -70,7 +78,7 @@ exports.uploadFileToProject = function(selfuid, pid, file, callback){
 
 exports.uploadFilesToProject = function(selfuid, pid, files, callback){
 	var dirpath= "files/"+pid;	
-
+	var filenameArr = [];
 	async.waterfall([
 		function(callback){
 			fs.exists(dirpath, function(exists) {
@@ -95,6 +103,7 @@ exports.uploadFilesToProject = function(selfuid, pid, files, callback){
 			
 	      	async.forEach(files,function(file,cb) {
 	            var path = "files/"+pid+'/'+file.name;
+	            filenameArr.push(file.name);
 		      	fs.readFile(file.path, function (err, data) {
 			      if (err) {
 			        cb(ErrorService.makeDbErr(err));
@@ -122,33 +131,59 @@ exports.uploadFilesToProject = function(selfuid, pid, files, callback){
 		},
 		
 		function(project,callback){
-
+			/////////////////////////////////////
+			//   project history
+			/////////////////////////////////////
+			project.history.push({						
+				type: HistoryService.PROJECT_TYPE.file_upload,
+				who : selfuid,
+				what: filenameArr
+			});
 			project.save(callback);
 		}
 	],callback)
 } 
 
-exports.downloadFileFromProject = function(pid, fid, callback){
+exports.downloadFileFromProject = function(selfuid, pid, fid, callback){
 
 	DataService.getProjectById(pid, function(err,project){
 		if(err) return callback(err);
 		file = project.files.id(fid);
 		if(!file) return callback(ErrorService.fileNotFindError);
+		/////////////////////////////////////
+		//   project history
+		/////////////////////////////////////
+		project.history.push({						
+			type: HistoryService.PROJECT_TYPE.file_download,
+			who : selfuid,
+			what: [file.name]
+		});
+		project.save(function(err){})
 		callback(null, file);
 	});
 }
 
-exports.deleteFileOfProject = function(pid, fid, callback){
+exports.deleteFileOfProject = function(selfuid, pid, fid, callback){
 
 	async.waterfall([
 		function(callback){
 			DataService.getProjectById(pid, function(err,project){
 				if(err) return callback(err);
-				project.files.remove(fid);				
-				callback(null, project);
+				var file = project.files.id(fid);
+				//project.files.remove(fid);				
+				callback(null, project, file);
 			});	
 		},
-		function(project, callback){
+		function(project, file, callback){
+			/////////////////////////////////////
+			//   project history
+			/////////////////////////////////////
+			project.history.push({						
+				type: HistoryService.PROJECT_TYPE.file_delete,
+				who : selfuid,
+				what: [file.name]
+			});
+			file.remove();
 			project.save(function(err){
 				if(err) return callback(ErrorService.makeDbErr(err));
 				else callback(null);

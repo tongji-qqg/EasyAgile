@@ -33,8 +33,11 @@ var sprintSchema = new Schema({
   tasks: [{ type: ObjectId, ref: 'Task' }],
 
   history: [{
+    type: Number,
     when:  { type: Date, default: Date.now },
-    who: { type: ObjectId, ref: 'User' },   
+    who: { type: ObjectId, ref: 'User' }, 
+    target: ObjectId,                       //backlog
+    task : { type: ObjectId, ref: 'Task' }, //task
     what: String
   }],
 

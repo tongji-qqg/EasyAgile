@@ -52,6 +52,7 @@ $(function(){
 		
 		window.location.reload();
 		function deleteFile(fid){
+            alert(fid)
 			$.ajax({  ///API/p/:pid/f/:fid'         
             type: 'DELETE',
             url: '/API/p/'+projectid+'/f/'+fid,
@@ -63,7 +64,7 @@ $(function(){
                     alert('error! '+ data.message);
                 if(data.state === 'success')
                 {                                  
-           			         
+           			alert('success');        
                 }
             }            
         });

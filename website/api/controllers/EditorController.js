@@ -43,7 +43,7 @@ module.exports = {
     create: function (req, res) {
       
 	    sails.log.verbose('Controller - api/controller/EditorController.create');
-	    EditorService.create(req.params.pid, {
+	    EditorService.create(req.session.user._id, req.params.pid, {
 	    	name: req.body.name,
 	    	type: req.body.type	    	
 	    },function(err,p){
@@ -74,7 +74,7 @@ module.exports = {
     delete: function (req, res) {
       
 	    sails.log.verbose('Controller - api/controller/EditorController.delete');
-	    EditorService.delete(req.params.pid, req.params.eid, function(err, editors){
+	    EditorService.delete(req.session.user._id, req.params.pid, req.params.eid, function(err, editors){
 
 	    	if(err) res.json(err);
 	    	else res.json(ErrorService.successWithValue('editor', editors));

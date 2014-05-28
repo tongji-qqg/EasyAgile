@@ -52,6 +52,14 @@ var projectSchema = new Schema({
     createTime: {type:Date,default:Date.now},    
   }],
   
+  history: [{
+    type: {type:Number, default:0},
+    when:  { type: Date, default: Date.now },
+    who: { type: ObjectId, ref: 'User' },  
+    target: ObjectId,
+    toUser : { type: ObjectId, ref: 'User' },  
+    what: [String]
+  }],
 
   cSprint: { type: ObjectId, ref: 'Sprint' },
   sprints: [{ type: ObjectId, ref: 'Sprint' }] //assume no more than 100 sprints, so can return less than 0.1s

@@ -31,7 +31,14 @@ exports.postTopic = function(selfuid, pid, topicInfo, cb){
 	    function(targetProject, newTopic, callback){	   
 	    	
 	    	targetProject.topics.push(newTopic._id);
-
+	    	/////////////////////////////////////
+			//   project history
+			/////////////////////////////////////
+			targetProject.history.push({
+				type: HistoryService.PROJECT_TYPE.topic_new,
+				who : selfuid,
+				what:[newTopic.title]
+			});
 	    	targetProject.save(function(err){
 	    		if(err) callback(ErrorService.makeDbErr(err));
 	    		else callback(null);
@@ -95,12 +102,20 @@ exports.deleteTopic = function(selfuid, pid, tid, cb){
 	    		topic.deleted = true;
 	    		topic.save(function(err){
 	    			if(err) callback(ErrorService.makeDbErr(err));
-	    			else callback(null, targetProject);
+	    			else callback(null, targetProject, topic);
 	    		});
 	    	});	    		    			    
 	    },
-	    function(project, callback){
+	    function(project, topic, callback){
 	    	project.topics.remove(tid);
+	    	/////////////////////////////////////
+			//   project history
+			/////////////////////////////////////
+			project.history.push({
+				type: HistoryService.PROJECT_TYPE.topic_delete,
+				who : selfuid,
+				what:[topic.title]
+			});
 	    	project.save(function(err){
 	    		if(err) callback(err);
 	    		else callback(null);

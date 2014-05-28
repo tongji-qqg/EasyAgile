@@ -57,7 +57,7 @@ module.exports = {
     addOneIssue: function (req, res) {
       
 	    sails.log.verbose('Controller - api/controller/IssueController.addOneIssue');
-	    StoryService.createOne(req.params.pid, TYPE, {
+	    StoryService.createOne(req.session.user._id, req.params.pid, TYPE, {
 			description: req.body.description, 
 			level: req.body.level,
 			finder: req.session.user._id
@@ -76,7 +76,7 @@ module.exports = {
     modifyOneIssue: function (req, res) {
       
 	    sails.log.verbose('Controller - api/controller/IssueController.modifyOneIssue');
-	    StoryService.modifyOne(req.params.pid, req.params.iid, TYPE, {
+	    StoryService.modifyOne(req.session.user._id, req.params.pid, req.params.iid, TYPE, {
 			description: req.body.description, 
 			level: req.body.level,
 			solved: req.body.solved
@@ -110,7 +110,7 @@ module.exports = {
     deleteOneIssue: function (req, res) {
       
 	    sails.log.verbose('Controller - api/controller/IssueController.deleteOneIssue');
-	    StoryService.deleteOne(req.params.pid, req.params.iid, TYPE, function(err){
+	    StoryService.deleteOne(req.session.user._id, req.params.pid, req.params.iid, TYPE, function(err){
 			if(err) res.json(err);
 			else res.json(ErrorService.success);
 		});
