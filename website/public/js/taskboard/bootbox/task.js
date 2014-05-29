@@ -194,7 +194,8 @@ var taskBootBox = (function() {
 		});
 	}
 
-	function editTaskAjax(tid) {
+	function editTaskAjax(tid, changed) {		
+		if(!changed) return;
 		if (!pid || pid == 0) return;
 		if (!sid || sid == 0) return;
 		if (!tid || tid == 0) return;
@@ -209,15 +210,15 @@ var taskBootBox = (function() {
 				startTime: new Date($('#formSprintEditDateStart').val()),
 				deadline: new Date($('#formSprintEditDateEnd').val()),
 				type: $('#formTaskEditTypeId').val(),
-				executer: $('#formTaskEditOwner').val() || [],
+				//executer: $('#formTaskEditOwner').val() || [],
 			},
 			success: function(data) {
 				if (data.state === 'error')
 					bootbox.alert('error! ' + data.message);
 				if (data.state === 'success') {
-					if (!$('#formTaskEditOwner').val())
-						removeAllTaskOwner(tid);
-					else
+					// if (!$('#formTaskEditOwner').val())
+					// 	removeAllTaskOwner(tid);
+					// else
 						$('body').trigger("loadSprint");
 				}
 			}
@@ -265,6 +266,24 @@ var taskBootBox = (function() {
 		});
 	}
 
+	function setTaskExecuter(tid, uid, checked){
+		if (!pid || pid == 0) return;
+		if (!sid || sid == 0) return;
+		if (!tid || tid == 0) return;
+		$.ajax({
+			type: checked? 'PUT' : 'DELETE',
+			url: '/API/p/' + pid + '/s/' + sid + '/t/' + tid + '/u/'+uid,
+			dataType: 'json',			
+			success: function(data) {
+				if (data.state === 'error')
+					bootbox.alert('error! ' + data.message);
+				if (data.state === 'success') {
+					//$('body').trigger("loadSprint");
+				}
+			}
+		});
+	}
+
 	function initSlider(modal, tid) {
 		var slider = $(".progressSlider", modal);
 		var input = slider.next("input");
@@ -291,11 +310,12 @@ var taskBootBox = (function() {
 	}
 
 	function buildEdit(title, task) {
+		var changed = false;
 		var buttons = [{
 			label: "保存",
 			className: "btn-primary pull-right",
 			callback: function() {
-				editTaskAjax(task._id);
+				editTaskAjax(task._id, changed);
 				modal.modal("hide");
 				return false;
 			}
@@ -313,6 +333,7 @@ var taskBootBox = (function() {
 		initSlider(modal, task._id);
 		initEstimateSlider(modal);
 		modal.on("shown.bs.modal", function() {
+			changed = false;
 			var taskOwner = $('#formTaskEditOwner');
 
 			if (_.findWhere(task.executer, {
@@ -329,8 +350,18 @@ var taskBootBox = (function() {
 				else
 					taskOwner.append(buildMemberOption(member._id, member.name));
 			});
-			taskOwner.multiselect();
-
+			taskOwner.multiselect({
+		    	maxHeight: 400,
+		    	onChange: function(element, checked) {
+			       console.log($(element).attr('value'));
+			       setTaskExecuter(task._id, $(element).attr('value'), checked);
+			    }
+		    });
+			$('.TaskBasicInfo').change(function(){
+				console.log('changed');
+				changed = true;
+			})
+			
 			$('#formTaskEditTitle').val(task.title);
 			$(".progressSlider", modal).slider('setValue', task.progress || -1);
 			$(".sliderValue", modal).text(task.progress);
@@ -338,12 +369,76 @@ var taskBootBox = (function() {
 			$(".taskSliderValue", modal).text(task.estimate);
 			$("#editTaskEstimateInput",modal).val(task.estimate);
 			$('#formTaskEditDescription').text(task.description);
+			$(".taskEstimateSlider").on('slide',function(){
+				console.log('changed');
+				changed = true;
+			})
+			$('#taskHistoryTab').click(function(){
+				$('#taskHistoryTab').unbind('click');
+				$.ajax({
+					type: 'GET',
+					url: '/API/p/' + pid + '/s/' + sid + '/t/' + task._id + '/h',
+					dataType: 'json',			
+					success: function(data) {
+						if (data.state === 'error')
+							bootbox.alert('error! ' + data.message);
+						if (data.state === 'success') {			
+							for(var i=0;i<data.historys.length;i++)				
+								$('#history').append(buildHistoryP(data.historys[i]));			
+						}
+					}
+				});
+				
+			})
+			
 		});
 		initTaskDate(modal, {
 			start: task.startTime,
 			end: task.deadline
 		});
 		return modal;
+	}
+	function buildHistoryP(history){
+		function formatDate(date){
+			return date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
+		}
+		function getTaskType(type){
+			var r;
+			switch(type){
+				case '0': r = '开发'; break;
+				case '1': r = '测试'; break;
+				case '2': r = '设计'; break;
+				default: r= '其他';
+			}
+			return r;
+		}
+		var what = formatDate(new Date(history.when)) + ' ';
+		switch(history.type){
+			case 0: what += history.who.name + ' 创建了任务: ' + history.what[0] 
+			                                + ', 任务描述: ' + history.what[1]
+			                                + ', 开始时间: ' + formatDate(new Date(history.what[2]))
+			                                + ', 截至日期: ' + formatDate(new Date(history.what[3]))
+			                                + ', 任务类型: ' + getTaskType(history.what[4])
+			                                + ', 任务点估计: '+ history.what[5];
+			if(history.toUser){
+				what=what+ ',<br/> 分配给 ';
+				for(var i=0;i<history.toUser.length;i++)
+					what = what + history.toUser[i].name +' ';
+			}
+			break;
+			case 1: what += history.who.name + ' 设置任务为: ' + history.what[0] 
+			                                + ', 任务描述: ' + history.what[1]
+			                                + ', 开始时间: ' + formatDate(new Date(history.what[2]))
+			                                + ', 截至日期: ' + formatDate(new Date(history.what[3]))
+			                                + ', 任务类型: ' + getTaskType(history.what[4])
+			                                + ', 任务点估计: '+ history.what[5];
+			break;
+			case 2: what += history.who.name + ' 增加任务执行者 ' + history.toUser[0].name; break;
+			case 3: what += history.who.name + ' 删除任务执行者 ' + history.toUser[0].name; break;
+			case 4: what += history.who.name + ' 设置任务状态为: '+ history.what[0]; break;
+			case 5: what += history.who.name + ' 设置任务进度为: '+ history.what[0]; break;
+		}
+		return $('<p >').html(what);		
 	}
 
 
@@ -366,7 +461,7 @@ var taskBootBox = (function() {
 
 	+ '<option value="0" selected="selected">开发</option>' + '<option value="1">测试</option>' + '<option value="2">设计</option>' + '<option value="3">其他</option>' + '</select>' + '</div>' + '</div>'
 
-	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formTaskEditTypeId">所属小组</label>' + '<div class="col-lg-9">' + '<select id="formTaskEditTypeId" name="typeId" class="form-control in-modal show-tick show-menu-arrow">' + '<option value="0" selected="selected">开发部小组</option>' + '<option value="1">技术部小组</option>' + '<option value="2">UI设计组</option>' + '</select>' + '</div>' + '</div>'
+	//+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formTaskEditTypeId">所属小组</label>' + '<div class="col-lg-9">' + '<select id="formTaskEditTypeId" name="typeId" class="form-control in-modal show-tick show-menu-arrow">' + '<option value="0" selected="selected">开发部小组</option>' + '<option value="1">技术部小组</option>' + '<option value="2">UI设计组</option>' + '</select>' + '</div>' + '</div>'
 
 
 	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formTaskNewOwner">执行者</label>' + '<div class="col-lg-9">' + '<select id="formTaskNewOwner" multiple="multiple" name="userId" class="multiselect"' + '>' + '</select>' + '</div>' + '</div>'
@@ -379,31 +474,31 @@ var taskBootBox = (function() {
 
 	+ '<li> <a id="tasksTab" href="#statistics" data-toggle="tab">进度</a> </li>'
 
-	+ '<li> <a href="#history"data-toggle="tab">历史记录</a> </li>' + '</ul>'
+	+ '<li> <a id="taskHistoryTab" href="#history"data-toggle="tab">历史记录</a> </li>' + '</ul>'
 
 	+ '<div class="tab-content">' + '<div class="tab-pane active" id="basic">' + '<form id="formTaskEdit" class="form-horizontal">'
 
-	+ '<div class="form-group required">' + '<label class="col-lg-3 control-label" for="formTaskEditTitle">名称</label>' + '<div class="col-lg-9">' + '<input id="formTaskEditTitle" name="title" type="text" placeholder="enter task title" class="form-control" required="required">' + '</div>' + '</div>'
+	+ '<div class="form-group required">' + '<label class="col-lg-3 control-label" for="formTaskEditTitle">名称</label>' + '<div class="col-lg-9">' + '<input id="formTaskEditTitle" name="title" type="text" placeholder="enter task title" class="form-control TaskBasicInfo" required="required">' + '</div>' + '</div>'
 	//slider
 	+ '<div class="form-group required">' + '<label class="col-lg-3 control-label" for="taskEstimate">工作量预估</label>' 
 
 	+ '<div class="col-lg-9">' + '<div id="taskEstimateSlider" class="col-lg-6 taskEstimateSlider"' + 'data-slider-min="0"' + 'data-slider-max="11"' + 'data-slider-step="1"' + 'data-slider-value="-1"' + '></div>'
 
-	+ '<input id="editTaskEstimateInput" name="estimate" type="hidden" value="-1" />'
+	+ '<input class=" " id="editTaskEstimateInput" name="estimate" type="hidden" value="-1" />'
 
 	+ '<span  class="badge badge-slider taskSliderValue">???</span>' + '</div>' + '</div>'
 	//slide end
-	+ '<div class="form-group required">' + '<label class="col-lg-3 control-label" for="formSprintNewDateStart">持续时间</label>' + '<label class="col-lg-3 control-label" for="formSprintNewDateEnd" style="display: none;"></label>' + '<div class="col-lg-9">' + '<div class="input-group date dateStart">' + '<input id="formSprintEditDateStart" name="dateStart" type="text" class="dateInput form-control" size="16" required="required"' + 'data-validate-type="daterange"' + 'data-role="start"' + 'data-pair="formSprintNewDateEnd"' + 'data-focus="false"' + 'data-type="sprint"/>' + '<span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>' + '</div>' + '<span class="separator">&mdash;</span>' + '<div class="input-group date dateEnd">' + '<input id="formSprintEditDateEnd" name="dateEnd" type="text" class="dateInput form-control" size="16" required="required"' + 'data-validate-type="daterange"' + 'data-role="end"' + 'data-pair="formSprintNewDateStart"' + 'data-focus="false"' + 'data-type="sprint"/>' + '<span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>' + '</div>' + '</div>' + '</div>'
+	+ '<div class="form-group required">' + '<label class="col-lg-3 control-label" for="formSprintNewDateStart">持续时间</label>' + '<label class="col-lg-3 control-label" for="formSprintNewDateEnd" style="display: none;"></label>' + '<div class="col-lg-9">' + '<div class="input-group date dateStart">' + '<input id="formSprintEditDateStart" name="dateStart" type="text" class="dateInput form-control TaskBasicInfo" size="16" required="required"' + 'data-validate-type="daterange"' + 'data-role="start"' + 'data-pair="formSprintNewDateEnd"' + 'data-focus="false"' + 'data-type="sprint"/>' + '<span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>' + '</div>' + '<span class="separator">&mdash;</span>' + '<div class="input-group date dateEnd">' + '<input id="formSprintEditDateEnd" name="dateEnd" type="text" class="dateInput form-control TaskBasicInfo" size="16" required="required"' + 'data-validate-type="daterange"' + 'data-role="end"' + 'data-pair="formSprintNewDateStart"' + 'data-focus="false"' + 'data-type="sprint"/>' + '<span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span>' + '</div>' + '</div>' + '</div>'
 
 
-	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formTaskEditTypeId">类型</label>' + '<div class="col-lg-9">' + '<select id="formTaskEditTypeId" name="typeId" class="form-control in-modal show-tick show-menu-arrow">' + '<option value="0" selected="selected">开发</option>' + '<option value="1">测试</option>' + '<option value="2">设计</option>' + '<option value="3">其他</option>' + '</select>' + '</div>' + '</div>'
+	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formTaskEditTypeId">类型</label>' + '<div class="col-lg-9">' + '<select id="formTaskEditTypeId" name="typeId" class="form-control in-modal show-tick show-menu-arrow TaskBasicInfo">' + '<option value="0" selected="selected">开发</option>' + '<option value="1">测试</option>' + '<option value="2">设计</option>' + '<option value="3">其他</option>' + '</select>' + '</div>' + '</div>'
 
-	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formTaskEditTypeId">所属小组</label>' + '<div class="col-lg-9">' + '<select id="formTaskEditTypeId" name="typeId" class="form-control in-modal show-tick show-menu-arrow">' + '<option value="0" selected="selected">开发部小组</option>' + '<option value="1">技术部小组</option>' + '<option value="2">UI设计组</option>' + '</select>' + '</div>' + '</div>'
+	//+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formTaskEditTypeId">所属小组</label>' + '<div class="col-lg-9">' + '<select id="formTaskEditTypeId" name="typeId" class="form-control in-modal show-tick show-menu-arrow">' + '<option value="0" selected="selected">开发部小组</option>' + '<option value="1">技术部小组</option>' + '<option value="2">UI设计组</option>' + '</select>' + '</div>' + '</div>'
 
 
 	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formTaskEditOwner">执行者</label>' + '<div class="col-lg-9">' + '<select id="formTaskEditOwner" name="userId" multiple="multiple" name="userId" class="multiselect">' + '</select>' + '</div>' + '</div>'
 
-	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formTaskEditDescription">描述</label>' + '<div class="col-lg-9">' + '<textarea id="formTaskEditDescription" name="description" class="form-control" data-wysiwyg="true" placeholder="添加任务描述"></textarea>' + '</div>' + '</div>' + '</form>' + '</div>'
+	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formTaskEditDescription">描述</label>' + '<div class="col-lg-9">' + '<textarea id="formTaskEditDescription" name="description" class="form-control  TaskBasicInfo" data-wysiwyg="true" placeholder="添加任务描述"></textarea>' + '</div>' + '</div>' + '</form>' + '</div>'
 
 	+ '<div class="tab-pane" id="statistics">' + '<form class="form-horizontal">' + '<div class="form-group ">' + '<label class="col-lg-3 control-label" for="formTaskProgress">进度</label>' + '<div class="col-lg-9">' + '<div class="col-lg-6 progressSlider"' + 'data-slider-min="0"' + 'data-slider-max="100"' + 'data-slider-step="1"' + 'data-slider-value="0"' + '></div>'
 
@@ -413,9 +508,9 @@ var taskBootBox = (function() {
 
 	+ '<div class="tab-pane" id="links"></div>'
 
-	+ '<div class="tab-pane" id="comments"></div>'
+	//+ '<div class="tab-pane" id="comments"></div>'
 
-	+ '<div class="tab-pane" id="history"></div>' + '</div>';
+	+ '<div class="tab-pane" id="history" style="max-height:500px"></div>' + '</div>';
 
 	return {
 		addBox: buildAdd,

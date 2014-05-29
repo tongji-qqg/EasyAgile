@@ -44,7 +44,10 @@ module.exports = {
 	    projectService.findProjectInfoById(req.params.pid, function(err,result){
 			
 			if(err) res.json(err);
-			else res.json(ErrorService.successWithValue('project', result));
+			else{
+				result.history = [];
+				res.json(ErrorService.successWithValue('project', result));
+			}
 		});
     },
 
@@ -94,6 +97,21 @@ module.exports = {
       
 	    sails.log.verbose('Controller - api/controller/ProjectController.deleteProject');
 	    projectService.deleteProject(req.session.user._id, req.params.pid, function(err){
+			if(err) res.json(err);
+			else res.json(ErrorService.success);
+		});
+    },
+
+    /**
+	 * delete /API/pf/:pid
+	 * 
+	 * @param   {req}   request     Request object
+	 * @param   {res}  response    Response object
+	 */
+    exitProject: function (req, res) {
+      
+	    sails.log.verbose('Controller - api/controller/ProjectController.exitProject');
+	    projectService.exitProject(req.session.user._id, req.params.pid, function(err){
 			if(err) res.json(err);
 			else res.json(ErrorService.success);
 		});
@@ -219,6 +237,22 @@ module.exports = {
 			else res.json(ErrorService.success);
 		});
     },
+
+    /**
+	 * get  /API/p/:pid/h
+	 * 
+	 * @param   {req}   request     Request object
+	 * @param   {res}  response    Response object
+	 */
+    getHistory: function (req, res) {
+      
+	    sails.log.verbose('Controller - api/controller/ProjectController.getHistory');
+	    HistoryService.getProjectHistory(req.session.user._id,req.params.pid, function(err, result){
+			if(err) res.json(err);
+			else res.json(ErrorService.successWithValue('historys',result));
+		});
+    },
+
 
   /**
    * Overrides for the settings in `config/controllers.js`

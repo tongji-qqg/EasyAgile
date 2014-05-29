@@ -24,7 +24,16 @@ exports.createOne = function(selfuid, pid, sid, type, info, callback){
 		    	
 		    },
 		    function(sprint, callback){
-
+		    	if(type == 'backlogs'){
+		    		/////////////////////////////////////
+					//   sprint history
+					/////////////////////////////////////
+					sprint.history.push({						
+						type: HistoryService.SPRINT_TYPE.backlog_new,
+						who : selfuid,
+						what: [info.title, info.description]
+					});
+		    	}
 		    	sprint[type].push(info);
 	       		sprint.save(function(err){
 	       			if(err) return callback(err);
@@ -57,7 +66,16 @@ exports.modifyOne = function(selfuid, pid, sid, rid, type, info, callback){
 		    	target.level = info.level;
 		    	target.title = info.title;
 		    	target.estimate = info.estimate;
-
+		    	if(type == 'backlogs'){
+		    		/////////////////////////////////////
+					//   sprint history
+					/////////////////////////////////////
+					sprint.history.push({						
+						type: HistoryService.SPRINT_TYPE.backlog_mod,
+						who : selfuid,
+						what: [info.title, info.description]
+					});
+		    	}
 	       		sprint.save(function(err){
 	       			if(err) return callback(err);
 	       			else callback(null);
@@ -130,12 +148,21 @@ exports.deleteOne = function(selfuid, pid, sid, rid, type, callback){
 
 		    	var target = sprint[type].id(rid);
 		    	if(target == null) return callback(errorDef.notFindError); 	
-				
+				if(type == 'backlogs'){
+		    		/////////////////////////////////////
+					//   sprint history
+					/////////////////////////////////////
+					sprint.history.push({						
+						type: HistoryService.SPRINT_TYPE.backlog_delete,
+						who : selfuid,
+						what: [target.title, target.description]
+					});
+		    	}
 				target.remove();
 				sprint.save(function(err){
 		    		if(err) callback(err);
 		    		else callback(null);
-	    		});	    			    	
+	    		});	 
 		    }	
 
 		], callback);

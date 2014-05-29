@@ -57,7 +57,7 @@ module.exports.policies = {
 		createProject      : ["checkUser"],
 		getProjectInfo     : ["validateURLID", "checkUser", "hasProjectAccess"],
 		editProjectInfo    : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAdmin"],
-		deleteProject      : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectOwner"],
+		deleteProject      : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAccess"],
 		finishProject      : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAdmin"],
 		inviteMemberById   : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAdmin"],
 		inviteMemberByEmail: ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAdmin"],
@@ -67,6 +67,7 @@ module.exports.policies = {
 		setMemberGroup     : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAdmin"],
 		addGroup           : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAdmin"],
 		deleteGroup        : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAdmin"],
+		getHistory         : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAccess"],
     },
     "sprint": {
         "*": false,
@@ -79,6 +80,7 @@ module.exports.policies = {
 		modifySprint  : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAdmin", "sprintInProject"],
 		startSprint   : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAdmin", "sprintInProject"],
 		finishSprint  : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAdmin", "sprintInProject"],
+		getHistory    : ["validateURLID", "checkUser", "hasProjectAccess", "sprintInProject"],		
     },
     "static": {
         "*": false,
@@ -131,6 +133,7 @@ module.exports.policies = {
 		assignTaskToMember   : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAdmin",  "sprintInProject", "taskInSprint"],
 		removeTaskFromMember : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAdmin",  "sprintInProject", "taskInSprint"],
 		removeAllTaskOwner   : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAdmin",  "sprintInProject", "taskInSprint"],
+		getHistory           : ["validateURLID", "checkUser", "hasProjectAccess", "sprintInProject"],
     },
     "topic": {
         "*": false,

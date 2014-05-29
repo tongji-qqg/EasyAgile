@@ -18,6 +18,16 @@ exports.createTask = function(selfuid, pid, sid, taskInfo, callback){
 	    function(sprint, callback){	   
 	    	
 	    	var task = new taskModel(taskInfo);
+	    	/////////////////////////////////////
+			//   task history
+			/////////////////////////////////////
+			task.history.push({						
+				type: HistoryService.TASK_TYPE.create,
+				who : selfuid,
+				what: [task.title, task.description, task.startTime, 
+				       task.deadline, task.type, task.estimate],
+				toUser: task.executer
+			});
 	    	task.save(function(err){
 	    		if(err) callback(ErrorService.makeDbErr(err));
 	    		else callback(null, sprint, task);
@@ -25,6 +35,14 @@ exports.createTask = function(selfuid, pid, sid, taskInfo, callback){
 	    },
 	    function(sprint, task, callback){
 	    	sprint.tasks.push(task._id);
+	    	/////////////////////////////////////
+			//   sprint history
+			/////////////////////////////////////
+			sprint.history.push({						
+				type: HistoryService.SPRINT_TYPE.task_new,
+				who : selfuid,
+				what: [task.title, task.description, task.startTime, task.deadline, task.type, task.estimate]
+			});
 	    	sprint.save(function(err){
 	       			if(err) return callback(eErrorService.makeDbErr(err));
 	       			else callback(null,task);
@@ -67,7 +85,7 @@ exports.modifyTaskById = function(selfuid, pid, sid, tid, taskInfo, callback){
 	    	task.title    = taskInfo.title || task.title;
 	    	task.type     = taskInfo.type || task.type;
 	    	task.state    = taskInfo.state || task.state;
-	    	task.executer = taskInfo.executer || task.executer;
+	    	//task.executer = taskInfo.executer || task.executer;
 	    	//task.progress = taskInfo.progress || task.progress;
 	    	task.estimate = taskInfo.estimate || task.estimate;
 	    	// if(taskInfo.state){
@@ -80,6 +98,22 @@ exports.modifyTaskById = function(selfuid, pid, sid, tid, taskInfo, callback){
 	    	// 	if(task.progress == 100)
 	    	// 		task.state == 1;
 	    	// }
+	    	/////////////////////////////////////
+			//   task history
+			/////////////////////////////////////
+			if(taskInfo.title || taskInfo.description || task.type || taskInfo.startTime || taskInfo.deadline || taskInfo.deadline )
+				task.history.push({						
+					type: HistoryService.TASK_TYPE.info,
+					who : selfuid,
+					what: [task.title, task.description, task.startTime, 
+					       task.deadline, task.type, task.estimate],					
+				});			
+			if(taskInfo.state)
+				task.history.push({						
+					type: HistoryService.TASK_TYPE.state,
+					who : selfuid,
+					what: [task.state]
+				});
        		task.save(function(err){
        			if(err) return callback(ErrorService.makeDbErr(err));
        			else callback(null,task);
@@ -120,10 +154,14 @@ exports.setTaskProgressById = function(selfuid, pid, sid, tid, progress, callbac
 	    		task.state = 0;
 	    	if(task.progress == 100)
 	    		task.state = 1;
-	    	if(task.state == 0)
-	    		task.process = 0;
-	    	if(task.state == 1)
-	    		task.process = 100;
+	    	/////////////////////////////////////
+			//   task history
+			/////////////////////////////////////		
+			task.history.push({						
+				type: HistoryService.TASK_TYPE.progress,
+				who : selfuid,
+				what: [progress],
+			});
 
        		task.save(function(err){
        			if(err) return callback(ErrorService.makeDbErr(err));
@@ -158,9 +196,16 @@ exports.deleteTaskById = function(selfuid, pid, sid, tid, callback){
 	    	
 	    	taskModel.findByIdAndRemove(tid, function(err){
 	    		if(err) return callback(ErrorService.makeDbErr(err));
-	    	});
-
-	    	sprint.tasks.remove(tid);	    	
+	    	});	
+	    	/////////////////////////////////////
+			//   sprint history
+			/////////////////////////////////////
+			sprint.history.push({						
+				type: HistoryService.SPRINT_TYPE.task_delete,
+				who : selfuid,
+				what: [task.title, task.description, task.startTime, task.deadline, task.type, task.estimate]
+			});
+	    	sprint.tasks.remove(tid);
 	    	sprint.backlogs.forEach(function(backlog){
 	    		backlog.tasks.remove(tid);
 	    	});
@@ -239,7 +284,14 @@ exports.assignMemberToTask = function(selfuid, pid, sid, tid, uid, callback){
 	    	if(pos != -1) return callback(null);
 
 	    	task.executer.push(uid);
-	  
+	  		/////////////////////////////////////
+			//   task history
+			/////////////////////////////////////		
+			task.history.push({						
+				type: HistoryService.TASK_TYPE.assign,
+				who : selfuid,
+				toUser: [uid],
+			});
        		task.save(function(err){
        			if(err) return callback(ErrorService.makeDbErr(err));
        			else callback(null);
@@ -285,7 +337,14 @@ exports.removeMemberFromTask = function(selfuid, pid, sid, tid, uid, callback){
 	    	if(pos == -1) return callback(null);	    	
 
 	    	task.executer.remove(uid);
-	    	
+	    	/////////////////////////////////////
+			//   task history
+			/////////////////////////////////////		
+			task.history.push({						
+				type: HistoryService.TASK_TYPE.remove,
+				who : selfuid,
+				toUser: [uid],
+			});
        		task.save(function(err){
        			if(err) return callback(ErrorService.makeDbErr(err));
        			else callback(null);

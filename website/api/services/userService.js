@@ -188,6 +188,7 @@ exports.getUserPorjects = function(id, callback){
 	     		}
 	     	}
 	     	user.projects.forEach(function(project){
+	     		project.history = [];	     		
 	     		queries.push(makeQuery(project));	
 	     	});
 	     	
@@ -208,7 +209,10 @@ exports.getUserAllTask = function(selfuid, callback){
 	taskModel.find({executer: selfuid})
 	         .exec(function(err, result){
 	         	if(err) callback(ErrorService.makeDbErr(err));
-	         	else callback(null, result);
+	         	else {
+	         		result.history = [];
+	         		callback(null, result);
+	         	}
 	         });
 
 };
@@ -219,7 +223,10 @@ exports.getUserCurrentTask = function(selfuid, callback){
 			 .where('state').ne(1)
 	         .exec(function(err, result){
 	         	if(err) callback(ErrorService.makeDbErr(err));
-	         	else callback(null, result);
+	         	else {
+	         		result.history = [];
+	         		callback(null, result);
+	         	}
 	         });	         
 };
 

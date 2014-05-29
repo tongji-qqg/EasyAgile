@@ -95,6 +95,7 @@ module.exports.routes = {
   'put     /API/p/:pid/mg/:uid'                 : 'project.setMemberGroup',
   'post    /API/p/:pid/g'                       : 'project.addGroup',
   'delete  /API/p/:pid/g'                       : 'project.deleteGroup',
+  'get     /API/p/:pid/h'                       : 'project.getHistory',
   //editor 6
   'get     /API/p/:pid/e'                       : 'editor.get',
   'post    /API/p/:pid/e'                       : 'editor.create',
@@ -130,6 +131,7 @@ module.exports.routes = {
   'put    /API/p/:pid/s/:sid'                   : 'sprint.modifySprint',
   'get    /API/p/:pid/s/:sid/start'             : 'sprint.startSprint',
   'get    /API/p/:pid/s/:sid/finish'            : 'sprint.finishSprint',
+  'get    /API/p/:pid/s/:sid/h'                 : 'sprint.getHistory',
   //task 8
   'get     /API/p/:pid/s/:sid/t'                : 'task.getTasksOfSprint',
   'post    /API/p/:pid/s/:sid/t'                : 'task.addTaskOfSprint',
@@ -141,6 +143,7 @@ module.exports.routes = {
   'put     /API/p/:pid/s/:sid/t/:tid/u/:uid'    : 'task.assignTaskToMember',  
   'delete  /API/p/:pid/s/:sid/t/:tid/u/:uid'    : 'task.removeTaskFromMember',
   'delete  /API/p/:pid/s/:sid/t/:tid/ua'        : 'task.removeAllTaskOwner',
+  'get     /API/p/:pid/s/:sid/t/:tid/h'         : 'task.getHistory',
   //topic 7
   'get    /API/p/:pid/t'                        :  'topic.getAllTopics',
   'get    /API/p/:pid/t/:tid'                   :  'topic.getOneTopic',

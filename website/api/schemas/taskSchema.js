@@ -26,11 +26,11 @@ var taskSchema = new Schema({
   executer: [{ type: ObjectId, ref: 'User' }],
 
   history: [{
-    type: Number,
+    type: {type:Number},
   	when:  { type: Date, default: Date.now },
   	who: { type: ObjectId, ref: 'User' },  	
     toUser : [{ type: ObjectId, ref: 'User' }], 
-  	what: String
+  	what: [String]
   }],
 });
 

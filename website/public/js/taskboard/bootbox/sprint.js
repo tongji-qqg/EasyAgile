@@ -126,12 +126,70 @@ var sprintBootBox = (function() {
 		return modal;
 	}
 
-	function buildDelete() {
-
+	function buildHistory() {
+console.log('sprint history');
+		var buttons = [{
+			label: "确认",
+			className: "btn-primary pull-right",
+			callback: function() {
+				modal.modal("hide");
+				return false;
+			}
+		}];
+		var modal = createBootboxDialog('Sprint历史 &lt;' + g_sprint.name + '&gt;', historyHtml, buttons);
+		modal.on("shown.bs.modal", function() {
+			$.ajax({
+                type: 'GET',
+                url: '/API/p/' + pid + '/s/' + sid + '/h',
+                dataType: 'json',                
+                success: function(data) {
+                    if (data.state === 'error')
+                        bootbox.alert('error! ' + data.message);
+                    if (data.state === 'success') {
+                    	console.log('sprint history');
+                        for(var i=0;i<data.historys.length;i++){
+                        	$('#sprintHistoryDiv').append(buildHistoryP(data.historys[i]));
+                        }
+                    }
+                }
+            });//end ajax  
+		});		
+		return modal;
 	}
-
-	function buildChart() {
-
+	function buildHistoryP(history){
+		function formatDate(date){
+			return date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
+		}
+		var what = formatDate(new Date(history.when)) + ' ';
+		switch(history.type){
+			case 0: what += history.who.name + ' 创建了Sprint: ' + history.what[0] 
+			                                + ', Sprint描述: ' + history.what[1];
+					if(history.what[2]){
+						what += ', 开始时间: ' + formatDate(new Date(history.what[2]));
+					}
+					if(history.what[3]){
+						', 截至日期: ' + formatDate(new Date(history.what[3]))
+					}
+					break;
+			case 1: what += history.who.name + ' 设置Sprint为: ' + history.what[0] 
+			                                + ', Sprint描述: ' + history.what[1];
+					if(history.what[2]){
+						what += ', 开始时间: ' + formatDate(new Date(history.what[2]));
+					}
+					if(history.what[3]){
+						', 截至日期: ' + formatDate(new Date(history.what[3]))
+					}
+					break;
+			case 2: what += history.who.name + ' 创建Backlog: ' + history.what[0] + ', Backlog描述 ' + history.what[1];
+			        break;
+			case 3: what += history.who.name + ' 删除Backlog: ' + history.what[0] + ', Backlog描述 ' + history.what[1];
+			        break;
+			case 4: what += history.who.name + ' 修改Backlog: '+ history.what[0] + ', Backlog描述 ' + history.what[1];
+			 		break;
+			case 5: what += history.who.name + ' 创建任务: '+ history.what[0]; break;
+			case 6: what += history.who.name + ' 删除任务: '+ history.what[0]; break;
+		}
+		return $('<p >').html(what);		
 	}
 	var addHtml =
 		'<form id="formSprintNew" class="form-horizontal">'
@@ -142,8 +200,10 @@ var sprintBootBox = (function() {
 
 	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formSprintNewDescription">描述</label>' + '<div class="col-lg-9">' + '<textarea id="formSprintNewDescription" name="description" class="form-control" data-wysiwyg="true" placeholder="添加Sprint描述"></textarea>' + '</div>' + '</div>' + '</form>';
 
+	var historyHtml = '<div id="sprintHistoryDiv"> </div>';
 	return {
 		addBox: buildAdd,
-		editBox: buildEdit
+		editBox: buildEdit,
+		historyBox: buildHistory
 	}
 })();
