@@ -55,9 +55,8 @@ var projectSchema = new Schema({
   history: [{
     type: {type:Number, default:0},
     when:  { type: Date, default: Date.now },
-    who: { type: ObjectId, ref: 'User' },  
-    target: ObjectId,
-    toUser : { type: ObjectId, ref: 'User' },  
+    who: { type: ObjectId, ref: 'User' },      
+    toUser : { type: ObjectId, ref: 'User' },  //project member ref  
     what: [String]
   }],
 

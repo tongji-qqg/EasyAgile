@@ -18,6 +18,17 @@ exports.createSprint = function (selfuid, pid, sprintInfo, cb){
 	    function(targetProject, callback) {
 
 	    	var sprint = new sprintModel(sprintInfo);
+	    	/////////////////////////////////////
+			//   sprint history
+			/////////////////////////////////////
+			var what = [sprintInfo.name,sprint.description];
+			if(sprintInfo.startTime) what.push(sprintInfo.startTime);
+			if(sprintInfo.endTime)  what.push(sprint.endTime);
+			sprint.history.push({						
+				type: HistoryService.SPRINT_TYPE.create,
+				who : selfuid,
+				what: what
+			});
 	    	sprint.save(function(err){
 	    		if(err) callback(ErrorService.makeDbErr(err));
 	    		else callback(null, targetProject, sprint);
@@ -125,7 +136,10 @@ exports.getSprintById = function(selfuid, pid, sid, callback){
 				.populate('tasks')
 			    .exec(function(err, sprint){
 			    	if(err) callback(ErrorService.makeDbErr(err));
-			    	else callback(null, sprint);
+			    	else {
+			    		sprint.history = [];
+			    		callback(null, sprint);
+			    	}
 			    });		
 		},
 		function(sprint, callback){
@@ -141,6 +155,7 @@ exports.getSprintById = function(selfuid, pid, sid, callback){
 	     		}
 	     	}
 	     	sprint.tasks.forEach(function(task){
+	     		task.history = [];
 	     		queries.push(makeQuery(task));	
 	     	});
 	     	
@@ -159,10 +174,29 @@ exports.getSprintById = function(selfuid, pid, sid, callback){
 
 exports.modifySprintById = function(selfuid, pid, sid, sprintInfo, callback){
 	    
-	sprintModel.findOneAndUpdate({'_id':sid},{ $set: sprintInfo},function(err){
-		if(err) callback(ErrorService.makeDbErr(err));
-		else callback(null);
-	});	 						    			     	
+	DataService.getSprintById(sid,function(err,sprint){
+		if(err) return callback(err);
+		/////////////////////////////////////
+		//   sprint history
+		/////////////////////////////////////
+		sprint.history.push({						
+			type: HistoryService.SPRINT_TYPE.info,
+			who : selfuid,
+			what: [sprintInfo.name,sprintInfo.description,sprintInfo.startTime,sprintInfo.endTime]
+		});
+		sprint.name = sprintInfo.name || sprint.name;
+		sprint.description = sprintInfo.description || sprint.description;
+		sprint.startTime = sprintInfo.startTime || sprint.startTime;
+		sprint.endTime = sprintInfo.endTime || sprint.endTime;
+		sprint.save(function(err){
+			if(err) callback(ErrorService.makeDbErr(err));
+			else callback(null);
+		})
+	})
+	// sprintModel.findOneAndUpdate({'_id':sid},{ $set: sprintInfo},function(err){
+	// 	if(err) callback(ErrorService.makeDbErr(err));
+	// 	else callback(null);
+	// });
 };
 
 exports.setSprintState = function (selfuid, pid, sid, state, callback){
@@ -170,7 +204,7 @@ exports.setSprintState = function (selfuid, pid, sid, state, callback){
 	sprintModel.findOneAndUpdate({'_id':sid},{ $set: {state: state}},function(err){
 		if(err) callback(ErrorService.makeDbErr(err));
 		else callback(null);
-	});	 				
+	});	
 };
 
 exports.setCurrentSprint = function(selfuid, pid, sid, callback){

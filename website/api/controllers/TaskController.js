@@ -219,6 +219,21 @@ module.exports = {
 		});
     },
 
+
+    /**
+	 * get /API/p/:pid/s/:sid/t/:tid/h
+	 * 
+	 * @param   {req}   request     Request object
+	 * @param   {res}  response    Response object
+	 */
+    getHistory: function (req, res) {
+        sails.log.verbose('Controller - api/controller/TaskController.getHistory');
+	    HistoryService.getTaskHistory(req.session.user._id, req.params.pid, req.params.sid, req.params.tid, function(err,result){
+			if(err) res.json(err);
+			else res.json(ErrorService.successWithValue('historys', result));
+		});	
+    },
+
   /**
    * Overrides for the settings in `config/controllers.js`
    * (specific to TaskController)

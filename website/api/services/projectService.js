@@ -52,14 +52,7 @@ exports.createProject = function(selfuid, name, des, cb){
 				if(err) callback(ErrorService.makeDbErr(err));
 				else{ 
 					project.cSprint = result._id;
-					/////////////////////////////////////
-					//   project history
-					/////////////////////////////////////
-					project.history.push({						
-						type: HistoryService.PROJECT_TYPE.sprint_new,
-						who : selfuid,
-						what: [result.name,result.description]
-					});
+					
 					project.save(function(err){
 						if(err) callback(ErrorService.makeDbErr(err));
 						else callback(null, project);
@@ -133,24 +126,108 @@ exports.finishProject = function(selfuid, pid, cb){
 	})
 }
 
-exports.deleteProject = function(selfuid, pid, cb){
-
+exports.deleteProject = function(selfuid, pid, callback){
+	
 	DataService.getProjectById(pid, function(err, project){
 		if(err)return callback(err);
-		/////////////////////////////////////
-		//   project history
-		/////////////////////////////////////
-		project.history.push({
-			type: HistoryService.PROJECT_TYPE.del,
-			who : selfuid,
-		});
-		project.deleted = true;
-		project.save(function(err,result){
-			if(err)callback(ErrorService.makeDbErr(err));
-			else callback(null);
-		})
-	})
+		if(project.owner != selfuid)
+			return exports.exitProject(selfuid, pid, callback);
+		async.waterfall([
+			function(callback){
+				/////////////////////////////////////
+				//   project history
+				/////////////////////////////////////
+				project.history.push({
+					type: HistoryService.PROJECT_TYPE.del,
+					who : selfuid,
+				});
+				project.deleted = true;
+
+				DataService.getUserById(selfuid, function(err, user){
+					if(err) return callback(ErrorService.makeDbErr(err));
+					user.projects.remove(pid);
+					user.save(function(err){
+						if(err) callback(ErrorService.makeDbErr(err));
+						callback(null, project);
+					})//end user save
+				})			
+			},
+			
+			function(project,callback){
+				var query = [];
+				function makeDeleteQuery(mid){
+					return function(callb){
+						DataService.getUserById(mid,function(err,user){
+							if(err)callb(err);
+							user.projects.remove(project._id);
+							user.save(function(err){
+								if(err) callb(err);
+								callb(null);
+							});
+						});
+					}
+				}
+				if(!project.members) return callback(null, project);
+				project.members.forEach(function(m){
+					query.push(makeDeleteQuery(m._id));
+				});
+				async.parallel(query,function(err){
+					if(err)callback(err);
+					else callback(null, project);
+				});
+			},
+			function(project,callback){
+				project.save(function(err,result){
+					if(err)callback(ErrorService.makeDbErr(err));
+					else callback(null);
+				});
+		}],callback);
+	});
 }
+
+
+exports.exitProject = function(selfuid, pid, cb){
+	
+	async.waterfall([
+		
+		function(callback){
+			DataService.getProjectById(pid, function(err, project){
+				if(err)return callback(err);
+				var member = project.members.id(selfuid);
+				if(!member) return callback(ErrorService.userNotFindError);
+				member.remove();
+				/////////////////////////////////////
+				//   project history
+				/////////////////////////////////////
+				project.history.push({
+					type: HistoryService.PROJECT_TYPE.member_leave,
+					who : selfuid,
+				});
+				
+				callback(null,project);				
+			})
+		},
+		function(project, callback){
+			//save user first
+			DataService.getUserById(selfuid, function(err, user){
+				if(err) callback(err);
+				user.projects.remove(pid);
+				user.save(function(err){
+					if(err) callback(ErrorService.makeDbErr(err));
+					else callback(null, project);
+				});
+			});	
+		},
+		function(project, callback){
+			project.save(function(err,result){
+				if(err)callback(ErrorService.makeDbErr(err));
+				else callback(null);
+			});
+		}
+
+	],cb)	
+}
+
 
 exports.addMemberById = function(selfuid, pid, uid, cb){
 
@@ -395,4 +472,17 @@ exports.deleteGroup = function(selfuid, pid, group, callback){
 		}
 	],callback);		 	 
 
+}
+
+exports.getProjectMemberGroup = function(pid, callback){
+
+	 DataService.getProjectInfoById(pid, function(err, project){
+	 	if(err) return callback(err);
+	 	return callback(null, {
+	 		owner: project.owner,
+	 		ownerGroup: project.ownerGroup,
+	 		members: project.members,
+	 		groups: project.groups
+	 	});
+	 });
 }

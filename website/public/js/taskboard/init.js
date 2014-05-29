@@ -185,6 +185,12 @@ function init() {
                 }
             })
         });
+        $('#showSprintHistoryLink').unbind('click');
+        $('#showSprintHistoryLink').on('click', function() {
+            //console.log('message');            
+            sprintBootBox.historyBox().modal('show');                                  
+        });
+
     }
 
     function loadSprint() {

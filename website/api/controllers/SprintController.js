@@ -154,6 +154,23 @@ module.exports = {
 			else res.json(ErrorService.success);
 		});		
     },
+
+
+    /**
+	 * get /API/p/:pid/s/:sid/h
+	 * 
+	 * @param   {req}   request     Request object
+	 * @param   {res}  response    Response object
+	 */
+    getHistory: function (req, res) {
+      
+	    sails.log.verbose('Controller - api/controller/SprintController.getHistory');
+	    HistoryService.getSprintHistory(req.session.user._id, req.params.pid, req.params.sid, function(err,result){
+			if(err) res.json(err);
+			else res.json(ErrorService.successWithValue('historys', result));
+		});		
+    },
+
   /**
    * Overrides for the settings in `config/controllers.js`
    * (specific to SprintController)
