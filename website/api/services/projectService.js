@@ -473,3 +473,16 @@ exports.deleteGroup = function(selfuid, pid, group, callback){
 	],callback);		 	 
 
 }
+
+exports.getProjectMemberGroup = function(pid, callback){
+
+	 DataService.getProjectInfoById(pid, function(err, project){
+	 	if(err) return callback(err);
+	 	return callback(null, {
+	 		owner: project.owner,
+	 		ownerGroup: project.ownerGroup,
+	 		members: project.members,
+	 		groups: project.groups
+	 	});
+	 });
+}

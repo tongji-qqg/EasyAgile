@@ -96,6 +96,7 @@ module.exports.routes = {
   'post    /API/p/:pid/g'                       : 'project.addGroup',
   'delete  /API/p/:pid/g'                       : 'project.deleteGroup',
   'get     /API/p/:pid/h'                       : 'project.getHistory',
+  'get     /API/p/:pid/members'                 : 'project.getMembers',
   //editor 6
   'get     /API/p/:pid/e'                       : 'editor.get',
   'post    /API/p/:pid/e'                       : 'editor.create',

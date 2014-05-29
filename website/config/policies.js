@@ -68,6 +68,7 @@ module.exports.policies = {
 		addGroup           : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAdmin"],
 		deleteGroup        : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAdmin"],
 		getHistory         : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAccess"],
+		getMembers         : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAccess"],
     },
     "sprint": {
         "*": false,

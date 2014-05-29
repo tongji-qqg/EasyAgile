@@ -253,7 +253,20 @@ module.exports = {
 		});
     },
 
-
+    /**
+	 * get  /API/p/:pid/members
+	 * 
+	 * @param   {req}   request     Request object
+	 * @param   {res}  response    Response object
+	 */
+    getMembers: function (req, res) {
+      
+	    sails.log.verbose('Controller - api/controller/ProjectController.getMembers');
+	    projectService.getProjectMemberGroup(req.params.pid, function(err, result){
+			if(err) res.json(err);
+			else res.json(ErrorService.successWithValue('members',result));
+		});
+    },
   /**
    * Overrides for the settings in `config/controllers.js`
    * (specific to ProjectController)
