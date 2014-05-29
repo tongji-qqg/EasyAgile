@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">EasyAgile</string>
+    <string name="title_section1">个人资料</string>
+    <string name="title_section2">项目</string>
+    <string name="title_section3">任务</string>
+    <string name="title_section4">通知</string>
+    <string name="title_section5">设置</string>
+    <string name="title_section6">。。。</string>
+    <string name="project_section1">信息</string>
+    <string name="project_section2">任务</string>
+    <string name="project_section3">讨论</string>
+    <string name="project_section4">Issues</string>
+    <string name="project_section5">成员</string>
+    <string name="project_section6">设置</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="action_settings">Settings</string>
+    <string name="url_head">http://192.168.1.101:18080</string>
+
+</resources>

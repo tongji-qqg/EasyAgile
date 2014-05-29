@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.duapp.easyagile.activities"
+    android:versionCode="1"
+    android:versionName="1.0" >
+     <uses-permission android:name="android.permission.INTERNET" />
+     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />  
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" 
+        android:uiOptions="splitActionBarWhenNarrow">
+        <activity
+            android:name="com.duapp.easyagile.activities.EntranceActivity"
+            android:label="@string/app_name" 
+            android:screenOrientation="portrait">        
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>    
+        </activity>        
+        <activity
+            android:name="com.duapp.easyagile.activities.LoginActivity"
+            android:screenOrientation="portrait">
+            
+        </activity>
+        <activity
+            android:name="com.duapp.easyagile.activities.MainActivity"
+            android:label="@string/app_name" 
+            android:screenOrientation="portrait">            
+        </activity>
+        <activity
+            android:name="com.duapp.easyagile.activities.TaskActivity"
+            android:label="@string/app_name" 
+            android:screenOrientation="portrait">            
+        </activity>
+        <activity
+            android:name="com.duapp.easyagile.activities.ProjectActivity"
+            android:label="项目" 
+            android:screenOrientation="portrait"
+            android:uiOptions="splitActionBarWhenNarrow">            
+        </activity>
+        <activity
+            android:name="com.duapp.easyagile.activities.TopicActivity"
+            android:label="讨论" 
+            android:screenOrientation="portrait">            
+        </activity>
+    </application>
+
+</manifest>
