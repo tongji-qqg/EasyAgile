@@ -382,9 +382,28 @@ var taskBootBox = (function() {
 					success: function(data) {
 						if (data.state === 'error')
 							bootbox.alert('error! ' + data.message);
-						if (data.state === 'success') {			
-							for(var i=0;i<data.historys.length;i++)				
-								$('#history').append(buildHistoryP(data.historys[i]));			
+						if (data.state === 'success') {		
+						$("#tableBody").empty();	
+							for(var i=0;i<data.historys.length;i++)	
+							{
+
+							    /*var tableline = document.createElement("tr");
+							    tableline.appendChild(buildHistoryP(data.historys[i]));	
+							    $("tbody").append(tableline);*/
+							    //$("tbody").append(buildHistoryP(data.historys[i]));
+								//$('tr').append(buildHistoryP(data.historys[i]));
+								
+								/*var tableline = $('<tr>');
+								var tableUnit = $('<td>',{'id':i}).appendTo(tableline);
+
+								tableUnit.append(buildHistoryP(data.historys[i]));
+								
+								$("#tableBody").append(tableline);*/
+								$("#tableBody").append(buildHistoryP(data.historys[i]));
+								var divider = $('<hr>');
+								$("#tableBody").append(divider);
+										
+						   }	
 						}
 					}
 				});
@@ -412,7 +431,7 @@ var taskBootBox = (function() {
 			}
 			return r;
 		}
-		var what = formatDate(new Date(history.when)) + ' ';
+		var what = formatDate(new Date(history.when)) + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 		switch(history.type){
 			case 0: what += history.who.name + ' 创建了任务: ' + history.what[0] 
 			                                + ', 任务描述: ' + history.what[1]
@@ -476,7 +495,7 @@ var taskBootBox = (function() {
 
 	+ '<li> <a id="taskHistoryTab" href="#history"data-toggle="tab">历史记录</a> </li>' + '</ul>'
 
-	+ '<div class="tab-content">' + '<div class="tab-pane active" id="basic">' + '<form id="formTaskEdit" class="form-horizontal">'
+	+ '<div class="tab-content" style="margin-top:10px;">' + '<div class="tab-pane active" id="basic">' + '<form id="formTaskEdit" class="form-horizontal">'
 
 	+ '<div class="form-group required">' + '<label class="col-lg-3 control-label" for="formTaskEditTitle">名称</label>' + '<div class="col-lg-9">' + '<input id="formTaskEditTitle" name="title" type="text" placeholder="enter task title" class="form-control TaskBasicInfo" required="required">' + '</div>' + '</div>'
 	//slider
@@ -510,7 +529,7 @@ var taskBootBox = (function() {
 
 	//+ '<div class="tab-pane" id="comments"></div>'
 
-	+ '<div class="tab-pane" id="history" style="max-height:500px"></div>' + '</div>';
+	+ '<div class="tab-pane" id="history" style="max-height:500px;overflow-y:auto;"><div class="table-responsive"><table class="table"><tbody id="tableBody"></tbody></table></div></div></div>' ;
 
 	return {
 		addBox: buildAdd,
