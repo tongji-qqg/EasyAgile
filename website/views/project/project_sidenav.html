@@ -70,11 +70,11 @@
                         </a>
                     </li> 
                     
-                    <li>
+                    <!--li>
                         <a href="/project_history/<%= project._id%>">
                             <i class="fa fa-smile-o"></i> history
                         </a>
-                    </li> 
+                    </li--> 
 
                                       
                 </ul>
@@ -88,7 +88,7 @@
 
           <!-- begin SET PROJECT AREA -->
     <div id="set-project-form" class="modal fade" tabindex="-1" data-width="660"  style="display: none;">
-      <div class="modal-header" style="background-color:#39b3d7">
+      <div class="modal-header" style="background-color:#239cc5">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h4 class="modal-title" style="color:#FFF;">项目设置</h4>  
         <div style="text-align:center;">
@@ -101,6 +101,7 @@
   <li><a href="#project" data-toggle="tab">项目信息</a></li>
   <li><a href="#member" data-toggle="tab">成员管理</a></li>
   <li><a href="#advance" data-toggle="tab">高级设置</a></li>
+  <li><a href="#history" data-toggle="tab">历史动态</a></li>
 </ul>
 
 <!-- Tab panes -->
@@ -141,7 +142,7 @@
   </div>
   <div class="modal-footer" >
    <!--button id='set-setting-close' type="button" data-dismiss="modal" class="btn btn-default">关闭</button-->
-   <button id='project-setting-button' type="button" class="btn btn-info" style="width:100%;">保存</button>
+   <button id='project-setting-button' type="button" class="btn" style="width:100%;background-color:#239cc5;color:#fff;">保存</button>
 
 </div>
 
@@ -158,7 +159,7 @@
             <input type="email" class="form-control" id="add-member-email-input" placeholder="通过邮箱添加新成员...">
              
           </div>
-             <button id='add-member-email-button' type="submit" class="btn btn-primary">sure</button>          
+             <button id='add-member-email-button' type="submit" class="btn btn-primary">确定</button>          
         </div>
       </div>
     
@@ -178,7 +179,7 @@
             </div>
           </div>
           
-          <button id='add-member-id-button' type="submit" class="btn btn-primary">sure</button>             
+          <button id='add-member-id-button' type="submit" class="btn btn-primary">确定</button>             
         </div>
 
       </div>
@@ -263,6 +264,81 @@
         </div>
 
       </div><br />
+        
+
+ 
+    </div>
+
+    <!--历史动态-->
+  <div class="tab-pane" id="history">
+      <div class="modal-header">
+        <h4 class="modal-title">项目历史动态</h4>
+      </div>
+
+      <div class="modal-body">
+        
+        <div class="row">
+          <div class="col-sm-12">
+                   <!-- Table -->
+                        <table class="table">
+
+                            <thead>
+                                <tr>
+                                    <th>动态详情</th>
+                                    <th>时间</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                               
+                                    <tr >                                   
+                                        <td>Ning 创建了任务</td>
+                                        <td>3月16日 21:21</td>                                   
+                                    </tr>
+                                    <tr >                                   
+                                        <td>Ning 创建了任务</td>
+                                        <td>3月16日 21:21</td>                                   
+                                    </tr>
+                                    <tr >                                   
+                                        <td>Ning 创建了任务</td>
+                                        <td>3月16日 21:21</td>                                   
+                                    </tr>
+                                    <tr >                                   
+                                        <td>Ning 创建了任务</td>
+                                        <td>3月16日 21:21</td>                                   
+                                    </tr>
+                                    <tr >                                   
+                                        <td>Ning 创建了任务</td>
+                                        <td>3月16日 21:21</td>                                   
+                                    </tr>
+                                    <tr >                                   
+                                        <td>Ning 创建了任务</td>
+                                        <td>3月16日 21:21</td>                                   
+                                    </tr>
+                               
+                                                          
+                            </tbody>
+                        </table>
+          </div>
+                       
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        
+        <ul class="pagination">
+           <li><a href="#">&laquo;</a></li>
+           <li><a href="#">1</a></li>
+           <li><a href="#">2</a></li>
+           <li><a href="#">3</a></li>
+           <li><a href="#">4</a></li>
+           <li><a href="#">5</a></li>
+           <li><a href="#">&raquo;</a></li>
+       </ul>
+     
+    </div>
+
         
 
  

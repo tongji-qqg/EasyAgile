@@ -309,12 +309,39 @@ module.exports = {
 	 */
 	readAlert: function (req, res) {
 	   	sails.log.verbose('Controller - api/controller/UserController.readAlert');
-		userService.readAlert(req.session.user._id, req.params.mid, function(err){
+		userService.readAlert(req.session.user._id, req.params.aid, function(err){
 			if(err) res.json(err);
 			else res.json(ErrorService.success);
 		});
 	},
 
+	/**
+	 * delete  /API/a/:aid
+	 * 
+	 * @param   {req}   request     Request object
+	 * @param   {res}  response    Response object
+	 */
+	deleteAlertById: function (req, res) {
+	   	sails.log.verbose('Controller - api/controller/UserController.deleteAlertById');
+		userService.deleteAlertById(req.session.user._id, req.params.aid, function(err){
+			if(err) res.json(err);
+			else res.json(ErrorService.success);
+		});
+	},
+
+	/**
+	 * delete  /API/a
+	 * 
+	 * @param   {req}   request     Request object
+	 * @param   {res}  response    Response object
+	 */
+	deleteALLAlert: function (req, res) {
+	   	sails.log.verbose('Controller - api/controller/UserController.deleteALLAlert');
+		userService.deleteALLAlert(req.session.user._id, function(err){
+			if(err) res.json(err);
+			else res.json(ErrorService.success);
+		});
+	},
   /**
    * Overrides for the settings in `config/controllers.js`
    * (specific to UserController)

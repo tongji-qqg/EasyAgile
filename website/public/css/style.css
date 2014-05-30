@@ -267,11 +267,17 @@ a:focus {
     padding-top: 15px;
     color: #fff;
 }
+#sidebar-toggle{
+    color:#000;
+}
+#personalDropDown{
+    color:#000;
+}
 
 .navbar-top>.nav-top>.nav>li>a:hover,
 .navbar-top>.nav-top>.nav>li>a:focus {
     color: #fff;
-    background-color: #142434;
+    background-color: #dcdcdc;
 }
 
 .navbar-top .dropdown-messages {
@@ -567,7 +573,7 @@ a:focus {
     margin-top: 0;
     margin-bottom: 0;
     border-bottom: 0.5px solid #fff;
-    font-size: 13px;
+    font-size: 16px;
     background-color: #34495e;
 }
 

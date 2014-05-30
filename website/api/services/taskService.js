@@ -51,6 +51,10 @@ exports.createTask = function(selfuid, pid, sid, taskInfo, callback){
 	    function(task,callback){
 	    	sprintService.collectBurnDownData(null, sid);
 	    	callback(null, task);
+	    	for(var i=0;i<task.executer.length;i++){
+	    		MessageService.sendUserMessage(selfuid, task.executer[i], 
+					MessageService.TYPE.assign_task, '把任务<'+task.title+'>分配给你', function(){});	
+	    	}	    	
 	    }	
 
 	], callback);
@@ -211,12 +215,16 @@ exports.deleteTaskById = function(selfuid, pid, sid, tid, callback){
 	    	});
        		sprint.save(function(err){
        			if(err) return callback(ErrorService.makeDbErr(err));
-       			else callback(null);
+       			else callback(null,task);
        		});
 	    },
-	    function(callback){
+	    function(task, callback){
 	    	sprintService.collectBurnDownData(null,sid);
 	    	callback(null);
+	    	for(var i=0;i<task.executer.length;i++){
+	    		MessageService.sendUserMessage(selfuid, task.executer[i], 
+					MessageService.TYPE.task_delete, '把你负责的任务<'+task.title+'>删除', function(){});	
+	    	}	
 	    }	
 
 	], callback);
@@ -296,6 +304,8 @@ exports.assignMemberToTask = function(selfuid, pid, sid, tid, uid, callback){
        			if(err) return callback(ErrorService.makeDbErr(err));
        			else callback(null);
        		});
+       		MessageService.sendUserMessage(selfuid, uid, 
+					MessageService.TYPE.assign_task, '把任务<'+task.title+'>分配给你', function(){});	
 	    }	
 
 	], callback);
@@ -349,6 +359,8 @@ exports.removeMemberFromTask = function(selfuid, pid, sid, tid, uid, callback){
        			if(err) return callback(ErrorService.makeDbErr(err));
        			else callback(null);
        		});
+       		MessageService.sendUserMessage(selfuid, uid, 
+					MessageService.TYPE.remove_task, '把任务<'+task.title+'>取消分配给你', function(){});	
 	    }	
 
 	], callback);

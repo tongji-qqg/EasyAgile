@@ -11,29 +11,31 @@ var taskModel  =  require('../schemas/taskSchema');
 var PROJECT_TYPE = {
 	create: 0,               //
 	info: 1,                 //
-	member_invite: 2,        //
-	member_remove: 3,        //
-	member_leave : 4,        //
-	member_admin : 5,        //
-	member_normal: 6,        //
-	member_group : 7,        //
-	group_new    : 8,        //
-	group_delete : 9,        //
-	editor_new   : 10,       //
-	editor_delete: 11,       //
-	issue_open   : 12,       //
-	issue_close  : 13,       //
-	issue_delete : 14,       // not test
-	file_upload  : 15,       //
-	file_download: 16,       //
-	file_delete  : 17,       //
-	sprint_new   : 18,       //
-	sprint_delete: 19,       //
-	sprint_now   : 20,       //
-	topic_new    : 21,       //
-	topic_delete : 22,       //
-	finish       : 23,       //
-	del          : 24        //
+	member_invite_id: 2,        //
+	member_invite_e : 3,        //
+	member_accept: 4,
+	member_remove: 5,        //
+	member_leave : 6,        //
+	member_admin : 7,        //
+	member_normal: 8,        //
+	member_group : 9,        //
+	group_new    : 10,        //
+	group_delete : 11,        //
+	editor_new   : 12,       //
+	editor_delete: 13,       //
+	issue_open   : 14,       //
+	issue_close  : 15,       //
+	issue_delete : 16,       // not test
+	file_upload  : 17,       //
+	file_download: 18,       //
+	file_delete  : 19,       //
+	sprint_new   : 20,       //
+	sprint_delete: 21,       //
+	sprint_now   : 22,       //
+	topic_new    : 23,       //
+	topic_delete : 24,       //
+	finish       : 25,       //
+	del          : 26        //
 };
 var SPRINT_TYPE = {
 	create: 0,               //

@@ -15,7 +15,12 @@
             .fa:hover {
                 cursor: pointer;
             }
+                a:hover{
+        color:#31708f;
+    }
         </style>
+
+
 
 </head>
 
@@ -43,7 +48,6 @@
                                 <div class="page-title">
                                     <h1>
                                         我的任务
-                                        <small>For Customization</small>
                                     </h1>
 
                                 </div>
@@ -78,11 +82,11 @@
                                     <% x.task.forEach(function(y){
                                         var progress = y.progress;
                                         var stateName = '';
-                                        if(y.state == 0) stateName = 'Waiting';
-                                        if(y.state == 2) stateName = 'inProcess';
-                                        if(y.state == 3) stateName = 'toReview';
-                                        if(y.state == 4) stateName = 'inReview';
-                                        if(y.state == 1) stateName = 'Done';
+                                        if(y.state == 0) stateName = "等待";
+                                        if(y.state == 2) stateName = "进行中";
+                                        if(y.state == 3) stateName = "待审核";
+                                        if(y.state == 4) stateName = "审核中";
+                                        if(y.state == 1) stateName = '已完成';
                                         if(y.state == 0 ) progress = 0;
                                         if(y.state == 1 ) progress = 100;
                                         var type = 'warning';
@@ -93,13 +97,14 @@
                                             <div class="col-sm-10">
                                                
                                                 <label style="font-size:medium;">
-                                                    <a href="#set-task-form" data-toggle="modal"><%= y.title%></a> 
+                                                    <a href="#set-task-form" data-toggle="modal" style="text-decoration:none;"><%= y.title%></a> 
+                                                    <span style="margin-left:10px;color:#808080;font-size:13px;"><%=stateName%></span>
                                                 </label>                             
                                             </div>
 
                                             <div class="col-sm-2">
                                                 <span class="label label-info"><i class="fa fa-calendar">
-                                                <a href="/project_taskboard/<%=x._id%>" data-toggle="modal" style="color: #FFF;font-weight:900;" >go to taskboard</a></i></span> 
+                                                <a href="/project_taskboard/<%=x._id%>" data-toggle="modal" style="color: #FFF;font-weight:900;" >进入任务板</a></i></span> 
                                             </div>
                                             
                                         </div> 
@@ -110,8 +115,7 @@
                                                 <%}else{%>
                                                 <label style="font-size:medium;">
                                                 <%}%>
-                                                    <%=stateName%>
-                                                </label>
+                                                               </label>
                                             </div>
                                         </div>                                       
                                         <hr />        

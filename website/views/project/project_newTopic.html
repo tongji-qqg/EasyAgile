@@ -83,32 +83,48 @@
                 </div>
                 <h4 style="font-weight:normal;">发送通知给:</h4>
                 <div class="team-member" style="margin-top:20px;">
-                <div class="col-lg-12">
-                     <label><input type="checkbox" onclick="selectAll(this)" id="all"><span style="margin-left:10px;">全部</span></label>
-                </div>
-                <div class="col-lg-2">
-                   <label><input type="checkbox" value="" onclick="selectAllGroup(this,'group1')"><span class="label label-success" style="margin-left:15px;">开发部小组</span></label>
-                 </div>
-                 <div class="col-lg-10">  
-                      <label style="margin-right:30px;font-weight:normal;"><input type="checkbox" name="group1"><span style="margin-left:10px;">member1</span></label>
-                      <label style="margin-right:30px;font-weight:normal;"><input type="checkbox" name="group1"><span style="margin-left:10px;">member1</span></label>
-                </div>
-                <div class="col-lg-2">
-                   <label><input type="checkbox" onclick="selectAllGroup(this,'group2')"><span class="label label-success" style="margin-left:15px;">技术部小组</span></label>
-                </div>
-                <div class="col-lg-10">
-                      <label style="margin-right:30px;font-weight:normal;"><input type="checkbox" name="group2"><span style="margin-left:10px;">member1</span></label>
-                      <label style="margin-right:30px;font-weight:normal;"><input type="checkbox" name="group2"><span style="margin-left:10px;">member1</span></label>
-                      <label style="margin-right:30px;font-weight:normal;"><input type="checkbox" name="group2"><span style="margin-left:10px;">member1</span></label>
-                </div>
+                  <div class="col-lg-12">
+                       <label><input type="checkbox" onclick="selectAll(this)" id="all"><span style="margin-left:10px;">全部</span></label>
+                  </div>
+                  <% var groups = {};
+                     var noGroup = [];
+                     function pushToGroup(member){
+                       if(member.group){
+                          if(groups[member.group])
+                            groups[member.group].push(member);
+                          else{
+                            groups[member.group] = [];
+                            groups[member.group].push(member);
+                          } 
+                       }else{
+                          noGroup.push(member);
+                       }                       
+                     }
+                     pushToGroup({group: project.ownerGroup, ref: project.owner});
+                     for(var i=0;i<project.members.length;i++)
+                         pushToGroup(project.members[i]);
+                     for (var p in groups) {
+                        if (groups.hasOwnProperty(p)) {
+                  %>
 
-                <div class="col-lg-2">
-                   <label><input type="checkbox" onclick="selectAllGroup(this,'group3')"><span class="label label-success" style="margin-left:15px;">UI设计小组</span></label>
-                </div>
-                <div class="col-lg-10">
-                      <label style="margin-right:30px;font-weight:normal;"><input type="checkbox" name="group3"><span style="margin-left:10px;">member1</span></label>
-                      <label style="margin-right:30px;font-weight:normal;"><input type="checkbox" name="group3"><span style="margin-left:10px;">member1</span></label>
-                </div>
+                  <div class="col-lg-2">
+                     <label><input type="checkbox" value="" onclick="selectAllGroup(this,'<%=p%>')"><span class="label label-success" style="margin-left:15px;"><%=p%></span></label>
+                  </div>                  
+                  <div class="col-lg-10">  
+                        <% groups[p].forEach(function(m){ %>
+                          <label style="margin-right:30px;font-weight:normal;"><input uid="<%=m.ref._id%>" class='atUserCheckbox' type="checkbox" name='<%=p%>'><span style="margin-left:10px;"><%=m.ref.name%></span></label>
+                        <%})%>
+                  </div>                  
+                  <%}}%>
+
+                  <div class="col-lg-2">
+                     <label><input type="checkbox" value="" onclick="selectAllGroup(this,'__noGroup')"><span class="label label-success" style="margin-left:15px;">未分组</span></label>
+                  </div>                  
+                  <div class="col-lg-10">  
+                        <% noGroup.forEach(function(m){ %>
+                          <label style="margin-right:30px;font-weight:normal;"><input uid="<%=m.ref._id%>" class='atUserCheckbox' type="checkbox" name="__noGroup"><span style="margin-left:10px;"><%=m.ref.name%></span></label>
+                        <%})%>
+                  </div>
                 </div>
                 <div class="publishTopic">
                 <button id='postTopicButton' class="btn btn-white" style="margin-top:5px;">发起讨论</button>

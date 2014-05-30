@@ -4,8 +4,8 @@ var userModel = require('../schemas/userSchema');
 var sprintModel = require('../schemas/sprintSchema');
 var sprintService = require('./sprintService');
 var async = require('async');
-
-
+var crypto = require('crypto');
+var validator = require('validator');
 
 exports.createProject = function(selfuid, name, des, cb){
 	
@@ -107,7 +107,7 @@ exports.updateProjectInfo = function(selfuid, pid, toProject, callback){
 	// });	    	   
 };
 
-exports.finishProject = function(selfuid, pid, cb){
+exports.finishProject = function(selfuid, pid, callback){
 
 	DataService.getProjectById(pid, function(err, project){
 		if(err)return callback(err);
@@ -123,6 +123,10 @@ exports.finishProject = function(selfuid, pid, cb){
 			if(err)callback(ErrorService.makeDbErr(err));
 			else callback(null);
 		})
+		for(var i=0;i<project.members.length;i++){
+			MessageService.sendUserMessage(selfuid, project.members[i]._id, 
+				MessageService.TYPE.project_close, '关闭了项目:'+project.name, function(){});
+		}
 	})
 }
 
@@ -160,6 +164,11 @@ exports.deleteProject = function(selfuid, pid, callback){
 						DataService.getUserById(mid,function(err,user){
 							if(err)callb(err);
 							user.projects.remove(project._id);
+							user.alerts.push({
+								from: selfuid,
+								type: MessageService.TYPE.project_delete,
+								message: '删除了项目'+project.name
+							})
 							user.save(function(err){
 								if(err) callb(err);
 								callb(null);
@@ -223,6 +232,8 @@ exports.exitProject = function(selfuid, pid, cb){
 				if(err)callback(ErrorService.makeDbErr(err));
 				else callback(null);
 			});
+			MessageService.sendUserMessage(selfuid, project.owner, 
+				MessageService.TYPE.member_leave, '离开了项目'+project.name, function(){});
 		}
 
 	],cb)	
@@ -263,21 +274,14 @@ exports.addMemberById = function(selfuid, pid, uid, cb){
 	    		isAdmin: false
 	    	});
 	    	newMember.projects.push(targetProject._id);
-	    	/////////////////////////////////////
-			//   project history
-			/////////////////////////////////////
-			targetProject.history.push({
-				type: HistoryService.PROJECT_TYPE.member_invite,
-				who : selfuid,
-				toUser: newMember._id
-			});
+	    	
 	    	targetProject.save(function(err){
 	    		if(err)return callback(ErrorService.makeDbErr(err));	    		
 	    	});
 	    	newMember.save(function(err){
 	    		if(err)return callback(ErrorService.makeDbErr(err));
 	    	})
-	    	callback(null);
+	    	callback(null,newMember);
 	    }
 
 	], cb);
@@ -331,6 +335,8 @@ exports.removeMemberById = function(selfuid,pid, uid, cb){
 	    		if(err) return callback(ErrorService.makeDbErr(err));
 	    	})
 	    	callback(null);
+	    	MessageService.sendUserMessage(selfuid, toDelMember._id,
+				MessageService.TYPE.member_remove, '把您移出项目'+targetProject.name, function(){});
 	    }
 
 	], cb);
@@ -366,6 +372,8 @@ exports.setAdmin = function(selfuid, pid, uid, bSet, cb){
 	    		if(err) callback(err);
 	    		else callback(null);
 	    	});
+	    	MessageService.sendUserMessage(selfuid, member._id, 
+				MessageService.TYPE.member_admin, bSet?'把你设为<'+targetProject.name+'>的管理员':'把你设为<'+targetProject.name+'>的普通成员', function(){});
 	    }	
 	   
 	], cb);
@@ -373,7 +381,7 @@ exports.setAdmin = function(selfuid, pid, uid, bSet, cb){
 };
 
 exports.setMemberToGroup = function(selfuid, pid, uid, group, callback){
-
+	var noGroup = group =='' || group == null || group == undefined;
 	async.waterfall([
 		function(callback){
 
@@ -384,13 +392,15 @@ exports.setMemberToGroup = function(selfuid, pid, uid, group, callback){
 				var toUser;
 				if(uid == targetProject.owner){
 					toUser = targetProject.owner;
-					targetProject.ownerGroup = group;
+					targetProject.ownerGroup = group;					
 				} else{
 			    	var member = targetProject.members.id(uid);
 			    	if(member == null) return callback(ErrorService.memberNotFindError);
 			    	toUser = member._id;
-			    	member.group = group;
+			    	member.group = group;			    	
 				}
+				MessageService.sendUserMessage(selfuid, uid, 
+						MessageService.TYPE.member_group, noGroup?'把你设为没有小组':'把你分到小组 '+group, function(){});
 				/////////////////////////////////////
 				//   project history
 				/////////////////////////////////////
@@ -485,4 +495,266 @@ exports.getProjectMemberGroup = function(pid, callback){
 	 		groups: project.groups
 	 	});
 	 });
+}
+
+exports.inviteMemberById = function(selfuid, pid, uid, callback){
+
+	async.waterfall([
+		function(callback){
+			DataService.getProjectById(pid,function(err,project){
+				if(err) return callback(err);
+				project.invite.push({
+					from: selfuid,
+					userId: uid
+				});
+				/////////////////////////////////////
+				//   project history
+				/////////////////////////////////////
+				project.history.push({
+					type: HistoryService.PROJECT_TYPE.member_invite_id,
+					who: selfuid,
+					toUser: uid
+				});
+				project.save(function(err){
+					if(err) callback(ErrorService.makeDbErr(err));
+					else callback(null,project);
+				})
+			})
+		},
+		function(project, callback){
+			DataService.getUserById(uid, function(err, user){
+				if(err) return callback(ErrorService.makeDbErr(err));
+				user.alerts.push({
+					type: 0,
+					from: selfuid,
+					message: '邀请您加入项目: ' + project.name,
+					data:['/API/p/'+pid+'/inviteById/accept', '/API/p/'+pid+'/inviteById/reject']
+				})
+				user.save(function(err){
+					if(err)callback(ErrorService.makeDbErr(err));
+					else callback(null);
+				});
+			});
+		}
+	],callback)
+}
+
+exports.acceptInviteById = function(selfuid, pid, callback){
+	DataService.getProjectById(pid, function(err, project){
+		if(err) return callback(err);
+		var invite;
+		for(var i=0;i<project.invite.length;i++){
+			if(project.invite[i].userId == selfuid){
+				invite = project.invite[i];
+				break;
+			}
+		}
+		if(!invite) return callback(ErrorService.inviteLinkInvalide);
+		project.invite.remove(invite._id);
+		/////////////////////////////////////
+		//   project history
+		/////////////////////////////////////
+		project.history.push({
+			type: HistoryService.PROJECT_TYPE.member_accept,
+			who : selfuid,			
+		});
+		project.save(function(err){
+			if(err) callback(ErrorService.makeDbErr(err));
+			else exports.addMemberById(selfuid, pid, selfuid, callback);
+		})
+		MessageService.sendUserMessage(selfuid, invite.from, 
+			MessageService.TYPE.accept_invite, '接受了您的项目邀请',function(){});
+	})
+}
+
+exports.rejectInviteById = function(selfuid, pid, callback){
+	DataService.getProjectById(pid, function(err, project){
+		if(err) return callback(err);
+		var invite;
+		for(var i=0;i<project.invite.length;i++){
+			if(project.invite[i].userId == selfuid){
+				invite = project.invite[i];
+				break;
+			}
+		}
+		if(!invite) return callback(ErrorService.inviteLinkInvalide);
+		project.invite.remove(invite._id);
+		project.save(function(err){
+			if(err) callback(ErrorService.makeDbErr(err));
+			else callback(null);
+		})
+		MessageService.sendUserMessage(selfuid, invite.from, 
+			MessageService.TYPE.reject_invite, '拒绝了您的项目邀请',function(){});
+	})
+}
+
+exports.inviteMemberByEmail = function(selfuid, selfname, pid, email, callback){
+	var localAppURL = 'http://' + process.env.host + ':' + process.env.port;
+	if(! validator.isEmail(email)) 
+		return callback(ErrorService.emailFormatError);
+	async.waterfall([
+		function(callback){
+			DataService.getProjectById(pid, callback);
+		},
+		function(project,callback){
+			crypto.randomBytes(48, function(ex, buf) {
+  				var token = buf.toString('hex');
+  				callback(null, project, token);
+			});
+		},
+		function(project, token, callback){			
+
+			DataService.getUserByEmail(email.toLowerCase(), function(err, user){
+				if(err) return callback(err);
+				
+				if(user){
+					if(user._id == selfuid) return callback(ErrorService.userNotFindError);
+					var link = localAppURL + '/API/p/'+pid+'/inviteByEmail/'+email+'/token/'+token+'/';
+					
+					EmailService.send(email, '项目邀请', selfname + ' 邀请你参加项目 '+ project.name +
+						             '<br/>点击<a href="'+link+'accept"">链接</a>来加入项目'+
+						             '<br/>点击<a href="'+link+'reject"">链接</a>来拒绝邀请',function(){});				
+				}else{
+					var link = localAppURL + '/API/reg/p/'+pid+'/inviteByEmail/'+email+'/token/'+token;
+					
+					EmailService.send(email, '项目邀请', selfname + ' 邀请你参加项目 '+ project.name +
+						             '<br/>点击<a href="'+link+'">链接</a>来注册一个帐号，并加入项目',function(){});									
+				}
+				project.invite.push({
+					from: selfuid,
+					email: email,
+					token: token
+				})
+				/////////////////////////////////////
+				//   project history
+				/////////////////////////////////////
+				project.history.push({
+					type: HistoryService.PROJECT_TYPE.member_invite_e,
+					who: selfuid,
+					what:[email]
+				});
+				project.save(function(err){
+					if(err) callback(err);
+					else callback(null);
+				})
+			});// end dataService
+		}
+	],callback);	
+}
+
+exports.acceptInviteByEmail = function(pid, email, token, callback){
+	DataService.getProjectById(pid, function(err, project){
+		if(err) return callback(err);
+		var invite;
+		for(var i=0;i<project.invite.length;i++){
+			if(project.invite[i].email == email && project.invite[i].token == token){
+				invite = project.invite[i];
+				break;
+			}
+		}
+		if(!invite) return callback(ErrorService.inviteLinkInvalide);
+		DataService.getUserByEmail(email.toLowerCase(),function(err,user){
+			if(err) return callback(err);
+			if(!user) return callback(ErrorService.userNotFindError);
+			project.invite.remove(invite._id);
+			/////////////////////////////////////
+			//   project history
+			/////////////////////////////////////
+			project.history.push({
+				type: HistoryService.PROJECT_TYPE.member_accept,
+				who : user._id,			
+			});
+			project.save(function(err){
+				if(err) callback(ErrorService.makeDbErr(err));
+				else exports.addMemberById(user._id, pid, user._id, callback);
+			});
+			MessageService.sendUserMessage(user._id, invite.from, 
+				MessageService.TYPE.accept_invite, '接受了您的项目邀请',function(){});
+		})				
+	})
+}
+
+exports.rejectInviteByEmail = function(pid, email, token, callback){
+	DataService.getProjectById(pid, function(err, project){
+		if(err) return callback(err);
+		var invite;
+		for(var i=0;i<project.invite.length;i++){
+			if(project.invite[i].email == email && project.invite[i].token == token){
+				invite = project.invite[i];
+				break;
+			}
+		}
+		if(!invite) return callback(ErrorService.inviteLinkInvalide);
+		project.invite.remove(invite._id);
+		project.save(function(err){
+			if(err) callback(ErrorService.makeDbErr(err));			
+		})
+		DataService.getUserByEmail(email.toLowerCase(),function(err,user){
+			if(err)callback(err);
+			else callback(null, user);
+			MessageService.sendUserMessage(user._id, invite.from, 
+				MessageService.TYPE.accept_invite, '拒绝了您的项目邀请',function(){});
+		});		
+	})
+}
+
+exports.validateRegAcceptEmail = function(pid, email, token, callback){
+	DataService.getProjectById(pid,function(err, project){
+		if(err)return callback(ErrorService.makeDbErr(err));
+		var invite;
+		for(var i=0;i<project.invite.length;i++){
+			if(project.invite[i].email == email && project.invite[i].token == token){
+				invite = project.invite[i];
+				break;
+			}
+		}
+		if(!invite) return callback(ErrorService.inviteLinkInvalide);
+		return callback(null);
+	})
+}
+exports.regAcceptInviteByEmail = function(pid, email, userInfo, token, callback){
+	// console.log(pid);
+	// console.log(email);
+	// console.log(userInfo);
+	// console.log(token);
+	async.waterfall([
+		function(callback){
+			var md5 = crypto.createHash('md5');
+    		userInfo.password = md5.update(userInfo.password).digest('base64');
+    		userInfo.email = email.toLowerCase();
+			var user = new userModel(userInfo);
+			user.save(function(err,result){
+				if(err) return callback(ErrorService.makeDbErr(err));	
+				callback(null, result);
+			})
+		},
+		function(user,callback){
+			DataService.getProjectById(pid, function(err, project){
+				if(err) return callback(err);
+				var invite;
+				for(var i=0;i<project.invite.length;i++){
+					if(project.invite[i].email == email && project.invite[i].token == token){
+						invite = project.invite[i];
+						break;
+					}
+				}
+				if(!invite) return callback(ErrorService.inviteLinkInvalide);
+								
+				project.invite.remove(invite._id);
+				/////////////////////////////////////
+				//   project history
+				/////////////////////////////////////
+				project.history.push({
+					type: HistoryService.PROJECT_TYPE.member_accept,
+					who : user._id,			
+				});
+				project.save(function(err){
+					if(err) callback(ErrorService.makeDbErr(err));
+					else exports.addMemberById(user._id, pid, user._id, callback);
+				});
+				MessageService.sendUserMessage(user._id, invite.from, 
+					MessageService.TYPE.accept_invite, '接受了您的项目邀请',function(){});					
+			})
+		}
+	],callback);
 }

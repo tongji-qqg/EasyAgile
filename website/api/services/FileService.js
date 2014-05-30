@@ -160,6 +160,8 @@ exports.downloadFileFromProject = function(selfuid, pid, fid, callback){
 		});
 		project.save(function(err){})
 		callback(null, file);
+		MessageService.sendUserMessage(selfuid, file.owner, 
+			MessageService.TYPE.download_file, '下载了你的文件'+file.name, function(){});
 	});
 }
 

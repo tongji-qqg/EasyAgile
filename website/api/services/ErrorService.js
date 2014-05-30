@@ -193,6 +193,11 @@ exports.projectIsArchived = {
 	errorNumber: 32,    //may be other numbers
 	message: 'project is archived'	
 }
+exports.inviteLinkInvalide = {
+	state: "error",
+	errorNumber: 33,    //may be other numbers
+	message: '邀请链接已失效'	
+}
 exports.successWithValue = function(key, value){
 
     var s = _.clone(exports.success);
