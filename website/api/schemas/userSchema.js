@@ -38,8 +38,11 @@ var userSchema = new Schema({
 
   alerts : [{
     date:  { type: Date,default: Date.now },
-    message: String,
-    type: Number
+    from : {type: ObjectId, ref: 'User'},
+    message: String,    
+    read: { type : Boolean, defaule: false},
+    type: {type: Number},
+    data: [String]
   }]
 });
 

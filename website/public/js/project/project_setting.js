@@ -75,7 +75,7 @@ $(function(){
 			if(g_project.owner.icon) icon = '/'+g_project.owner.icon;
 			
 			$('<img >',{'src':icon,'class':'img-circle','style':'width:40px;height:40px;'}).appendTo(div);
-			$('<label >',{'class':'control-label'}).text(g_project.owner.name+'·管理员').appendTo(div);	
+			$('<label >',{'class':'control-label'}).text(g_project.owner.name+'·管理员 '+g_project.owner.email).appendTo(div);	
 		}
 		owner();
 		panel.append($('<hr >'));
@@ -87,8 +87,8 @@ $(function(){
 			if(member.ref.icon) icon = '/'+member.ref.icon;
 			$('<img >',{'src':icon,'class':'img-circle','style':'width:40px;height:40px;'}).appendTo(leftDiv);
 			var name = member.ref.name;
-			if(member.isAdmin) name+='·管理员';
-			else name +='·普通';
+			if(member.isAdmin) name+='·管理员 '+member.ref.email;
+			else name +='·普通 '+member.ref.email;
 			$('<label >', {'class':'control-label'}).text(name).appendTo(leftDiv);
 			//--------------------------------------------------------------//
 			var rightDiv = $('<div >',{'class':'col-sm-4'}).appendTo(rowDiv);
@@ -148,7 +148,7 @@ $(function(){
 $(function(){
 
 	$('#project-setting-button').click(function(){
-		var name = $('#project-name-input').val();
+		var name = $('#project-name-input').val().trim();
 		if(!name) {
 			alert('need a name');
 			return;
@@ -196,7 +196,31 @@ $(function(){
             }            
         });
 		}
-	})
+	});
+
+	$('#add-member-email-button').click(function(){
+		var email = $('#add-member-email-input').val().trim();
+		console.log(email);
+		if(projectid && projectid.length==24){
+			//post /API/p/:pid/mid/:uid
+			$.ajax({
+            type: 'POST',
+            url: '/API/p/'+projectid+'/me/'+email,
+            dataType: 'json',            
+            success: function(data){
+
+                if(data.state === 'error')
+                    alert('error! '+ data.message);
+                if(data.state === 'success')
+                {   
+                	alert('success');     
+                	$('#add-member-email-input').val('');                          
+                    $('body').trigger('loadProjectSetting');
+                }
+            }            
+        });
+		}
+	});
 })
 function searchUserInputChange(inputBox){
 

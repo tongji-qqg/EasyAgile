@@ -126,11 +126,43 @@ module.exports = {
     inviteMemberById: function (req, res) {
       
 	    sails.log.verbose('Controller - api/controller/ProjectController.inviteMemberById');
-	    projectService.addMemberById(req.session.user._id, req.params.pid, req.params.uid, function(err){
+	    projectService.inviteMemberById(req.session.user._id, req.params.pid, req.params.uid, function(err){
 			if(err) res.json(err);
 			else res.json(ErrorService.success);
 		});
     },
+
+    /**
+	 * get /API/p/:pid/inviteById/accept
+	 * 
+	 * @param   {req}   request     Request object
+	 * @param   {res}  response    Response object
+	 */
+    acceptInviteById: function (req, res) {
+      
+	    sails.log.verbose('Controller - api/controller/ProjectController.AcceptinviteById');
+	    projectService.acceptInviteById(req.session.user._id, req.params.pid, function(err){
+			if(err) res.json(err);
+			else res.json(ErrorService.success);
+		});
+    },
+
+    /**
+	 * get /API/p/:pid/inviteById/reject
+	 * 
+	 * @param   {req}   request     Request object
+	 * @param   {res}  response    Response object
+	 */
+    rejectInviteById: function (req, res) {
+      
+	    sails.log.verbose('Controller - api/controller/ProjectController.rejectInviteById');
+	    projectService.rejectInviteById(req.session.user._id, req.params.pid, function(err){
+			if(err) res.json(err);
+			else res.json(ErrorService.success);
+		});
+    },
+
+
 
     /**
 	 * post /API/p/:pid/me/:email
@@ -141,12 +173,87 @@ module.exports = {
     inviteMemberByEmail: function (req, res) {
       
 	    sails.log.verbose('Controller - api/controller/ProjectController.inviteMemberByEmail');
-	    projectService.addMemberById(req.session.user._id, req.params.pid, req.params.uid, function(err){
+	    projectService.inviteMemberByEmail(req.session.user._id,req.session.user.name, req.params.pid, req.params.email, function(err){
 			if(err) res.json(err);
 			else res.json(ErrorService.success);
 		});
     },
 
+    /**
+	 *   'get     /API/p/:pid/inviteByEmail/:email/token/:token/accept'
+	 * 
+	 * @param   {req}   request     Request object
+	 * @param   {res}  response    Response object
+	 */
+    acceptInviteByEmail: function (req, res) {
+      
+	    sails.log.verbose('Controller - api/controller/ProjectController.acceptInviteByEmail');
+	    projectService.acceptInviteByEmail(req.params.pid, req.params.email, req.params.token, function(err,user){
+			if(err) res.json(err);
+			else{
+				req.session.user = user;
+				res.redirect('/project/'+req.params.pid);
+			}
+		});
+    },
+
+
+    /**
+	 *   'get     /API/p/:pid/inviteByEmail/:email/token/:token/reject'
+	 * 
+	 * @param   {req}   request     Request object
+	 * @param   {res}  response    Response object
+	 */
+    rejectInviteByEmail: function (req, res) {
+      
+	    sails.log.verbose('Controller - api/controller/ProjectController.rejectInviteByEmail');
+	    projectService.rejectInviteByEmail(req.params.pid, req.params.email, req.params.token, function(err,user){
+			if(err) res.json(err);
+			else {
+				req.session.user = user;
+				res.redirect('/user/'+user._id);
+			}
+		});
+    },
+
+    /**
+	 *   'get     /API/reg/p/:pid/inviteByEmail/:email/token/:token'
+	 * 
+	 * @param   {req}   request     Request object
+	 * @param   {res}  response    Response object
+	 */
+    getRegInviteByEmail: function (req, res) {
+      
+	    sails.log.verbose('Controller - api/controller/ProjectController.getRegInviteByEmail');
+	    projectService.validateRegAcceptEmail(req.params.pid, req.params.email, req.params.token, function(err){
+			if(err) res.json(err);
+			else {
+				req.session.pid = req.params.pid;
+				req.session.email = req.params.email;
+				req.session.token = req.params.token;
+				res.view('auth/inviteReg.html');
+			}
+		});
+    },
+
+    postRegInviteByEmail: function(req, res){
+    	sails.log.verbose('Controller - api/controller/ProjectController.postRegInviteByEmail');
+    	projectService.regAcceptInviteByEmail(req.session.pid, req.session.email, {
+    		name: req.body.name,
+    		password: req.body.password
+    	}, req.session.token, function(err, result){
+			if(err) res.json(err);
+			else {
+				var pid = req.session.pid;
+				var user = {_id: result._id, name: result.name, email:result.email, icon: result.icon};
+				req.session.pid = null;
+				req.session.email = null;
+				req.session.token = null;
+				req.session.user = user;
+				res.json(ErrorService.successWithValue('user',user));
+			}
+		});
+    },
     /**
 	 * delete /API/p/:pid/mid/:uid
 	 * 

@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Flex Admin - Responsive Admin Theme</title>
+    <title>alerts</title>
 
     <% include ../header.html%>
     <style type="text/css">
@@ -46,8 +46,7 @@
                 <div class="portlet portlet-default" style="border-style:none;"> 
 
                     <div id="basicFormExample" class="panel-collapse collapse in">
-                        <div class="portlet-body">
-                          <form role="form">
+                        <div class="portlet-body">                   
                             <!-- begin PAGE TITLE ROW -->
                             <div class="row">
                                 <div class="col-lg-12">
@@ -63,40 +62,20 @@
                             </div>
                             <!-- /.row -->
                             <!-- end PAGE TITLE ROW --> 
-                            <div class="message">
-                                <h6 style="color:#CCC;">2014年5月15日</h6> 
-                                <div class="well" style="color:#3c763d;background-color:#dff0d8;border-color:#d6e9c6; ">
-                                    <div class="messageContent" style="width:93%;display:inline-block;">
-                                    <p > 
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. 
-                                    </p>
+                            <div id='alerts-div'>
+                                <div class="message">
+                                    <h6 style="color:#CCC;">2014年5月15日</h6> 
+                                    <div class="well" style="color:#3c763d;background-color:#dff0d8;border-color:#d6e9c6; ">
+                                        <div class="messageContent" style="width:93%;display:inline-block;">
+                                        <p > 
+                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. 
+                                        </p>
+                                        </div>
+                                        <button class="deleteButton fa fa-trash-o"  style="margin-top:-10px;float:right;background-color:transparent;border:none;"></button>                            
                                     </div>
-                                    <button class="deleteButton fa fa-trash-o"  style="margin-top:-10px;float:right;background-color:transparent;border:none;"></button>                            
-                                </div>
-                            </div>
-                            <div class="message">
-                                <h6 style="color:#CCC;">2014年5月15日</h6> 
-                                <div class="well" style="color:#3c763d;background-color:#dff0d8;border-color:#d6e9c6; ">
-                                    <div class="messageContent" style="width:93%;display:inline-block;">
-                                    <p > 
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. 
-                                    </p>
-                                    </div>
-                                    <button class="deleteButton fa fa-trash-o"  style="margin-top:-10px;float:right;background-color:transparent;border:none;"></button>                            
-                                </div>
-                            </div>
-                            <div class="message">
-                                <h6 style="color:#CCC;">2014年5月15日</h6> 
-                                <div class="well" style="color:#3c763d;background-color:#dff0d8;border-color:#d6e9c6; ">
-                                    <div class="messageContent" style="width:93%;display:inline-block;">
-                                    <p > 
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. 
-                                    </p>
-                                    </div>
-                                    <button class="deleteButton fa fa-trash-o"  style="margin-top:-10px;float:right;background-color:transparent;border:none;"></button>                            
-                                </div>
-                            </div>
-                          </form>
+                                </div>           
+                            </div>                
+
                         </div>
                      </div>
                 </div>
@@ -120,7 +99,7 @@
 
     <!-- GLOBAL SCRIPTS -->
     <% include ../footer.html %>
-
+    <script src='/js/user/user_alert.js'></script>
 </body>
 
 </html>

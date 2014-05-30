@@ -309,7 +309,7 @@ module.exports = {
 	 */
 	readAlert: function (req, res) {
 	   	sails.log.verbose('Controller - api/controller/UserController.readAlert');
-		userService.readAlert(req.session.user._id, req.params.mid, function(err){
+		userService.readAlert(req.session.user._id, req.params.aid, function(err){
 			if(err) res.json(err);
 			else res.json(ErrorService.success);
 		});

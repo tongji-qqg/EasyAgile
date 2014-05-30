@@ -60,6 +60,13 @@ var projectSchema = new Schema({
     what: [String]
   }],
 
+  invite: [{
+    from: { type: ObjectId, ref: 'User' },
+    userId: { type: ObjectId, ref: 'User' },
+    email : String,
+    token : String
+  }],
+
   cSprint: { type: ObjectId, ref: 'Sprint' },
   sprints: [{ type: ObjectId, ref: 'Sprint' }] //assume no more than 100 sprints, so can return less than 0.1s
 });
