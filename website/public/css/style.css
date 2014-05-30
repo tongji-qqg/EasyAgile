@@ -40,7 +40,7 @@ a:focus {
 
 @media(min-width:768px) {
     body {
-        background: #fff;
+        background: #fff;        
     }
 }
 
@@ -158,7 +158,8 @@ a:focus {
 #page-wrapper {
     padding: 0 15px;
     border: none;
-    background-color: #ecf0f1;
+    /*background-color: #ecf0f1;*/
+    background: url(/img/canvas_bg.jpg) repeat;
 }
 
 @media(min-width:768px) {

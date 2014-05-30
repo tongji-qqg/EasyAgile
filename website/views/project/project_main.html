@@ -54,7 +54,6 @@
                     <!-- /.col-lg-12 -->
                 </div>
                 
-                <hr> 
 
                 <div class="row">
 
@@ -80,7 +79,9 @@
                             <div class="col-sm-9">
                             <label style="font-size:medium;">
                             <a href="#set-task-form" data-toggle="modal" style="text-decoration:none;"><%=t.title%></a>
-                            <span style="color:#808080;font-size:12px;margin-left:15px;">执行者:&nbsp;&nbsp;&nbsp;&nbsp;亓组长</span>
+                            <span style="color:#808080;font-size:12px;margin-left:15px;">执行者:&nbsp;&nbsp;&nbsp;&nbsp;<%t.executer.forEach(function(u){%>
+                              <%=u.name%>
+                            <%})%></span>
                             </label>
 
                             </div>
@@ -151,57 +152,8 @@
                    </div>
                    <div class="panel-body" style="font-size:13px;color:#808080">
                         <table class="table">
-                        <tbody>
+                        <tbody id='mainpage-history-table'>
                           
-                          <tr>
-                              <td>                                              
-                                Ning 创建了任务
-                              </td>
-                              <td>                                              
-                                3月16日 21:21
-                              </td>
-                          </tr>
-                          <tr>
-                              <td>                                              
-                                Ning 重做了任务
-                              </td>
-                              <td>                                              
-                                3月16日 21:21
-                              </td>
-                          </tr>
-                          <tr>
-                              <td>                                              
-                                Ning 重做了任务
-                              </td>
-                              <td>                                              
-                                3月16日 21:21
-                              </td>
-                          </tr>
-                          <tr>
-                              <td>                                              
-                                Ning 重做了任务
-                              </td>
-                              <td>                                              
-                                3月16日 21:21
-                              </td>
-                          </tr>
-                          <tr>
-                              <td>                                              
-                                Ning 重做了任务
-                              </td>
-                              <td>                                              
-                                3月16日 21:21
-                              </td>
-                          </tr>
-                          <tr>
-                              <td>                                              
-                                Ning 重做了任务
-                              </td>
-                              <td>                                              
-                                3月16日 21:21
-                              </td>
-                          </tr>
-                        
                         
                         </tbody>
                         </table>

@@ -1,6 +1,7 @@
 
 $(function(){
 	var alerts;
+	var pages;
 	function loadAlertsAjax(){
 		$.ajax({
 			type: 'GET',
@@ -10,16 +11,32 @@ $(function(){
 				if (data.state === 'error')
 					alert('error! ' + data.message);
 				if (data.state === 'success') {
-					alerts = data.alert.reverse();								
-					buildAlert();
+					alerts = data.alert.reverse();
+					pages = Math.floor(alerts.length / 7);
+					if(alerts.legth % 7 != 0) pages++;
+					var ul = $('#user_alerts_pages');
+					ul.empty();
+					 var options = {
+				            currentPage: 1,
+				            totalPages: pages,
+				            bootstrapMajorVersion: 3,
+				            onPageChanged: function(e,oldPage,newPage){
+				                //console.log("Current page changed, old: "+oldPage+" new: "+newPage);
+				                buildAlert(newPage);
+				            }
+				        }
+					ul.bootstrapPaginator(options);	
+					buildAlert(1);
 				}
 			}
 		});
 	}
-	function buildAlert(){
+	function buildAlert(p){
 		if(!alerts) return;
+		if(p > pages) return;
+		p = (p-1)*7
 		$('#alerts-div').empty();		
-		for(var i=0;i<alerts.length;i++){
+		for(var i=p;i<alerts.length && i< p+7;i++){
 			$('#alerts-div').append(buildOneAlert(alerts[i]));
 		}
 	}

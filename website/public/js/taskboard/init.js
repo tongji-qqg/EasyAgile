@@ -29,7 +29,7 @@ function init() {
 
     body.trigger("loadUser");
     body.trigger("loadProject");
-    body.trigger("loadSprint");
+    //body.trigger("loadSprint");
 
     function subscribe(){
         if (!pid || pid == 0) return;
@@ -46,7 +46,7 @@ function init() {
                 sid = g_project.cSprint;                
             }
             body.trigger("loadProject");
-            body.trigger("loadSprint");                
+            //body.trigger("loadSprint");                
         });
     }
     subscribe();
@@ -121,6 +121,7 @@ function init() {
                             buildSprintList(sprint._id, '', '', sprint.name);
                     });
                     body.trigger("loadSprintManagement");
+                    body.trigger("loadSprint");
                 }
             }
         });

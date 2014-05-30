@@ -259,3 +259,7 @@ $(function(){
     		return '';
 	}
 });
+
+$(function(){
+	$('body').css('background-image','url("'+'/img/canvas_bg.jpg'+'")');
+})

@@ -90,11 +90,11 @@ $(function(){
     var members;    
     var allGroup;
     var addMemberHtml = '<div class="col-lg-2" style="color: #9cb073; margin-bottom:15px;">'
-                            +'<div class="col-lg-4">'
+                            +'<a href="#set-project-form" data-toggle="modal"><div class="col-lg-4">'
                                 +'<img src="/img/add.jpg" class="img-circle" style="width:45px;height:45px;">'
                             +'</div>'
                             +'<div class="col-lg-8" style="margin-top:10px;">添加成员</div>'
-                        +'</div>';
+                        +'</a></div>';
     var groupHtml  = '<div class="row">'
                         +'<br />'
                         +'<br />'

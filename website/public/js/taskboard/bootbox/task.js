@@ -431,6 +431,17 @@ var taskBootBox = (function() {
 			}
 			return r;
 		}
+		function getTaskState(state){
+			var r;
+			switch(state){
+				case '0': r = '等待执行';break;
+				case '1': r = '完成';break;
+				case '2': r = '正在执行';break;
+				case '3': r = '等待审核';break;
+				case '4': r = '正在审核';break;
+			}
+			return r;
+		}
 		var what = formatDate(new Date(history.when)) + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 		switch(history.type){
 			case 0: what += history.who.name + ' 创建了任务: ' + history.what[0] 
@@ -454,7 +465,7 @@ var taskBootBox = (function() {
 			break;
 			case 2: what += history.who.name + ' 增加任务执行者 ' + history.toUser[0].name; break;
 			case 3: what += history.who.name + ' 删除任务执行者 ' + history.toUser[0].name; break;
-			case 4: what += history.who.name + ' 设置任务状态为: '+ history.what[0]; break;
+			case 4: what += history.who.name + ' 设置任务状态为: '+ getTaskState(history.what[0]); break;
 			case 5: what += history.who.name + ' 设置任务进度为: '+ history.what[0]; break;
 		}
 		return $('<p >').html(what);		
@@ -529,7 +540,7 @@ var taskBootBox = (function() {
 
 	//+ '<div class="tab-pane" id="comments"></div>'
 
-	+ '<div class="tab-pane" id="history" style="max-height:500px;overflow-y:auto;"><div class="table-responsive"><table class="table"><tbody id="tableBody"></tbody></table></div></div></div>' ;
+	+ '<div class="tab-pane" id="history" style="max-height:300px;overflow-y:auto;"><div class="table-responsive"><table class="table"><tbody id="tableBody"></tbody></table></div></div></div>' ;
 
 	return {
 		addBox: buildAdd,

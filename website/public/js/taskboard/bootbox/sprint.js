@@ -127,7 +127,6 @@ var sprintBootBox = (function() {
 	}
 
 	function buildHistory() {
-console.log('sprint history');
 		var buttons = [{
 			label: "确认",
 			className: "btn-primary pull-right",
@@ -148,7 +147,8 @@ console.log('sprint history');
                     if (data.state === 'success') {
                     	console.log('sprint history');
                         for(var i=0;i<data.historys.length;i++){
-                        	$('#sprintHistoryDiv').append(buildHistoryP(data.historys[i]));
+                        	$('#sprintTableBody').append(buildHistoryP(data.historys[i]));
+                        	$("#sprintTableBody").append($('<br >'));
                         }
                     }
                 }
@@ -200,7 +200,8 @@ console.log('sprint history');
 
 	+ '<div class="form-group">' + '<label class="col-lg-3 control-label" for="formSprintNewDescription">描述</label>' + '<div class="col-lg-9">' + '<textarea id="formSprintNewDescription" name="description" class="form-control" data-wysiwyg="true" placeholder="添加Sprint描述"></textarea>' + '</div>' + '</div>' + '</form>';
 
-	var historyHtml = '<div id="sprintHistoryDiv"> </div>';
+	//var historyHtml = '<div id="sprintHistoryDiv"> </div>';
+	var historyHtml = '<div class="tab-pane" id="sprintHistoryDiv" style="max-height:300px;overflow-y:auto;"><div class="table-responsive"><table class="table"><tbody id="sprintTableBody"></tbody></table></div></div></div>';
 	return {
 		addBox: buildAdd,
 		editBox: buildEdit,
