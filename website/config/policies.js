@@ -110,6 +110,7 @@ module.exports.policies = {
 		projectEditor    :["validateURLID", "checkLogin", "hasProjectAccess"],
 		projectMembers   :["validateURLID", "checkLogin", "hasProjectAccess"],
 		projectHistory   :["validateURLID", "checkLogin", "hasProjectAccess"],
+		projectHistoryFromTo :["validateURLID", "checkLogin", "hasProjectAccess"],
     },
 
     "story": {

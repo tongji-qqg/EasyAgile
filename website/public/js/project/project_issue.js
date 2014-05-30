@@ -1,7 +1,7 @@
 var g_allIssues, g_type;
 
 $(function(){
-	
+	var sort_order = true;
 	function loadIssue(){
 		if(!projectid)return;
 		$.ajax({
@@ -15,7 +15,8 @@ $(function(){
                     alert('error! '+ data.message);
                 if(data.state === 'success')
                 {        
-                    g_allIssues = data.issues;                    
+                    g_allIssues = data.issues;
+                    if(!sort_order) g_allIssues = g_allIssues.reverse();
                     buildIssueBlock();
                 }
             }            
@@ -47,6 +48,15 @@ $(function(){
 	$('body').on('loadIssue', loadIssue);
 	g_type = false;
 	$('body').trigger('loadIssue');
+
+	$('#sort-a').click(function(){
+		sort_order = false;
+		$('body').trigger('loadIssue');
+	})
+	$('#sort-d').click(function(){
+		sort_order = true;
+		$('body').trigger('loadIssue');
+	})
 });
 
 $(function(){

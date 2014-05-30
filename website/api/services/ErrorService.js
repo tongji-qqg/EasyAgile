@@ -198,6 +198,11 @@ exports.inviteLinkInvalide = {
 	errorNumber: 33,    //may be other numbers
 	message: '邀请链接已失效'	
 }
+exports.paramRangeError = {
+	state: "error",
+	errorNumber: 34,    //may be other numbers
+	message: '请求范围无效'	
+}
 exports.successWithValue = function(key, value){
 
     var s = _.clone(exports.success);

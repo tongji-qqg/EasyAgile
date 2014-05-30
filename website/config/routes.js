@@ -101,6 +101,7 @@ module.exports.routes = {
   'post    /API/p/:pid/g'                       : 'project.addGroup',
   'delete  /API/p/:pid/g'                       : 'project.deleteGroup',
   'get     /API/p/:pid/h'                       : 'project.getHistory',
+  'get     /API/p/:pid/h/:from/:to'             : 'project.getHistoryFromTo',
   'get     /API/p/:pid/members'                 : 'project.getMembers',
   'get     /API/p/:pid/inviteByEmail/:email/token/:token/accept' : 'project.acceptInviteByEmail',
   'get     /API/p/:pid/inviteByEmail/:email/token/:token/reject' : 'project.rejectInviteByEmail',

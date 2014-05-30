@@ -68,6 +68,21 @@ exports.getProjectHistory = function(selfuid, pid, callback){
 	})
 }
 
+exports.getProjectHistoryFromTo = function(selfuid, pid, from, to, callback){
+	DataService.getProjectById(pid, function(err, project){
+		//console.log(from);
+		//console.log(to);
+		if(err) return callback(err);
+		if(isNaN(from) || isNaN(to))  return callback(ErrorService.paramRangeError);
+		if(from < 0 || from > project.history.length) return callback(ErrorService.paramRangeError);
+		if(to < 0 )  return callback(ErrorService.paramRangeError);
+		userModel.populate(project.history, {path:'who toUser', select:'_id name icon'}, function(err){
+			if(err)return callback(ErrorService.makeDbErr(err));
+			callback(null,project.history.slice(from,to));
+		})
+	})
+}
+
 exports.getSprintHistory = function(selfuid, pid, sid, callback){
 	DataService.getSprintById(sid, function(err, sprint){
 		if(err) return callback(err);

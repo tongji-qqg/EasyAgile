@@ -184,8 +184,11 @@ exports.getTasksInSprint = function(sid, callback){
 			   .populate('tasks')
 			   .exec(function(err,sprint){
 	           		if(err) return callback(ErrorService.makeDbErr(err));
-	           		if(sprint == null) callback(ErrorService.sprintNotFindError);
-	           		else callback(null, sprint)
+	           		if(sprint == null) return callback(ErrorService.sprintNotFindError);
+	           		userModel.populate(sprint.tasks, {path:'executer', select:'_id name icon email'},function(err){
+						if(err) return callback(ErrorService.makeDbErr(err));
+						else return callback(null,sprint);	
+					})	           		
 	           });
 }
 

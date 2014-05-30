@@ -361,6 +361,22 @@ module.exports = {
     },
 
     /**
+	 * get  /API/p/:pid/h/:form/:to
+	 * 
+	 * @param   {req}   request     Request object
+	 * @param   {res}  response    Response object
+	 */
+    getHistoryFromTo: function (req, res) {
+      
+	    sails.log.verbose('Controller - api/controller/ProjectController.getHistoryFromTo');
+	    HistoryService.getProjectHistoryFromTo(req.session.user._id,req.params.pid, req.params.from, req.params.to,
+	    	function(err, result){
+			if(err) res.json(err);
+			else res.json(ErrorService.successWithValue('historys',result));
+		});
+    },
+
+    /**
 	 * get  /API/p/:pid/members
 	 * 
 	 * @param   {req}   request     Request object
