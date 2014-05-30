@@ -59,7 +59,7 @@ module.exports = {
 	    topicService.postTopic(req.session.user._id, req.params.pid, {
 			title: req.body.title,
 			body: req.body.body
-		},function(err){
+		},req.body.at, function(err){
 			if(err) res.json(err);
 			else res.json(ErrorService.success);
 		});

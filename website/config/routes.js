@@ -80,7 +80,9 @@ module.exports.routes = {
   'put  /API/m/:mid'                            : 'user.readMessage',          
   'get  /API/a'                                 : 'user.getUserAlert',         
   'get  /API/aa'                                : 'user.getAllUserAlert',      
-  'put  /API/a/:aid'                            : 'user.readAlert',            
+  'put  /API/a/:aid'                            : 'user.readAlert',    
+  'delete  /API/a/:aid'                         : 'user.deleteAlertById',
+  'delete  /API/a'                              : 'user.deleteAllAlert',        
   //project 9
   'post    /API/p'                              : 'project.createProject',
   'get     /API/p/:pid'                         : 'project.getProjectInfo',

@@ -173,7 +173,9 @@ module.exports.policies = {
 		readMessage          :["validateURLID", "checkUser"],
 		getUserAlert         :["checkUser"],
 		getAllUserAlert      :["checkUser"],
-		readAlert            :["validateURLID", "checkUser"]
+		readAlert            :["validateURLID", "checkUser"],
+		deleteAlertById      :["validateURLID", "checkUser"],
+		deleteAllAlert       :["validateURLID", "checkUser"],
     },
     "socketio":{
     	"*": false,
