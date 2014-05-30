@@ -107,7 +107,7 @@ exports.updateProjectInfo = function(selfuid, pid, toProject, callback){
 	// });	    	   
 };
 
-exports.finishProject = function(selfuid, pid, cb){
+exports.finishProject = function(selfuid, pid, callback){
 
 	DataService.getProjectById(pid, function(err, project){
 		if(err)return callback(err);
@@ -123,6 +123,10 @@ exports.finishProject = function(selfuid, pid, cb){
 			if(err)callback(ErrorService.makeDbErr(err));
 			else callback(null);
 		})
+		for(var i=0;i<project.members.length;i++){
+			MessageService.sendUserMessage(selfuid, project.members[i]._id, 
+				MessageService.TYPE.project_close, '关闭了项目:'+project.name, function(){});
+		}
 	})
 }
 
@@ -160,6 +164,11 @@ exports.deleteProject = function(selfuid, pid, callback){
 						DataService.getUserById(mid,function(err,user){
 							if(err)callb(err);
 							user.projects.remove(project._id);
+							user.alerts.push({
+								from: selfuid,
+								type: MessageService.TYPE.project_delete,
+								message: '删除了项目'+project.name
+							})
 							user.save(function(err){
 								if(err) callb(err);
 								callb(null);
@@ -223,6 +232,8 @@ exports.exitProject = function(selfuid, pid, cb){
 				if(err)callback(ErrorService.makeDbErr(err));
 				else callback(null);
 			});
+			MessageService.sendUserMessage(selfuid, project.owner, 
+				MessageService.TYPE.member_leave, '离开了项目'+project.name, function(){});
 		}
 
 	],cb)	
@@ -324,6 +335,8 @@ exports.removeMemberById = function(selfuid,pid, uid, cb){
 	    		if(err) return callback(ErrorService.makeDbErr(err));
 	    	})
 	    	callback(null);
+	    	MessageService.sendUserMessage(selfuid, toDelMember._id,
+				MessageService.TYPE.member_remove, '把您移出项目'+targetProject.name, function(){});
 	    }
 
 	], cb);
@@ -359,6 +372,8 @@ exports.setAdmin = function(selfuid, pid, uid, bSet, cb){
 	    		if(err) callback(err);
 	    		else callback(null);
 	    	});
+	    	MessageService.sendUserMessage(selfuid, member._id, 
+				MessageService.TYPE.member_admin, bSet?'把你设为<'+targetProject.name+'>的管理员':'把你设为<'+targetProject.name+'>的普通成员', function(){});
 	    }	
 	   
 	], cb);
@@ -366,7 +381,7 @@ exports.setAdmin = function(selfuid, pid, uid, bSet, cb){
 };
 
 exports.setMemberToGroup = function(selfuid, pid, uid, group, callback){
-
+	var noGroup = group =='' || group == null || group == undefined;
 	async.waterfall([
 		function(callback){
 
@@ -377,13 +392,15 @@ exports.setMemberToGroup = function(selfuid, pid, uid, group, callback){
 				var toUser;
 				if(uid == targetProject.owner){
 					toUser = targetProject.owner;
-					targetProject.ownerGroup = group;
+					targetProject.ownerGroup = group;					
 				} else{
 			    	var member = targetProject.members.id(uid);
 			    	if(member == null) return callback(ErrorService.memberNotFindError);
 			    	toUser = member._id;
-			    	member.group = group;
+			    	member.group = group;			    	
 				}
+				MessageService.sendUserMessage(selfuid, uid, 
+						MessageService.TYPE.member_group, noGroup?'把你设为没有小组':'把你分到小组 '+group, function(){});
 				/////////////////////////////////////
 				//   project history
 				/////////////////////////////////////
@@ -545,7 +562,8 @@ exports.acceptInviteById = function(selfuid, pid, callback){
 			if(err) callback(ErrorService.makeDbErr(err));
 			else exports.addMemberById(selfuid, pid, selfuid, callback);
 		})
-		
+		MessageService.sendUserMessage(selfuid, invite.from, 
+			MessageService.TYPE.accept_invite, '接受了您的项目邀请',function(){});
 	})
 }
 
@@ -565,7 +583,8 @@ exports.rejectInviteById = function(selfuid, pid, callback){
 			if(err) callback(ErrorService.makeDbErr(err));
 			else callback(null);
 		})
-		
+		MessageService.sendUserMessage(selfuid, invite.from, 
+			MessageService.TYPE.reject_invite, '拒绝了您的项目邀请',function(){});
 	})
 }
 
@@ -649,6 +668,8 @@ exports.acceptInviteByEmail = function(pid, email, token, callback){
 				if(err) callback(ErrorService.makeDbErr(err));
 				else exports.addMemberById(user._id, pid, user._id, callback);
 			});
+			MessageService.sendUserMessage(user._id, invite.from, 
+				MessageService.TYPE.accept_invite, '接受了您的项目邀请',function(){});
 		})				
 	})
 }
@@ -671,7 +692,9 @@ exports.rejectInviteByEmail = function(pid, email, token, callback){
 		DataService.getUserByEmail(email.toLowerCase(),function(err,user){
 			if(err)callback(err);
 			else callback(null, user);
-		});
+			MessageService.sendUserMessage(user._id, invite.from, 
+				MessageService.TYPE.accept_invite, '拒绝了您的项目邀请',function(){});
+		});		
 	})
 }
 
@@ -729,7 +752,8 @@ exports.regAcceptInviteByEmail = function(pid, email, userInfo, token, callback)
 					if(err) callback(ErrorService.makeDbErr(err));
 					else exports.addMemberById(user._id, pid, user._id, callback);
 				});
-								
+				MessageService.sendUserMessage(user._id, invite.from, 
+					MessageService.TYPE.accept_invite, '接受了您的项目邀请',function(){});					
 			})
 		}
 	],callback);

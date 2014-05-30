@@ -367,3 +367,28 @@ exports.readAlert = function(selfuid, aid, callback){
 		});
 	})
 }
+
+exports.deleteAlertById = function(selfuid, aid, callback){
+	DataService.getUserById(selfuid, function(err, user){
+		if(err) return callback(err);
+		console.log(aid);
+		var a = user.alerts.id(aid);
+		if(!a) return callback(ErrorService.notFindError);
+		a.remove();
+		user.save(function(err){
+			if(err) callback(ErrorService.makeDbErr(err));
+			else callback(null);
+		});
+	})	
+}
+
+exports.deleteALLAlert = function(selfuid, callback){
+	DataService.getUserById(selfuid, function(err, user){
+		if(err) return callback(err);
+		user.alerts=[];
+		user.save(function(err){
+			if(err) callback(ErrorService.makeDbErr(err));
+			else callback(null);
+		});
+	})	
+}

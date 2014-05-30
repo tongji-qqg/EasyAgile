@@ -289,6 +289,23 @@ $(function(){
             }            
         });
 	})
+	$('#project-pigeonhole-button').click(function(){
+		$.ajax({
+            type: 'PUT',
+            url: '/API/pf/'+projectid,
+            dataType: 'json',            
+            success: function(data){
+
+                if(data.state === 'error')
+                    alert('error! '+ data.message);
+                if(data.state === 'success')
+                {   
+                	alert('success');  
+                	window.location.replace('/user/'+uid);              	
+                }
+            }            
+        });
+	})
 })
 /*
 $(function(){

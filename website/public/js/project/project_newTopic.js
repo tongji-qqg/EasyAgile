@@ -1,7 +1,7 @@
 $(function(){
 
 
-	function postTopic(title, body){
+	function postTopic(title, body, at){
 		if(!projectid)return;
 		$.ajax({  
             type: 'POST',
@@ -9,7 +9,8 @@ $(function(){
             dataType: 'json',
             data:{
             	title : title,
-            	body: body
+            	body: body,
+                at  : at
             },
             success: function(data){
 
@@ -26,10 +27,16 @@ $(function(){
 	$('#postTopicButton').click(function(e){
 		e.preventDefault();
 		var title = $('#newTopicTitleInput').val();
-		var body  = $('#summernote').code();       
+		var body  = $('#summernote').code();
+        var at = [];
         //alert(body); 
-		postTopic(title, body)
-		
+		//postTopic(title, body)
+		$('.atUserCheckbox').each(function(i){            
+            if($(this).is(':checked'))
+                at.push($(this).attr('uid'));
+            //console.log($(this).attr('uid'));
+        })
+        postTopic(title, body, at);
 	})
 })
 

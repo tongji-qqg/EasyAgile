@@ -10,7 +10,7 @@ $(function(){
 				if (data.state === 'error')
 					alert('error! ' + data.message);
 				if (data.state === 'success') {
-					alerts = data.alert;								
+					alerts = data.alert.reverse();								
 					buildAlert();
 				}
 			}
@@ -36,7 +36,7 @@ $(function(){
                         +'</div>';
         function formateDate (date){
         	date = new Date(date);
-        	return date.getFullYear()+'年'+(date.getMonth()+1)+'月'+date.getDate()+'日';
+        	return date.getFullYear()+'年'+(date.getMonth()+1)+'月'+date.getDate()+'日 '+ date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
         }
         function readAlert(aid){
         	console.log(aid);
@@ -52,7 +52,7 @@ $(function(){
 					}
 				});	
         }
-        console.log('message');
+        
         var div = $(alertHtml);
         $('.alert-date', div).text(formateDate(alert.date));
         if(alert.type == 0){
@@ -93,14 +93,48 @@ $(function(){
 						if (data.state === 'error')
 							window.alert('error '+data.message);
 						if (data.state === 'success') {
-							window.alert('success')
+							$('body').trigger('loadAlertsAjax');
 						}
 					}
 				});		
         	});
         }
+        else{
+        	$('.alert-message',div).text(alert.from.name + ' '+ alert.message);
+        }
+        $('.deleteButton', div).click(function(){
+        	$.ajax({
+					type: 'DELETE',
+					url: '/API/a/'+alert._id,
+					dataType: 'json',			
+					success: function(data) {
+						if (data.state === 'error')
+							window.alert('error '+data.message);
+						if (data.state === 'success') {
+							$('body').trigger('loadAlertsAjax');
+						}
+					}
+				});
+        })
         return div;
 	}
 	$('body').on('loadAlertsAjax',loadAlertsAjax)
 	$('body').trigger('loadAlertsAjax');
+});
+
+$(function(){
+	$('#delete-all-alert-button').click(function(){
+		$.ajax({
+			type: 'DELETE',
+			url: '/API/a',
+			dataType: 'json',			
+			success: function(data) {
+				if (data.state === 'error')
+					window.alert('error '+data.message);
+				if (data.state === 'success') {
+					$('body').trigger('loadAlertsAjax');
+				}
+			}
+		});
+	})
 })

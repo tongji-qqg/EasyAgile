@@ -6,7 +6,7 @@ var topicModel = require('../schemas/topicSchema');
 var async = require('async');
 
 
-exports.postTopic = function(selfuid, pid, topicInfo, cb){
+exports.postTopic = function(selfuid, pid, topicInfo, at, cb){
 
 	async.waterfall([
 
@@ -43,6 +43,13 @@ exports.postTopic = function(selfuid, pid, topicInfo, cb){
 	    		if(err) callback(ErrorService.makeDbErr(err));
 	    		else callback(null);
 	    	});
+	    	if(at){
+	    		for(var i=0;i<at.length;i++){
+	    			if(at[i] == selfuid) continue;
+	    			MessageService.sendUserMessage(selfuid, at[i], 
+						MessageService.TYPE.publish_topic, '在讨论<<'+newTopic.title+'>>中@了你', function(){});
+	    		}
+	    	}
 	    }	
 
 	], cb);
