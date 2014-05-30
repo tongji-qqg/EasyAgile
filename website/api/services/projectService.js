@@ -4,8 +4,8 @@ var userModel = require('../schemas/userSchema');
 var sprintModel = require('../schemas/sprintSchema');
 var sprintService = require('./sprintService');
 var async = require('async');
-
-
+var crypto = require('crypto');
+var validator = require('validator');
 
 exports.createProject = function(selfuid, name, des, cb){
 	
@@ -263,21 +263,14 @@ exports.addMemberById = function(selfuid, pid, uid, cb){
 	    		isAdmin: false
 	    	});
 	    	newMember.projects.push(targetProject._id);
-	    	/////////////////////////////////////
-			//   project history
-			/////////////////////////////////////
-			targetProject.history.push({
-				type: HistoryService.PROJECT_TYPE.member_invite,
-				who : selfuid,
-				toUser: newMember._id
-			});
+	    	
 	    	targetProject.save(function(err){
 	    		if(err)return callback(ErrorService.makeDbErr(err));	    		
 	    	});
 	    	newMember.save(function(err){
 	    		if(err)return callback(ErrorService.makeDbErr(err));
 	    	})
-	    	callback(null);
+	    	callback(null,newMember);
 	    }
 
 	], cb);
@@ -485,4 +478,259 @@ exports.getProjectMemberGroup = function(pid, callback){
 	 		groups: project.groups
 	 	});
 	 });
+}
+
+exports.inviteMemberById = function(selfuid, pid, uid, callback){
+
+	async.waterfall([
+		function(callback){
+			DataService.getProjectById(pid,function(err,project){
+				if(err) return callback(err);
+				project.invite.push({
+					from: selfuid,
+					userId: uid
+				});
+				/////////////////////////////////////
+				//   project history
+				/////////////////////////////////////
+				project.history.push({
+					type: HistoryService.PROJECT_TYPE.member_invite_id,
+					who: selfuid,
+					toUser: uid
+				});
+				project.save(function(err){
+					if(err) callback(ErrorService.makeDbErr(err));
+					else callback(null,project);
+				})
+			})
+		},
+		function(project, callback){
+			DataService.getUserById(uid, function(err, user){
+				if(err) return callback(ErrorService.makeDbErr(err));
+				user.alerts.push({
+					type: 0,
+					from: selfuid,
+					message: '邀请您加入项目: ' + project.name,
+					data:['/API/p/'+pid+'/inviteById/accept', '/API/p/'+pid+'/inviteById/reject']
+				})
+				user.save(function(err){
+					if(err)callback(ErrorService.makeDbErr(err));
+					else callback(null);
+				});
+			});
+		}
+	],callback)
+}
+
+exports.acceptInviteById = function(selfuid, pid, callback){
+	DataService.getProjectById(pid, function(err, project){
+		if(err) return callback(err);
+		var invite;
+		for(var i=0;i<project.invite.length;i++){
+			if(project.invite[i].userId == selfuid){
+				invite = project.invite[i];
+				break;
+			}
+		}
+		if(!invite) return callback(ErrorService.inviteLinkInvalide);
+		project.invite.remove(invite._id);
+		/////////////////////////////////////
+		//   project history
+		/////////////////////////////////////
+		project.history.push({
+			type: HistoryService.PROJECT_TYPE.member_accept,
+			who : selfuid,			
+		});
+		project.save(function(err){
+			if(err) callback(ErrorService.makeDbErr(err));
+			else exports.addMemberById(selfuid, pid, selfuid, callback);
+		})
+		
+	})
+}
+
+exports.rejectInviteById = function(selfuid, pid, callback){
+	DataService.getProjectById(pid, function(err, project){
+		if(err) return callback(err);
+		var invite;
+		for(var i=0;i<project.invite.length;i++){
+			if(project.invite[i].userId == selfuid){
+				invite = project.invite[i];
+				break;
+			}
+		}
+		if(!invite) return callback(ErrorService.inviteLinkInvalide);
+		project.invite.remove(invite._id);
+		project.save(function(err){
+			if(err) callback(ErrorService.makeDbErr(err));
+			else callback(null);
+		})
+		
+	})
+}
+
+exports.inviteMemberByEmail = function(selfuid, selfname, pid, email, callback){
+	var localAppURL = 'http://' + process.env.host + ':' + process.env.port;
+	if(! validator.isEmail(email)) 
+		return callback(ErrorService.emailFormatError);
+	async.waterfall([
+		function(callback){
+			DataService.getProjectById(pid, callback);
+		},
+		function(project,callback){
+			crypto.randomBytes(48, function(ex, buf) {
+  				var token = buf.toString('hex');
+  				callback(null, project, token);
+			});
+		},
+		function(project, token, callback){			
+
+			DataService.getUserByEmail(email.toLowerCase(), function(err, user){
+				if(err) return callback(err);
+				
+				if(user){
+					if(user._id == selfuid) return callback(ErrorService.userNotFindError);
+					var link = localAppURL + '/API/p/'+pid+'/inviteByEmail/'+email+'/token/'+token+'/';
+					
+					EmailService.send(email, '项目邀请', selfname + ' 邀请你参加项目 '+ project.name +
+						             '<br/>点击<a href="'+link+'accept"">链接</a>来加入项目'+
+						             '<br/>点击<a href="'+link+'reject"">链接</a>来拒绝邀请',function(){});				
+				}else{
+					var link = localAppURL + '/API/reg/p/'+pid+'/inviteByEmail/'+email+'/token/'+token;
+					
+					EmailService.send(email, '项目邀请', selfname + ' 邀请你参加项目 '+ project.name +
+						             '<br/>点击<a href="'+link+'">链接</a>来注册一个帐号，并加入项目',function(){});									
+				}
+				project.invite.push({
+					from: selfuid,
+					email: email,
+					token: token
+				})
+				/////////////////////////////////////
+				//   project history
+				/////////////////////////////////////
+				project.history.push({
+					type: HistoryService.PROJECT_TYPE.member_invite_e,
+					who: selfuid,
+					what:[email]
+				});
+				project.save(function(err){
+					if(err) callback(err);
+					else callback(null);
+				})
+			});// end dataService
+		}
+	],callback);	
+}
+
+exports.acceptInviteByEmail = function(pid, email, token, callback){
+	DataService.getProjectById(pid, function(err, project){
+		if(err) return callback(err);
+		var invite;
+		for(var i=0;i<project.invite.length;i++){
+			if(project.invite[i].email == email && project.invite[i].token == token){
+				invite = project.invite[i];
+				break;
+			}
+		}
+		if(!invite) return callback(ErrorService.inviteLinkInvalide);
+		DataService.getUserByEmail(email.toLowerCase(),function(err,user){
+			if(err) return callback(err);
+			if(!user) return callback(ErrorService.userNotFindError);
+			project.invite.remove(invite._id);
+			/////////////////////////////////////
+			//   project history
+			/////////////////////////////////////
+			project.history.push({
+				type: HistoryService.PROJECT_TYPE.member_accept,
+				who : user._id,			
+			});
+			project.save(function(err){
+				if(err) callback(ErrorService.makeDbErr(err));
+				else exports.addMemberById(user._id, pid, user._id, callback);
+			});
+		})				
+	})
+}
+
+exports.rejectInviteByEmail = function(pid, email, token, callback){
+	DataService.getProjectById(pid, function(err, project){
+		if(err) return callback(err);
+		var invite;
+		for(var i=0;i<project.invite.length;i++){
+			if(project.invite[i].email == email && project.invite[i].token == token){
+				invite = project.invite[i];
+				break;
+			}
+		}
+		if(!invite) return callback(ErrorService.inviteLinkInvalide);
+		project.invite.remove(invite._id);
+		project.save(function(err){
+			if(err) callback(ErrorService.makeDbErr(err));			
+		})
+		DataService.getUserByEmail(email.toLowerCase(),function(err,user){
+			if(err)callback(err);
+			else callback(null, user);
+		});
+	})
+}
+
+exports.validateRegAcceptEmail = function(pid, email, token, callback){
+	DataService.getProjectById(pid,function(err, project){
+		if(err)return callback(ErrorService.makeDbErr(err));
+		var invite;
+		for(var i=0;i<project.invite.length;i++){
+			if(project.invite[i].email == email && project.invite[i].token == token){
+				invite = project.invite[i];
+				break;
+			}
+		}
+		if(!invite) return callback(ErrorService.inviteLinkInvalide);
+		return callback(null);
+	})
+}
+exports.regAcceptInviteByEmail = function(pid, email, userInfo, token, callback){
+	// console.log(pid);
+	// console.log(email);
+	// console.log(userInfo);
+	// console.log(token);
+	async.waterfall([
+		function(callback){
+			var md5 = crypto.createHash('md5');
+    		userInfo.password = md5.update(userInfo.password).digest('base64');
+    		userInfo.email = email.toLowerCase();
+			var user = new userModel(userInfo);
+			user.save(function(err,result){
+				if(err) return callback(ErrorService.makeDbErr(err));	
+				callback(null, result);
+			})
+		},
+		function(user,callback){
+			DataService.getProjectById(pid, function(err, project){
+				if(err) return callback(err);
+				var invite;
+				for(var i=0;i<project.invite.length;i++){
+					if(project.invite[i].email == email && project.invite[i].token == token){
+						invite = project.invite[i];
+						break;
+					}
+				}
+				if(!invite) return callback(ErrorService.inviteLinkInvalide);
+								
+				project.invite.remove(invite._id);
+				/////////////////////////////////////
+				//   project history
+				/////////////////////////////////////
+				project.history.push({
+					type: HistoryService.PROJECT_TYPE.member_accept,
+					who : user._id,			
+				});
+				project.save(function(err){
+					if(err) callback(ErrorService.makeDbErr(err));
+					else exports.addMemberById(user._id, pid, user._id, callback);
+				});
+								
+			})
+		}
+	],callback);
 }

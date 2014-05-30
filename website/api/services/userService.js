@@ -44,7 +44,7 @@ exports.register = function(userInfo, callback){
 		},
 		function(user, link, callback){
 			EmailService.send(user.email
-				, 'Activate your account'
+				, '帐号激活'
 				, 'please click this link <a href="'+link+'">'+link+'</a>to activate your account'
 				, function(err, result){
 					if(err) {
@@ -344,8 +344,12 @@ exports.readMessage = function(selfuid, mid, callback){
 exports.getAllAlert = function(selfuid, callback){
 
 	DataService.getUserById(selfuid, function(err, user){
-		if(err) callback(err);
-		else callback(null, user.alerts);
+		if(err) return callback(err);
+
+		userModel.populate(user.alerts, {path:'from', select:'_id name icon email'}, function(err){
+			if(err)return callback(ErrorService.makeDbErr(err));
+			else callback(null, user.alerts);
+		})			
 	})
 }
 
@@ -353,6 +357,7 @@ exports.readAlert = function(selfuid, aid, callback){
 
 	DataService.getUserById(selfuid, function(err, user){
 		if(err) return callback(err);
+		console.log(aid);
 		var a = user.alerts.id(aid);
 		if(!a) return callback(ErrorService.notFindError);
 		a.read = true;

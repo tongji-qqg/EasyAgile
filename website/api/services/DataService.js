@@ -83,9 +83,7 @@ exports.getUserByEmail = function(email, callback) {
 
     userModel.findOne({ 'email' : email }, function(err, result){		
 		if(err) 
-			callback(ErrorService.makeDbErr(err));
-		else if(result == null) 
-			callback(ErrorService.userNotFindError);
+			callback(ErrorService.makeDbErr(err));		
 		else 
 			callback(null, result);
 	});
@@ -107,7 +105,7 @@ exports.getProjectInfoById = function(pid, callback){
 	
 	projectModel.findById(pid)
 				.where({'deleted': false})
-                .populate('owner','_id name icon')                           
+                .populate('owner','_id name icon email')                           
             	.populate('sprints','_id name description createTime backlogs tasks')
             	.populate('topics')
 	            .exec(function(err, result){
@@ -117,7 +115,7 @@ exports.getProjectInfoById = function(pid, callback){
 					result.members.forEach(function(m){
 						if(!m.ref) m.ref = m._id;
 					})
-					userModel.populate(result.members, {path:'ref', select:'_id name icon'},function(err){
+					userModel.populate(result.members, {path:'ref', select:'_id name icon email'},function(err){
 						if(err) return callback(ErrorService.makeDbErr(err));
 						else return callback(null,result);	
 					})

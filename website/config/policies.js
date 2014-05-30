@@ -27,6 +27,7 @@ module.exports.policies = {
 		reg           :["flashMessage", "checkNotLogin"],
 		logout   	  :["flashMessage", "checkLogin"],
 		activateEmail : [true],
+		apilogout     :["checkUser"]
     },
     "backlog": {
         "*": false,
@@ -60,6 +61,8 @@ module.exports.policies = {
 		deleteProject      : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAccess"],
 		finishProject      : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAdmin"],
 		inviteMemberById   : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAdmin"],
+		acceptInviteById   : ["validateURLID", "checkUser", "validateProjectisAlive"],
+		rejectInviteById   : ["validateURLID", "checkUser", "validateProjectisAlive"],
 		inviteMemberByEmail: ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAdmin"],
 		removeMemberById   : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAdmin"],
 		setMemberAdmin     : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAdmin"],
