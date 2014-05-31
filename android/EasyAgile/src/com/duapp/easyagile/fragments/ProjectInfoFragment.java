@@ -11,6 +11,8 @@ import org.json.JSONObject;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +29,8 @@ import com.duapp.easyagile.utils.HttpHandler;
 public class ProjectInfoFragment	extends Fragment {
 	
 	private ListView mListView;
+	private SwipeRefreshLayout swipeLayout;
+	
 	private SimpleAdapter adapter;	
 	private List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 	private HttpHandler handler; 
@@ -80,11 +84,13 @@ public class ProjectInfoFragment	extends Fragment {
 						//currentSprintName = info.getJSONObject("cSprint").getString("name");
 						currentSprintId = info.getString("cSprint");
 
-						refreshList();
+						
 		            } catch (JSONException e) {
 		            // TODO Auto-generated catch block
 		            	e.printStackTrace();
 		            }
+					refreshList();
+					swipeLayout.setRefreshing(false);
 				}		
 				@Override
 				protected void failed(JSONObject jObject){
@@ -96,8 +102,30 @@ public class ProjectInfoFragment	extends Fragment {
 			String url = getString(R.string.url_head)+"/API/p/"+projectId;
 			new HttpConnectionUtils(handler).get(url);
 			
-			mListView = (ListView)inflater.inflate(R.layout.fragment_user_task, container,
+			swipeLayout = (SwipeRefreshLayout)inflater.inflate(R.layout.swipe_listview, container,
 					false);
+			
+			swipeLayout.setOnRefreshListener(new OnRefreshListener(){
+				@Override
+				public void onRefresh() {
+					String url = getString(R.string.url_head)+"/API/p/"+projectId;
+					new HttpConnectionUtils(handler).get(url);
+					// TODO Auto-generated method stub
+					/*new Handler().postDelayed(new Runnable() {
+				        @Override public void run() {
+				            swipeLayout.setRefreshing(false);
+				        }
+				    }, 5000);*/
+					
+				}
+		    	
+		    });
+		    swipeLayout.setColorScheme(R.color.skyblue ,
+		            			R.color.white, 
+		            			R.color.skyblue, 
+		            			R.color.white);
+			
+		    mListView = (ListView)swipeLayout.findViewById(R.id.swipe_listview);
 			
 			//…Ë÷√listView≤ºæ÷     set adapter
 	        adapter = new SimpleAdapter(
@@ -116,7 +144,7 @@ public class ProjectInfoFragment	extends Fragment {
 			
 	        
 	        
-			return mListView;
+			return swipeLayout;
 		}
 	
 		private void refreshList(){

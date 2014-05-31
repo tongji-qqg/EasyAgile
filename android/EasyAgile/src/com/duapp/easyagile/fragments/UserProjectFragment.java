@@ -12,8 +12,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnDragListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -29,6 +35,7 @@ import com.duapp.easyagile.utils.HttpHandler;
 public class UserProjectFragment extends Fragment {
 	
 	private ListView mListView;
+	private SwipeRefreshLayout swipeLayout;
 	private ArrayAdapter<String> adapter;
 	private List<String> projectTitleList;
 	private List<String> projectIdList;
@@ -64,9 +71,11 @@ public class UserProjectFragment extends Fragment {
 			String url = getString(R.string.url_head)+"/API/u/projects";
 			new HttpConnectionUtils(handler).get(url);
 			
-			
-			mListView = (ListView)inflater.inflate(R.layout.fragment_user_project, container,
+			swipeLayout = (SwipeRefreshLayout)inflater.inflate(R.layout.fragment_user_project, container,
 					false);
+			
+			mListView = (ListView)swipeLayout.findViewById(R.id.user_task_list);
+			
 			mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 	            @Override
 	            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -80,13 +89,33 @@ public class UserProjectFragment extends Fragment {
 	            }
 	        });
 			
+			swipeLayout.setOnRefreshListener(new OnRefreshListener(){
+				@Override
+				public void onRefresh() {
+					String url = getString(R.string.url_head)+"/API/u/projects";
+					new HttpConnectionUtils(handler).get(url);
+					// TODO Auto-generated method stub
+					/*new Handler().postDelayed(new Runnable() {
+				        @Override public void run() {
+				            swipeLayout.setRefreshing(false);
+				        }
+				    }, 5000);*/
+					swipeLayout.setRefreshing(false);
+				}
+		    	
+		    });
+		    swipeLayout.setColorScheme(R.color.skyblue ,
+		            			R.color.white, 
+		            			R.color.skyblue, 
+		            			R.color.white);
+			
 			adapter = new ArrayAdapter<String>(
 					UserProjectFragment.this.getActivity(),
 	                android.R.layout.simple_list_item_1,
 	                projectTitleList);
 			mListView.setAdapter(adapter);
 			
-			return mListView;
+			return swipeLayout;
 		}
 
 		@Override

@@ -81,7 +81,7 @@
         android:textSize="18sp" />
     
     <ListView
-        android:id="@+id/topic_comment_listview"
+        android:id="@+id/swipe_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
     </ListView>

@@ -2,6 +2,7 @@ package com.duapp.easyagile.entities;
 
 public class Member {
 	
+	private User user;
 	private String _id;
 	private String name;
 	private String group;
@@ -9,8 +10,13 @@ public class Member {
 	
 	public Member(){
 		group = "Î´·Ö×é";
+	}	
+	public User getUser() {
+		return user;
 	}
-	
+	public void setUser(User user) {
+		this.user = user;
+	}
 	public String get_id() {
 		return _id;
 	}

@@ -11,6 +11,7 @@ import com.duapp.easyagile.activities.EntranceActivity;
 import com.duapp.easyagile.entities.Comment;
 import com.duapp.easyagile.entities.Issue;
 import com.duapp.easyagile.entities.Member;
+import com.duapp.easyagile.entities.Members;
 import com.duapp.easyagile.entities.Task;
 import com.duapp.easyagile.entities.Topic;
 import com.duapp.easyagile.entities.User;
@@ -158,9 +159,12 @@ public class JSONTransformationUtils {
 		return topic;
 	}
 
+	//单个的项目“成员”,不包括项目所有者
 	public static Member getMember(JSONObject json){
 		Member member = new Member();
+		User user = new User();
 		try{
+			member.setUser(getUser(json.getJSONObject("ref")));
 			member.set_id(json.getString("_id"));
 			member.setName(json.getString("name"));
 			member.setAdmin(json.getBoolean("isAdmin"));
@@ -178,5 +182,56 @@ public class JSONTransformationUtils {
 		
 		
 		return member;
+	}
+
+	//整个“Team”的信息，包括owner、member、groups、ownerGroup
+	public static Members getMembers(JSONObject json){
+		Members members = new Members();
+		
+		//owner
+		try {
+			User owner = getUser(json.getJSONObject("owner"));
+			members.setOwner(owner);
+		} catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		//groups,默认多一个“未分组”
+		List<String> groups = new ArrayList<String>();
+		try {
+			JSONArray jsonGroups = json.getJSONArray("groups");
+			for(int i=0;i<jsonGroups.length();i++){
+				groups.add(jsonGroups.getString(i));
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		groups.add("未分组");
+		members.setGroups(groups);		
+		
+		//ownergroup, 默认为null
+		try {
+			members.setOwnerGroup(json.getString("ownerGroup"));
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
+		//members
+		List<Member> memberList = new ArrayList<Member>();
+		try {
+			JSONArray jsonMembers = json.getJSONArray("members");
+			for(int i=0;i<jsonMembers.length();i++){
+				memberList.add(getMember(jsonMembers.getJSONObject(i)));
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		members.setMembers(memberList);
+		
+		return members;
 	}
 }

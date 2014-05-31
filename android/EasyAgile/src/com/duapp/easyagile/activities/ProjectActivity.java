@@ -12,6 +12,7 @@ import com.duapp.easyagile.fragments.ProjectMemberFragment;
 import com.duapp.easyagile.fragments.ProjectTaskFragment;
 import com.duapp.easyagile.fragments.ProjectTopicFragment;
 import com.duapp.easyagile.fragments.UserProjectFragment;
+import com.duapp.easyagile.utils.ActivityStack;
 import com.duapp.easyagile.utils.HttpConnectionUtils;
 import com.duapp.easyagile.utils.HttpHandler;
 
@@ -55,6 +56,9 @@ public class ProjectActivity extends ActionBarActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		ActivityStack.getInstance().addActivity(this);
+		
 		setContentView(R.layout.activity_project);
 
 		
@@ -79,6 +83,8 @@ public class ProjectActivity extends ActionBarActivity implements
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
+		
+		mViewPager.setOffscreenPageLimit(0);
 
 		// When swiping between different sections, select the corresponding
 		// tab. We can also use ActionBar.Tab#select() to do this if we have

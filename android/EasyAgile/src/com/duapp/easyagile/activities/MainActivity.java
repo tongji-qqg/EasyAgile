@@ -8,6 +8,7 @@ import com.duapp.easyagile.fragments.ProjectInfoFragment;
 import com.duapp.easyagile.fragments.UserSettingFragment;
 import com.duapp.easyagile.fragments.UserTaskFragment;
 import com.duapp.easyagile.fragments.UserTaskTestFragment;
+import com.duapp.easyagile.utils.ActivityStack;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -51,6 +52,8 @@ public class MainActivity extends ActionBarActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ActivityStack.getInstance().addActivity(this);
+		
 		setContentView(R.layout.activity_main);
 		
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
@@ -162,10 +165,10 @@ public class MainActivity extends ActionBarActivity implements
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
-		if(keyCode == KeyEvent.KEYCODE_BACK) {
+		/*if(keyCode == KeyEvent.KEYCODE_BACK) {
 			if(mNavigationDrawerFragment.isDrawerOpen())
 			return  true;
-		}
+		}*/
 		return super.onKeyUp(keyCode, event);
 	}
 	

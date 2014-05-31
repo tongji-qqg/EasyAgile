@@ -14,6 +14,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +35,8 @@ import com.duapp.easyagile.utils.HttpHandler;
 public class ProjectTaskFragment extends Fragment{
 
 	private ListView mListView;
+	private SwipeRefreshLayout swipeLayout;
+	
 	private SimpleAdapter adapter;
 	private ArrayList<String> taskTitleList;
 	private ArrayList<Integer> taskTypeList;
@@ -110,6 +114,7 @@ public class ProjectTaskFragment extends Fragment{
 			         		taskBundleList.add(info);
 			         	}
 			         	refreshListData();
+			         	swipeLayout.setRefreshing(false);
 		            	//sessionid = jsonObject.getString("sessionid");*/
 		            } catch (JSONException e) {
 		            // TODO Auto-generated catch block
@@ -124,10 +129,30 @@ public class ProjectTaskFragment extends Fragment{
 				}
 			};
 			
-			
-			
-			mListView = (ListView)inflater.inflate(R.layout.fragment_user_task, container,
+			swipeLayout = (SwipeRefreshLayout)inflater.inflate(R.layout.swipe_listview, container,
 					false);
+			
+			swipeLayout.setOnRefreshListener(new OnRefreshListener(){
+				@Override
+				public void onRefresh() {
+					String url = getString(R.string.url_head)+"/API/p/"+projectId+"/s/"+currentSprintId+"/t";
+					new HttpConnectionUtils(handler).get(url);
+					// TODO Auto-generated method stub
+					/*new Handler().postDelayed(new Runnable() {
+				        @Override public void run() {
+				            swipeLayout.setRefreshing(false);
+				        }
+				    }, 5000);*/
+					
+				}
+		    	
+		    });
+		    swipeLayout.setColorScheme(R.color.skyblue ,
+		            			R.color.white, 
+		            			R.color.skyblue, 
+		            			R.color.white);
+			
+			mListView = (ListView)swipeLayout.findViewById(R.id.swipe_listview);
 			mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 	            @Override
 	            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -155,7 +180,7 @@ public class ProjectTaskFragment extends Fragment{
 			mListView.setAdapter(adapter);
 			
 			
-			return mListView;
+			return swipeLayout;
 		}
 		
 		
@@ -166,7 +191,7 @@ public class ProjectTaskFragment extends Fragment{
 			super.onResume();
 			String url = getString(R.string.url_head)+"/API/p/"+projectId+"/s/"+currentSprintId+"/t";
 			new HttpConnectionUtils(handler).get(url);
-			refreshListData();
+			//refreshListData();
 		}
 
 

@@ -78,6 +78,7 @@ public class UserInfoFragment extends Fragment{
 		memoryCache=new ImageMemoryCache(getActivity());  
         fileCache=new ImageFileCache();  
         url = EntranceActivity.urlHead + "/" + EntranceActivity.userInfo.getIconUrl();
+        if(EntranceActivity.userInfo.getIconUrl()!=null){
         Bitmap icon = memoryCache.getBitmapFromCache(url);
 		if(icon == null){
 			icon = fileCache.getImage(url);
@@ -87,7 +88,7 @@ public class UserInfoFragment extends Fragment{
 			}else
 				ivIcon.setImageBitmap(icon);
 		}
-        
+	}
 		tvName = (TextView)rootView.findViewById(R.id.userInfo_name_textView);
 		tvEmail = (TextView)rootView.findViewById(R.id.userInfo_email_textView);
 		tvName.setText(EntranceActivity.userInfo.getName());

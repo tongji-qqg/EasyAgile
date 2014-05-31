@@ -20,6 +20,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.widget.Toast;
 
 import com.duapp.easyagile.entities.User;
+import com.duapp.easyagile.utils.ActivityStack;
 import com.duapp.easyagile.utils.HttpConnectionUtils;
 import com.duapp.easyagile.utils.JSONTransformationUtils;
 
@@ -40,6 +41,8 @@ public class EntranceActivity extends ActionBarActivity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
+		ActivityStack.getInstance().addActivity(this);
+		
 		mActionBar = getSupportActionBar();
 		mActionBar.hide();
 		setContentView(R.layout.activity_entrance);
@@ -51,10 +54,12 @@ public class EntranceActivity extends ActionBarActivity{
 		if(email == null){
 			Intent intent = new Intent(EntranceActivity.this, LoginActivity.class);			
 			startActivity(intent);
+			ActivityStack.getInstance().logout();
 		}
 		else if(HttpConnectionUtils.SESSIONID != null){   
 			Intent intent = new Intent(EntranceActivity.this, MainActivity.class);			
 			startActivity(intent);
+			ActivityStack.getInstance().logout();
 		}
 		else{
 			password = preferences.getString("password",null);
@@ -83,12 +88,14 @@ public class EntranceActivity extends ActionBarActivity{
 						userInfo = JSONTransformationUtils.getUser(jObject.getJSONObject("user"));
 						Intent intent = new Intent(EntranceActivity.this, MainActivity.class);
 						startActivity(intent);
+						ActivityStack.getInstance().logout();
 					} else {
 						//Toast.makeText(context, "operate fialed",Toast.LENGTH_LONG).show();
 						Toast.makeText(EntranceActivity.this, "saved info error",
 								Toast.LENGTH_LONG).show();
 						Intent intent = new Intent(EntranceActivity.this, LoginActivity.class);			
 						startActivity(intent);
+						ActivityStack.getInstance().logout();
 					}
 				} catch (JSONException e1) {
 					e1.printStackTrace();
@@ -96,6 +103,7 @@ public class EntranceActivity extends ActionBarActivity{
 							Toast.LENGTH_LONG).show();
 					Intent intent = new Intent(EntranceActivity.this, LoginActivity.class);			
 					startActivity(intent);
+					ActivityStack.getInstance().logout();
 				}
 				break;
 			case HttpConnectionUtils.DID_ERROR: //connection error

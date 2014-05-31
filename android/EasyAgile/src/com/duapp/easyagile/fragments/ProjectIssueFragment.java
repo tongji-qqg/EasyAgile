@@ -22,6 +22,8 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,6 +39,7 @@ import android.widget.Toast;
 public class ProjectIssueFragment extends Fragment implements OnClickListener{
 	
 	private ListView mListView;
+	private SwipeRefreshLayout swipeLayout;
 	private SimpleAdapter adapter;
 	
 	private String projectId = null;
@@ -99,12 +102,15 @@ public class ProjectIssueFragment extends Fragment implements OnClickListener{
 		         		
 		         		issueList.add(JSONTransformationUtils.getIssue(jo));
 		         	}
-		         	refreshListData();
+		         	
 	            	//sessionid = jsonObject.getString("sessionid");*/
 	            } catch (JSONException e) {
 	            // TODO Auto-generated catch block
 	            	e.printStackTrace();
 	            }
+				
+				refreshListData();
+	         	swipeLayout.setRefreshing(false);
 			}
 			
 			@Override
@@ -133,8 +139,30 @@ public class ProjectIssueFragment extends Fragment implements OnClickListener{
 		String url = getString(R.string.url_head)+"/API/p/"+projectId+"/i";
 		new HttpConnectionUtils(getHandler).get(url);
 		
-		mListView = (ListView)inflater.inflate(R.layout.fragment_user_task, container,
+		swipeLayout = (SwipeRefreshLayout)inflater.inflate(R.layout.swipe_listview, container,
 				false);
+		
+		swipeLayout.setOnRefreshListener(new OnRefreshListener(){
+			@Override
+			public void onRefresh() {
+				String url = getString(R.string.url_head)+"/API/p/"+projectId+"/i";
+				new HttpConnectionUtils(getHandler).get(url);
+				// TODO Auto-generated method stub
+				/*new Handler().postDelayed(new Runnable() {
+			        @Override public void run() {
+			            swipeLayout.setRefreshing(false);
+			        }
+			    }, 5000);*/
+				
+			}
+	    	
+	    });
+	    swipeLayout.setColorScheme(R.color.skyblue ,
+	            			R.color.white, 
+	            			R.color.skyblue, 
+	            			R.color.white);
+		
+		mListView = (ListView)swipeLayout.findViewById(R.id.swipe_listview);
 		
 		adapter = new SimpleCheckableAdapter(
                 this.getActivity(),
@@ -152,7 +180,7 @@ public class ProjectIssueFragment extends Fragment implements OnClickListener{
                 });
 		mListView.setAdapter(adapter);
 		
-		return mListView;
+		return swipeLayout;
 	}
 
 	@Override

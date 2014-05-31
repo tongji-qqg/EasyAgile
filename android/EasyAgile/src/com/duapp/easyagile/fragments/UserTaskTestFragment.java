@@ -25,6 +25,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +42,7 @@ import android.widget.Toast;
 public class UserTaskTestFragment extends Fragment{
 
 	private ExpandableListView mExpandableListView;
+	private SwipeRefreshLayout swipeLayout;
 	
 	private List<Task> taskList;
 	
@@ -72,8 +75,30 @@ public class UserTaskTestFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		mExpandableListView = (ExpandableListView)inflater
-				.inflate(R.layout.fragment_user_task_test, container, false);
+		swipeLayout = (SwipeRefreshLayout)inflater.inflate(R.layout.fragment_user_task_test, container,
+				false);
+		
+		swipeLayout.setOnRefreshListener(new OnRefreshListener(){
+			@Override
+			public void onRefresh() {
+				String url = getString(R.string.url_head)+"/API/u/ta";
+				new HttpConnectionUtils(handler).get(url);
+				// TODO Auto-generated method stub
+				/*new Handler().postDelayed(new Runnable() {
+			        @Override public void run() {
+			            swipeLayout.setRefreshing(false);
+			        }
+			    }, 5000);*/
+				
+			}
+	    	
+	    });
+	    swipeLayout.setColorScheme(R.color.skyblue ,
+	            			R.color.white, 
+	            			R.color.skyblue, 
+	            			R.color.white);
+		
+		mExpandableListView = (ExpandableListView)swipeLayout.findViewById(R.id.user_task_expandableList);
 		
 		list = new ArrayList<List<Task>>();
 		
@@ -183,6 +208,7 @@ public class UserTaskTestFragment extends Fragment{
 		         		
 		         	}
 		         	adapter.notifyDataSetChanged();
+		         	swipeLayout.setRefreshing(false);
 	            	//sessionid = jsonObject.getString("sessionid");*/
 	            } catch (JSONException e) {
 	            // TODO Auto-generated catch block
@@ -248,7 +274,7 @@ public class UserTaskTestFragment extends Fragment{
 			}
 		});
 		
-		return mExpandableListView;
+		return swipeLayout;
 	}
 	
 /*	

@@ -27,21 +27,41 @@ $(function(){
 			var y = t.getFullYear();
 			var m = t.getMonth()+1;
 			var d = t.getDate();
-			var row = $('<div >',{'class':'row', 'style':'margin-left:10px;width:95%;'})
-			var div = $('<div >',{'class':'well well-sm', 'style':'background-color:#fcf8e3;border-color:#faebcc;color:#000;border-radius:10px;'}).appendTo(row);
-			$('<h6 >',{'style':'color:#CCC;'}).text(y+'年'+m+'月'+d+'日'+i.finder.name).appendTo(div);
-			var checkBoxDiv = $('<div >', {'class':'checkbox'}).appendTo(div);
-			var label = $('<label >').appendTo(checkBoxDiv);
-			label.text(i.description);
-			var check = $('<input >',{'type':'checkbox','class':'issue','iid':i._id}).appendTo(label);			
-			return row;
+			/*var row = $('<div >',{'class':'row', 'style':'margin-left:10px;width:95%;'});
+			var portlet = $('<div>',{'class':'portlet-body'}).appendTo(row);
+			var tableDiv = $('<div>',{'class':'table-responsive'}).appendTo(portlet);
+			var table = $('<table>',{'class':'table'}).appendTo(tableDiv);
+			var tableBody = $('<tbody>').appendTo(table);*/
+			var tableLine = $('<tr>');
+
+			var tableUnit1 = $('<td>',{'style':'width:10%;'}).appendTo(tableLine);
+			$('<img>',{'class':'img-circle','style':'width:50px;height:50px;','src':'/usericons/537861731cdab72904944d9e.jpg'}).appendTo(tableUnit1);
+			$('<h6>').text(i.finder.name).appendTo(tableUnit1);
+
+			var tableUnit2= $('<td>',{'style':'width:80%'}).appendTo(tableLine);
+			//var div = $('<div >',{'class':'well well-sm', 'style':'background-color:#fcf8e3;border-color:#faebcc;color:#000;border-radius:10px;'}).appendTo(row);
+			//$('<h6 >',{'style':'color:#CCC;'}).text(y+'年'+m+'月'+d+'日'+i.finder.name).appendTo(div);
+			//var checkBoxDiv = $('<div >', {'class':'checkbox'}).appendTo(div);
+
+			$('<h6 >',{'style':'color:#CCC;'}).text(y+'年'+m+'月'+d+'日').appendTo(tableUnit2);
+			//var checkBoxDiv = $('<div >', {'class':'checkbox'}).appendTo(tableUnit2);
+			//var label = $('<label >').appendTo(checkBoxDiv);
+			//label.text(i.description);
+			tableUnit2.append(i.description);
+
+            var tableUnit3 = $('<td>',{'style':'width:10%'}).appendTo(tableLine);          
+			$('<input >',{'type':'checkbox','class':'issue','iid':i._id,'style':'margin-top:35px;'}).appendTo(tableUnit3);
+						
+			return tableLine;
 		}	
 		
 			
-		$('#allIssueDiv').empty();
+		//$('#allIssueDiv').empty();
+		$('#tableBody').empty();
 		g_allIssues.forEach(function(i){
 			if(i.solved == g_type)
-				$('#allIssueDiv').append(buildIssueRow(i));
+				//$('#allIssueDiv').append(buildIssueRow(i));
+				$('#tableBody').append(buildIssueRow(i));			
 		})
 	}
 	$('body').on('loadIssue', loadIssue);

@@ -11,6 +11,11 @@
     <title>project main</title>
 
     <% include ../header.html%>
+    <style type="text/css">
+    a:hover{
+        color:#31708f;
+    }
+    </style>
 
 </head>
 
@@ -57,7 +62,7 @@
 
                 <div class="col-lg-12">
                 <div class="panel panel-info">
-                   <div class="panel-heading" style="color: #31708f;background-color: #d9edf7;border-color: #bce8f1;">
+                   <div class="panel-heading" style="color: #31708f;background-color: #add8e6;border-color: #bce8f1;">
                         <h3 class="panel-title">重要任务</h3>
                    </div>
                    <div class="panel-body">
@@ -73,10 +78,11 @@
                     %>
                        <div class="row">
                             <div class="col-sm-9">
-                            <input type="checkbox" class="selectedTask" name="selectedTask">
                             <label style="font-size:medium;">
-                            <a href="#set-task-form" data-toggle="modal"><%=t.title%></a>
-                            </label><a href="/project_taskboard/<%=project._id%>">#任务板</a>
+                            <a href="#set-task-form" data-toggle="modal" style="text-decoration:none;"><%=t.title%></a>
+                            <span style="color:#808080;font-size:12px;margin-left:15px;">执行者:&nbsp;&nbsp;&nbsp;&nbsp;亓组长</span>
+                            </label>
+
                             </div>
                             <%if(ty==y && tm==m && td == d){%>
                             <div class="col-sm-3">
@@ -92,7 +98,7 @@
                         <div class="row" >
                             <div class="col-sm-9"></div>
                             <div class="col-sm-3"  >
-                                <label> <a href="/project_taskboard/<%=project._id%>" style="color:#31708f;font-size:medium;"> 进入任务板</a></label>
+                                <label> <a href="/project_taskboard/<%=project._id%>" style="color:#31708f;font-size:medium; text-decoration:none;"> 进入任务板</a></label>
                             </div>                        
 
                         </div>
@@ -104,8 +110,10 @@
 
 
                 <div class="col-lg-12">
-                <div class="panel panel-warning">
-                   <div class="panel-heading" >
+
+                <div class="panel">
+                   <div class="panel-heading" style="color:#8a6d3b;background-color: #f0e68c;border-color: #e3e3e3;">
+
                         <h3 class="panel-title">最新问题</h3>
                    </div>
                    <div class="panel-body">
@@ -115,7 +123,7 @@
                             if(!i.solved){
                           %>
                             <tr>
-                              <td>                                              
+                              <td>                                            
                                 <label><%=i.description%></label> 
                               </td>
                             </tr>
@@ -125,10 +133,11 @@
                         </tbody>
                         </table>
                        
+
                           <div class="row" >
                             <div class="col-sm-9"></div>
                             <div class="col-sm-3"  >
-                                <label> <a href="/project_issue/<%=project._id%>" style="color:#8a6d3b;font-size:medium;"> 进入问题板</a></label>
+                                <label> <a href="/project_issue/<%=project._id%>" style="color:#8a6d3b;font-size:medium;text-decoration:none;"> 进入问题板</a></label>
                             </div>                        
                         </div> 
                    </div>
@@ -136,11 +145,11 @@
                 </div>
 
                 <div class="col-lg-12">
-                <div class="panel panel-default">
-                   <div class="panel-heading" >
+                <div class="panel">
+                   <div class="panel-heading" style="color:#696969;background-color: #d3d3d3;border-color: #e3e3e3;">
                         <h3 class="panel-title">历史记录</h3>
                    </div>
-                   <div class="panel-body" style="font-size:13px;color:#a6a6a6">
+                   <div class="panel-body" style="font-size:13px;color:#808080">
                         <table class="table">
                         <tbody>
                           
@@ -200,7 +209,7 @@
                           <div class="row" >
                             <div class="col-sm-9"></div>
                             <div class="col-sm-3"  >
-                                <label> <a href="/project_history/<%=project._id%>" style="color:#696969;font-size:medium;"> 所有记录</a></label>
+                                <label> <a href="#set-project-form" data-toggle="modal"  style="color:#696969;font-size:medium;"> 所有记录</a></label>
                             </div>                        
                         </div> 
                    </div>
@@ -214,7 +223,7 @@
                 
                  <div class="col-lg-12">
                 <div class="panel panel-warning">
-                   <div class="panel-heading" style="color: #a94442;background-color: #f2dede;border-color: #ebccd1;">
+                   <div class="panel-heading" style="color: #a94442;background-color: #ffb6c1;border-color: #ebccd1;">
                         <h3 class="panel-title">最新文件</h3>
                    </div>
                    <div class="panel-body">
@@ -242,7 +251,7 @@
                      <div class="row" >
                             <div class="col-sm-9"></div>
                             <div class="col-sm-3"  >
-                                <label> <a href="/project_files/<%=project._id%>" style="color:#a94442;font-size:medium;"> 进入文件库</a></label>
+                                <label> <a href="/project_files/<%=project._id%>" style="color:#a94442;font-size:medium;text-decoration:none;"> 进入文件库</a></label>
                             </div>                        
 
                     </div>
@@ -256,7 +265,7 @@
 
                 <div class="col-lg-12">
                 <div class="panel panel-success">
-                   <div class="panel-heading" style="color: #3c763d;background-color: #dff0d8;border-color: #d6e9c6;">
+                   <div class="panel-heading" style="color: #3c763d;background-color: #66cdaa;border-color: #d6e9c6;">
                         <h3 class="panel-title">最新话题</h3>
                    </div>
                    <div class="panel-body">
@@ -274,7 +283,7 @@
                                       <h5><%=t.author.name%></h5>
                                    </td>
                                    <td style="word-wrap:break-word;" >
-                                      <h5><a href="/project_oneTopic/<%=project._id%>/t/<%=t._id%>"><%=t.title%></a></h5>
+                                      <h5><a href="/project_oneTopic/<%=project._id%>/t/<%=t._id%>" style="text-decoration:none;"><%=t.title%></a></h5>
                                       <p style="width:200px"> <%-t.body%></p>
                                    </td>
                                    <td style="width:20%;">
@@ -288,7 +297,7 @@
                           <div class="row" >
                             <div class="col-sm-9"></div>
                             <div class="col-sm-3"  >
-                                <label> <a href="/project_topic/<%=project._id%>" style="color:#3c763d;font-size:medium;"> 进入讨论区</a></label>
+                                <label> <a href="/project_topic/<%=project._id%>" style="color:#3c763d;font-size:medium;text-decoration:none;"> 进入讨论区</a></label>
                             </div>                        
                         </div>
                    </div>

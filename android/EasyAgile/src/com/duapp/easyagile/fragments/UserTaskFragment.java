@@ -18,7 +18,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -35,6 +34,7 @@ import com.duapp.easyagile.utils.JSONTransformationUtils;
 public class UserTaskFragment	extends Fragment {
 	
 	private ListView mListView;
+	
 	private SimpleAdapter adapter;
 	
 	private ArrayList<Task> taskList;
@@ -131,8 +131,9 @@ public class UserTaskFragment	extends Fragment {
 				}
 			};
 			
-			mListView = (ListView)inflater.inflate(R.layout.fragment_user_task, container,
+			mListView = (ListView)inflater.inflate(R.layout.swipe_listview, container,
 					false);
+			
 			mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 	            @Override
 	            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -141,8 +142,11 @@ public class UserTaskFragment	extends Fragment {
 	            	
 	            	getActivity().startActivity(intent);
 	            
+	            	
 	            }
 	        });
+
+		    
 			
 			/*adapter = new ArrayAdapter<String>(
 					UserTaskFragment.this.getActivity(),

@@ -11,9 +11,11 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.duapp.easyagile.utils.ActivityStack;
 import com.duapp.easyagile.utils.HttpConnectionUtils;
 import com.duapp.easyagile.utils.HttpHandler;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -23,6 +25,8 @@ import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.text.InputType;
 import android.text.format.Time;
 import android.view.View;
@@ -99,10 +103,20 @@ public class TaskActivity extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		
+		
+		
+		
+		ActivityStack.getInstance().addActivity(this);
+		
 		init();
 		setContentView(R.layout.activity_task);
 		
+		ActionBar actionBar = getActionBar();
+		actionBar.setDisplayShowHomeEnabled(true);
+		
 		list = new ArrayList<Map<String, Object>>(); 
+		
 		mTaskListView = (ListView)findViewById(R.id.task_listView);
         mTaskListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

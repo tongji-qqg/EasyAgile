@@ -14,6 +14,8 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,6 +32,7 @@ import android.widget.Toast;
 import com.duapp.easyagile.entities.BitmapWithUrl;
 import com.duapp.easyagile.entities.Comment;
 import com.duapp.easyagile.entities.Topic;
+import com.duapp.easyagile.utils.ActivityStack;
 import com.duapp.easyagile.utils.HttpConnectionUtils;
 import com.duapp.easyagile.utils.HttpHandler;
 import com.duapp.easyagile.utils.ImageFileCache;
@@ -46,6 +49,7 @@ public class TopicActivity extends Activity{
 	private String projectTitle = null;
 	private String topicId = null;
 	
+	private SwipeRefreshLayout swipeLayout;
 	private TextView projectNameTextView;
 	private TextView topicTitleTextView;
 	private ImageView topicAuthorIcon;
@@ -83,6 +87,7 @@ public class TopicActivity extends Activity{
 	         	
 	         	//authorIcon
 	         	String url = EntranceActivity.urlHead + "/" + topic.getAuthor().getIconUrl();
+	         	if(topic.getAuthor().getIconUrl()!=null){
 		        Bitmap icon = memoryCache.getBitmapFromCache(url);
 				if(icon == null){
 					icon = fileCache.getImage(url);
@@ -93,13 +98,15 @@ public class TopicActivity extends Activity{
 						topicAuthorIcon.setImageBitmap(icon);
 					}
 				}
-	         	
+	         	}
 	         	Utility.setListViewHeightBasedOnChildren(commentListView);
-	         	adapter.notifyDataSetChanged();
+	         	
             } catch (JSONException e) {
             // TODO Auto-generated catch block
             	e.printStackTrace();
             }
+			adapter.notifyDataSetChanged();
+         	swipeLayout.setRefreshing(false);
 		}
 		
 		@Override
@@ -171,6 +178,9 @@ public class TopicActivity extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		
+		ActivityStack.getInstance().addActivity(this);
+		
 		setContentView(R.layout.activity_topic);
 		
 		projectId = getIntent().getStringExtra("projectId");
@@ -185,7 +195,7 @@ public class TopicActivity extends Activity{
 		topicBodyTextView = (TextView)findViewById(R.id.topic_Ac_body_textView);
 		commentEditText = (EditText)findViewById(R.id.topic_comment_editText);
 		commentButton = (Button)findViewById(R.id.topic_comment_button);
-		commentListView = (ListView)findViewById(R.id.topic_comment_listview);
+		commentListView = (ListView)findViewById(R.id.swipe_listview);
 		
 		topic = new Topic();
 		list = new ArrayList<Comment>();
@@ -196,12 +206,30 @@ public class TopicActivity extends Activity{
 		
 		projectNameTextView.setText(projectTitle);
 		
+		swipeLayout = (SwipeRefreshLayout)findViewById(R.id.swipe_container);
+		swipeLayout.setOnRefreshListener(new OnRefreshListener(){
+			@Override
+			public void onRefresh() {
+				String url = getString(R.string.url_head) + "/API/p/" + projectId + "/t/" + topicId;
+				HttpConnectionUtils http = new HttpConnectionUtils(getHandler);
+				http.get(url);
+				// TODO Auto-generated method stub
+				/*new Handler().postDelayed(new Runnable() {
+			        @Override public void run() {
+			            swipeLayout.setRefreshing(false);
+			        }
+			    }, 5000);*/
+				
+			}
+	    	
+	    });
+	    swipeLayout.setColorScheme(R.color.skyblue ,
+	            			R.color.white, 
+	            			R.color.skyblue, 
+	            			R.color.white);
+		
 		adapter = new CommentAdapter(this, list, iconList);		
-		commentListView.setAdapter(adapter);
-		
-		
-		
-		
+		commentListView.setAdapter(adapter);		
 		commentButton.setOnClickListener(new OnClickListener(){
 
 			@Override
@@ -284,6 +312,7 @@ public class TopicActivity extends Activity{
 			else{
 				 
 		        String url = EntranceActivity.urlHead + "/" + commentList.get(position).getOwner().getIconUrl();
+		        if(commentList.get(position).getOwner().getIconUrl()!=null){
 		        Bitmap icon = memoryCache.getBitmapFromCache(url);
 				if(icon == null){
 					icon = fileCache.getImage(url);
@@ -295,6 +324,7 @@ public class TopicActivity extends Activity{
 						viewHolder.icon.setImageBitmap(icon);
 					}
 				}
+		        }
 			}
 			
 			

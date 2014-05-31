@@ -16,6 +16,8 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +38,7 @@ import com.duapp.easyagile.activities.ProjectActivity;
 import com.duapp.easyagile.activities.R;
 import com.duapp.easyagile.activities.TaskActivity;
 import com.duapp.easyagile.entities.Member;
+import com.duapp.easyagile.entities.Members;
 import com.duapp.easyagile.entities.Task;
 import com.duapp.easyagile.entities.User;
 import com.duapp.easyagile.utils.HttpConnectionUtils;
@@ -44,6 +47,7 @@ import com.duapp.easyagile.utils.JSONTransformationUtils;
 
 public class ProjectMemberFragment extends Fragment{
 
+	private SwipeRefreshLayout swipeLayout;
 	private ExpandableListView mExpandableListView;
 	private ExpandAdapter adapter;
 	
@@ -78,13 +82,32 @@ public class ProjectMemberFragment extends Fragment{
 			handler = new HttpHandler(getActivity()) {		
 				//自己处理成功后的操作
 				@Override
-				protected void succeed(JSONObject jObject) { 
-					super.succeed(jObject);
+				protected void succeed(JSONObject JObject) { 
+					super.succeed(JObject);
 					groupList.clear();
 					memberList.clear();
+					JSONObject jsonMembers=new JSONObject();
+					try {
+						jsonMembers = JObject.getJSONObject("members");
+					} catch (JSONException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					Members members = JSONTransformationUtils.getMembers(jsonMembers);
+					groupList.addAll(members.getGroups());
+					memberList.addAll(members.getAllMembersInGroup());
+					/*
 					JSONArray groups = new JSONArray();
 					try {
-						groups = jObject.getJSONArray("groups");
+						groups = jsonMembers.getJSONArray("groups");
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					try {
+						owner = JSONTransformationUtils.getUser(jsonMembers.getJSONObject("owner"));
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -105,11 +128,11 @@ public class ProjectMemberFragment extends Fragment{
 					memberList.add(new ArrayList<Member>());
 					
 					try {
-						JSONArray members = jObject.getJSONArray("members");
+						JSONArray members = jsonMembers.getJSONArray("members");
 						for(int j=0;j<members.length();j++){
 							Member member = JSONTransformationUtils.getMember(members.getJSONObject(j));
 							for(int k=0;k<groupList.size();k++){
-								if(member.getGroup()==groupList.get(k)){
+								if(member.getGroup().equals(groupList.get(k))){
 									memberList.get(k).add(member);
 								}
 							}
@@ -118,8 +141,9 @@ public class ProjectMemberFragment extends Fragment{
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}	
+					}	*/
 					adapter.notifyDataSetChanged();	
+					swipeLayout.setRefreshing(false);
 				} 
 
 				@Override
@@ -127,6 +151,7 @@ public class ProjectMemberFragment extends Fragment{
 					super.failed(jObject);
 					
 					Toast.makeText(getActivity(), "获取数据失败", Toast.LENGTH_SHORT).show();
+					swipeLayout.setRefreshing(false);
 				}
 			};
 			
@@ -137,8 +162,30 @@ public class ProjectMemberFragment extends Fragment{
 			memberList = new ArrayList<List<Member>>();
 			//iconList = new ArrayList<Bitmap>();
 			
-			mExpandableListView = (ExpandableListView)inflater.inflate(R.layout.fragment_project_member, container,
+			swipeLayout = (SwipeRefreshLayout)inflater.inflate(R.layout.fragment_project_member, container,
 					false);
+			
+			swipeLayout.setOnRefreshListener(new OnRefreshListener(){
+				@Override
+				public void onRefresh() {
+					String url = getString(R.string.url_head)+"/API/p/" + projectId+"/members";
+					new HttpConnectionUtils(handler).get(url);
+					// TODO Auto-generated method stub
+					/*new Handler().postDelayed(new Runnable() {
+				        @Override public void run() {
+				            swipeLayout.setRefreshing(false);
+				        }
+				    }, 5000);*/
+					
+				}
+		    	
+		    });
+		    swipeLayout.setColorScheme(R.color.skyblue ,
+		            			R.color.white, 
+		            			R.color.skyblue, 
+		            			R.color.white);
+			
+			mExpandableListView = (ExpandableListView)swipeLayout.findViewById(R.id.expandableListView1);
 			/*mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 	            @Override
 	            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -152,10 +199,10 @@ public class ProjectMemberFragment extends Fragment{
 			adapter = new ExpandAdapter(getActivity(),groupList,memberList);
 			mExpandableListView.setAdapter(adapter);
 			
-			String url = getString(R.string.url_head)+"/API/p/" + projectId;
+			String url = getString(R.string.url_head)+"/API/p/" + projectId+"/members";
 			new HttpConnectionUtils(handler).get(url);
 			
-			return mExpandableListView;
+			return swipeLayout;
 		}
 		
 		private class ExpandAdapter extends BaseExpandableListAdapter{
