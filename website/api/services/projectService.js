@@ -116,7 +116,8 @@ exports.finishProject = function(selfuid, pid, callback){
 		/////////////////////////////////////
 		project.history.push({
 			type: HistoryService.PROJECT_TYPE.finish,
-			who : selfuid,			
+			who : selfuid,	
+			what: [project.name]		
 		});
 		project.done = true;
 		project.save(function(err,result){
@@ -126,6 +127,30 @@ exports.finishProject = function(selfuid, pid, callback){
 		for(var i=0;i<project.members.length;i++){
 			MessageService.sendUserMessage(selfuid, project.members[i]._id, 
 				MessageService.TYPE.project_close, '关闭了项目:'+project.name, function(){});
+		}
+	})
+}
+
+exports.restartProject = function(selfuid, pid, callback){
+
+	DataService.getProjectById(pid, function(err, project){
+		if(err)return callback(err);
+		/////////////////////////////////////
+		//   project history
+		/////////////////////////////////////
+		project.history.push({
+			type: HistoryService.PROJECT_TYPE.restart,
+			who : selfuid,
+			what:[project.name]	
+		});
+		project.done = false;
+		project.save(function(err,result){
+			if(err)callback(ErrorService.makeDbErr(err));
+			else callback(null);
+		})
+		for(var i=0;i<project.members.length;i++){
+			MessageService.sendUserMessage(selfuid, project.members[i]._id, 
+				MessageService.TYPE.project_restart, '重新启动了项目:'+project.name, function(){});
 		}
 	})
 }

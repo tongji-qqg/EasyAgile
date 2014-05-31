@@ -64,7 +64,7 @@ $('#new-project-button').click(function(){
 
 
 function loadProjects(){  
-    
+
     var newProjectDiv = '<div class="col-lg-3 col-sm-6"> <div class="tile light-gray dash-demo-tile"> <h4><i class="fa fa-plus fa-fw"></i>新建项目</h4> <a  href="#new-project-form" data-toggle="modal" class="dash-demo-footer"> <div id="easy-pie-1" class="easy-pie-chart"> <div style="font-size: 44px;margin-top: 55px"> <i class="fa fa-plus-square-o"></i> </div> </div> </a> </div> </div>';
 
     function h2d(h) {return parseInt(h,16);} 
@@ -108,7 +108,24 @@ function loadProjects(){
                     else
                     {
                         var div = 
-                    '<div class="col-lg-3 col-sm-6"> <div class="tile '+color +' dash-demo-tile"> <h4>' + project.name + '<i class="fa fa-refresh fa-fw" style="float:right;"></i></h4> <div class="easy-pie-chart" data-percent="'+percent+'"> <span class="percent"></span> </div> <a href=/project/'+project._id+' class="dash-demo-footer">More Info <i class="fa fa-chevron-circle-right"></i></a> </div> </div>' ;
+                        $('<div class="col-lg-3 col-sm-6"> <div class="tile '+color +' dash-demo-tile"> <h4>' + project.name + '<a class="reuse"><i class="fa fa-refresh fa-fw" style="float:right;"></i></a></h4> <div class="easy-pie-chart" data-percent="'+percent+'"> <span class="percent"></span> </div> <a href=/project/'+project._id+' class="dash-demo-footer">More Info <i class="fa fa-chevron-circle-right"></i></a> </div> </div>');
+                        $('.reuse', div).click(function(){
+                            console.log('restart project!');
+                             $.ajax({
+                                type: 'PUT',
+                                url: '/API/ps/'+project._id,
+                                dataType: 'json',                                
+                                success: function(data){
+                                    if(data.state === 'error')
+                                        alert('error! '+ data.message);
+                                    if(data.state === 'success')
+                                    {    
+                                        alert('success!');                                        
+                                        loadProjects();
+                                    }
+                                }
+                            });
+                        })
                         $('#finished-project-row').append(div);
                     }
                     $('.easy-pie-chart').easyPieChart({
@@ -142,7 +159,8 @@ function loadProjects(){
                     alert('error! '+ data.message);
                 if(data.state === 'success')
                 {   
-                    $('#current-project-row').empty(); 
+                    $('#current-project-row').empty();
+                    $('#finished-project-row').empty();
                     $('#current-project-row').append(newProjectDiv);
                     data.projects.forEach(buildProjectDiv);      
                           

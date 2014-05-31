@@ -19,7 +19,8 @@ var TYPE = {
 	publish_topic  : 10,
 	assign_task    : 11,
 	remove_task    : 12,
-	task_delete    : 13
+	task_delete    : 13,
+	project_restart: 14,
 };
 exports.TYPE = TYPE;
 

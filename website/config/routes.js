@@ -89,6 +89,7 @@ module.exports.routes = {
   'put     /API/p/:pid'                         : 'project.editProjectInfo',
   'delete  /API/p/:pid'                         : 'project.deleteProject',
   'put     /API/pf/:pid'                        : 'project.finishProject',
+  'put     /API/ps/:pid'                        : 'project.startProject',
   'post    /API/p/:pid/mid/:uid'                : 'project.inviteMemberById',
   'get     /API/p/:pid/inviteById/accept'       : 'project.acceptInviteById',
   'get     /API/p/:pid/inviteById/reject'       : 'project.rejectInviteById',

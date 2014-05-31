@@ -88,6 +88,21 @@ module.exports = {
     },
 
     /**
+	 * put /API/ps/:pid
+	 * 
+	 * @param   {req}   request     Request object
+	 * @param   {res}  response    Response object
+	 */
+    startProject: function (req, res) {
+      
+	    sails.log.verbose('Controller - api/controller/ProjectController.startProject');
+	    projectService.restartProject(req.session.user._id, req.params.pid, function(err){
+			if(err) res.json(err);
+			else res.json(ErrorService.success);
+		});
+    },
+
+    /**
 	 * delete /API/pf/:pid
 	 * 
 	 * @param   {req}   request     Request object

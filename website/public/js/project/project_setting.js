@@ -344,8 +344,9 @@ $(function(){
 				case 22:what = what + ' 设置Sprint '+history.what[0] + ' 为当前Sprint'; break;
 				case 23:what = what + ' 发起新话题 '+history.what[0]; break;
 				case 24:what = what + ' 删除话题' + history.what[0]; break;
-				case 25:what = what + ' 把项目归档'; break;
+				case 25:what = what + ' 把项目归档' + history.what[0]; break;
 				case 26:what = what + ' 删除项目'; break;
+				case 27:what = what + ' 重新启动了项目 '+histroy.what[0]; break;
 			}
 			tr.append($('<td >').text(what));
 			tr.append($('<td >').text(formatDate(history.when)));

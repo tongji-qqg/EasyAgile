@@ -35,7 +35,8 @@ var PROJECT_TYPE = {
 	topic_new    : 23,       //
 	topic_delete : 24,       //
 	finish       : 25,       //
-	del          : 26        //
+	del          : 26,       //
+	restart      : 27,
 };
 var SPRINT_TYPE = {
 	create: 0,               //
