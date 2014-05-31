@@ -13,3 +13,8 @@ exports.updateProject = function(req, res){
 
 	sails.io.sockets.in('projectId_'+req.params.sid).emit('project', {pid: req.params.pid});
 }
+
+exports.alertUser = function(uid){
+	sails.log.warn('uid');
+	sails.io.sockets.in('userId_'+uid).emit('alert','receive an alert');
+}

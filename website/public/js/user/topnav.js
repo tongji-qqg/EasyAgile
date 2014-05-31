@@ -46,6 +46,7 @@ $(function(){
         if(new Date(task.deadline) < now) $('.progress-bar', li).addClass('progress-bar-danger');
         return li;
 	}
+	$('body').on('getUserTasks',getUserTasks);
 	getUserTasks();
 });
 
@@ -88,11 +89,39 @@ $(function(){
 						$('#alertScroll .list-unstyled').append(buildOneAlert(a));
 						number++;
 					})
+					$('#alerts-header').empty();
+					$('#alerts-header').append($('<i>',{'class':'fa fa-bell'}));
 					$('#alerts-header').append(number + ' 条新消息');	
 					$('#alerts-number').text(number);					
 				}
 			}
 		});
 	}
+	$('body').on('loadAlertsAjax',loadAlertsAjax);
 	loadAlertsAjax();
+})
+
+$(function(){
+	function subscribe(){        
+        socket.get('/API/u/'+uid+'/sub',null,function(){});
+        socket.on('alert',function updateTopnav(message){
+            console.log('new alert ');            
+            $('body').trigger('loadAlertsAjax');
+            notifyAlert(3);
+        });        
+    }
+    subscribe();
+    function notifyAlert(count){
+    	$.ionSound.play("door_bell");
+    	for(var i=0;i<count;i++)
+    		$("#alert-i").fadeOut(800).fadeIn(800).fadeOut(400).fadeIn(400).fadeOut(400).fadeIn(400);
+    }
+    $.ionSound({
+	    sounds: [
+	        "door_bell"
+	    ],
+	    path: "/sounds/",                // set path to sounds
+	    multiPlay: false,               // playing only 1 sound at once
+	    volume: "0.9"                   // not so loud please
+	});
 })

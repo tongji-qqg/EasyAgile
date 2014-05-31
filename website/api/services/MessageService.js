@@ -37,6 +37,7 @@ exports.sendUserMessage = function(fromUid, toUid, type, message,callback){
 		});
 		user.save(function(err){
 			if(err) callback(ErrorService.makeDbErr(err));
+			SocketService.alertUser(toUid);
 			callback(null);
 		})
 	})

@@ -231,8 +231,10 @@ function init() {
                 dataType: 'json',
                 data: {},
                 success: function(data) {
-                    if (data.state === 'error')
-                        bootbox.alert('error! ' + data.message);
+                    if (data.state === 'error'){
+                            bootbox.alert('error! ' + data.message);
+                            body.trigger("loadSprint");
+                        }
                     if (data.state === 'success') {
                         setTaskState(tid, state);
                     }
@@ -250,8 +252,10 @@ function init() {
                 dataType: 'json',
                 data: {},
                 success: function(data) {
-                    if (data.state === 'error')
-                        bootbox.alert('error! ' + data.message);
+                    if (data.state === 'error'){
+                            bootbox.alert('error! ' + data.message);
+                            body.trigger("loadSprint");
+                        }
                     if (data.state === 'success') {
                         setTaskState(tid, state);
                     }

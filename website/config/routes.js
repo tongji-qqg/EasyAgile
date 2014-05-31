@@ -164,6 +164,7 @@ module.exports.routes = {
   'get    /API/p/:pid/tc/:tid'                  :  'topic.getComments',
   'delete /API/p/:pid/t/:tid/c/:cid'            :  'topic.deleteComment',
   //socket.io
+  'get     /API/u/:uid/sub'                     :  'socketio.subscribeToUser',
   'get     /API/p/:pid/sub'                     :  'socketio.subscribeToProject',
   'get     /API/p/:pid/s/:sid/sub'              :  'socketio.subscribeToSprint',
 

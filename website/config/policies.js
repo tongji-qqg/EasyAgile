@@ -180,6 +180,7 @@ module.exports.policies = {
     },
     "socketio":{
     	"*": false,
+    	subscribeToUser    : [],//it should be safe case we not use socket transport data
     	subscribeToSprint  : [],//["checkUser", "hasProjectAccess", "sprintInProject"],
     	subscribeToProject : [],//["checkUser", "hasProjectAccess"], not work for socket connect
     },

@@ -57,7 +57,23 @@ module.exports = {
       }
     },
 
-
+    /**
+   * get /API/u/:uid/sub
+   * 
+   * @param   {req}   request     Request object
+   * @param   {res}  response    Response object
+   */
+    subscribeToUser: function (req, res) {
+      
+      sails.log.verbose('Controller - api/controller/ProjectController.subscribeToUser');
+      var roomName = 'userId_'+req.params.uid
+      if(req.socket){
+        req.socket.join(roomName);       
+        res.json(ErrorService.successWithValue('message','Subscribed to room: '+roomName));
+      }else{
+        res.json(ErrorService.successWithValue('message','Subscribe only open to Socket'));
+      }
+    },
 
 
   /**
