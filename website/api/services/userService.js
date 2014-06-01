@@ -61,6 +61,7 @@ exports.findUserByEmail = function(email, callback){
 
 	DataService.getUserByEmail(email, function(err, result){
 		if(err) return callback(ErrorService.makeDbErr(err));
+		if(!result) return callback(ErrorService.userNotFindError);
 		else{			
 			callback(null,DataService.makeUserInfo(result));
 		}
@@ -93,6 +94,7 @@ exports.loginByEmail = function(email, password, callback){
 
 	DataService.getUserByEmail(email.toLowerCase(), function(err, result){
 		if(err) return callback(ErrorService.makeDbErr(err));
+		if(!result) return callback(ErrorService.userNotFindError);
 		else if(result.emailToken) 
 			callback(ErrorService.notValidateEmailError);
 		else if( ! _.isEqual(password, result.password))

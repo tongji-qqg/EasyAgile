@@ -1,24 +1,32 @@
 {
-    "name": "EasyAgile-nodejs",
-    "version": "1.0.0",
-    "author": "bryce",
-    "description": "The first bae nodejs app!",
-    "scripts": {
-        "start": "node app.js"
-    },
-    "dependencies": {
-		"sails": "0.9.16",
-        "ejs": "0.8.4",
-        "optimist": "0.3.4",
-        "underscore": "*",
-        "async" : "*",
-        "randomstring" : "*",
-        "mongoose": "*",
-        "moment-timezone": "*",
-        "nodemailer" : "*",
-        "crypto": "*",
-        "validator": "*",
-        "mkdirp":"*",
-    }
+  "name": "EasyAgile",
+  "author": "bryce",
+  "version": "1.0.0",
+  "description": "web based agile tool",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "sails": "0.9.16",
+    "ejs": "0.8.4",
+    "optimist": "0.3.4",
+    "underscore": "*",
+    "async": "*",
+    "randomstring": "*",
+    "mongoose": "*",
+    "moment-timezone": "*",
+    "nodemailer": "*",
+    "crypto": "*",
+    "validator": "*",
+    "mkdirp": "*"
+  },
+  "devDependencies": {
+    "casper-chai": "^0.2.1",
+    "chai": "^1.9.1",
+    "expect.js": "^0.3.1",
+    "mocha": "*",
+    "request": "*",
+    "supertest": "^0.13.0",
+    "wrench": "~1.5.1"
+  }
 }
-

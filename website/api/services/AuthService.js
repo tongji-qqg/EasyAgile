@@ -87,7 +87,7 @@ exports.hasProjectAdmin = function(uid, pid, next) {
 
             var member = project.members.id(uid);         
             if(member != null && member.isAdmin)
-                permissin = true;
+                permission = true;
             
             if( !permission )return callback(ErrorService.notAdminError);           
             callback(null);

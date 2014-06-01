@@ -346,7 +346,7 @@ $(function(){
 				case 24:what = what + ' 删除话题' + history.what[0]; break;
 				case 25:what = what + ' 把项目归档' + history.what[0]; break;
 				case 26:what = what + ' 删除项目'; break;
-				case 27:what = what + ' 重新启动了项目 '+histroy.what[0]; break;
+				case 27:what = what + ' 重新启动了项目 '+history.what[0]; break;
 			}
 			tr.append($('<td >').text(what));
 			tr.append($('<td >').text(formatDate(history.when)));

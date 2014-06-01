@@ -67,7 +67,7 @@ $(function(){
         	var idiv =  $('<div >',{'class':'alert-icon orange pull-left'}).appendTo(a);
         	$('<i >',{'class':'fa fa-download'}).appendTo(idiv);
         }
-        a.append(alert.from.name+ ' '+alert.message);
+        a.text(alert.from.name+ ' '+alert.message);//use append will show icons but topic <<>>message will invisible
         $('<span >',{'class':'small pull-right'}).append($('<strong >').append($('<strong >').append($('<em >').text(formateDate(alert.date)))));
                 
         return li;
