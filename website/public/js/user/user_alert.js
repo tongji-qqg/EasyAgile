@@ -83,7 +83,7 @@ $(function(){
         	accept.click(function(e){            	
         		e.preventDefault();
         		if(!uid) return;
-        		console.log(alert._id);
+        		//console.log(alert._id);
         		readAlert(alert._id); 
         		$.ajax({
 					type: 'GET',

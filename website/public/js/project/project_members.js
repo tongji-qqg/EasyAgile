@@ -46,7 +46,7 @@ $(function(){
                 group:group
             },
             success: function(data){
-                console.log(data.message);
+                //console.log(data.message);
                 if(data.state === 'error')
                     alert('error! '+ data.message);
                 if(data.state === 'success')
@@ -72,8 +72,8 @@ $(function(){
                 $(this).append($(ui.dragClone));
                 var uid = $(ui.draggable).attr('uid');
                 var group = $(this).attr('group');
-                console.log('uid '+uid);
-                console.log('group '+group);
+                //console.log('uid '+uid);
+                //console.log('group '+group);
                 setGroupAjax(uid,group);
                 return true;
             },

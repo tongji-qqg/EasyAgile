@@ -1,7 +1,5 @@
 var assert = require("assert")
-var expect = require('expect.js'),
-Browser = require('zombie'),
-browser = new Browser();
+var expect = require('expect.js');
 
 
 describe('Array', function(){
@@ -24,7 +22,7 @@ describe('Array', function(){
 //     });
 
 // });
-/*
+
 var Sails = require('sails');
 var sinon = require('sinon'); // Mocking/stubbing/spying
 var assert = require('chai').assert; // Assertions
@@ -113,4 +111,3 @@ describe('External Services', function () {
         });
     });
 });
-*/

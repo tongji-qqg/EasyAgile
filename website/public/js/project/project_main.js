@@ -2,7 +2,7 @@ $(function(){
 	function buildTR(history){
 			var tr = $('<tr >');
 			var what = history.who.name;
-			console.log(history);
+			//console.log(history);
 			switch(history.type){
 				case 0: what = what + ' 创建了项目 ' + history.what[0] + ' 项目描述 '+ history.what[1]; break;
 				case 1: what = what + ' 修改项目信息 '+history.what[0] + ' 项目描述 '+ history.what[1]; break;

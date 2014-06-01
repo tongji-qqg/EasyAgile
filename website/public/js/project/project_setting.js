@@ -200,7 +200,7 @@ $(function(){
 
 	$('#add-member-email-button').click(function(){
 		var email = $('#add-member-email-input').val().trim();
-		console.log(email);
+		//console.log(email);
 		if(projectid && projectid.length==24){
 			//post /API/p/:pid/mid/:uid
 			$.ajax({
@@ -317,7 +317,7 @@ $(function(){
 		function buildTR(history){
 			var tr = $('<tr >');
 			var what = history.who.name;
-			console.log(history);
+			//console.log(history);
 			switch(history.type){
 				case 0: what = what + ' 创建了项目 ' + history.what[0] + ' 项目描述 '+ history.what[1]; break;
 				case 1: what = what + ' 修改项目信息 '+history.what[0] + ' 项目描述 '+ history.what[1]; break;
@@ -352,7 +352,7 @@ $(function(){
 			tr.append($('<td >').text(formatDate(history.when)));
 			return tr;
 		}
-		console.log(page);
+		//console.log(page);
 		var start = (page-1) * 5;
 		var end   = start + 5;
 		if(page<1 || page >pages) return;

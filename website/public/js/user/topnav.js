@@ -34,7 +34,7 @@ $(function(){
                         +'</a>'
                     +'</li>';
         var li = $(liHtml);
-        console.log(task.title);
+        
         $('a', li).attr('href','/user_task/'+uid)
         $('.topnav_task_title', li).text(task.title);
         $('<span >',{'class':'pull-right'}).append($('<strong >').text(task.progress+'%')).appendTo($('.topnav_task_title', li));
@@ -105,7 +105,7 @@ $(function(){
 	function subscribe(){        
         socket.get('/API/u/'+uid+'/sub',null,function(){});
         socket.on('alert',function updateTopnav(message){
-            console.log('new alert ');            
+            //console.log('new alert ');            
             $('body').trigger('loadAlertsAjax');
             notifyAlert(3);
         });        

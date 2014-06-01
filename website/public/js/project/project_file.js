@@ -23,18 +23,18 @@ $(function () {
     }).bind('fileuploaddone', function(e, data) {
 		  fileCount++;
 		  successes++;
-		  console.log('fileuploaddone');
+		  //console.log('fileuploaddone');
 		  if (fileCount === data.files.length) {
-		    console.log('all done, successes: ' + successes + ', fails: ' + fails);
+		    //console.log('all done, successes: ' + successes + ', fails: ' + fails);
 		    // refresh page
 		    location.reload();
 		  }
 		}).bind('fileuploadfail', function(e, data) {
 		  fileCount++;
 		  fails++;
-		  console.log('fileuploadfail');
+		  //console.log('fileuploadfail');
 		  if (fileCount === data.files.length) {
-		    console.log('all done, successes: ' + successes + ', fails: ' + fails);
+		    //console.log('all done, successes: ' + successes + ', fails: ' + fails);
 		    // refresh page
 		    location.reload();
 		  }

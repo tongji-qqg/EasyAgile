@@ -145,7 +145,7 @@ var sprintBootBox = (function() {
                     if (data.state === 'error')
                         bootbox.alert('error! ' + data.message);
                     if (data.state === 'success') {
-                    	console.log('sprint history');
+                    	//console.log('sprint history');
                         for(var i=0;i<data.historys.length;i++){
                         	$('#sprintTableBody').append(buildHistoryP(data.historys[i]));
                         	$("#sprintTableBody").append($('<br >'));
