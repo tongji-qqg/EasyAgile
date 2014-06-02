@@ -111,7 +111,7 @@ module.exports.routes = {
   //editor 6
   'get     /API/p/:pid/e'                       : 'editor.get',
   'post    /API/p/:pid/e'                       : 'editor.create',
-  'get     /API/p/:pid/e/:eid'                  : 'editor.edit',     
+//  'get     /API/p/:pid/e/:eid'                  : 'editor.edit',     
   'delete  /API/p/:pid/e/:eid'                  : 'editor.delete',
 
   //backlog 6

@@ -48,7 +48,7 @@ module.exports.policies = {
 		deleteAllIssues : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAdmin"],
 		addOneIssue     : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAccess"],
 		modifyOneIssue  : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAccess"],
-		modifyAllIssue  : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAccess"],
+		//modifyAllIssue  : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAccess"],
 		deleteOneIssue  : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAdmin"],
     },
     "project": {
@@ -122,7 +122,7 @@ module.exports.policies = {
 		deleteAllStorys :["validateURLID", "checkUser", "hasProjectAccess"],
 		addOneStory     :["validateURLID", "checkUser", "hasProjectAccess"],
 		modifyOneStory  :["validateURLID", "checkUser", "hasProjectAccess"],
-		modifyAllStory  :["validateURLID", "checkUser", "hasProjectAccess"],
+		//modifyAllStory  :["validateURLID", "checkUser", "hasProjectAccess"],
 		deleteOneStory  :["validateURLID", "checkUser", "hasProjectAccess"],
     },
     "task": {
@@ -196,7 +196,7 @@ module.exports.policies = {
     	"*": false,
     	get         : ["validateURLID", "checkUser","hasProjectAccess"],
     	create      : ["validateURLID", "checkUser","hasProjectAccess"],
-    	edit        : ["validateURLID", "checkUser","hasProjectAccess"],
+    	//edit        : ["validateURLID", "checkUser","hasProjectAccess"],
     	delete      : ["validateURLID", "checkUser","hasProjectAccess"],
     }
   /*

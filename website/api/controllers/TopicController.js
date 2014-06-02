@@ -15,6 +15,7 @@
  * @docs        :: http://sailsjs.org/#!documentation/controllers
  */
 "use strict";
+var _ = require('underscore');
 module.exports = {
     
     /**
@@ -59,9 +60,9 @@ module.exports = {
 	    topicService.postTopic(req.session.user._id, req.params.pid, {
 			title: req.body.title,
 			body: req.body.body
-		},req.body.at, function(err){
+		},req.body.at, function(err,topic){
 			if(err) res.json(err);
-			else res.json(ErrorService.success);
+			else res.json(ErrorService.successWithValue('topic',topic));
 		});
     },
 
@@ -90,9 +91,9 @@ module.exports = {
       
 	    sails.log.verbose('Controller - api/controller/TopicController.commentTopic');
 	    topicService.commentTopic(req.session.user._id, req.params.pid, req.params.tid, req.body.comment,
-			function(err){
+			function(err,t){
 			if(err) res.json(err);
-			else res.json(ErrorService.success);
+			else res.json(ErrorService.successWithValue('comment',_.last(t.comments)));
 		});		
     },
 

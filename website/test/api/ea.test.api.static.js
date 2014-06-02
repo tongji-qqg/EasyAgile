@@ -6,7 +6,7 @@ var browser = supertest.agent('http://localhost:18080');
 
 var uid = require('../setting.js').uid;
 var pid = require('../setting.js').pid;
-var tid = require('../setting.js').tid;
+var tid = require('../setting.js').topicid;
 var wrongPid1 = wrongUid1 = wrongTid1= '000000000000000000000000';
 var wrongPid2 = wrongUid2 = wrongTid2= '00000000000000000000000';
 

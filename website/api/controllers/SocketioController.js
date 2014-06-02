@@ -28,7 +28,7 @@ module.exports = {
       
       sails.log.verbose('Controller - api/controller/ProjectController.subscribeToSprint');
       var roomName = 'sprintId_'+req.params.sid
-      if(req.socket){
+      if(req.socket && req.socket.join){
         req.socket.join(roomName);    
         //sails.log.warn('sub'+sails.io.sockets.clients());
         //sails.log.warn('sub'+sails.io.sockets.clients(roomName));     
@@ -49,7 +49,7 @@ module.exports = {
       
       sails.log.verbose('Controller - api/controller/ProjectController.subscribeToProject');
       var roomName = 'projectId_'+req.params.pid
-      if(req.socket){
+      if(req.socket && req.socket.join){
         req.socket.join(roomName);                
         res.json(ErrorService.successWithValue('message','Subscribed to room: '+roomName));
       }else{
@@ -67,7 +67,8 @@ module.exports = {
       
       sails.log.verbose('Controller - api/controller/ProjectController.subscribeToUser');
       var roomName = 'userId_'+req.params.uid
-      if(req.socket){
+
+      if(req.socket && req.socket.join){
         req.socket.join(roomName);       
         res.json(ErrorService.successWithValue('message','Subscribed to room: '+roomName));
       }else{

@@ -62,9 +62,9 @@ module.exports = {
 	    StoryService.createOne(req.session.user._id, req.params.pid, TYPE, {
 			description: req.body.description, 
 			level: req.body.level
-		},function(err){
+		},function(err,p){
 			if(err) res.json(err);
-			else res.json(ErrorService.success);
+			else res.json(ErrorService.successWithValue('requirement', _.last(p.requirements)));
 		});
     },
   
@@ -92,14 +92,14 @@ module.exports = {
 	 * @param   {req}   request     Request object
 	 * @param   {res}  response    Response object
 	 */
-    modifyAllStory: function (req, res) {
+  //   modifyAllStory: function (req, res) {
       
-	    sails.log.verbose('Controller - api/controller/StroyController.modifyAllStory');
-	    StoryService.setAll(req.params.pid, TYPE, req.body.requirements, function(err){
-			if(err) res.json(err);
-			else res.json(ErrorService.success);
-		});
-    },
+	 //    sails.log.verbose('Controller - api/controller/StroyController.modifyAllStory');
+	 //    StoryService.setAll(req.params.pid, TYPE, req.body.requirements, function(err){
+		// 	if(err) res.json(err);
+		// 	else res.json(ErrorService.success);
+		// });
+  //   },
 
     /**
 	 * delete /API/p/:pid/r/:rid

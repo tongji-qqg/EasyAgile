@@ -4,6 +4,9 @@ var sprintModel = require('../schemas/sprintSchema');
 var taskModel = require('../schemas/taskSchema');
 var async = require('async');
 
+function makeWhatOfHistory(arr, what){
+	if(what) arr.push(what);
+}
 
 exports.createTask = function(selfuid, pid, sid, taskInfo, callback){
 
@@ -21,11 +24,17 @@ exports.createTask = function(selfuid, pid, sid, taskInfo, callback){
 	    	/////////////////////////////////////
 			//   task history
 			/////////////////////////////////////
+			var what=[];
+			makeWhatOfHistory(what,task.title);
+			makeWhatOfHistory(what,task.description);
+			makeWhatOfHistory(what,task.startTime);
+			makeWhatOfHistory(what,task.deadline);
+			makeWhatOfHistory(what,task.type);
+			makeWhatOfHistory(what,task.estimate);
 			task.history.push({						
 				type: HistoryService.TASK_TYPE.create,
 				who : selfuid,
-				what: [task.title, task.description, task.startTime, 
-				       task.deadline, task.type, task.estimate],
+				what: what,
 				toUser: task.executer
 			});
 	    	task.save(function(err){
@@ -38,10 +47,17 @@ exports.createTask = function(selfuid, pid, sid, taskInfo, callback){
 	    	/////////////////////////////////////
 			//   sprint history
 			/////////////////////////////////////
+			var what=[];
+			makeWhatOfHistory(what,task.title);
+			makeWhatOfHistory(what,task.description);
+			makeWhatOfHistory(what,task.startTime);
+			makeWhatOfHistory(what,task.deadline);
+			makeWhatOfHistory(what,task.type);
+			makeWhatOfHistory(what,task.estimate);
 			sprint.history.push({						
 				type: HistoryService.SPRINT_TYPE.task_new,
 				who : selfuid,
-				what: [task.title, task.description, task.startTime, task.deadline, task.type, task.estimate]
+				what: what
 			});
 	    	sprint.save(function(err){
 	       			if(err) return callback(eErrorService.makeDbErr(err));
@@ -90,7 +106,7 @@ exports.modifyTaskById = function(selfuid, pid, sid, tid, taskInfo, callback){
 	    	task.type     = taskInfo.type || task.type;
 	    	task.state    = taskInfo.state || task.state;
 	    	//task.executer = taskInfo.executer || task.executer;
-	    	//task.progress = taskInfo.progress || task.progress;
+	    	task.progress = taskInfo.progress || task.progress;
 	    	task.estimate = taskInfo.estimate || task.estimate;
 	    	// if(taskInfo.state){
 	    	// 	if(taskInfo.state == 0 )
@@ -105,13 +121,20 @@ exports.modifyTaskById = function(selfuid, pid, sid, tid, taskInfo, callback){
 	    	/////////////////////////////////////
 			//   task history
 			/////////////////////////////////////
-			if(taskInfo.title || taskInfo.description || task.type || taskInfo.startTime || taskInfo.deadline || taskInfo.deadline )
+			if(taskInfo.title || taskInfo.description || task.type || taskInfo.startTime || taskInfo.deadline || taskInfo.deadline ){
+				var what=[];
+				makeWhatOfHistory(what,task.title);
+				makeWhatOfHistory(what,task.description);
+				makeWhatOfHistory(what,task.startTime);
+				makeWhatOfHistory(what,task.deadline);
+				makeWhatOfHistory(what,task.type);
+				makeWhatOfHistory(what,task.estimate);
 				task.history.push({						
 					type: HistoryService.TASK_TYPE.info,
 					who : selfuid,
-					what: [task.title, task.description, task.startTime, 
-					       task.deadline, task.type, task.estimate],					
+					what: what
 				});			
+			}
 			if(taskInfo.state)
 				task.history.push({						
 					type: HistoryService.TASK_TYPE.state,
@@ -204,10 +227,17 @@ exports.deleteTaskById = function(selfuid, pid, sid, tid, callback){
 	    	/////////////////////////////////////
 			//   sprint history
 			/////////////////////////////////////
+			var what=[];			
+			makeWhatOfHistory(what,task.title);
+			makeWhatOfHistory(what,task.description);
+			makeWhatOfHistory(what,task.startTime);
+			makeWhatOfHistory(what,task.deadline);
+			makeWhatOfHistory(what,task.type);
+			makeWhatOfHistory(what,task.estimate);
 			sprint.history.push({						
 				type: HistoryService.SPRINT_TYPE.task_delete,
 				who : selfuid,
-				what: [task.title, task.description, task.startTime, task.deadline, task.type, task.estimate]
+				what: what
 			});
 	    	sprint.tasks.remove(tid);
 	    	sprint.backlogs.forEach(function(backlog){

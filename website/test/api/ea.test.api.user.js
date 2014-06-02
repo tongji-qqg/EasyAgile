@@ -5,7 +5,7 @@ var sinon = require('sinon'),
 var browser = supertest.agent('http://localhost:18080');
 var uid = require('../setting.js').uid;
 var pid = require('../setting.js').pid;
-var tid = require('../setting.js').tid;
+var tid = require('../setting.js').taskid;
 
 
 describe('User API', function(){
@@ -135,33 +135,120 @@ describe('User API', function(){
     })
   });                                
   describe('put  /API/u', function(){
+    it('not error when body carry nothing', function(done){
+      browser
+        .put('/API/u')        
+        .expect(200)
+        .expect({ state: 'success', errorNumber: 0 })        
+        .end(function(err,res){done(); });
+    });
     it('user can change name', function(done){
       browser
         .put('/API/u')
-        .send({  password: 'whoami' })
-        .expect(302)        
-        .end(function(err,res){
-          res.body.state.should.equal('success');         
-          done();
-        });
+        .send({name:'bryce'})
+        .expect(200)
+        .expect({ state: 'success', errorNumber: 0 })        
+        .end(function(err,res){done(); });
+    });
+    it('user can change phone', function(done){
+      browser
+        .put('/API/u')
+        .send({phone:'18918275072'})
+        .expect(200)
+        .expect({ state: 'success', errorNumber: 0 })        
+        .end(function(err,res){done(); });
+    });
+    it('user can change password', function(done){
+      browser
+        .put('/API/u')
+        .send({password:'whoami'})
+        .expect(200)
+        .expect({ state: 'success', errorNumber: 0 })        
+        .end(function(err,res){done(); });
+    });
+    it('user can change birthday', function(done){
+      browser
+        .put('/API/u')
+        .send({birthday:'2014-1-1'})
+        .expect(200)
+        .expect({ state: 'success', errorNumber: 0 })        
+        .end(function(err,res){done(); });
     });
   });                                
   describe('put  /API/u/pw', function(){
-    it('should respond with json');
+    it('user can change password', function(done){
+      browser
+        .put('/API/u/pw')
+        .send({password:'whoami'})
+        .expect(200)
+        .expect({ state: 'success', errorNumber: 0 })        
+        .end(function(err,res){done(); });
+    });
   });                             
   describe('get  /API/u/ta', function(){
-    it('should respond with json');
+    it('should respond all user task', function(done){
+      browser
+        .get('/API/u/ta')
+        .expect(200)              
+        .end(function(err,res){
+          res.body.state.should.equal('success');
+          res.body.tasks.should.exist;
+          done();
+        });
+    });
   });                             
   describe('get  /API/u/tc', function(){
-    it('should respond with json');
+    it('should respond current user task', function(done){
+      browser
+        .get('/API/u/tc')
+        .expect(200)              
+        .end(function(err,res){
+          res.body.state.should.equal('success');
+          res.body.tasks.should.exist;          
+          done();
+        });
+    });
   });                             
   describe('get  /API/u/projects', function(){
-    it('should respond with json');
+    it('should respond all user projects', function(done){
+      browser
+        .get('/API/u/projects')
+        .expect(200)              
+        .end(function(err,res){
+          res.body.state.should.equal('success');
+          res.body.projects.should.exist;
+          done();
+        });
+    });
   });                       
   describe('put  /API/u/:uid/t/:tid', function(){
-    it('should respond with json');
+    it('user can change tasks belong to him', function(done){
+      browser
+        .put('/API/u/'+uid+'/t/'+tid)
+        .expect(200)              
+        .end(function(err,res){
+          res.body.state.should.equal('success');
+          done();
+        });
+    });
+    it('response error when url wrong', function(done){
+      browser
+        .put('/API/u/'+uid+'/t/111111111111111111111111') //24,1
+        .expect(200)      
+        .expect({ state: 'error', errorNumber: 12, message: 'task not find!' })        
+        .end(function(err,res){          
+          done();
+        });
+    });
   });                    
   describe('post /API/u/:uid/icon', function(){
-    it('should respond with json');
+    it('should return error when no icon', function(done){
+      browser
+        .post('/API/u/'+uid+'/icon')
+        .expect(200)      
+        .expect({ state: 'error', errorNumber: 35, message: 'miss info' })        
+        .end(function(err,res){done();});
+    });
+    it('real upload should be test manually')
   });       
 });

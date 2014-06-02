@@ -46,9 +46,5 @@ var userSchema = new Schema({
   }]
 });
 
-userSchema.statics.findUserByEmail = function(email, callback) {
-
-    return this.model('User').find( {email: email}, callback );
-}
 
 module.exports = mongoose.model('User',userSchema);

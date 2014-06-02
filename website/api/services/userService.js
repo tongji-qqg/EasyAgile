@@ -362,7 +362,7 @@ exports.readAlert = function(selfuid, aid, callback){
 
 	DataService.getUserById(selfuid, function(err, user){
 		if(err) return callback(err);
-		console.log(aid);
+		//console.log(aid);
 		var a = user.alerts.id(aid);
 		if(!a) return callback(ErrorService.notFindError);
 		a.read = true;
@@ -376,7 +376,7 @@ exports.readAlert = function(selfuid, aid, callback){
 exports.deleteAlertById = function(selfuid, aid, callback){
 	DataService.getUserById(selfuid, function(err, user){
 		if(err) return callback(err);
-		console.log(aid);
+		//console.log(aid);
 		var a = user.alerts.id(aid);
 		if(!a) return callback(ErrorService.notFindError);
 		a.remove();

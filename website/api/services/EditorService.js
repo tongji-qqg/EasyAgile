@@ -51,6 +51,7 @@ exports.delete = function(selfuid, pid, eid, callback){
 		},
 		function(project,callback){
 			var editor = project.editor.id(eid);
+			if(!editor) return callback(ErrorService.fileNotFindError);
 			/////////////////////////////////////
 			//   project history
 			/////////////////////////////////////

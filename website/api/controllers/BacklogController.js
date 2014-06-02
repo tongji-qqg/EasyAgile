@@ -18,6 +18,7 @@
 var TYPE = {
 	b:'backlogs'
 }
+var _ = require('underscore');
 module.exports = {
     
     /**
@@ -51,10 +52,10 @@ module.exports = {
 			level: req.body.level,
 			estimate: req.body.estimate,
 			title : req.body.title
-		},function(err){
+		},function(err,s){
 			if(err) res.json(err);
 			else{
-			 	res.json(ErrorService.success);
+			 	res.json(ErrorService.successWithValue('backlog', _.last(s.backlogs)));
 			 	SocketService.updateSprint(req,res);
 			 }
 		});
@@ -91,15 +92,15 @@ module.exports = {
 	 * @param   {req}   request     Request object
 	 * @param   {res}  response    Response object
 	 */
-    modifyAllBacklogOfProject: function (req, res) {
+  //   modifyAllBacklogOfProject: function (req, res) {
       
-	    sails.log.verbose('Controller - api/controller/BacklogController.modifyAllBacklogOfProject');
-	    backlogService.setAll(req.session.user._id, req.params.pid, req.params.sid, TYPE.b, req.body.backlog,
-			function(err){
-			if(err) res.json(err);
-			else res.json(ErrorService.success);
-		});
-    },
+	 //    sails.log.verbose('Controller - api/controller/BacklogController.modifyAllBacklogOfProject');
+	 //    backlogService.setAll(req.session.user._id, req.params.pid, req.params.sid, TYPE.b, req.body.backlog,
+		// 	function(err){
+		// 	if(err) res.json(err);
+		// 	else res.json(ErrorService.success);
+		// });
+  //   },
 
     /**
 	 * delete /API/p/:pid/s/:sid/b/:bid

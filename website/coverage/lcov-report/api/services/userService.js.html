@@ -1,0 +1,1516 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for api/services/userService.js</title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="../../prettify.css">
+
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Helvetica Neue, Helvetica,Arial;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 10em;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Consolas, Menlo, Monaco, monospace;
+            margin: 0;
+            padding: 0;
+            line-height: 14px;
+            font-size: 14px;
+            -moz-tab-size: 2;
+            -o-tab-size:  2;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { text-decoration: none; color: #000; }
+        div.coverage-summary a:visited { text-decoration: none; color: #333; }
+        div.coverage-summary a:hover { text-decoration: underline; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: url("http://yui.yahooapis.com/3.6.0/build/datatable-sort/assets/skins/sam/sort-arrow-sprite.png") no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header medium">
+    <h1>Code coverage report for <span class="entity">api/services/userService.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">73.23% <small>(186 / 254)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">54.7% <small>(64 / 117)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">82.86% <small>(58 / 70)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">83.41% <small>(176 / 211)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">api/services/</a> &#187; userService.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">26</span>
+<span class="cline-any cline-yes">22</span>
+<span class="cline-any cline-yes">22</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22</span>
+<span class="cline-any cline-yes">22</span>
+<span class="cline-any cline-yes">22</span>
+<span class="cline-any cline-yes">21</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">21</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-yes">7</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&nbsp;
+var userModel = require('../schemas/userSchema');
+var sprintModel = require('../schemas/sprintSchema');
+var taskModel = require('../schemas/taskSchema');
+var projectModel = require('../schemas/projectSchema');
+&nbsp;
+var _  = require('underscore');
+var validator = require('validator');
+var async = require('async');
+var crypto = require('crypto');
+var errorDef = require('./errorDefine');
+&nbsp;
+exports.register = function(userInfo, callback){
+&nbsp;
+	if(!userInfo.name || !userInfo.email || !userInfo.password) return callback(ErrorService.missInfoError);	
+	var endDay = new Date();
+	endDay.setDate(endDay.getDate()+1);
+	async.waterfall([
+		function(callback){
+			userInfo.email = userInfo.email.toLowerCase();
+&nbsp;
+			if(! validator.isEmail(userInfo.email)) 
+				return callback(ErrorService.emailFormatError);
+			userInfo.tokenVaildUntil = endDay;
+			var md5 = crypto.createHash('md5');
+    		userInfo.password = md5.update(userInfo.password).digest('base64');
+			var user = new userModel(userInfo);
+    		callback(null, user);
+		},
+		function(user, callback){
+			crypto.randomBytes(48, function(ex, buf) {
+  				var token = buf.toString('hex');
+  				callback(null, user, token);
+			});
+		},
+		function(user, token, callback){
+			user.emailToken = token;
+			var localAppURL = 'http://' + process.env.host + ':' + process.env.port;
+			var link = localAppURL + '/auth/e/'+user.email+'/t/'+token;
+			sails.log.verbose('generate link:'+link);
+			user.save(function(err, result){
+				<span class="missing-if-branch" title="else path not taken" >E</span>if(err) return callback(ErrorService.makeDbErr(err));	
+<span class="cstat-no" title="statement not covered" >				callback(null, user, link);	</span>
+			});	
+			
+		},
+<span class="fstat-no" title="function not covered" >		function(user, link, callback){</span>
+<span class="cstat-no" title="statement not covered" >			EmailService.send(user.email</span>
+				, '帐号激活'
+				, 'please click this link &lt;a href="'+link+'"&gt;'+link+'&lt;/a&gt;to activate your account'
+				, <span class="fstat-no" title="function not covered" >function(err, result){</span>
+<span class="cstat-no" title="statement not covered" >					if(err) {</span>
+<span class="cstat-no" title="statement not covered" >						sails.log.error('send activate email to '+user.email+' fail'+err);</span>
+						//callback(err);
+					}						
+				});		
+<span class="cstat-no" title="statement not covered" >			callback(null, user);		</span>
+		}
+	],callback);		
+};
+&nbsp;
+exports.findUserByEmail = function(email, callback){
+&nbsp;
+	DataService.getUserByEmail(email, function(err, result){
+		<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.makeDbErr(err));</span>
+		if(!result) return callback(ErrorService.userNotFindError);
+		else{			
+			callback(null,DataService.makeUserInfo(result));
+		}
+	});
+&nbsp;
+};
+&nbsp;
+exports.findUserLikeName = function(name, callback){
+	if(!name || name.trim=='') return callback(null, null);
+	var select = {};
+	<span class="missing-if-branch" title="else path not taken" >E</span>if(name) select = {name:new RegExp('\w*'+name+'\w*', "i")};
+	userModel.find(select , function(err, result){
+		<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.makeDbErr(err));</span>
+		<span class="missing-if-branch" title="if path not taken" >I</span>if(!result) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.userNotFindError);</span>
+		else{			
+			var users = [];
+			result.forEach(function(r){
+				users.push(DataService.makeUserInfo(r));
+			});
+			users.slice(0,10);
+			callback(null,users);
+		}
+	});
+&nbsp;
+};
+&nbsp;
+exports.loginByEmail = function(email, password, callback){
+	if(!email || !password) return callback(ErrorService.missInfoError);
+	var md5 = crypto.createHash('md5');
+    password = md5.update(password).digest('base64');
+&nbsp;
+	DataService.getUserByEmail(email.toLowerCase(), function(err, result){
+		<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.makeDbErr(err));</span>
+		if(!result) return callback(ErrorService.userNotFindError);
+		else <span class="missing-if-branch" title="if path not taken" >I</span>if(result.emailToken) 
+<span class="cstat-no" title="statement not covered" >			callback(ErrorService.notValidateEmailError);</span>
+		else if( ! _.isEqual(password, result.password))
+			callback(ErrorService.passwordNotRightError);
+		else{						
+			callback(null,DataService.makeUserInfo(result));
+		}
+	});
+}
+&nbsp;
+exports.activateEmail = function(email, token, callback){
+&nbsp;
+	async.waterfall([
+		function(callback){
+			var now = new Date();
+			DataService.getUserByEmail(email, function(err, result){
+				<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.makeDbErr(err));</span>
+				else if(!result)
+					callback(ErrorService.userNotFindError);
+				else <span class="missing-if-branch" title="else path not taken" >E</span>if(!result.emailToken || <span class="branch-1 cbranch-no" title="branch not covered" >! result.tokenVaildUntil)</span>
+					callback(ErrorService.alreadyValidateEmailError);
+				else <span class="cstat-no" title="statement not covered" >if(result.tokenVaildUntil &lt; now){</span>
+<span class="cstat-no" title="statement not covered" >					userModel.findOneAndRemove(result._id, <span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >						callback(ErrorService.activateLateError);	</span>
+					});					
+				}
+				else <span class="cstat-no" title="statement not covered" >if( ! _.isEqual(token, result.emailToken))</span>
+<span class="cstat-no" title="statement not covered" >					callback(ErrorService.tokenNotMatchError);</span>
+				else{						
+<span class="cstat-no" title="statement not covered" >					callback(null,result);</span>
+				}
+			});			
+		},
+<span class="fstat-no" title="function not covered" >		function(user, callback){</span>
+<span class="cstat-no" title="statement not covered" >			user.emailToken = null;</span>
+<span class="cstat-no" title="statement not covered" >			user.tokenVaildUntil = null;</span>
+<span class="cstat-no" title="statement not covered" >			user.save(<span class="fstat-no" title="function not covered" >function(err,result){</span></span>
+<span class="cstat-no" title="statement not covered" >				if(err) <span class="cstat-no" title="statement not covered" >callback(ErrorService.makeDbErr(err));</span></span>
+				else <span class="cstat-no" title="statement not covered" >callback(null, DataService.makeUserInfo(result));</span>
+			})
+		}
+	],callback);
+	
+}
+&nbsp;
+exports.findUserById = function(id, callback){
+&nbsp;
+	DataService.getUserById(id, function(err, result){
+		<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.makeDbErr(err));		</span>
+		else{
+			callback(null,DataService.makeUserInfo(result));
+		}
+	});
+&nbsp;
+};
+&nbsp;
+exports.updateUserInfo = function(id, toUser, callback){
+&nbsp;
+	if(toUser.password){
+		var md5 = crypto.createHash('md5');
+    	toUser.password = md5.update(toUser.password).digest('base64');
+	}
+	userModel.findOneAndUpdate({'_id':id},{ $set: toUser},function(err){
+		<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >callback(ErrorService.makeDbErr(err));</span>
+		else DataService.getUserById(id,callback);
+	});
+&nbsp;
+};
+&nbsp;
+exports.getUserPorjects = function(id, callback){	
+&nbsp;
+	async.waterfall([
+		function(callback){
+			userModel.findById(id)			 
+	         .populate('projects')	         
+	         .exec(function(err, user){
+	         	<span class="missing-if-branch" title="if path not taken" >I</span>if(user == null) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.userNotFindError)</span>
+	         	projectModel.populate(user.projects, {path:'cSprint', select:'_id tasks'}, function(err){
+	         		<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.makeDbErr(err));</span>
+	         		else callback(null, user);
+	         	});
+	         });
+	     },
+	     function(user, callback){
+	     	var queries = [];
+	     	function makeQuery(project){
+&nbsp;
+	     		return function(callback){
+		     		sprintModel.populate(project.cSprint, {path:'tasks', select:'_id state progress'}, function(err){
+		         		<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.makeDbErr(err));</span>
+		         		else callback(null, user);
+		         	});
+	     		}
+	     	}
+	     	user.projects.forEach(function(project){
+	     		project.history = [];	     		
+	     		queries.push(makeQuery(project));	
+	     	});
+	     	
+	     	async.parallel(queries,function(err){
+				
+				<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >return callback(err);</span>
+ 				else{
+					callback(null, user.projects);
+				}
+			});	
+	     }
+	],callback);
+	
+};
+&nbsp;
+exports.getUserAllTask = function(selfuid, callback){
+&nbsp;
+	taskModel.find({executer: selfuid})
+	         .exec(function(err, result){
+	         	<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >callback(ErrorService.makeDbErr(err));</span>
+	         	else {
+	         		result.history = [];
+	         		callback(null, result);
+	         	}
+	         });
+&nbsp;
+};
+&nbsp;
+exports.getUserCurrentTask = function(selfuid, callback){
+&nbsp;
+	taskModel.find({executer: selfuid})
+			 .where('state').ne(1)
+	         .exec(function(err, result){
+	         	<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >callback(ErrorService.makeDbErr(err));</span>
+	         	else {
+	         		result.history = [];
+	         		callback(null, result);
+	         	}
+	         });	         
+};
+&nbsp;
+exports.getUserCurrentTaskInProject = function(selfuid, callback){
+&nbsp;
+	async.waterfall([
+		function(callback){
+			exports.getUserCurrentTask(selfuid, callback);
+		},
+		function(tasks, callback){
+			var lprojects = [];
+			var projects = [];
+			var fprojects = [];
+			var query = [];
+			var now = new Date();
+			function makeQuery(task){ 
+				function pushArray(arr, p){
+					var project = null;
+					//var project = _.findWhere(arr, {'_id': p._id});
+					for(var i=0;i&lt;arr.length;i++)
+						<span class="missing-if-branch" title="else path not taken" >E</span>if(arr[i]._id.equals(p._id))
+							project = arr[i];
+					if(!project){
+						project = {
+							'_id': p._id,
+							'name':p.name,
+							'task':[]
+						};
+						project.task.push(task);
+						arr.push(project);
+					}else{
+						project.task.push(task);
+					}
+					//sails.log.verbose(arr);
+				}
+				return function(callback){
+				sprintModel.findOne({'tasks': task._id},function(err,s){
+						<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.makeDbErr(err));</span>
+						<span class="missing-if-branch" title="if path not taken" >I</span>if(!s) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.sprintNotFindError);</span>
+						projectModel.findOne({'sprints':s._id}, function(err,p){
+							<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.makeDbErr(err));</span>
+							<span class="missing-if-branch" title="if path not taken" >I</span>if(!p) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.projectNotFindError);</span>
+							/*if(task.deadline &lt; now){
+								pushArray(lprojects, p);
+							} else if(task.startTime &lt; now ) {
+								pushArray(projects, p);
+							}else{
+								pushArray(fprojects, p);
+							}*/
+							<span class="missing-if-branch" title="if path not taken" >I</span>if(!p.cSprint.equals(s._id)) <span class="cstat-no" title="statement not covered" >return callback(null);</span>
+							pushArray(projects, p);
+							callback(null);
+						});
+					})
+				}
+			}
+			tasks.forEach(function(t){
+				query.push(makeQuery(t));
+			});
+			async.series(query,function(err){
+				
+				<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >return callback(err);</span>
+ 				else{
+					callback(null, lprojects, projects, fprojects);
+				}
+			});	
+		}
+	],callback);
+}
+&nbsp;
+exports.getAllMessage = function(selfuid, callback){
+&nbsp;
+	userModel.findById(selfuid)
+			 .populate('messages.from', '_id email name icon')	         
+	         .exec(function(err, result){
+	         	<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >callback(ErrorService.makeDbErr(err));</span>
+	         	else <span class="missing-if-branch" title="if path not taken" >I</span>if(!result) <span class="cstat-no" title="statement not covered" >callback(ErrorService.notFindError);</span>
+	         	else callback(null, result.messages);
+	         });
+}
+&nbsp;
+exports.sendMessage = <span class="fstat-no" title="function not covered" >function(selfuid, toUid, message, callback){</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >	async.waterfall([</span>
+<span class="fstat-no" title="function not covered" >		function(callback){</span>
+<span class="cstat-no" title="statement not covered" >			DataService.getUserById(toUid, callback);</span>
+		},
+<span class="fstat-no" title="function not covered" >		function(toUser, callback){</span>
+<span class="cstat-no" title="statement not covered" >			toUser.messages.push({</span>
+				from: selfuid,
+				message: message,				
+			});
+<span class="cstat-no" title="statement not covered" >			toUser.save(<span class="fstat-no" title="function not covered" >function(err){</span></span>
+<span class="cstat-no" title="statement not covered" >				if(err) <span class="cstat-no" title="statement not covered" >callback(ErrorService.makeDbErr(err));</span></span>
+				else <span class="cstat-no" title="statement not covered" >callback(null);</span>
+			})
+		}
+	],callback);
+}
+&nbsp;
+exports.readMessage = function(selfuid, mid, callback){
+&nbsp;
+	DataService.getUserById(selfuid, function(err, user){
+		<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >return callback(err);</span>
+		var m = user.messages.id(mid);
+		<span class="missing-if-branch" title="else path not taken" >E</span>if(!m) return callback(ErrorService.notFindError);
+<span class="cstat-no" title="statement not covered" >		m.read = true;</span>
+<span class="cstat-no" title="statement not covered" >		user.save(<span class="fstat-no" title="function not covered" >function(err){</span></span>
+<span class="cstat-no" title="statement not covered" >			if(err) <span class="cstat-no" title="statement not covered" >callback(ErrorService.makeDbErr(err));</span></span>
+			else <span class="cstat-no" title="statement not covered" >callback(null);</span>
+		});
+	});
+}
+&nbsp;
+exports.getAllAlert = function(selfuid, callback){
+&nbsp;
+	DataService.getUserById(selfuid, function(err, user){
+		<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >return callback(err);</span>
+&nbsp;
+		userModel.populate(user.alerts, {path:'from', select:'_id name icon email'}, function(err){
+			<span class="missing-if-branch" title="if path not taken" >I</span>if(err)<span class="cstat-no" title="statement not covered" >return callback(ErrorService.makeDbErr(err));</span>
+			else callback(null, user.alerts);
+		})			
+	})
+}
+&nbsp;
+exports.readAlert = function(selfuid, aid, callback){
+&nbsp;
+	DataService.getUserById(selfuid, function(err, user){
+		<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >return callback(err);</span>
+		//console.log(aid);
+		var a = user.alerts.id(aid);
+		<span class="missing-if-branch" title="else path not taken" >E</span>if(!a) return callback(ErrorService.notFindError);
+<span class="cstat-no" title="statement not covered" >		a.read = true;</span>
+<span class="cstat-no" title="statement not covered" >		user.save(<span class="fstat-no" title="function not covered" >function(err){</span></span>
+<span class="cstat-no" title="statement not covered" >			if(err) <span class="cstat-no" title="statement not covered" >callback(ErrorService.makeDbErr(err));</span></span>
+			else <span class="cstat-no" title="statement not covered" >callback(null);</span>
+		});
+	})
+}
+&nbsp;
+exports.deleteAlertById = function(selfuid, aid, callback){
+	DataService.getUserById(selfuid, function(err, user){
+		<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >return callback(err);</span>
+		//console.log(aid);
+		var a = user.alerts.id(aid);
+		<span class="missing-if-branch" title="else path not taken" >E</span>if(!a) return callback(ErrorService.notFindError);
+<span class="cstat-no" title="statement not covered" >		a.remove();</span>
+<span class="cstat-no" title="statement not covered" >		user.save(<span class="fstat-no" title="function not covered" >function(err){</span></span>
+<span class="cstat-no" title="statement not covered" >			if(err) <span class="cstat-no" title="statement not covered" >callback(ErrorService.makeDbErr(err));</span></span>
+			else <span class="cstat-no" title="statement not covered" >callback(null);</span>
+		});
+	})	
+}
+&nbsp;
+exports.deleteALLAlert = function(selfuid, callback){
+	DataService.getUserById(selfuid, function(err, user){
+		<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >return callback(err);</span>
+		user.alerts=[];
+		user.save(function(err){
+			<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >callback(ErrorService.makeDbErr(err));</span>
+			else callback(null);
+		});
+	})	
+}</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Jun 03 2014 04:30:17 GMT+0800 (CST)</div>
+</div>
+
+<script src="../../prettify.js"></script>
+
+<script src="http://yui.yahooapis.com/3.6.0/build/yui/yui-min.js"></script>
+<script>
+
+    YUI().use('datatable', function (Y) {
+
+        var formatters = {
+          pct: function (o) {
+              o.className += o.record.get('classes')[o.column.key];
+              try {
+                  return o.value.toFixed(2) + '%';
+              } catch (ex) { return o.value + '%'; }
+          },
+          html: function (o) {
+              o.className += o.record.get('classes')[o.column.key];
+              return o.record.get(o.column.key + '_html');
+          }
+        },
+          defaultFormatter = function (o) {
+              o.className += o.record.get('classes')[o.column.key];
+              return o.value;
+          };
+
+        function getColumns(theadNode) {
+            var colNodes = theadNode.all('tr th'),
+                cols = [],
+                col;
+            colNodes.each(function (colNode) {
+                col = {
+                    key: colNode.getAttribute('data-col'),
+                    label: colNode.get('innerHTML') || ' ',
+                    sortable: !colNode.getAttribute('data-nosort'),
+                    className: colNode.getAttribute('class'),
+                    type: colNode.getAttribute('data-type'),
+                    allowHTML: colNode.getAttribute('data-html') === 'true' || colNode.getAttribute('data-fmt') === 'html'
+                };
+                col.formatter = formatters[colNode.getAttribute('data-fmt')] || defaultFormatter;
+                cols.push(col);
+            });
+            return cols;
+        }
+
+        function getRowData(trNode, cols) {
+            var tdNodes = trNode.all('td'),
+                    i,
+                    row = { classes: {} },
+                    node,
+                    name;
+            for (i = 0; i < cols.length; i += 1) {
+                name = cols[i].key;
+                node = tdNodes.item(i);
+                row[name] = node.getAttribute('data-value') || node.get('innerHTML');
+                row[name + '_html'] = node.get('innerHTML');
+                row.classes[name] = node.getAttribute('class');
+                //Y.log('Name: ' + name + '; Value: ' + row[name]);
+                if (cols[i].type === 'number') { row[name] = row[name] * 1; }
+            }
+            //Y.log(row);
+            return row;
+        }
+
+        function getData(tbodyNode, cols) {
+            var data = [];
+            tbodyNode.all('tr').each(function (trNode) {
+                data.push(getRowData(trNode, cols));
+            });
+            return data;
+        }
+
+        function replaceTable(node) {
+            if (!node) { return; }
+            var cols = getColumns(node.one('thead')),
+                data = getData(node.one('tbody'), cols),
+                table,
+                parent = node.get('parentNode');
+
+            table = new Y.DataTable({
+                columns: cols,
+                data: data,
+                sortBy: 'file'
+            });
+            parent.set('innerHTML', '');
+            table.render(parent);
+        }
+
+        Y.on('domready', function () {
+            replaceTable(Y.one('div.coverage-summary table'));
+            if (typeof prettyPrint === 'function') {
+                prettyPrint();
+            }
+        });
+    });
+</script>
+</body>
+</html>

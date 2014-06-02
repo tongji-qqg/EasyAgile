@@ -41,7 +41,7 @@ exports.postTopic = function(selfuid, pid, topicInfo, at, cb){
 			});
 	    	targetProject.save(function(err){
 	    		if(err) callback(ErrorService.makeDbErr(err));
-	    		else callback(null);
+	    		else callback(null,newTopic);
 	    	});
 	    	if(at){
 	    		for(var i=0;i<at.length;i++){
@@ -156,7 +156,7 @@ exports.getTopicListOfProject = function(selfuid, pid, cb){
 };
 
 exports.commentTopic = function(selfuid, pid, tid, comment, cb){
-
+	if(!comment || comment.trim()=='') return cb(ErrorService.missInfoError);
 	async.waterfall([
 
 	    function(callback){
@@ -181,7 +181,7 @@ exports.commentTopic = function(selfuid, pid, tid, comment, cb){
 
 	    	topic.save(function(err){
 	    		if(err) callback(ErrorService.makeDbErr(err));
-	    		else callback(null);
+	    		else callback(null,topic);
 	    	});
 	    }
 	    

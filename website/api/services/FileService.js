@@ -22,7 +22,7 @@ exports.getFileListOfProject = function(pid, callback){
 
 exports.uploadFileToProject = function(selfuid, pid, file, callback){
 	var path= "files/"+pid;	
-
+	if(!file) return callback(ErrorService.fileNotFindError);
 	async.waterfall([
 		function(callback){
 			fs.exists(path, function(exists) {
@@ -77,6 +77,7 @@ exports.uploadFileToProject = function(selfuid, pid, file, callback){
 } 
 
 exports.uploadFilesToProject = function(selfuid, pid, files, callback){
+	if(!files || files==[]) return callback(ErrorService.fileNotFindError);
 	var dirpath= "files/"+pid;	
 	var filenameArr = [];
 	async.waterfall([
@@ -177,6 +178,7 @@ exports.deleteFileOfProject = function(selfuid, pid, fid, callback){
 			});	
 		},
 		function(project, file, callback){
+			if(!file)return callback(ErrorService.fileNotFindError);
 			/////////////////////////////////////
 			//   project history
 			/////////////////////////////////////
@@ -198,7 +200,7 @@ exports.deleteFileOfProject = function(selfuid, pid, fid, callback){
 
 exports.setUserIcon = function(selfuid, icon, callback){
 	var path = 'public/usericons';
-
+	if(!icon) return callback(ErrorService.missInfoError);
 	async.waterfall([
 		function(callback){
 			fs.exists(path, function(exists) {

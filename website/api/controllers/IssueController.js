@@ -56,14 +56,14 @@ module.exports = {
 	 */
     addOneIssue: function (req, res) {
       
-	    sails.log.verbose('Controller - api/controller/IssueController.addOneIssue');
+	    sails.log.verbose('Controller - api/controller/IssueController.addOneIssue');	    
 	    StoryService.createOne(req.session.user._id, req.params.pid, TYPE, {
 			description: req.body.description, 
 			level: req.body.level,
 			finder: req.session.user._id
-		},function(err){
+		},function(err,p){
 			if(err) res.json(err);
-			else res.json(ErrorService.success);
+			else res.json(ErrorService.successWithValue('issue', _.last(p.issues)));
 		});
     },
   
@@ -92,14 +92,14 @@ module.exports = {
 	 * @param   {req}   request     Request object
 	 * @param   {res}  response    Response object
 	 */
-    modifyAllIssue: function (req, res) {
+  //   modifyAllIssue: function (req, res) {
       
-	    sails.log.verbose('Controller - api/controller/IssueController.modifyAllIssue');
-	    StoryService.setAll(req.params.pid, TYPE, req.body.requirements, function(err){
-			if(err) res.json(err);
-			else res.json(ErrorService.success);
-		});
-    },
+	 //    sails.log.verbose('Controller - api/controller/IssueController.modifyAllIssue');
+	 //    StoryService.setAll(req.params.pid, TYPE, req.body.requirements, function(err){
+		// 	if(err) res.json(err);
+		// 	else res.json(ErrorService.success);
+		// });
+  //   },
 
     /**
 	 * delete /API/p/:pid/r/:iid

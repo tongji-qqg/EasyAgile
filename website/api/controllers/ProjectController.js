@@ -26,9 +26,9 @@ module.exports = {
     createProject: function (req, res) {
       
 	    sails.log.verbose('Controller - api/controller/ProjectController.createProject');
-	    projectService.createProject(req.session.user._id, req.body.name, req.body.des, function(err){
+	    projectService.createProject(req.session.user._id, req.body.name, req.body.des, function(err,project){
 			if(err) res.json(err);
-			else res.json(ErrorService.success);	
+			else res.json(ErrorService.successWithValue('project',project));	
 		});
     },
   
@@ -123,14 +123,14 @@ module.exports = {
 	 * @param   {req}   request     Request object
 	 * @param   {res}  response    Response object
 	 */
-    exitProject: function (req, res) {
+  //   exitProject: function (req, res) {
       
-	    sails.log.verbose('Controller - api/controller/ProjectController.exitProject');
-	    projectService.exitProject(req.session.user._id, req.params.pid, function(err){
-			if(err) res.json(err);
-			else res.json(ErrorService.success);
-		});
-    },
+	 //    sails.log.verbose('Controller - api/controller/ProjectController.exitProject');
+	 //    projectService.exitProject(req.session.user._id, req.params.pid, function(err){
+		// 	if(err) res.json(err);
+		// 	else res.json(ErrorService.success);
+		// });
+  //   },
 
     /**
 	 * post /API/p/:pid/mid/:uid

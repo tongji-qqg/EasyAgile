@@ -1,0 +1,2674 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for api/services/projectService.js</title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="../../prettify.css">
+
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Helvetica Neue, Helvetica,Arial;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 10em;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Consolas, Menlo, Monaco, monospace;
+            margin: 0;
+            padding: 0;
+            line-height: 14px;
+            font-size: 14px;
+            -moz-tab-size: 2;
+            -o-tab-size:  2;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { text-decoration: none; color: #000; }
+        div.coverage-summary a:visited { text-decoration: none; color: #333; }
+        div.coverage-summary a:hover { text-decoration: underline; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: url("http://yui.yahooapis.com/3.6.0/build/datatable-sort/assets/skins/sam/sort-arrow-sprite.png") no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header medium">
+    <h1>Code coverage report for <span class="entity">api/services/projectService.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">55.33% <small>(223 / 403)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">37.97% <small>(71 / 187)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">65.04% <small>(80 / 123)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">65.38% <small>(221 / 338)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">api/services/</a> &#187; projectService.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&nbsp;
+var projectModel = require('../schemas/projectSchema');
+var userModel = require('../schemas/userSchema');
+var sprintModel = require('../schemas/sprintSchema');
+var sprintService = require('./sprintService');
+var async = require('async');
+var crypto = require('crypto');
+var validator = require('validator');
+&nbsp;
+exports.createProject = function(selfuid, name, des, cb){
+	
+	async.waterfall([
+&nbsp;
+		function(callback){
+&nbsp;
+			DataService.getUserById(selfuid,callback);	
+		},
+&nbsp;
+		function(user, callback){			
+			var project = new projectModel({
+				name: name,
+				description: des,
+				owner: selfuid		
+			});
+			/////////////////////////////////////
+			//   project history
+			/////////////////////////////////////
+			project.history.push({						
+				type: HistoryService.PROJECT_TYPE.create,
+				who : selfuid,
+				what: [project.name,project.description]							
+			});
+			project.save(function(err){
+				if(err) callback(ErrorService.makeDbErr(err));
+				else callback(null, user, project);
+			});		
+		},
+&nbsp;
+		function(user, project, callback){			
+			user.projects.push(project._id);
+			user.save(function(err){
+				<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >callback(ErrorService.makeDbErr(err));/</span>/not deal project!
+				else callback(null, user, project);
+			});
+		},
+&nbsp;
+		function(user, project, callback){
+			sprintService.createSprint(selfuid, project._id, {
+				name: 'sprint 1',
+				description: 'first sprint',				
+			}, function(err, result){
+				<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >callback(ErrorService.makeDbErr(err));</span>
+				else{ 
+					project.cSprint = result._id;
+					
+					project.save(function(err){
+						<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >callback(ErrorService.makeDbErr(err));</span>
+						else callback(null, project);
+					})					
+				}
+			});
+		}
+&nbsp;
+	],cb);	
+};
+&nbsp;
+&nbsp;
+&nbsp;
+exports.findProjectInfoById = function(pid, callback) {
+		  
+    DataService.getProjectInfoById(pid, callback);
+&nbsp;
+};
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+exports.updateProjectInfo = function(selfuid, pid, toProject, callback){
+	
+	DataService.getProjectById(pid, function(err, project){
+		<span class="missing-if-branch" title="if path not taken" >I</span>if(err)<span class="cstat-no" title="statement not covered" >return callback(err);</span>
+		/////////////////////////////////////
+		//   project history
+		/////////////////////////////////////
+		var what = [];
+		if(toProject.name){
+			project.name = toProject.name;
+			what.push(toProject.name);
+		}
+		if(toProject.description){
+			project.description = toProject.description;
+			what.push(toProject.description);
+		}
+		project.history.push({
+			type: HistoryService.PROJECT_TYPE.info,
+			who : selfuid,
+			what: what
+		});
+		project.save(function(err,result){
+			<span class="missing-if-branch" title="if path not taken" >I</span>if(err)<span class="cstat-no" title="statement not covered" >callback(ErrorService.makeDbErr(err));</span>
+			else callback(null);
+		})
+	})
+	// projectModel.findOneAndUpdate({'_id':pid},{ $set: toProject},function(err){
+	// 	if(err) callback(ErrorService.makeDbErr(err));
+	// 	else callback(null);
+	// });	    	   
+};
+&nbsp;
+exports.finishProject = function(selfuid, pid, callback){
+&nbsp;
+	DataService.getProjectById(pid, function(err, project){
+		<span class="missing-if-branch" title="if path not taken" >I</span>if(err)<span class="cstat-no" title="statement not covered" >return callback(err);</span>
+		/////////////////////////////////////
+		//   project history
+		/////////////////////////////////////
+		project.history.push({
+			type: HistoryService.PROJECT_TYPE.finish,
+			who : selfuid,	
+			what: [project.name]		
+		});
+		project.done = true;
+		project.save(function(err,result){
+			<span class="missing-if-branch" title="if path not taken" >I</span>if(err)<span class="cstat-no" title="statement not covered" >callback(ErrorService.makeDbErr(err));</span>
+			else callback(null);
+		})
+		for(var i=0;i&lt;project.members.length;i++){
+<span class="cstat-no" title="statement not covered" >			MessageService.sendUserMessage(selfuid, project.members[i]._id, </span>
+				MessageService.TYPE.project_close, '关闭了项目:'+project.name, <span class="fstat-no" title="function not covered" >function(){</span>});
+		}
+	})
+}
+&nbsp;
+exports.restartProject = function(selfuid, pid, callback){
+&nbsp;
+	DataService.getProjectById(pid, function(err, project){
+		<span class="missing-if-branch" title="if path not taken" >I</span>if(err)<span class="cstat-no" title="statement not covered" >return callback(err);</span>
+		/////////////////////////////////////
+		//   project history
+		/////////////////////////////////////
+		project.history.push({
+			type: HistoryService.PROJECT_TYPE.restart,
+			who : selfuid,
+			what:[project.name]	
+		});
+		project.done = false;
+		project.save(function(err,result){
+			<span class="missing-if-branch" title="if path not taken" >I</span>if(err)<span class="cstat-no" title="statement not covered" >callback(ErrorService.makeDbErr(err));</span>
+			else callback(null);
+		})
+		for(var i=0;i&lt;project.members.length;i++){
+<span class="cstat-no" title="statement not covered" >			MessageService.sendUserMessage(selfuid, project.members[i]._id, </span>
+				MessageService.TYPE.project_restart, '重新启动了项目:'+project.name, <span class="fstat-no" title="function not covered" >function(){</span>});
+		}
+	})
+}
+&nbsp;
+exports.deleteProject = function(selfuid, pid, callback){
+	
+	DataService.getProjectById(pid, function(err, project){
+		<span class="missing-if-branch" title="if path not taken" >I</span>if(err)<span class="cstat-no" title="statement not covered" >return callback(err);</span>
+		<span class="missing-if-branch" title="if path not taken" >I</span>if(project.owner != selfuid)
+<span class="cstat-no" title="statement not covered" >			return exports.exitProject(selfuid, pid, callback);</span>
+		async.waterfall([
+			function(callback){
+				/////////////////////////////////////
+				//   project history
+				/////////////////////////////////////
+				project.history.push({
+					type: HistoryService.PROJECT_TYPE.del,
+					who : selfuid,
+				});
+				project.deleted = true;
+&nbsp;
+				DataService.getUserById(selfuid, function(err, user){
+					<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.makeDbErr(err));</span>
+					user.projects.remove(pid);
+					user.save(function(err){
+						<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >callback(ErrorService.makeDbErr(err));</span>
+						callback(null, project);
+					})//end user save
+				})			
+			},
+			
+			function(project,callback){
+				var query = [];
+<span class="fstat-no" title="function not covered" >				function makeDeleteQuery(mid){</span>
+<span class="cstat-no" title="statement not covered" >					return <span class="fstat-no" title="function not covered" >function(callb){</span></span>
+<span class="cstat-no" title="statement not covered" >						DataService.getUserById(mid,<span class="fstat-no" title="function not covered" >function(err,user){</span></span>
+<span class="cstat-no" title="statement not covered" >							if(err)<span class="cstat-no" title="statement not covered" >callb(err);</span></span>
+<span class="cstat-no" title="statement not covered" >							user.projects.remove(project._id);</span>
+<span class="cstat-no" title="statement not covered" >							user.alerts.push({</span>
+								from: selfuid,
+								type: MessageService.TYPE.project_delete,
+								message: '删除了项目'+project.name
+							})
+<span class="cstat-no" title="statement not covered" >							user.save(<span class="fstat-no" title="function not covered" >function(err){</span></span>
+<span class="cstat-no" title="statement not covered" >								if(err) <span class="cstat-no" title="statement not covered" >callb(err);</span></span>
+<span class="cstat-no" title="statement not covered" >								callb(null);</span>
+							});
+						});
+					}
+				}
+				<span class="missing-if-branch" title="if path not taken" >I</span>if(!project.members) <span class="cstat-no" title="statement not covered" >return callback(null, project);</span>
+				project.members.forEach(<span class="fstat-no" title="function not covered" >function(m){</span>
+<span class="cstat-no" title="statement not covered" >					query.push(makeDeleteQuery(m._id));</span>
+				});
+				async.parallel(query,function(err){
+					<span class="missing-if-branch" title="if path not taken" >I</span>if(err)<span class="cstat-no" title="statement not covered" >callback(err);</span>
+					else callback(null, project);
+				});
+			},
+			function(project,callback){
+				project.save(function(err,result){
+					<span class="missing-if-branch" title="if path not taken" >I</span>if(err)<span class="cstat-no" title="statement not covered" >callback(ErrorService.makeDbErr(err));</span>
+					else callback(null);
+				});
+		}],callback);
+	});
+}
+&nbsp;
+&nbsp;
+exports.exitProject = <span class="fstat-no" title="function not covered" >function(selfuid, pid, cb){</span>
+	
+<span class="cstat-no" title="statement not covered" >	async.waterfall([</span>
+		
+<span class="fstat-no" title="function not covered" >		function(callback){</span>
+<span class="cstat-no" title="statement not covered" >			DataService.getProjectById(pid, <span class="fstat-no" title="function not covered" >function(err, project){</span></span>
+<span class="cstat-no" title="statement not covered" >				if(err)<span class="cstat-no" title="statement not covered" >return callback(err);</span></span>
+<span class="cstat-no" title="statement not covered" >				var member = project.members.id(selfuid);</span>
+<span class="cstat-no" title="statement not covered" >				if(!member) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.userNotFindError);</span></span>
+<span class="cstat-no" title="statement not covered" >				member.remove();</span>
+				/////////////////////////////////////
+				//   project history
+				/////////////////////////////////////
+<span class="cstat-no" title="statement not covered" >				project.history.push({</span>
+					type: HistoryService.PROJECT_TYPE.member_leave,
+					who : selfuid,
+				});
+				
+<span class="cstat-no" title="statement not covered" >				callback(null,project);				</span>
+			})
+		},
+<span class="fstat-no" title="function not covered" >		function(project, callback){</span>
+			//save user first
+<span class="cstat-no" title="statement not covered" >			DataService.getUserById(selfuid, <span class="fstat-no" title="function not covered" >function(err, user){</span></span>
+<span class="cstat-no" title="statement not covered" >				if(err) <span class="cstat-no" title="statement not covered" >callback(err);</span></span>
+<span class="cstat-no" title="statement not covered" >				user.projects.remove(pid);</span>
+<span class="cstat-no" title="statement not covered" >				user.save(<span class="fstat-no" title="function not covered" >function(err){</span></span>
+<span class="cstat-no" title="statement not covered" >					if(err) <span class="cstat-no" title="statement not covered" >callback(ErrorService.makeDbErr(err));</span></span>
+					else <span class="cstat-no" title="statement not covered" >callback(null, project);</span>
+				});
+			});	
+		},
+<span class="fstat-no" title="function not covered" >		function(project, callback){</span>
+<span class="cstat-no" title="statement not covered" >			project.save(<span class="fstat-no" title="function not covered" >function(err,result){</span></span>
+<span class="cstat-no" title="statement not covered" >				if(err)<span class="cstat-no" title="statement not covered" >callback(ErrorService.makeDbErr(err));</span></span>
+				else <span class="cstat-no" title="statement not covered" >callback(null);</span>
+			});
+<span class="cstat-no" title="statement not covered" >			MessageService.sendUserMessage(selfuid, project.owner, </span>
+				MessageService.TYPE.member_leave, '离开了项目'+project.name, <span class="fstat-no" title="function not covered" >function(){</span>});
+		}
+&nbsp;
+	],cb)	
+}
+&nbsp;
+&nbsp;
+exports.addMemberById = function(selfuid, pid, uid, cb){
+&nbsp;
+	async.waterfall([
+&nbsp;
+	    function(callback){
+&nbsp;
+	    	DataService.getProjectInfoById(pid,callback);       
+	    },	   	   
+&nbsp;
+	    function(targetProject, callback){
+&nbsp;
+	    	DataService.getUserWithProject(uid, targetProject, callback);
+	    },
+&nbsp;
+	    function(targetProject, newMember, callback){	    		    		    	
+&nbsp;
+	    	<span class="missing-if-branch" title="if path not taken" >I</span>if(targetProject.owner._id.equals(newMember._id)){
+<span class="cstat-no" title="statement not covered" >	    		return callback(ErrorService.alreadyOwnerError);	    		</span>
+	    	}
+	    	
+	    	var member = targetProject.members.id(uid);
+	    	<span class="missing-if-branch" title="if path not taken" >I</span>if(member != null ) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.alreadyMemberError);</span>
+	    		    	   
+	    	callback(null, targetProject, newMember);
+	    },
+&nbsp;
+	    function(targetProject, newMember, callback){
+	    	targetProject.members.push({
+	    		_id: newMember._id,
+	    		name: newMember.name,
+	    		icon: newMember.icon,
+	    		isAdmin: false
+	    	});
+	    	newMember.projects.push(targetProject._id);
+	    	
+	    	targetProject.save(function(err){
+	    		<span class="missing-if-branch" title="if path not taken" >I</span>if(err)<span class="cstat-no" title="statement not covered" >return callback(ErrorService.makeDbErr(err));	    		</span>
+	    	});
+	    	newMember.save(function(err){
+	    		<span class="missing-if-branch" title="if path not taken" >I</span>if(err)<span class="cstat-no" title="statement not covered" >return callback(ErrorService.makeDbErr(err));</span>
+	    	})
+	    	callback(null,newMember);
+	    }
+&nbsp;
+	], cb);
+&nbsp;
+};
+&nbsp;
+&nbsp;
+exports.removeMemberById = function(selfuid,pid, uid, cb){
+&nbsp;
+	async.waterfall([
+&nbsp;
+		function(callback){
+&nbsp;
+	    	DataService.getProjectInfoById(pid,callback);        
+	    },	    	 
+&nbsp;
+	    function(targetProject, callback){
+&nbsp;
+	    	DataService.getUserWithProject(uid, targetProject, callback);
+	    },	    	    
+&nbsp;
+	    function(targetProject, toDelMember, callback){	    		    		    	
+&nbsp;
+	    	<span class="missing-if-branch" title="if path not taken" >I</span>if(targetProject.owner._id.equals(toDelMember._id)){
+<span class="cstat-no" title="statement not covered" >	    		return callback(ErrorService.cannotRemoveOwnerError);	    		</span>
+	    	}
+&nbsp;
+	    	var member = targetProject.members.id(uid);
+	    	<span class="missing-if-branch" title="if path not taken" >I</span>if(member == null ) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.memberNotFindError);	    	</span>
+	    		    		    	
+	    	callback(null, targetProject, toDelMember);
+	    },
+&nbsp;
+	    function(targetProject, toDelMember, callback){
+	    		    	
+	    	targetProject.members.remove(uid);
+&nbsp;
+	    	toDelMember.projects.remove(pid);	    	
+	    	/////////////////////////////////////
+			//   project history
+			/////////////////////////////////////
+			targetProject.history.push({
+				type: HistoryService.PROJECT_TYPE.member_remove,
+				who : selfuid,
+				toUser: toDelMember._id
+			});
+	    	targetProject.save(function(err){
+	    		<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.makeDbErr(err));	    		</span>
+	    	});
+	    	toDelMember.save(function(err){
+	    		<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.makeDbErr(err));</span>
+	    	})
+	    	callback(null);
+	    	MessageService.sendUserMessage(selfuid, toDelMember._id,
+				MessageService.TYPE.member_remove, '把您移出项目'+targetProject.name, function(){});
+	    }
+&nbsp;
+	], cb);
+&nbsp;
+};
+&nbsp;
+&nbsp;
+&nbsp;
+exports.setAdmin = function(selfuid, pid, uid, bSet, cb){
+&nbsp;
+	async.waterfall([
+	    
+	    function(callback){
+&nbsp;
+			DataService.getProjectById(pid,callback);   
+	    },	    
+&nbsp;
+	    function(targetProject, callback){	   
+&nbsp;
+	    	var member = targetProject.members.id(uid);
+	    	<span class="missing-if-branch" title="if path not taken" >I</span>if(member == null) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.memberNotFindError);</span>
+&nbsp;
+	    	member.isAdmin = bSet;
+	    	/////////////////////////////////////
+			//   project history
+			/////////////////////////////////////
+	    	targetProject.history.push({
+	    		type: bSet? HistoryService.PROJECT_TYPE.member_admin : HistoryService.PROJECT_TYPE.member_normal,
+	    		who : selfuid,
+	    		toUser: member._id
+	    	});
+	    	targetProject.save(function(err){
+	    		<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >callback(err);</span>
+	    		else callback(null);
+	    	});
+	    	MessageService.sendUserMessage(selfuid, member._id, 
+				MessageService.TYPE.member_admin, bSet?'把你设为&lt;'+targetProject.name+'&gt;的管理员':'把你设为&lt;'+targetProject.name+'&gt;的普通成员', function(){});
+	    }	
+	   
+	], cb);
+&nbsp;
+};
+&nbsp;
+exports.setMemberToGroup = function(selfuid, pid, uid, group, callback){
+	var noGroup = group =='' || group == null || group == undefined;
+	async.waterfall([
+		function(callback){
+&nbsp;
+		    	DataService.getProjectById(pid,callback);        
+		},
+&nbsp;
+		function(targetProject, callback){	   
+				var toUser;
+				<span class="missing-if-branch" title="if path not taken" >I</span>if(uid == targetProject.owner){
+<span class="cstat-no" title="statement not covered" >					toUser = targetProject.owner;</span>
+<span class="cstat-no" title="statement not covered" >					targetProject.ownerGroup = group;					</span>
+				} else{
+			    	var member = targetProject.members.id(uid);
+			    	<span class="missing-if-branch" title="if path not taken" >I</span>if(member == null) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.memberNotFindError);</span>
+			    	toUser = member._id;
+			    	member.group = group;			    	
+				}
+				MessageService.sendUserMessage(selfuid, uid, 
+						MessageService.TYPE.member_group, noGroup?<span class="branch-0 cbranch-no" title="branch not covered" >'把你设为没有小组':</span>'把你分到小组 '+group, function(){});
+				/////////////////////////////////////
+				//   project history
+				/////////////////////////////////////
+		    	targetProject.history.push({
+		    		type: HistoryService.PROJECT_TYPE.member_group,
+		    		who : selfuid,
+		    		toUser: toUser,
+		    		what: group==null ? <span class="branch-0 cbranch-no" title="branch not covered" >[]:</span> [group]
+		    	});
+		    	targetProject.save(function(err){
+		    		<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >callback(err);</span>
+		    		else callback(null);
+		    	});
+		}
+	],callback);		 	 
+&nbsp;
+}
+&nbsp;
+exports.addGroup = function(selfuid, pid, group, callback){
+&nbsp;
+	async.waterfall([
+		function(callback){
+&nbsp;
+		    	DataService.getProjectById(pid,callback);        
+		},
+&nbsp;
+		function(project, callback){
+			group = group.trim();	   
+			<span class="missing-if-branch" title="if path not taken" >I</span>if(group == null || _.contains(project.groups,group))
+<span class="cstat-no" title="statement not covered" >				return callback(null);</span>
+			project.groups.push(group);
+			/////////////////////////////////////
+			//   project history
+			/////////////////////////////////////
+	    	project.history.push({
+	    		type: HistoryService.PROJECT_TYPE.group_new,
+	    		who : selfuid,	    		
+	    		what: [group]
+	    	});
+	    	project.save(function(err){
+	    		<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >callback(err);</span>
+	    		else callback(null);
+	    	});
+		}
+	],callback);		 	 
+&nbsp;
+}
+&nbsp;
+exports.deleteGroup = function(selfuid, pid, group, callback){
+&nbsp;
+	async.waterfall([
+		function(callback){
+&nbsp;
+		    	DataService.getProjectById(pid,callback);        
+		},
+&nbsp;
+		function(project, callback){	   
+			group = group.trim();
+			<span class="missing-if-branch" title="if path not taken" >I</span>if(group == null || ! _.contains(project.groups, group))
+<span class="cstat-no" title="statement not covered" >				return callback(null);</span>
+			project.groups = _.without(project.groups,  group);
+			<span class="missing-if-branch" title="if path not taken" >I</span>if(project.ownerGroup == group) <span class="cstat-no" title="statement not covered" >project.ownerGroup = undefined;</span>
+			project.members.forEach(function(m){
+				<span class="missing-if-branch" title="else path not taken" >E</span>if(m.group == group)
+					m.group = undefined;
+			})
+			/////////////////////////////////////
+			//   project history
+			/////////////////////////////////////
+	    	project.history.push({
+	    		type: HistoryService.PROJECT_TYPE.group_delete,
+	    		who : selfuid,
+	    		what: [group]
+	    	});
+	    	project.save(function(err){
+	    		<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >callback(err);</span>
+	    		else callback(null);
+	    	});
+		}
+	],callback);		 	 
+&nbsp;
+}
+&nbsp;
+exports.getProjectMemberGroup = function(pid, callback){
+&nbsp;
+	 DataService.getProjectInfoById(pid, function(err, project){
+	 	<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >return callback(err);</span>
+	 	return callback(null, {
+	 		owner: project.owner,
+	 		ownerGroup: project.ownerGroup,
+	 		members: project.members,
+	 		groups: project.groups
+	 	});
+	 });
+}
+&nbsp;
+exports.inviteMemberById = function(selfuid, pid, uid, callback){
+&nbsp;
+	async.waterfall([
+		function(callback){
+			DataService.getProjectById(pid,function(err,project){
+				<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >return callback(err);</span>
+				project.invite.push({
+					from: selfuid,
+					userId: uid
+				});
+				/////////////////////////////////////
+				//   project history
+				/////////////////////////////////////
+				project.history.push({
+					type: HistoryService.PROJECT_TYPE.member_invite_id,
+					who: selfuid,
+					toUser: uid
+				});
+				project.save(function(err){
+					<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >callback(ErrorService.makeDbErr(err));</span>
+					else callback(null,project);
+				})
+			})
+		},
+		function(project, callback){
+			DataService.getUserById(uid, function(err, user){
+				if(err) return callback(ErrorService.makeDbErr(err));
+				user.alerts.push({
+					type: 0,
+					from: selfuid,
+					message: '邀请您加入项目: ' + project.name,
+					data:['/API/p/'+pid+'/inviteById/accept', '/API/p/'+pid+'/inviteById/reject']
+				})
+				user.save(function(err){
+					<span class="missing-if-branch" title="if path not taken" >I</span>if(err)<span class="cstat-no" title="statement not covered" >callback(ErrorService.makeDbErr(err));</span>
+					else callback(null);
+				});
+			});
+		}
+	],callback)
+}
+&nbsp;
+exports.acceptInviteById = function(selfuid, pid, callback){
+	DataService.getProjectById(pid, function(err, project){
+		<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >return callback(err);</span>
+		var invite;
+		for(var i=0;i&lt;project.invite.length;i++){
+			if(project.invite[i].userId == selfuid){
+				invite = project.invite[i];
+				break;
+			}
+		}
+		<span class="missing-if-branch" title="if path not taken" >I</span>if(!invite) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.inviteLinkInvalide);</span>
+		project.invite.remove(invite._id);
+		/////////////////////////////////////
+		//   project history
+		/////////////////////////////////////
+		project.history.push({
+			type: HistoryService.PROJECT_TYPE.member_accept,
+			who : selfuid,			
+		});
+		project.save(function(err){
+			<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >callback(ErrorService.makeDbErr(err));</span>
+			else exports.addMemberById(selfuid, pid, selfuid, callback);
+		})
+		MessageService.sendUserMessage(selfuid, invite.from, 
+			MessageService.TYPE.accept_invite, '接受了您的项目邀请',function(){});
+	})
+}
+&nbsp;
+exports.rejectInviteById = function(selfuid, pid, callback){
+	DataService.getProjectById(pid, function(err, project){
+		<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >return callback(err);</span>
+		var invite;
+		for(var i=0;i&lt;project.invite.length;i++){
+			if(project.invite[i].userId == selfuid){
+				invite = project.invite[i];
+				break;
+			}
+		}
+		<span class="missing-if-branch" title="if path not taken" >I</span>if(!invite) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.inviteLinkInvalide);</span>
+		project.invite.remove(invite._id);
+		project.save(function(err){
+			<span class="missing-if-branch" title="if path not taken" >I</span>if(err) <span class="cstat-no" title="statement not covered" >callback(ErrorService.makeDbErr(err));</span>
+			else callback(null);
+		})
+		MessageService.sendUserMessage(selfuid, invite.from, 
+			MessageService.TYPE.reject_invite, '拒绝了您的项目邀请',function(){});
+	})
+}
+&nbsp;
+exports.inviteMemberByEmail = function(selfuid, selfname, pid, email, callback){
+	var localAppURL = 'http://' + process.env.host + ':' + process.env.port;
+	<span class="missing-if-branch" title="else path not taken" >E</span>if(! validator.isEmail(email)) 
+		return callback(ErrorService.emailFormatError);
+<span class="cstat-no" title="statement not covered" >	async.waterfall([</span>
+<span class="fstat-no" title="function not covered" >		function(callback){</span>
+<span class="cstat-no" title="statement not covered" >			DataService.getProjectById(pid, callback);</span>
+		},
+<span class="fstat-no" title="function not covered" >		function(project,callback){</span>
+<span class="cstat-no" title="statement not covered" >			crypto.randomBytes(48, <span class="fstat-no" title="function not covered" >function(ex, buf) {</span></span>
+<span class="cstat-no" title="statement not covered" >  				var token = buf.toString('hex');</span>
+<span class="cstat-no" title="statement not covered" >  				callback(null, project, token);</span>
+			});
+		},
+<span class="fstat-no" title="function not covered" >		function(project, token, callback){			</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >			DataService.getUserByEmail(email.toLowerCase(), <span class="fstat-no" title="function not covered" >function(err, user){</span></span>
+<span class="cstat-no" title="statement not covered" >				if(err) <span class="cstat-no" title="statement not covered" >return callback(err);</span></span>
+				
+<span class="cstat-no" title="statement not covered" >				if(user){</span>
+<span class="cstat-no" title="statement not covered" >					if(user._id == selfuid) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.userNotFindError);</span></span>
+<span class="cstat-no" title="statement not covered" >					var link = localAppURL + '/API/p/'+pid+'/inviteByEmail/'+email+'/token/'+token+'/';</span>
+					
+<span class="cstat-no" title="statement not covered" >					EmailService.send(email, '项目邀请', selfname + ' 邀请你参加项目 '+ project.name +</span>
+						             '&lt;br/&gt;点击&lt;a href="'+link+'accept""&gt;链接&lt;/a&gt;来加入项目'+
+						             '&lt;br/&gt;点击&lt;a href="'+link+'reject""&gt;链接&lt;/a&gt;来拒绝邀请',<span class="fstat-no" title="function not covered" >function(){</span>});				
+				}else{
+<span class="cstat-no" title="statement not covered" >					var link = localAppURL + '/API/reg/p/'+pid+'/inviteByEmail/'+email+'/token/'+token;</span>
+					
+<span class="cstat-no" title="statement not covered" >					EmailService.send(email, '项目邀请', selfname + ' 邀请你参加项目 '+ project.name +</span>
+						             '&lt;br/&gt;点击&lt;a href="'+link+'"&gt;链接&lt;/a&gt;来注册一个帐号，并加入项目',<span class="fstat-no" title="function not covered" >function(){</span>});									
+				}
+<span class="cstat-no" title="statement not covered" >				project.invite.push({</span>
+					from: selfuid,
+					email: email,
+					token: token
+				})
+				/////////////////////////////////////
+				//   project history
+				/////////////////////////////////////
+<span class="cstat-no" title="statement not covered" >				project.history.push({</span>
+					type: HistoryService.PROJECT_TYPE.member_invite_e,
+					who: selfuid,
+					what:[email]
+				});
+<span class="cstat-no" title="statement not covered" >				project.save(<span class="fstat-no" title="function not covered" >function(err){</span></span>
+<span class="cstat-no" title="statement not covered" >					if(err) <span class="cstat-no" title="statement not covered" >callback(err);</span></span>
+					else <span class="cstat-no" title="statement not covered" >callback(null);</span>
+				})
+			});// end dataService
+		}
+	],callback);	
+}
+&nbsp;
+exports.acceptInviteByEmail = <span class="fstat-no" title="function not covered" >function(pid, email, token, callback){</span>
+<span class="cstat-no" title="statement not covered" >	DataService.getProjectById(pid, <span class="fstat-no" title="function not covered" >function(err, project){</span></span>
+<span class="cstat-no" title="statement not covered" >		if(err) <span class="cstat-no" title="statement not covered" >return callback(err);</span></span>
+<span class="cstat-no" title="statement not covered" >		var invite;</span>
+<span class="cstat-no" title="statement not covered" >		for(var i=0;i&lt;project.invite.length;i++){</span>
+<span class="cstat-no" title="statement not covered" >			if(project.invite[i].email == email &amp;&amp; project.invite[i].token == token){</span>
+<span class="cstat-no" title="statement not covered" >				invite = project.invite[i];</span>
+<span class="cstat-no" title="statement not covered" >				break;</span>
+			}
+		}
+<span class="cstat-no" title="statement not covered" >		if(!invite) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.inviteLinkInvalide);</span></span>
+<span class="cstat-no" title="statement not covered" >		DataService.getUserByEmail(email.toLowerCase(),<span class="fstat-no" title="function not covered" >function(err,user){</span></span>
+<span class="cstat-no" title="statement not covered" >			if(err) <span class="cstat-no" title="statement not covered" >return callback(err);</span></span>
+<span class="cstat-no" title="statement not covered" >			if(!user) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.userNotFindError);</span></span>
+<span class="cstat-no" title="statement not covered" >			project.invite.remove(invite._id);</span>
+			/////////////////////////////////////
+			//   project history
+			/////////////////////////////////////
+<span class="cstat-no" title="statement not covered" >			project.history.push({</span>
+				type: HistoryService.PROJECT_TYPE.member_accept,
+				who : user._id,			
+			});
+<span class="cstat-no" title="statement not covered" >			project.save(<span class="fstat-no" title="function not covered" >function(err){</span></span>
+<span class="cstat-no" title="statement not covered" >				if(err) <span class="cstat-no" title="statement not covered" >callback(ErrorService.makeDbErr(err));</span></span>
+				else <span class="cstat-no" title="statement not covered" >exports.addMemberById(user._id, pid, user._id, callback);</span>
+			});
+<span class="cstat-no" title="statement not covered" >			MessageService.sendUserMessage(user._id, invite.from, </span>
+				MessageService.TYPE.accept_invite, '接受了您的项目邀请',<span class="fstat-no" title="function not covered" >function(){</span>});
+		})				
+	})
+}
+&nbsp;
+exports.rejectInviteByEmail = <span class="fstat-no" title="function not covered" >function(pid, email, token, callback){</span>
+<span class="cstat-no" title="statement not covered" >	DataService.getProjectById(pid, <span class="fstat-no" title="function not covered" >function(err, project){</span></span>
+<span class="cstat-no" title="statement not covered" >		if(err) <span class="cstat-no" title="statement not covered" >return callback(err);</span></span>
+<span class="cstat-no" title="statement not covered" >		var invite;</span>
+<span class="cstat-no" title="statement not covered" >		for(var i=0;i&lt;project.invite.length;i++){</span>
+<span class="cstat-no" title="statement not covered" >			if(project.invite[i].email == email &amp;&amp; project.invite[i].token == token){</span>
+<span class="cstat-no" title="statement not covered" >				invite = project.invite[i];</span>
+<span class="cstat-no" title="statement not covered" >				break;</span>
+			}
+		}
+<span class="cstat-no" title="statement not covered" >		if(!invite) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.inviteLinkInvalide);</span></span>
+<span class="cstat-no" title="statement not covered" >		project.invite.remove(invite._id);</span>
+<span class="cstat-no" title="statement not covered" >		project.save(<span class="fstat-no" title="function not covered" >function(err){</span></span>
+<span class="cstat-no" title="statement not covered" >			if(err) <span class="cstat-no" title="statement not covered" >callback(ErrorService.makeDbErr(err));			</span></span>
+		})
+<span class="cstat-no" title="statement not covered" >		DataService.getUserByEmail(email.toLowerCase(),<span class="fstat-no" title="function not covered" >function(err,user){</span></span>
+<span class="cstat-no" title="statement not covered" >			if(err)<span class="cstat-no" title="statement not covered" >callback(err);</span></span>
+			else <span class="cstat-no" title="statement not covered" >callback(null, user);</span>
+<span class="cstat-no" title="statement not covered" >			MessageService.sendUserMessage(user._id, invite.from, </span>
+				MessageService.TYPE.accept_invite, '拒绝了您的项目邀请',<span class="fstat-no" title="function not covered" >function(){</span>});
+		});		
+	})
+}
+&nbsp;
+exports.validateRegAcceptEmail = <span class="fstat-no" title="function not covered" >function(pid, email, token, callback){</span>
+<span class="cstat-no" title="statement not covered" >	DataService.getProjectById(pid,<span class="fstat-no" title="function not covered" >function(err, project){</span></span>
+<span class="cstat-no" title="statement not covered" >		if(err)<span class="cstat-no" title="statement not covered" >return callback(ErrorService.makeDbErr(err));</span></span>
+<span class="cstat-no" title="statement not covered" >		var invite;</span>
+<span class="cstat-no" title="statement not covered" >		for(var i=0;i&lt;project.invite.length;i++){</span>
+<span class="cstat-no" title="statement not covered" >			if(project.invite[i].email == email &amp;&amp; project.invite[i].token == token){</span>
+<span class="cstat-no" title="statement not covered" >				invite = project.invite[i];</span>
+<span class="cstat-no" title="statement not covered" >				break;</span>
+			}
+		}
+<span class="cstat-no" title="statement not covered" >		if(!invite) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.inviteLinkInvalide);</span></span>
+<span class="cstat-no" title="statement not covered" >		return callback(null);</span>
+	})
+}
+exports.regAcceptInviteByEmail = <span class="fstat-no" title="function not covered" >function(pid, email, userInfo, token, callback){</span>
+	// console.log(pid);
+	// console.log(email);
+	// console.log(userInfo);
+	// console.log(token);
+<span class="cstat-no" title="statement not covered" >	async.waterfall([</span>
+<span class="fstat-no" title="function not covered" >		function(callback){</span>
+<span class="cstat-no" title="statement not covered" >			var md5 = crypto.createHash('md5');</span>
+<span class="cstat-no" title="statement not covered" >    		userInfo.password = md5.update(userInfo.password).digest('base64');</span>
+<span class="cstat-no" title="statement not covered" >    		userInfo.email = email.toLowerCase();</span>
+<span class="cstat-no" title="statement not covered" >			var user = new userModel(userInfo);</span>
+<span class="cstat-no" title="statement not covered" >			user.save(<span class="fstat-no" title="function not covered" >function(err,result){</span></span>
+<span class="cstat-no" title="statement not covered" >				if(err) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.makeDbErr(err));	</span></span>
+<span class="cstat-no" title="statement not covered" >				callback(null, result);</span>
+			})
+		},
+<span class="fstat-no" title="function not covered" >		function(user,callback){</span>
+<span class="cstat-no" title="statement not covered" >			DataService.getProjectById(pid, <span class="fstat-no" title="function not covered" >function(err, project){</span></span>
+<span class="cstat-no" title="statement not covered" >				if(err) <span class="cstat-no" title="statement not covered" >return callback(err);</span></span>
+<span class="cstat-no" title="statement not covered" >				var invite;</span>
+<span class="cstat-no" title="statement not covered" >				for(var i=0;i&lt;project.invite.length;i++){</span>
+<span class="cstat-no" title="statement not covered" >					if(project.invite[i].email == email &amp;&amp; project.invite[i].token == token){</span>
+<span class="cstat-no" title="statement not covered" >						invite = project.invite[i];</span>
+<span class="cstat-no" title="statement not covered" >						break;</span>
+					}
+				}
+<span class="cstat-no" title="statement not covered" >				if(!invite) <span class="cstat-no" title="statement not covered" >return callback(ErrorService.inviteLinkInvalide);</span></span>
+								
+<span class="cstat-no" title="statement not covered" >				project.invite.remove(invite._id);</span>
+				/////////////////////////////////////
+				//   project history
+				/////////////////////////////////////
+<span class="cstat-no" title="statement not covered" >				project.history.push({</span>
+					type: HistoryService.PROJECT_TYPE.member_accept,
+					who : user._id,			
+				});
+<span class="cstat-no" title="statement not covered" >				project.save(<span class="fstat-no" title="function not covered" >function(err){</span></span>
+<span class="cstat-no" title="statement not covered" >					if(err) <span class="cstat-no" title="statement not covered" >callback(ErrorService.makeDbErr(err));</span></span>
+					else <span class="cstat-no" title="statement not covered" >exports.addMemberById(user._id, pid, user._id, callback);</span>
+				});
+<span class="cstat-no" title="statement not covered" >				MessageService.sendUserMessage(user._id, invite.from, </span>
+					MessageService.TYPE.accept_invite, '接受了您的项目邀请',<span class="fstat-no" title="function not covered" >function(){</span>});					
+			})
+		}
+	],callback);
+}</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Jun 03 2014 04:30:17 GMT+0800 (CST)</div>
+</div>
+
+<script src="../../prettify.js"></script>
+
+<script src="http://yui.yahooapis.com/3.6.0/build/yui/yui-min.js"></script>
+<script>
+
+    YUI().use('datatable', function (Y) {
+
+        var formatters = {
+          pct: function (o) {
+              o.className += o.record.get('classes')[o.column.key];
+              try {
+                  return o.value.toFixed(2) + '%';
+              } catch (ex) { return o.value + '%'; }
+          },
+          html: function (o) {
+              o.className += o.record.get('classes')[o.column.key];
+              return o.record.get(o.column.key + '_html');
+          }
+        },
+          defaultFormatter = function (o) {
+              o.className += o.record.get('classes')[o.column.key];
+              return o.value;
+          };
+
+        function getColumns(theadNode) {
+            var colNodes = theadNode.all('tr th'),
+                cols = [],
+                col;
+            colNodes.each(function (colNode) {
+                col = {
+                    key: colNode.getAttribute('data-col'),
+                    label: colNode.get('innerHTML') || ' ',
+                    sortable: !colNode.getAttribute('data-nosort'),
+                    className: colNode.getAttribute('class'),
+                    type: colNode.getAttribute('data-type'),
+                    allowHTML: colNode.getAttribute('data-html') === 'true' || colNode.getAttribute('data-fmt') === 'html'
+                };
+                col.formatter = formatters[colNode.getAttribute('data-fmt')] || defaultFormatter;
+                cols.push(col);
+            });
+            return cols;
+        }
+
+        function getRowData(trNode, cols) {
+            var tdNodes = trNode.all('td'),
+                    i,
+                    row = { classes: {} },
+                    node,
+                    name;
+            for (i = 0; i < cols.length; i += 1) {
+                name = cols[i].key;
+                node = tdNodes.item(i);
+                row[name] = node.getAttribute('data-value') || node.get('innerHTML');
+                row[name + '_html'] = node.get('innerHTML');
+                row.classes[name] = node.getAttribute('class');
+                //Y.log('Name: ' + name + '; Value: ' + row[name]);
+                if (cols[i].type === 'number') { row[name] = row[name] * 1; }
+            }
+            //Y.log(row);
+            return row;
+        }
+
+        function getData(tbodyNode, cols) {
+            var data = [];
+            tbodyNode.all('tr').each(function (trNode) {
+                data.push(getRowData(trNode, cols));
+            });
+            return data;
+        }
+
+        function replaceTable(node) {
+            if (!node) { return; }
+            var cols = getColumns(node.one('thead')),
+                data = getData(node.one('tbody'), cols),
+                table,
+                parent = node.get('parentNode');
+
+            table = new Y.DataTable({
+                columns: cols,
+                data: data,
+                sortBy: 'file'
+            });
+            parent.set('innerHTML', '');
+            table.render(parent);
+        }
+
+        Y.on('domready', function () {
+            replaceTable(Y.one('div.coverage-summary table'));
+            if (typeof prettyPrint === 'function') {
+                prettyPrint();
+            }
+        });
+    });
+</script>
+</body>
+</html>

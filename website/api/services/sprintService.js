@@ -179,10 +179,14 @@ exports.modifySprintById = function(selfuid, pid, sid, sprintInfo, callback){
 		/////////////////////////////////////
 		//   sprint history
 		/////////////////////////////////////
+		var what = [sprintInfo.name]		
+		if(sprintInfo.description)what.push(sprintInfo.description);
+		if(sprintInfo.startTime)what.push(sprintInfo.startTime);
+		if(sprintInfo.endTime)what.push(sprintInfo.endTime);
 		sprint.history.push({						
 			type: HistoryService.SPRINT_TYPE.info,
 			who : selfuid,
-			what: [sprintInfo.name,sprintInfo.description,sprintInfo.startTime,sprintInfo.endTime]
+			what: what
 		});
 		sprint.name = sprintInfo.name || sprint.name;
 		sprint.description = sprintInfo.description || sprint.description;

@@ -8,6 +8,8 @@ var async = require('async');
 exports.createOne = function(selfuid, pid, type, info, cb){
 
 	return (function(pid, info, cb){
+		var des = info.description;
+    	if(!des || des.trim()=='') return cb(ErrorService.missInfoError);
 		async.waterfall([
 
 		    function(callback){
@@ -30,7 +32,7 @@ exports.createOne = function(selfuid, pid, type, info, cb){
 
 		    	targetProject.save(function(err){
 		    		if(err) callback(err);
-		    		else callback(null);
+		    		else callback(null, targetProject);
 		    	});
 		    }	
 
@@ -143,7 +145,7 @@ exports.modifyOne = function(selfuid, pid, rid, type, info, cb){
 		    function(targetProject, callback){	   
 		    	
 		    	var r = targetProject[type].id(rid);
-		    	if(r == null) return callback(ErrorService.notFindError);
+		    	if(r == null){return callback(ErrorService.notFindError);}
 
 		    	r.description = info.description || r.description;
 		    	r.level = info.level || r.level;
@@ -188,7 +190,7 @@ exports.deleteOne = function(selfuid, pid, rid, type, cb){
 		    	/////////////////////////////////////
 				//   project history
 				/////////////////////////////////////
-		    	if(type == 'issues' && info.solved)
+		    	if(type == 'issues')
 		    		targetProject.history.push({
 		    			type: HistoryService.PROJECT_TYPE.issue_delete,
 		    			who: selfuid,

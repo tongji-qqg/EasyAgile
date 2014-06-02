@@ -59,11 +59,11 @@ module.exports = {
 	 * @param   {req}   request     Request object
 	 * @param   {res}  response    Response object
 	 */
-    edit: function (req, res) {
+    // edit: function (req, res) {
       
-	    sails.log.verbose('Controller - api/controller/EditorController.edit');
+	   //  sails.log.verbose('Controller - api/controller/EditorController.edit');
 	    
-    },
+    // },
 
     /**
 	 * delete /API/p/:pid/e/:eid

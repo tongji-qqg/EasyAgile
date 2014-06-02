@@ -66,11 +66,11 @@ module.exports = {
 		if(req.body.startTime){
 		 	sprintInfo.startTime = req.body.startTime;		 	
 		}
-		sprintService.createSprint(req.session.user._id, req.params.pid, sprintInfo,function(err){
+		sprintService.createSprint(req.session.user._id, req.params.pid, sprintInfo,function(err,s){
 			if(err) res.json(err);
 			else {
 				SocketService.updateProject(req,res);
-				res.json(ErrorService.success);
+				res.json(ErrorService.successWithValue('sprint',s));
 			}
 		});		
     },

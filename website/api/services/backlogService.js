@@ -28,16 +28,19 @@ exports.createOne = function(selfuid, pid, sid, type, info, callback){
 		    		/////////////////////////////////////
 					//   sprint history
 					/////////////////////////////////////
+					var what = [info.title];
+					if(info.description) what.push(info.description);
+
 					sprint.history.push({						
 						type: HistoryService.SPRINT_TYPE.backlog_new,
 						who : selfuid,
-						what: [info.title, info.description]
+						what: what
 					});
 		    	}
 		    	sprint[type].push(info);
 	       		sprint.save(function(err){
-	       			if(err) return callback(err);
-	       			else callback(null);
+	       			if(err) return callback(ErrorService.makeDbErr(err));
+	       			else callback(null,sprint);
 	       		});
 		    }	
 
@@ -70,14 +73,16 @@ exports.modifyOne = function(selfuid, pid, sid, rid, type, info, callback){
 		    		/////////////////////////////////////
 					//   sprint history
 					/////////////////////////////////////
+					var what = [info.title];
+					if(info.description)what.push(info.description);
 					sprint.history.push({						
 						type: HistoryService.SPRINT_TYPE.backlog_mod,
 						who : selfuid,
-						what: [info.title, info.description]
+						what: what
 					});
 		    	}
 	       		sprint.save(function(err){
-	       			if(err) return callback(err);
+	       			if(err) return callback(ErrorService.makeDbErr(err));
 	       			else callback(null);
 	       		});
 		    }	
@@ -152,15 +157,17 @@ exports.deleteOne = function(selfuid, pid, sid, rid, type, callback){
 		    		/////////////////////////////////////
 					//   sprint history
 					/////////////////////////////////////
+					what = [target.title];
+					if(target.description)what.push(target.description);
 					sprint.history.push({						
 						type: HistoryService.SPRINT_TYPE.backlog_delete,
 						who : selfuid,
-						what: [target.title, target.description]
+						what: what
 					});
 		    	}
 				target.remove();
 				sprint.save(function(err){
-		    		if(err) callback(err);
+		    		if(err) callback(ErrorService.makeDbErr(err));
 		    		else callback(null);
 	    		});	 
 		    }	
@@ -185,7 +192,7 @@ exports.deleteAll = function(selfuid, pid, sid, type, callback){
 
 		    	sprint[type] = [];
 		    	sprint.save(function(err){
-		    		if(err) callback(err);
+		    		if(err) callback(ErrorService.makeDbErr(err));
 		    		else callback(null);
 	    		});	
 
