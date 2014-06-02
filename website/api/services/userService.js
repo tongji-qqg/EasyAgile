@@ -10,7 +10,9 @@ var async = require('async');
 var crypto = require('crypto');
 var errorDef = require('./errorDefine');
 
-exports.register = function(userInfo, callback){		
+exports.register = function(userInfo, callback){
+
+	if(!userInfo.name || !userInfo.email || !userInfo.password) return callback(ErrorService.missInfoError);	
 	var endDay = new Date();
 	endDay.setDate(endDay.getDate()+1);
 	async.waterfall([
@@ -70,7 +72,7 @@ exports.findUserByEmail = function(email, callback){
 };
 
 exports.findUserLikeName = function(name, callback){
-
+	if(!name || name.trim=='') return callback(null, null);
 	var select = {};
 	if(name) select = {name:new RegExp('\w*'+name+'\w*', "i")};
 	userModel.find(select , function(err, result){

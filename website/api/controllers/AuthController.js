@@ -30,11 +30,11 @@ module.exports = {
         };
         userService.register(newUser, function(err, user){
                 if(err){
-                    console.log('register err '+ err.message);                  
+                    //console.log('register err '+ err.message);                  
                     res.json(err);                  
                 }
                 else{
-                    console.log('register successs! ');
+                    //console.log('register successs! ');
                     //req.session.user = user; //用户信息存入session
                     //req.session.save();
                   
@@ -76,7 +76,7 @@ module.exports = {
         sails.log.verbose('Controller - api/controller/AuthController.login');        
         userService.loginByEmail(req.body.emailaddress, req.body.password,function(err,result){
             if(err){
-                sails.log.error(err);
+                sails.log.info(err);
                 req.flash('info', err.message);
                 res.redirect('/login');
             }

@@ -353,8 +353,9 @@ $(function(){
 			return tr;
 		}
 		//console.log(page);
-		var start = (page-1) * 5;
+		var start = (page-1) * 5;		
 		var end   = start + 5;
+		end = (end > historyLength) ? historyLength : end;
 		if(page<1 || page >pages) return;
 		$('#history-table').empty();
 		$.ajax({
