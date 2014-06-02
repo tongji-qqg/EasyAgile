@@ -89,6 +89,7 @@ exports.findUserLikeName = function(name, callback){
 };
 
 exports.loginByEmail = function(email, password, callback){
+	if(!email || !password) return callback(ErrorService.missInfoError);
 	var md5 = crypto.createHash('md5');
     password = md5.update(password).digest('base64');
 

@@ -1,6 +1,9 @@
 var StaticController = require('../../api/controllers/StaticController'),
     sinon = require('sinon'),
+    supertest = require("supertest"),
     assert = require('assert');
+var browser = supertest.agent('http://localhost:18080');
+
 function shouldRenderTheView(method, view){
   return function(){
     var cb = sinon.spy();
@@ -15,9 +18,23 @@ describe('Static API', function(){
 
   describe('get /', function(){
     it('should render the view index', shouldRenderTheView('index', 'index'));
+    it ('client can get "/"', function (done) {
+      browser.get('/') .expect(200)
+             .end(function(err,res){
+               if(err) return done(err);
+               else done();
+             })
+    })
   })                                      
   describe('get /mobile', function(){
     it('should render the view mobile', shouldRenderTheView('mobile', 'mobile'));
+    it ('client can get "/mobile"', function (done) {
+      browser.get('/mobile') .expect(200)
+             .end(function(err,res){
+               if(err) return done(err);
+               else done();
+             })
+    })
   })
 
 

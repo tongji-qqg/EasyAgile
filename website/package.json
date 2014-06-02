@@ -27,6 +27,7 @@
     "mocha": "*",
     "request": "*",
     "sinon": "^1.10.1",
+    "superagent": "^0.18.0",
     "supertest": "^0.13.0",
     "wrench": "~1.5.1"
   }

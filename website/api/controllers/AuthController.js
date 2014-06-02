@@ -73,15 +73,15 @@ module.exports = {
      * @param   {res}  response    Response object
      */
     login: function(req, res) {
-        sails.log.verbose('Controller - api/controller/AuthController.login');
+        sails.log.verbose('Controller - api/controller/AuthController.login');        
         userService.loginByEmail(req.body.emailaddress, req.body.password,function(err,result){
             if(err){
-                console.log(err);
+                sails.log.error(err);
                 req.flash('info', err.message);
                 res.redirect('/login');
             }
             else{
-                console.log(result);
+                sails.log.info(result);
                 req.session.user = result;
                 res.redirect('/user/'+result._id);
             }

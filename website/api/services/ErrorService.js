@@ -203,6 +203,11 @@ exports.paramRangeError = {
 	errorNumber: 34,    //may be other numbers
 	message: '请求范围无效'	
 }
+exports.missInfoError = {
+	state: "error",
+	errorNumber: 35,    //may be other numbers
+	message: 'miss info'	
+}
 exports.successWithValue = function(key, value){
 
     var s = _.clone(exports.success);
