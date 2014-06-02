@@ -47,7 +47,7 @@ exports.postTopic = function(selfuid, pid, topicInfo, at, cb){
 	    		for(var i=0;i<at.length;i++){
 	    			if(at[i] == selfuid) continue;
 	    			MessageService.sendUserMessage(selfuid, at[i], 
-						MessageService.TYPE.publish_topic, '在讨论<<'+newTopic.title+'>>中@了你', function(){});
+						MessageService.TYPE.publish_topic, '在讨论<'+newTopic.title+'>中@了你', function(){});
 	    		}
 	    	}
 	    }	
@@ -71,12 +71,12 @@ exports.getTopic = function(selfuid, pid, tid, bIsComments, cb){
 	    	if(pos == -1) return callback(ErrorService.topicNotFindError);
 
 	    	topicModel.findOne({'_id': tid})
-	    			 .populate('author','_id name icon')	    			 
+	    			 .populate('author','_id name icon iconid')	    			 
 	    			 .exec(function(err, topic){
 	    			 	if(err) return callback(ErrorService.makeDbErr(err));
 	    			 	if(topic == null) return callback(ErrorService.topicNotFindError); 
 	    			 	userModel.populate(topic.comments,
-	    			 		               {path:'owner', select:'_id name icon'},
+	    			 		               {path:'owner', select:'_id name icon iconid'},
 	    			 		               function(err){
 	    			 		                	if(err) return callback(ErrorService.makeDbErr(err));
 	    			 		                	if(bIsComments) callback(null, topic.comments);
@@ -144,7 +144,7 @@ exports.getTopicListOfProject = function(selfuid, pid, cb){
 	    function(project, callback) {
 			
 		 	topicModel.populate(project.topics,
-	           {path:'author', select:'_id name icon'},
+	           {path:'author', select:'_id name icon iconid'},
 	           function(err){	           	
 	            	if(err) return callback(ErrorService.makeDbErr(err));	            	
 	            	else callback(null,project.topics);

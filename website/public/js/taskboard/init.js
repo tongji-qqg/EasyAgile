@@ -167,7 +167,7 @@ function init() {
         $('#deleteSprintLink').on('click', function() {
             bootbox.confirm('are you sure?',function(result){
                 if(result){
-                    console.log('message');
+                    //console.log('message');
                     $.ajax({
                         type: 'DELETE',
                         url: '/API/p/' + pid + '/s/' + sid,

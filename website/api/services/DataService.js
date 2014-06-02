@@ -105,7 +105,7 @@ exports.getProjectInfoById = function(pid, callback){
 	
 	projectModel.findById(pid)
 				.where({'deleted': false})
-                .populate('owner','_id name icon email')                           
+                .populate('owner','_id name icon email iconid')                           
             	.populate('sprints','_id name description createTime backlogs tasks')
             	.populate('topics')
 	            .exec(function(err, result){
@@ -115,7 +115,7 @@ exports.getProjectInfoById = function(pid, callback){
 					result.members.forEach(function(m){
 						if(!m.ref) m.ref = m._id;
 					})
-					userModel.populate(result.members, {path:'ref', select:'_id name icon email'},function(err){
+					userModel.populate(result.members, {path:'ref', select:'_id name icon email iconid'},function(err){
 						if(err) return callback(ErrorService.makeDbErr(err));
 						else return callback(null,result);	
 					})
@@ -185,7 +185,7 @@ exports.getTasksInSprint = function(sid, callback){
 			   .exec(function(err,sprint){
 	           		if(err) return callback(ErrorService.makeDbErr(err));
 	           		if(sprint == null) return callback(ErrorService.sprintNotFindError);
-	           		userModel.populate(sprint.tasks, {path:'executer', select:'_id name icon email'},function(err){
+	           		userModel.populate(sprint.tasks, {path:'executer', select:'_id name icon email iconid'},function(err){
 						if(err) return callback(ErrorService.makeDbErr(err));
 						else return callback(null,sprint);	
 					})	           		

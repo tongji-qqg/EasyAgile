@@ -353,12 +353,12 @@ var taskBootBox = (function() {
 			taskOwner.multiselect({
 		    	maxHeight: 400,
 		    	onChange: function(element, checked) {
-			       console.log($(element).attr('value'));
+			       //console.log($(element).attr('value'));
 			       setTaskExecuter(task._id, $(element).attr('value'), checked);
 			    }
 		    });
 			$('.TaskBasicInfo').change(function(){
-				console.log('changed');
+				//console.log('changed');
 				changed = true;
 			})
 			
@@ -370,7 +370,7 @@ var taskBootBox = (function() {
 			$("#editTaskEstimateInput",modal).val(task.estimate);
 			$('#formTaskEditDescription').text(task.description);
 			$(".taskEstimateSlider").on('slide',function(){
-				console.log('changed');
+				//console.log('changed');
 				changed = true;
 			})
 			$('#taskHistoryTab').click(function(){

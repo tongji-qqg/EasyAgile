@@ -22,7 +22,7 @@ describe('Array', function(){
 //     });
 
 // });
-
+/*
 var Sails = require('sails');
 var sinon = require('sinon'); // Mocking/stubbing/spying
 var assert = require('chai').assert; // Assertions
@@ -111,3 +111,4 @@ describe('External Services', function () {
         });
     });
 });
+*/

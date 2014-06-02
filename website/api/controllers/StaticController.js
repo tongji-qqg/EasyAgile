@@ -16,7 +16,7 @@
  */
 "use strict";
 
-var F = require('./functions');
+
 var async = require('async');
 var _ = require('underscore');
 function renderViewWithProject(req, res, view){
