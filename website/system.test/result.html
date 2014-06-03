@@ -1,0 +1,1500 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-suite">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>.failed {color: red; background-color: #ffcccc;}.passed {color: black; background-color: #ccffcc;}.done {color: black; background-color: #eeffee;}</style>
+</head>
+<body>
+<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
+<tr><td><b>Test Suite Results</b></td></tr>
+<tr class="passed"><td><a href="#test0">login</a></td></tr>
+<tr class="passed"><td><a href="#test1">create project</a></td></tr>
+<tr class="passed"><td><a href="#test2">set user info</a></td></tr>
+<tr class="passed"><td><a href="#test3">view user task</a></td></tr>
+<tr class="passed"><td><a href="#test4">set project info</a></td></tr>
+<tr class="passed"><td><a href="#test5">manage project group</a></td></tr>
+<tr class="passed"><td><a href="#test6">project main page</a></td></tr>
+<tr class="passed"><td><a href="#test7">manage sprint and task</a></td></tr>
+<tr class="passed"><td><a href="#test8">show project cal files</a></td></tr>
+<tr class="passed"><td><a href="#test9">manage issues</a></td></tr>
+<tr class="passed"><td><a href="#test10">have topic</a></td></tr>
+<tr class="passed"><td><a href="#test11">have editor</a></td></tr>
+
+</tbody></table>
+<a name="test0" /><table cellpadding="1" cellspacing="1" border="1"><thead><tr><td rowspan="1" colspan="3">login</td></tr></thead><tbody><tr class="done">
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=login-link</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile - login</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>name=emailaddress</td>
+	<td>playwew@126.com</td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>name=password</td>
+	<td>whoami</td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>name=login-button</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>用户中心</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>//a[@href='#logout']</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>css=strong</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=login-link</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile - login</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>name=emailaddress</td>
+	<td>playwew@126.com</td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>name=password</td>
+	<td>whoami</td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>name=login-button</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>用户中心</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=personalDropDown</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>//a[@class=&quot;logout_open&quot;]</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=注销</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+<a name="test1" /><table cellpadding="1" cellspacing="1" border="1"><thead><tr><td rowspan="1" colspan="3">create project</td></tr></thead><tbody><tr class="done">
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=login-link</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile - login</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>name=emailaddress</td>
+	<td>playwew@126.com</td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>name=password</td>
+	<td>whoami</td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>name=login-button</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>用户中心</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>//a[@href='#new-project-form']</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=new-project-close</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>//a[@href='#new-project-form']</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=new-project-name-input</td>
+	<td>system test project</td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=new-project-des-input</td>
+	<td>tes des</td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=new-project-button</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertAlert</td>
+	<td>success!</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>xpath=(//a[contains(text(),'More Info')])[7]</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>project main</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>//a[@href='#set-project-form']</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>link=高级设置</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=set-exiting-button</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertAlert</td>
+	<td>success</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>用户中心</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>//a[@href='#logout']</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>css=strong</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+<a name="test2" /><table cellpadding="1" cellspacing="1" border="1"><thead><tr><td rowspan="1" colspan="3">set user info</td></tr></thead><tbody><tr class="done">
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=login-link</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile - login</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>name=emailaddress</td>
+	<td>playwew@126.com</td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>name=password</td>
+	<td>whoami</td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>name=login-button</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>用户中心</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>xpath=(//a[contains(@href, '#set-user-form')])[2]</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=user-tel-input</td>
+	<td>18918275073</td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=set-setting-button</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>用户中心</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>xpath=(//a[contains(@href, '#set-user-form')])[2]</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=user-name-input</td>
+	<td>Bryce</td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=set-setting-button</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>用户中心</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>xpath=(//a[contains(@href, '#set-user-form')])[2]</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>link=安全设置</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=user-oldpass-input</td>
+	<td>whoami</td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=user-newpass-input</td>
+	<td>whoami</td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=change-password-button</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertAlert</td>
+	<td>success</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=#set-user-form &gt; div.modal-header &gt; button.close</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=#personalDropDown &gt; i.fa.fa-caret-down</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=top-nav-username</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>css=strong</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+<a name="test3" /><table cellpadding="1" cellspacing="1" border="1"><thead><tr><td rowspan="1" colspan="3">view user task</td></tr></thead><tbody><tr class="done">
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=login-link</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile - login</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>name=emailaddress</td>
+	<td>playwew@126.com</td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>name=password</td>
+	<td>whoami</td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>name=login-button</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>用户中心</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>//ul[@id='side']/li[3]/a</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>User Task</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=我的消息</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>alerts</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>//a[@href='#logout']</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>css=strong</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+<a name="test4" /><table cellpadding="1" cellspacing="1" border="1"><thead><tr><td rowspan="1" colspan="3">set project info</td></tr></thead><tbody><tr class="done">
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=login-link</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile - login</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>name=emailaddress</td>
+	<td>playwew@126.com</td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>name=password</td>
+	<td>whoami</td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>name=login-button</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>用户中心</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>xpath=(//a[contains(text(),'More Info')])[1]</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>project main</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>//ul[@id='side']/li[10]/a</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=project-name-input</td>
+	<td>set project name</td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=project-description-input</td>
+	<td>set project des</td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=project-setting-button</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>link=历史动态</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>link=&gt;&gt;</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=#set-project-form &gt; div.modal-header &gt; button.close</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>//a[@href='#logout']</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>css=strong</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+<a name="test5" /><table cellpadding="1" cellspacing="1" border="1"><thead><tr><td rowspan="1" colspan="3">manage project group</td></tr></thead><tbody><tr class="done">
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=login-link</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile - login</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>name=emailaddress</td>
+	<td>playwew@126.com</td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>name=password</td>
+	<td>whoami</td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>name=login-button</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>用户中心</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>xpath=(//a[contains(text(),'More Info')])[1]</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>project main</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=项目团队</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Project Schedule</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=personalDropDown</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>//a[@class=&quot;logout_open&quot;]</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=注销</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+<a name="test6" /><table cellpadding="1" cellspacing="1" border="1"><thead><tr><td rowspan="1" colspan="3">project main page</td></tr></thead><tbody><tr class="done">
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=login-link</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile - login</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>name=emailaddress</td>
+	<td>playwew@126.com</td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>name=password</td>
+	<td>whoami</td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>name=login-button</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>用户中心</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>xpath=(//a[contains(text(),'More Info')])[1]</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>project main</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=进入任务板</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Task Board</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>//div[@id='header']/div/a</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>project main</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=进入问题板</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Issues</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=项目主页</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>project main</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=进入文件库</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Flex Admin - Responsive Admin Theme</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=项目主页</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>project main</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=进入讨论区</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Flex Admin - Responsive Admin Theme</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=项目主页</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>project main</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>link=所有记录</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>link=历史动态</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=#set-project-form &gt; div.modal-header &gt; button.close</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=personalDropDown</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>//a[@class=&quot;logout_open&quot;]</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=注销</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+<a name="test7" /><table cellpadding="1" cellspacing="1" border="1"><thead><tr><td rowspan="1" colspan="3">manage sprint and task</td></tr></thead><tbody><tr class="done">
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=login-link</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile - login</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>name=emailaddress</td>
+	<td>playwew@126.com</td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>name=password</td>
+	<td>whoami</td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>name=login-button</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>用户中心</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>xpath=(//a[contains(text(),'More Info')])[1]</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>project main</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=project-side-nav-taskboard</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Task Board</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=editSprintLink</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=formSprintNewTitle</td>
+	<td>sts test sprint 1</td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=formSprintNewDescription</td>
+	<td>first sprint systest</td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>xpath=(//button[@type='button'])[4]</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=setCurrentSprintLink</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>xpath=(//button[@type='button'])[3]</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=showSprintChartsLink</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>xpath=(//button[@type='button'])[4]</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=showSprintHistoryLink</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>xpath=(//button[@type='button'])[4]</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=addBacklogButton</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=formStoryNewTitle</td>
+	<td>new backlog</td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=formStoryNewDescription</td>
+	<td>a</td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>xpath=(//button[@type='button'])[4]</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>//table[@id='boardTable']/tbody/tr/td/button</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=formTaskNewTitle</td>
+	<td>sys test task</td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>//form[@id='formTaskNew']/div[3]/div/div/span/i</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>//td[8]</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>//form[@id='formTaskNew']/div[3]/div/div[2]/span/i</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>//div[4]/div/table/tbody/tr[2]/td[4]</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>select</td>
+	<td>id=formTaskNewTypeId</td>
+	<td>label=测试</td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>xpath=(//button[@type='button'])[3]</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>css=label.checkbox</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>name=multiselect</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>//form[@id='formTaskNew']/div[5]/div</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=formTaskNewDescription</td>
+	<td>sys test task</td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>xpath=(//button[@type='button'])[5]</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>//div[@id='header']/div/ul[2]/li/div/div/div/span</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=set project name</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>project main</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=personalDropDown</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>//a[@class=&quot;logout_open&quot;]</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=注销</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+<a name="test8" /><table cellpadding="1" cellspacing="1" border="1"><thead><tr><td rowspan="1" colspan="3">show project cal files</td></tr></thead><tbody><tr class="done">
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=login-link</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile - login</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>name=emailaddress</td>
+	<td>playwew@126.com</td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>name=password</td>
+	<td>whoami</td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>name=login-button</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>用户中心</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>xpath=(//a[contains(text(),'More Info')])[1]</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>project main</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=日程</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Project Schedule</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=文件库</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Flex Admin - Responsive Admin Theme</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=personalDropDown</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>//a[@class=&quot;logout_open&quot;]</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=注销</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+<a name="test9" /><table cellpadding="1" cellspacing="1" border="1"><thead><tr><td rowspan="1" colspan="3">manage issues</td></tr></thead><tbody><tr class="done">
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=login-link</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile - login</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>name=emailaddress</td>
+	<td>playwew@126.com</td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>name=password</td>
+	<td>whoami</td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>name=login-button</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>用户中心</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>xpath=(//a[contains(text(),'More Info')])[1]</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>project main</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=Issues</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Issues</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=issueDescription</td>
+	<td>this is a new issue for sys test</td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=postIssueButton</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=closeIssue</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=openIssue</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>xpath=(//button[@type='button'])[11]</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=sort-d</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>xpath=(//button[@type='button'])[11]</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=sort-a</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>//tbody[@id='tableBody']/tr/td[3]/input</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=closeIssueButton</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=closeIssue</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=personalDropDown</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>//a[@class=&quot;logout_open&quot;]</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=注销</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+<a name="test10" /><table cellpadding="1" cellspacing="1" border="1"><thead><tr><td rowspan="1" colspan="3">have topic</td></tr></thead><tbody><tr class="done">
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=login-link</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile - login</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>name=emailaddress</td>
+	<td>playwew@126.com</td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>name=password</td>
+	<td>whoami</td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>name=login-button</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>用户中心</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>xpath=(//a[contains(text(),'More Info')])[1]</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>project main</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=讨论区</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Flex Admin - Responsive Admin Theme</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>css=input.form-control.input-lg</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Flex Admin - Responsive Admin Theme</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>id=newTopicTitleInput</td>
+	<td>sys test topic</td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=all</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=postTopicButton</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Flex Admin - Responsive Admin Theme</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>xpath=(//button[@type='button'])[10]</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertAlert</td>
+	<td>success!</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Flex Admin - Responsive Admin Theme</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=personalDropDown</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>//a[@class=&quot;logout_open&quot;]</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=注销</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+<a name="test11" /><table cellpadding="1" cellspacing="1" border="1"><thead><tr><td rowspan="1" colspan="3">have editor</td></tr></thead><tbody><tr class="done">
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>id=login-link</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile - login</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>name=emailaddress</td>
+	<td>playwew@126.com</td>
+</tr>
+<tr class="done">
+	<td>type</td>
+	<td>name=password</td>
+	<td>whoami</td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>name=login-button</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>用户中心</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>xpath=(//a[contains(text(),'More Info')])[1]</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>project main</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=Editor</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>jQuery Desktop</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>//div[@id='bar_top']/ul/li/a</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>project main</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>id=personalDropDown</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>click</td>
+	<td>//a[@class=&quot;logout_open&quot;]</td>
+	<td></td>
+</tr>
+<tr class="done">
+	<td>clickAndWait</td>
+	<td>link=注销</td>
+	<td></td>
+</tr>
+<tr class="passed">
+	<td>assertTitle</td>
+	<td>Easy Agile</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+
+</body></html>

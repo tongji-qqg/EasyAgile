@@ -167,7 +167,7 @@ $(function(){
                     alert('error! '+ data.message);
                 if(data.state === 'success')
                 {       
-                	alert('success');
+                	//alert('success');
                     $('body').trigger('loadProjectSetting');
                 }
             }            
@@ -356,7 +356,9 @@ $(function(){
 		var start = (page-1) * 5;		
 		var end   = start + 5;
 		end = (end > historyLength) ? historyLength : end;
+		console.log(start,end);
 		if(page<1 || page >pages) return;
+		if(start<0)return;
 		$('#history-table').empty();
 		$.ajax({
             type: 'GET',

@@ -42,9 +42,12 @@ $(function(){
 		return date.getFullYear()+'年'+(date.getMonth()+1)+'月'+date.getDate()+'日'+ date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
 	}
 	function loadHistory(){
+		var end = historyLength;
+		var start = historyLength - 5;
+		start = start < 0? 0 : start;
 		$.ajax({
             type: 'GET',
-            url: '/API/p/'+projectid+'/h/'+(historyLength-5)+'/'+historyLength,
+            url: '/API/p/'+projectid+'/h/'+start+'/'+end,
             dataType: 'json',            
             success: function(data){
                 if(data.state === 'error')

@@ -52,7 +52,7 @@ module.exports.policies = {
 		deleteOneIssue  : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAdmin"],
     },
     "project": {
-        "*": true,
+        "*": false,
 
         // Custom actions
 		createProject      : ["checkUser"],
@@ -72,7 +72,12 @@ module.exports.policies = {
 		addGroup           : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAdmin"],
 		deleteGroup        : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAdmin"],
 		getHistory         : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAccess"],
+		getHistoryFromTo   : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAccess"],
 		getMembers         : ["validateURLID", "checkUser", "validateProjectisAlive", "hasProjectAccess"],
+		acceptInviteByEmail: [true],
+		rejectInviteByEmail: [true],
+		getRegInviteByEmail: [true],
+		postRegInviteByEmail:[true]
     },
     "sprint": {
         "*": false,

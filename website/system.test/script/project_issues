@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:18080/" />
+<title>manage issues</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">manage issues</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Easy Agile</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=login-link</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Easy Agile - login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=emailaddress</td>
+	<td>playwew@126.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=password</td>
+	<td>whoami</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=login-button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>用户中心</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//a[contains(text(),'More Info')])[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>project main</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Issues</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Issues</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=issueDescription</td>
+	<td>this is a new issue for sys test</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=postIssueButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=closeIssue</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=openIssue</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//button[@type='button'])[11]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=sort-d</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//button[@type='button'])[11]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=sort-a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//tbody[@id='tableBody']/tr/td[3]/input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=closeIssueButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=closeIssue</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=personalDropDown</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//a[@class=&quot;logout_open&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=注销</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Easy Agile</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
