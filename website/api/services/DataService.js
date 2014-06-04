@@ -26,6 +26,7 @@ var topicModel = require('../schemas/topicSchema');
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 var _  = require('underscore');
+var EventProxy = require('eventproxy');
 
 var getArrayIndexByObjectId = function (array, id) {
 	sails.log.verbose('getArrayIndexByObjectId ' + id);
@@ -100,38 +101,87 @@ exports.getProjectById = function(pid, callback){
 			});
 }
 
-
+var projectQueryState = 'ready';
 exports.getProjectInfoById = function(pid, callback){
+	var proxy = new EventProxy();
+	proxy.once('p_success',function(result){
+		proxy.removeListener();
+		callback(null, result);
+	})
+	proxy.once('p_error', function(err){
+		proxy.removeListener();
+		callback(err);
+	})
 	
-	projectModel.findById(pid)
-				.where({'deleted': false})
-                .populate('owner','_id name icon email iconid')                           
-            	.populate('sprints','_id name description createTime backlogs tasks')
-            	.populate('topics')
-	            .exec(function(err, result){
-					if(err) return callback(ErrorService.makeDbErr(err));
-					if(result == null) callback(ErrorService.projectNotFindError);
-					//else callback(null,result);
-					result.members.forEach(function(m){
-						if(!m.ref) m.ref = m._id;
-					})
-					userModel.populate(result.members, {path:'ref', select:'_id name icon email iconid'},function(err){
-						if(err) return callback(ErrorService.makeDbErr(err));
-						else return callback(null,result);	
-					})
-				});
+	if(projectQueryState === 'ready'){
+		projectQueryState = 'pending';
+		projectModel.findById(pid)
+					.where({'deleted': false})
+	                .populate('owner','_id name icon email iconid')                           
+	            	.populate('sprints','_id name description createTime backlogs tasks')
+	            	.populate('topics')
+		            .exec(function(err, result){
+						if(err){
+							projectQueryState = 'ready';
+							return proxy.emit('p_error',ErrorService.makeDbErr(err))//callback(ErrorService.makeDbErr(err));	
+						} 
+						if(result == null){
+							projectQueryState = 'ready'
+						 	return proxy.emit('p_error', ErrorService.projectNotFindError) //callback(ErrorService.projectNotFindError);
+						}
+						//else callback(null,result);
+						result.members.forEach(function(m){
+							if(!m.ref) m.ref = m._id;
+						})
+						userModel.populate(result.members, {path:'ref', select:'_id name icon email iconid'},function(err){
+							if(err){ 
+								projectQueryState = 'ready';
+								return proxy.emit('p_error',ErrorService.makeDbErr(err)) //callback(ErrorService.makeDbErr(err));
+							}
+							else{
+								projectQueryState = 'ready';
+								return proxy.emit('p_success',result);
+								//return callback(null,result);		
+							} 
+						})
+					});
+	}
 }
 
+var state = 'ready';
 exports.getProjectTopicsById = function(pid, callback){
-	
-	projectModel.findById(pid)
+	var proxy = new EventProxy();
+	proxy.once('pt_success',function(result){
+		proxy.removeListener();
+		callback(null, result);
+	})
+	proxy.once('pt_error', function(err){
+		proxy.removeListener();
+		callback(err);
+	})
+	if(state === 'ready'){
+		state = 'pending'
+		projectModel.findById(pid)
 				.where({'deleted': false})
                 .populate('topics')
 	            .exec(function(err, result){
-					if(err) return callback(ErrorService.makeDbErr(err));
-					if(result == null) callback(ErrorService.projectNotFindError);
-					else callback(null,result);	
-				});				
+					if(err){
+						state = 'ready';
+					 	return proxy.emit('pt_error',ErrorService.makeDbErr(err)) //callback(ErrorService.makeDbErr(err));
+					}
+					if(result == null){
+						state = 'ready';
+						proxy.emit('pt_error',ErrorService.projectNotFindError);
+					 	//callback(ErrorService.projectNotFindError);
+					}
+					else {
+						state = 'ready';
+						proxy.emit('pt_success',result);
+						//callback(null,result);	
+					}
+				});					
+	}
+	
 }
 
 exports.isSprintInProject = function(project, sid){

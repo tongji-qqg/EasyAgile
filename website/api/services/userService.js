@@ -9,6 +9,7 @@ var validator = require('validator');
 var async = require('async');
 var crypto = require('crypto');
 var errorDef = require('./errorDefine');
+var EventProxy = require('eventproxy');
 
 exports.register = function(userInfo, callback){
 
@@ -91,6 +92,7 @@ exports.findUserLikeName = function(name, callback){
 };
 
 exports.loginByEmail = function(email, password, callback){
+
 	if(!email || !password) return callback(ErrorService.missInfoError);
 	var md5 = crypto.createHash('md5');
     password = md5.update(password).digest('base64');
@@ -235,71 +237,88 @@ exports.getUserCurrentTask = function(selfuid, callback){
 	         });	         
 };
 
+var state = 'ready';
 exports.getUserCurrentTaskInProject = function(selfuid, callback){
+	var proxy = new EventProxy();
+	proxy.once('uctp_success',function(result){
+		proxy.removeListener();
+		callback(null, lprojects,projects,fprojects);
+	})
+	proxy.once('uctp_error', function(err){
+		proxy.removeListener();
+		callback(err);
+	})
+	var lprojects = [];
+	var projects = [];
+	var fprojects = [];
+	if(state === 'ready'){
+		state = 'pending';
+		async.waterfall([
+			function(callback){
+				exports.getUserCurrentTask(selfuid, callback);
+			},
+			function(tasks, callback){
 
-	async.waterfall([
-		function(callback){
-			exports.getUserCurrentTask(selfuid, callback);
-		},
-		function(tasks, callback){
-			var lprojects = [];
-			var projects = [];
-			var fprojects = [];
-			var query = [];
-			var now = new Date();
-			function makeQuery(task){ 
-				function pushArray(arr, p){
-					var project = null;
-					//var project = _.findWhere(arr, {'_id': p._id});
-					for(var i=0;i<arr.length;i++)
-						if(arr[i]._id.equals(p._id))
-							project = arr[i];
-					if(!project){
-						project = {
-							'_id': p._id,
-							'name':p.name,
-							'task':[]
-						};
-						project.task.push(task);
-						arr.push(project);
-					}else{
-						project.task.push(task);
+				var query = [];
+				var now = new Date();
+				function makeQuery(task){ 
+					function pushArray(arr, p){
+						var project = null;
+						//var project = _.findWhere(arr, {'_id': p._id});
+						for(var i=0;i<arr.length;i++)
+							if(arr[i]._id.equals(p._id))
+								project = arr[i];
+						if(!project){
+							project = {
+								'_id': p._id,
+								'name':p.name,
+								'task':[]
+							};
+							project.task.push(task);
+							arr.push(project);
+						}else{
+							project.task.push(task);
+						}
+						//sails.log.verbose(arr);
 					}
-					//sails.log.verbose(arr);
-				}
-				return function(callback){
-				sprintModel.findOne({'tasks': task._id},function(err,s){
-						if(err) return callback(ErrorService.makeDbErr(err));
-						if(!s) return callback(ErrorService.sprintNotFindError);
-						projectModel.findOne({'sprints':s._id}, function(err,p){
+					return function(callback){
+					sprintModel.findOne({'tasks': task._id},function(err,s){
 							if(err) return callback(ErrorService.makeDbErr(err));
-							if(!p) return callback(ErrorService.projectNotFindError);
-							/*if(task.deadline < now){
-								pushArray(lprojects, p);
-							} else if(task.startTime < now ) {
+							if(!s) return callback(ErrorService.sprintNotFindError);
+							projectModel.findOne({'sprints':s._id}, function(err,p){
+								if(err) return callback(ErrorService.makeDbErr(err));
+								if(!p) return callback(ErrorService.projectNotFindError);
+								/*if(task.deadline < now){
+									pushArray(lprojects, p);
+								} else if(task.startTime < now ) {
+									pushArray(projects, p);
+								}else{
+									pushArray(fprojects, p);
+								}*/
+								if(!p.cSprint.equals(s._id)) return callback(null);
 								pushArray(projects, p);
-							}else{
-								pushArray(fprojects, p);
-							}*/
-							if(!p.cSprint.equals(s._id)) return callback(null);
-							pushArray(projects, p);
-							callback(null);
-						});
-					})
+								callback(null);
+							});
+						})
+					}
 				}
+				tasks.forEach(function(t){
+					query.push(makeQuery(t));
+				});
+				async.series(query,function(err){
+					
+					if(err) return callback(err);
+	 				else{
+						callback(null, lprojects, projects, fprojects);
+					}
+				});	
 			}
-			tasks.forEach(function(t){
-				query.push(makeQuery(t));
-			});
-			async.series(query,function(err){
-				
-				if(err) return callback(err);
- 				else{
-					callback(null, lprojects, projects, fprojects);
-				}
-			});	
-		}
-	],callback);
+		],function(err){
+			state = 'ready';
+			if(err)proxy.emit('uctp_error');
+			else proxy.emit('uctp_success');
+		});
+	}
 }
 
 exports.getAllMessage = function(selfuid, callback){

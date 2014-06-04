@@ -26,7 +26,7 @@ var chartBootBox = (function(){
 			return {
 				d: formatedDate,
 				Should: total.toFixed(2),
-				real: remain
+				real: remain.toFixexd(2)
 			}
 		}
 		////////////////////////////////////////////////////////

@@ -76,12 +76,12 @@ module.exports = {
         sails.log.verbose('Controller - api/controller/AuthController.login');        
         userService.loginByEmail(req.body.emailaddress, req.body.password,function(err,result){
             if(err){
-                sails.log.info(err);
+                //sails.log.info(err);
                 req.flash('info', err.message);
                 res.redirect('/login');
             }
             else{
-                sails.log.info(result);
+                //sails.log.info(result);
                 req.session.user = result;
                 res.redirect('/user/'+result._id);
             }

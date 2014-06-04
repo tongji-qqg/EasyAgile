@@ -12,7 +12,7 @@ module.exports.bootstrap = function (cb) {
 
 	var mongoose = require('mongoose');
 	var dbname = sails.config.dbname || 'easyagile'
-	mongoose.connect('mongodb://localhost/' + dbname);
+	mongoose.connect('mongodb://localhost/' + dbname+'?poolSize=200');
 
 	process.env.port = sails.config.port;
 	process.env.host = sails.config.host;
