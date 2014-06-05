@@ -102,13 +102,13 @@ function loadProjects(){
                     if(!project.done)
                     {
                         var div = 
-                    '<div class="col-lg-3 col-sm-6"> <div class="tile '+color +' dash-demo-tile"> <h4>' + project.name + '</h4> <div class="easy-pie-chart" data-percent="'+percent+'%"> <span class="percent"></span> </div> <a href=/project/'+project._id+' class="dash-demo-footer">More Info <i class="fa fa-chevron-circle-right"></i></a> </div> </div>' ;
+                    '<div class="col-lg-3 col-sm-6"> <a href=/project/'+project._id+' style="color:#fff;text-decoration:none;"><div class="tile '+color +' dash-demo-tile"> <h4>' + project.name + '</h4> <div class="easy-pie-chart" data-percent="'+percent+'%"> <span class="percent"></span> </div> <a href=/project/'+project._id+' class="dash-demo-footer">More Info <i class="fa fa-chevron-circle-right"></i></a> </div> </a></div>' ;
                         $('#current-project-row').append(div);
                     }
                     else
                     {
                         var div = 
-                        $('<div class="col-lg-3 col-sm-6"> <div class="tile '+color +' dash-demo-tile"> <h4>' + project.name + '<a class="reuse"><i class="fa fa-refresh fa-fw" style="float:right;"></i></a></h4> <div class="easy-pie-chart" data-percent="'+percent+'"> <span class="percent"></span> </div> <a name='+project.name+' href=/project/'+project._id+' class="dash-demo-footer">More Info <i class="fa fa-chevron-circle-right"></i></a> </div> </div>');
+                        $('<div class="col-lg-3 col-sm-6"><div class="tile '+color +' dash-demo-tile"> <h4>' + project.name + '<a class="reuse"><i class="fa fa-refresh fa-fw" style="float:right;"></i></a></h4> <div class="easy-pie-chart" data-percent="'+percent+'"> <span class="percent"></span> </div> <a name='+project.name+' href=/project/'+project._id+' class="dash-demo-footer">More Info <i class="fa fa-chevron-circle-right"></i></a> </div></div>');
                         $('.reuse', div).click(function(){
                             //console.log('restart project!');
                              $.ajax({
