@@ -1579,12 +1579,12 @@ a.google-plus-link:hover {
 /* -- Login Page Styles */
 
  .login {
-    background-color: #34495e;
+    background-color: #fff;
 }
 
 .login-banner {
     margin: 50px 0;
-    color: #fff;
+    color: #000;
 }
 
 .portlet .login-heading {
