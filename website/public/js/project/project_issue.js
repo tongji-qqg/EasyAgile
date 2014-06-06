@@ -36,7 +36,11 @@ $(function(){
 			var tableLine = $('<tr>');
 
 			var tableUnit1 = $('<td>',{'style':'width:10%;'}).appendTo(tableLine);
-			$('<img>',{'class':'img-circle','style':'width:50px;height:50px;','src':'/usericons/537861731cdab72904944d9e.jpg'}).appendTo(tableUnit1);
+			var icon;
+			if(i.finder.icon) icon = '/'+i.finder.icon;
+			else icon = '/usericons/default.jpg';
+			
+			$('<img>',{'class':'img-circle','style':'width:50px;height:50px;','src':icon}).appendTo(tableUnit1);
 			$('<h6>').text(i.finder.name).appendTo(tableUnit1);
 
 			var tableUnit2= $('<td>',{'style':'width:80%'}).appendTo(tableLine);

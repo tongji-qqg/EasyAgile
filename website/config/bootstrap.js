@@ -34,7 +34,8 @@ module.exports.bootstrap = function (cb) {
 	db = mongoose.connection;
   
     db.on('error', function (err) {
-        sails.log.error(err);
+        sails.log.error(err.message);
+        sails.log.error('Please check mongodb');
     });
 
     process.on('exit', function() {

@@ -21,10 +21,11 @@ var async = require('async');
 var _ = require('underscore');
 function renderViewWithProject(req, res, view){
   DataService.getProjectInfoById(req.params.pid, function(err, project){
-        if(err) res.view(view,{                
-          user:req.session.user,
-          project:{ _id: req.params.pid, cSprint: 0 }
-        });
+        // if(err) res.view(view,{                
+        //   user:req.session.user,
+        //   project:{ _id: req.params.pid, cSprint: 0 }
+        // });
+        if(err) res.render("404");
         else res.view(view,{
           user: req.session.user,
           project:project
@@ -43,7 +44,7 @@ function renderViewWithProjectAndFiles(req, res, view){
       })
     }
   ],function(err,project,files){
-      if(err) res.json(err);
+      if(err) res.render("404");
       else res.view(view,{
         user: req.session.user,
         project:project ,
@@ -63,7 +64,7 @@ function renderViewWithProjectAndTopics(req, res, view){
       })
     }
   ],function(err,project,topics){
-      if(err) res.json(err);
+      if(err) res.render("404");
       else res.view(view,{
         user: req.session.user,
         project:project ,
@@ -83,7 +84,7 @@ function renderViewWithProjectAndOneTopic(req, res, view){
       })
     }
   ],function(err,project,topic){
-      if(err) res.json(err);
+      if(err) res.render("404");
       else res.view(view,{
         user: req.session.user,
         project:project ,
@@ -125,7 +126,7 @@ function renderViewWithProjectAndTopicsFilesTasks(req, res, view){
     }
   ],function(err,project,topics, files, tasks){      
            
-      if(err) res.json(err);
+      if(err) res.render("404");
       else res.view(view,{
         user: req.session.user,
         project:project ,
@@ -215,7 +216,7 @@ module.exports = {
   userTask: function(req, res) {
       sails.log.verbose('Controller - api/controller/StaticController.userTask');      
       userService.getUserCurrentTaskInProject(req.session.user._id, function(err,p){
-        if(err) return res.json(err);
+        if(err) return res.render("404");
         res.view('user/user_task',{               
           user:req.session.user,                          
           'p':p,
