@@ -51,7 +51,7 @@ $(function(){
 			tableUnit2.append(i.description);
 
             var tableUnit3 = $('<td>',{'style':'width:10%'}).appendTo(tableLine);          
-			$('<input >',{'type':'checkbox','class':'issue','iid':i._id,'style':'margin-top:35px;'}).appendTo(tableUnit3);
+			$('<input >',{'type':'checkbox','class':'issue','iid':i._id,'style':'margin-top:35px;border-style:inset;'}).appendTo(tableUnit3);
 						
 			return tableLine;
 		}	
