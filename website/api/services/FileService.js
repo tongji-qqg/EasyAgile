@@ -211,36 +211,38 @@ exports.setUserIcon = function(selfuid, icon, callback){
 	                });  
     			} 
     			else
-    				callback(null);
+    				DataService.getUserById(selfuid, callback);
 			});
 		},
 
-		function(callback){
+		function(user, callback){
 			sails.log.verbose('save file'+icon);		
-			path += '/' + selfuid + '.' +icon.name.split('.').pop()
+
+			user.iconid = user.iconid || 0;
+			user.iconid++;
+			user.iconid = user.iconid % 10;
+
+			user.icon = 'usericons/'+selfuid+'_'+user.iconid+'.'+icon.name.split('.').pop();
+		
+			path = 'public/' + user.icon;
 	      	fs.readFile(icon.path, function (err, data) {
 		      if (err) {
 		        callback(ErrorService.makeDbErr(err));
 		      } else {
 		        fs.writeFile(path, data, function (err) {
 		          if (err) callback(ErrorService.makeDbErr(err));
-		          else callback(null);
+		          else callback(null, user);
 		        })
 		      }
 		    });
 		},
 		
-		function(callback){
-			DataService.getUserById(selfuid, function(err, user){
-				if(err)return  callback(err);
-				user.icon = 'usericons/'+selfuid+'.'+icon.name.split('.').pop();
-				user.iconid = user.iconid || 0;
-				user.iconid++;
-				user.save(function(err, result){
-					if(err) callback(ErrorService.makeDbErr(err));
-					else callback(null, DataService.makeUserInfo(result));
-				})
-			})
+		function(user ,callback){
+				
+			user.save(function(err, result){
+				if(err) callback(ErrorService.makeDbErr(err));
+				else callback(null, DataService.makeUserInfo(result));
+			})		
 		}
 	],callback);
 }

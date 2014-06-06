@@ -8,12 +8,10 @@ $(function(){
                 group:name
             },
             success: function(data){                
-                if(data.state === 'error')
+                if(data.state === 'error'){
                     alert('error! '+ data.message);
-                if(data.state === 'success')
-                {        
-                    $('body').trigger('loadProjectAjax');                    
                 }
+                $('body').trigger('loadProjectAjax');                                    
             }            
         });
     }
@@ -24,11 +22,13 @@ $(function(){
         });
         $("#btn-cancel-addgroup").click(function() {
             $("#form-addgroup").hide();
-            $("#link-addgroup").show();            
+            $("#link-addgroup").show();   
+            $('#groupName').val('');         
         });
         $('#btn-addgroup').click(function(){
             $("#form-addgroup").hide();
             $("#link-addgroup").show(); 
+            $('#groupName').val('');
             //alert($('#groupName').val())
             addGroupAjax($('#groupName').val());
         })        
@@ -48,11 +48,8 @@ $(function(){
             success: function(data){
                 //console.log(data.message);
                 if(data.state === 'error')
-                    alert('error! '+ data.message);
-                if(data.state === 'success')
-                {        
-                    $('body').trigger('loadProjectAjax');                    
-                }
+                    alert('error! '+ data.message);                
+                $('body').trigger('loadProjectAjax');                    
             }            
         });
     }
