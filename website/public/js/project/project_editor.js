@@ -177,7 +177,7 @@ $(function(){
 			}
 			if(pox_x > $(window).width())
 				return;
-			$('<img >',{'src':'/plugins/jQuery-Desktop/assets/images/icons/new/edit_64.png'})			
+			$('<img >',{'src':'/plugins/jQuery-Desktop/assets/images/icons/new/doc_64.png'})			
 				.appendTo(icon);
 			icon.append(e.name);
 			//////////////////////////////////////////////// desktop div
@@ -261,5 +261,10 @@ $(function(){
 });
 
 $(function(){
-	$('body').css('background-image','url("'+'/img/canvas_bg.jpg'+'")');
+	//$('body').css('background-image','url("'+'/img/canvas_bg.jpg'+'")');
+	$('body').css('background-color','#fff');
+
+
+
+
 })
