@@ -372,7 +372,7 @@ function init() {
             } else {
                 addTaskButton.on('click', function() {
 
-                    taskBootBox.addBox('创建任务到backlog &lt;' + backlog.title + '&gt;', backlog._id).modal('show');
+                    taskBootBox.addBox('创建任务到用户故事 &lt;' + backlog.title + '&gt;', backlog._id).modal('show');
                 });
             }
             addTaskButton.html('<i class="fa fa-plus"></i>');

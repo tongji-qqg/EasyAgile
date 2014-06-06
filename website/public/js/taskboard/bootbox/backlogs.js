@@ -54,7 +54,7 @@ var backlogBootBox = (function() {
 
 	function buildAddBox() {
 		var buttons = [{
-			label: "新建Backlog",
+			label: "新建用户故事",
 			className: "btn-primary pull-right",
 			callback: function() {
 				newBacklogAjax();
@@ -62,7 +62,7 @@ var backlogBootBox = (function() {
 				return false;
 			}
 		}, ];
-		var modal = createBootboxDialog('新建Backlog', addHtml, buttons);
+		var modal = createBootboxDialog('新建用户故事', addHtml, buttons);
 
 		initSlider(modal);
 
