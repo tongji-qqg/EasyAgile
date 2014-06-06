@@ -57,5 +57,4 @@ sprintSchema.pre('remove', function(next){
     );
 });
 */
-
 module.exports = mongoose.model('Sprint', sprintSchema);

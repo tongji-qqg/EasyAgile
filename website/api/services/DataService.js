@@ -26,7 +26,6 @@ var topicModel = require('../schemas/topicSchema');
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 var _  = require('underscore');
-var EventProxy = require('eventproxy');
 
 var getArrayIndexByObjectId = function (array, id) {
 	sails.log.verbose('getArrayIndexByObjectId ' + id);
@@ -101,87 +100,63 @@ exports.getProjectById = function(pid, callback){
 			});
 }
 
-var projectQueryState = 'ready';
+
 exports.getProjectInfoById = function(pid, callback){
-	var proxy = new EventProxy();
-	proxy.once('p_success',function(result){
-		proxy.removeListener();
-		callback(null, result);
-	})
-	proxy.once('p_error', function(err){
-		proxy.removeListener();
-		callback(err);
-	})
-	
-	if(projectQueryState === 'ready'){
-		projectQueryState = 'pending';
-		projectModel.findById(pid)
-					.where({'deleted': false})
-	                .populate('owner','_id name icon email iconid')                           
-	            	.populate('sprints','_id name description createTime backlogs tasks')
-	            	.populate('topics')
-		            .exec(function(err, result){
-						if(err){
-							projectQueryState = 'ready';
-							return proxy.emit('p_error',ErrorService.makeDbErr(err))//callback(ErrorService.makeDbErr(err));	
-						} 
-						if(result == null){
-							projectQueryState = 'ready'
-						 	return proxy.emit('p_error', ErrorService.projectNotFindError) //callback(ErrorService.projectNotFindError);
+	//console.log("call getProjectInfoById: "+ca);
+
+	var query = projectModel.findById(pid);	
+			query.where({'deleted': false})	
+                .populate('owner','_id name icon email iconid')                           
+            	.populate('sprints','_id name description createTime backlogs tasks')
+            	.populate('topics')
+	            .exec(function(err, result){
+					if(err){
+						//getProjectInfoByIdstate = 'ready';
+						//return proxy.emit('done_'+pid,ErrorService.makeDbErr(err))//callback(ErrorService.makeDbErr(err));	
+						return callback(ErrorService.makeDbErr(err));	
+					} 
+					if(result == null){
+						//getProjectInfoByIdstate = 'ready'
+					 	//return proxy.emit('done_'+pid, ErrorService.projectNotFindError) //callback(ErrorService.projectNotFindError);
+					 	return callback(ErrorService.projectNotFindError);
+					}
+					//else callback(null,result);
+					result.members.forEach(function(m){
+						if(!m.ref) m.ref = m._id;
+					})
+					userModel.populate(result.members, {path:'ref', select:'_id name icon email iconid'},function(err){
+						if(err){ 
+							//getProjectInfoByIdstate = 'ready';
+							//return proxy.emit('done_'+pid,ErrorService.makeDbErr(err)) //callback(ErrorService.makeDbErr(err));
+							return callback(ErrorService.makeDbErr(err));
 						}
-						//else callback(null,result);
-						result.members.forEach(function(m){
-							if(!m.ref) m.ref = m._id;
-						})
-						userModel.populate(result.members, {path:'ref', select:'_id name icon email iconid'},function(err){
-							if(err){ 
-								projectQueryState = 'ready';
-								return proxy.emit('p_error',ErrorService.makeDbErr(err)) //callback(ErrorService.makeDbErr(err));
-							}
-							else{
-								projectQueryState = 'ready';
-								return proxy.emit('p_success',result);
-								//return callback(null,result);		
-							} 
-						})
-					});
-	}
+						else{
+							//getProjectInfoByIdstate = 'ready';
+							//return proxy.emit('done_'+pid,null,result);
+							//return callback(null,result);		
+							//console.log("return getProjectInfoById: ",ca);
+							return callback(null,result);		
+						} 
+					})
+				});	
+
 }
 
-var state = 'ready';
-exports.getProjectTopicsById = function(pid, callback){
-	var proxy = new EventProxy();
-	proxy.once('pt_success',function(result){
-		proxy.removeListener();
-		callback(null, result);
-	})
-	proxy.once('pt_error', function(err){
-		proxy.removeListener();
-		callback(err);
-	})
-	if(state === 'ready'){
-		state = 'pending'
+exports.getProjectTopicsById = function(pid, callback){	
 		projectModel.findById(pid)
 				.where({'deleted': false})
                 .populate('topics')
 	            .exec(function(err, result){
-					if(err){
-						state = 'ready';
-					 	return proxy.emit('pt_error',ErrorService.makeDbErr(err)) //callback(ErrorService.makeDbErr(err));
+					if(err){						
+					 	return callback(ErrorService.makeDbErr(err));
 					}
-					if(result == null){
-						state = 'ready';
-						proxy.emit('pt_error',ErrorService.projectNotFindError);
-					 	//callback(ErrorService.projectNotFindError);
+					if(result == null){						
+					 	callback(ErrorService.projectNotFindError);
 					}
-					else {
-						state = 'ready';
-						proxy.emit('pt_success',result);
-						//callback(null,result);	
+					else {						
+						callback(null,result);	
 					}
-				});					
-	}
-	
+				});	
 }
 
 exports.isSprintInProject = function(project, sid){

@@ -91,30 +91,40 @@ function renderViewWithProjectAndOneTopic(req, res, view){
       })
   });
 }
+//var callid = 0;
 function renderViewWithProjectAndTopicsFilesTasks(req, res, view){
+  //var ca = callid++;
+  //var time = process.hrtime();
   async.waterfall([
     function(callback){
-      DataService.getProjectInfoById(req.params.pid, callback)
+      DataService.getProjectInfoById(req.params.pid, callback, true)
     },
     function(project, callback){
       topicService.getTopicListOfProject(null, req.params.pid, function(err, topics){
+        //var diff = process.hrtime(time);
+        //console.log(ca+ '. 1 took %d seconds and %d nanoseconds', diff[0], diff[1]);
         if(err) callback(err);
         else callback(null, project, topics);
       })
     },
     function(project, topics, callback){
       FileService.getFileListOfProject( req.params.pid, function(err, files){
+        //var diff = process.hrtime(time);
+        //console.log(ca+ '. 2 took %d seconds and %d nanoseconds', diff[0], diff[1]);
         if(err) callback(err);
         else callback(null, project, topics, files);
       })
     },
     function(project, topics, files, callback){
       taskService.getTasks(req.session.user._id, req.params.pid, project.cSprint, function(err, tasks){
+        //var diff = process.hrtime(time);
+        //console.log(ca+ '. 3 took %d seconds and %d nanoseconds', diff[0], diff[1]);
         if(err) res.json(err);
         else callback(null, project, topics, files, tasks);
       });
     }
-  ],function(err,project,topics, files, tasks){
+  ],function(err,project,topics, files, tasks){      
+           
       if(err) res.json(err);
       else res.view(view,{
         user: req.session.user,
@@ -124,6 +134,8 @@ function renderViewWithProjectAndTopicsFilesTasks(req, res, view){
         files: files.reverse().slice(0,10),
         tasks: tasks.reverse().slice(0,10)
       })
+      //var diff = process.hrtime(time);
+      //console.log(ca+ '. 4 took %d seconds and %d nanoseconds', diff[0], diff[1]);
   });
 }
 module.exports = {
@@ -202,13 +214,11 @@ module.exports = {
    */
   userTask: function(req, res) {
       sails.log.verbose('Controller - api/controller/StaticController.userTask');      
-      userService.getUserCurrentTaskInProject(req.session.user._id, function(err,lp, p,fp){
+      userService.getUserCurrentTaskInProject(req.session.user._id, function(err,p){
         if(err) return res.json(err);
         res.view('user/user_task',{               
-          user:req.session.user,                
-          'lp':lp,
+          user:req.session.user,                          
           'p':p,
-          'fp':fp
         })
       });
       //res.json({'lp':lp,'p':p,'fp':fp})
@@ -256,6 +266,8 @@ module.exports = {
       sails.log.verbose('Controller - api/controller/StaticController.projectMain '+ req.params.pid);      
       
       renderViewWithProjectAndTopicsFilesTasks(req, res, 'project/project_main');
+      
+      //renderViewWithProjectAndTopicsFilesTasks(req, res, 'mobile');
   },
 
   /**

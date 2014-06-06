@@ -4,4 +4,6 @@ process.env.NODE_ENV == 'production'
 if(process.env.NODE_ENV == 'production'){
 	require('posix').setrlimit('nofile', { soft: 10000 });
 }
-require('sails').lift({log:{level:'error'}});
+//do not use memcached, not improve performance
+//but reserve it here for future use
+require('sails').lift({log:{level:'error'},memcached:false});

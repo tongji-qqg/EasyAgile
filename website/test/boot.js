@@ -5,7 +5,7 @@ process.env.NODE_ENV = 'test';
 
 var Sails = require('sails');
 var pid = 'xxx';
-before(function(done) {			
+before(function(done) {	
 	Sails.lift({log:{level:'error'}, dbname:'easyagile'}, function(err, sails){
 		if(err) return done(err || 'Sails could not be instantiated.');    		  	
 		sails.localAppURL = localAppURL = ( sails.usingSSL ? 'https' : 'http' ) + '://' + sails.config.host + ':' + sails.config.port + '';

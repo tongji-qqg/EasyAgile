@@ -9,7 +9,7 @@ var validator = require('validator');
 var async = require('async');
 var crypto = require('crypto');
 var errorDef = require('./errorDefine');
-var EventProxy = require('eventproxy');
+
 
 exports.register = function(userInfo, callback){
 
@@ -74,9 +74,12 @@ exports.findUserByEmail = function(email, callback){
 
 exports.findUserLikeName = function(name, callback){
 	if(!name || name.trim=='') return callback(null, null);
-	var select = {};
+	var select = {};	
 	if(name) select = {name:new RegExp('\w*'+name+'\w*', "i")};
-	userModel.find(select , function(err, result){
+	var query = userModel.find(select)
+	if(process.env.memcached)
+		query.cache(false);
+	query.exec(function(err, result){
 		if(err) return callback(ErrorService.makeDbErr(err));
 		if(!result) return callback(ErrorService.userNotFindError);
 		else{			
@@ -213,8 +216,11 @@ exports.getUserPorjects = function(id, callback){
 
 exports.getUserAllTask = function(selfuid, callback){
 
-	taskModel.find({executer: selfuid})
-	         .exec(function(err, result){
+	var query = taskModel.find({executer: selfuid})
+	if(process.env.memcached)
+		query.cache(false)
+
+	    query.exec(function(err, result){
 	         	if(err) callback(ErrorService.makeDbErr(err));
 	         	else {
 	         		result.history = [];
@@ -226,8 +232,9 @@ exports.getUserAllTask = function(selfuid, callback){
 
 exports.getUserCurrentTask = function(selfuid, callback){
 
-	taskModel.find({executer: selfuid})
-			 .where('state').ne(1)
+	var query = taskModel.find({executer: selfuid})	
+	if(process.env.memcached)query.cache(false)		
+		query.where('state').ne(1)
 	         .exec(function(err, result){
 	         	if(err) callback(ErrorService.makeDbErr(err));
 	         	else {
@@ -237,28 +244,17 @@ exports.getUserCurrentTask = function(selfuid, callback){
 	         });	         
 };
 
-var state = 'ready';
+
 exports.getUserCurrentTaskInProject = function(selfuid, callback){
-	var proxy = new EventProxy();
-	proxy.once('uctp_success',function(result){
-		proxy.removeListener();
-		callback(null, lprojects,projects,fprojects);
-	})
-	proxy.once('uctp_error', function(err){
-		proxy.removeListener();
-		callback(err);
-	})
-	var lprojects = [];
-	var projects = [];
-	var fprojects = [];
-	if(state === 'ready'){
-		state = 'pending';
+	
 		async.waterfall([
 			function(callback){
 				exports.getUserCurrentTask(selfuid, callback);
 			},
 			function(tasks, callback){
-
+				var lprojects = [];
+				var projects = [];
+				var fprojects = [];
 				var query = [];
 				var now = new Date();
 				function makeQuery(task){ 
@@ -282,19 +278,12 @@ exports.getUserCurrentTaskInProject = function(selfuid, callback){
 						//sails.log.verbose(arr);
 					}
 					return function(callback){
-					sprintModel.findOne({'tasks': task._id},function(err,s){
+					sprintModel.findOne({'tasks': task._id}).exec(function(err,s){
 							if(err) return callback(ErrorService.makeDbErr(err));
 							if(!s) return callback(ErrorService.sprintNotFindError);
-							projectModel.findOne({'sprints':s._id}, function(err,p){
+							projectModel.findOne({'sprints':s._id}).exec(function(err,p){
 								if(err) return callback(ErrorService.makeDbErr(err));
-								if(!p) return callback(ErrorService.projectNotFindError);
-								/*if(task.deadline < now){
-									pushArray(lprojects, p);
-								} else if(task.startTime < now ) {
-									pushArray(projects, p);
-								}else{
-									pushArray(fprojects, p);
-								}*/
+								if(!p) return callback(ErrorService.projectNotFindError);								
 								if(!p.cSprint.equals(s._id)) return callback(null);
 								pushArray(projects, p);
 								callback(null);
@@ -309,16 +298,11 @@ exports.getUserCurrentTaskInProject = function(selfuid, callback){
 					
 					if(err) return callback(err);
 	 				else{
-						callback(null, lprojects, projects, fprojects);
+						callback(null, projects);
 					}
 				});	
 			}
-		],function(err){
-			state = 'ready';
-			if(err)proxy.emit('uctp_error');
-			else proxy.emit('uctp_success');
-		});
-	}
+		],callback);	
 }
 
 exports.getAllMessage = function(selfuid, callback){

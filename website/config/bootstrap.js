@@ -10,9 +10,32 @@
 
 module.exports.bootstrap = function (cb) {
 
-	var mongoose = require('mongoose');
-	var dbname = sails.config.dbname || 'easyagile'
-	mongoose.connect('mongodb://localhost/' + dbname+'?poolSize=200');
+	var mongoose = require('mongoose');	
+
+	var dbname = sails.config.dbname || 'easyagile'	
+	mongoose.connect('mongodb://localhost/' + dbname+'?poolSize=1000');
+
+	if(sails.config.memcached){
+		console.log('use memcached '+sails.config.memcached);
+		console.log('please make sure install and open memcached service');
+		var cache = require('mongoose-memcached');
+		var options = {
+		  cache: true, // disable caching for all modules by default 
+		  ttl: 30,       // set default time to live to be 30 seconds 
+		  memServers: 'localhost:11211', // memcached server
+		  memOptions: null 
+		};
+		cache(mongoose, options);
+		process.env.memcached = true;
+	}
+
+
+	db = mongoose.connection;
+  
+    db.on('error', function (err) {
+        sails.log.error(err);
+    });
+
 
 	process.env.port = sails.config.port;
 	process.env.host = sails.config.host;
