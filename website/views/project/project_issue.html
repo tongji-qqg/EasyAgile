@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Issues</title>
+    <title><%= project.name%>—Issues</title>
 
     <% include ../header.html%>
     <style type="text/css">
@@ -95,7 +95,7 @@
 
                                                     <div class="checkbox">
 
-                                                        <label><input type="checkbox" value="" style="margin-top:10px;">全选</label>
+                                                        <label><input type="checkbox" value="" style="margin-top:10px;border-style:inset;" onclick="selectAll(this)">全选</label>
                                                         <button id='closeIssueButton' class="btn btn-white" style="margin-left:48px;">close</button>
                                                      </div>
 
@@ -167,6 +167,20 @@
     
     function newIssue(){
       $('#textArea').focus();
+    }
+
+    function selectAll(o){
+      var member = document.getElementsByTagName("input");
+      for(var i=0;i<member.length;i++)
+      {
+          if(member[i].type=="checkbox")
+        {
+           if(o.checked==true)
+              member[i].checked=true;
+           else if(o.checked==false)
+              member[i].checked=false;
+        }
+      }
     }
     </script>
     <script src="/js/project/project_issue.js"></script>
