@@ -14,6 +14,18 @@
     .fa:hover{
         cursor: pointer;
     }
+    .btn-white:hover{
+      background-color: #fcf8e3;
+      border-color:#faebcc;
+    }
+    .btn-white{
+      border-color:#dcdcdc;
+    }
+    .btn-white:focus, .btn-white.active, .open .dropdown-toggle.btn-white{
+      background-color: #fcf8e3;
+      color:#000;
+      border-color:#dcdcdc;
+    }
     </style>
 
 </head>
@@ -70,12 +82,12 @@
                                                <th style="width:100%;">
                                                    <div style="width:160px;display:inline-block;vertical-align:middle;">
                                                        <div class="btn-group btn-group-justified">
-                                                            <a id="openIssue" class="btn btn-white" role="button" style="background-color:#fcf8e3;border-color:#faebcc">OPEN</a>
+                                                            <a id="openIssue" class="btn btn-white" role="button" style="background-color:#fffacd;border-color:#faebcc">OPEN</a>
                                                             <a id="closeIssue" class="btn btn-white" role="button">CLOSED</a>
                                                        </div>
                                                   </div>
                                                   <div class="btn-group" style="margin-left:135px;">
-                                                      <button type="button" class="btn btn-white">排序</button>
+                                                      <button type="button" class="btn btn-white"><span id="sortBtn">排序</span></button>
                                                       <button type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown">
                                                            <span class="caret"></span>
                                                            <span class="sr-only">Toggle Dropdown</span>
@@ -152,18 +164,7 @@
 
     <% include ../footer.html %>
     <script>
-    function openClick(){
-      $('#openIssue').css("background-color","#dff0d8");
-      $('#openIssue').css("border-color","#d6e9c6");
-      $('#closeIssue').css("background-color","#fff");
-      $('#closeIssue').css("border-color","adadad");
-    }
-    function closeClick(){
-      $('#openIssue').css("background-color","#fff");
-      $('#openIssue').css("border-color","adadad");
-      $('#closeIssue').css("background-color","#dff0d8");
-      $('#closeIssue').css("border-color","#d6e9c6");
-    }
+   
     
     function newIssue(){
       $('#textArea').focus();

@@ -72,10 +72,12 @@ $(function(){
 	$('#sort-a').click(function(){
 		sort_order = false;
 		$('body').trigger('loadIssue');
+		$('#sortBtn').text('最新');
 	})
 	$('#sort-d').click(function(){
 		sort_order = true;
 		$('body').trigger('loadIssue');
+		$('#sortBtn').text('最早');
 	})
 });
 
@@ -113,19 +115,15 @@ $(function(){
 	function openClick(){
 		g_type = false;
 		$('#closeIssueButton').prop("disabled", false);
-		$('#openIssue').attr('style',"background-color:#fcf8e3;");
-		$('#openIssue').attr('style',"border-color:#faebcc;");
-		$('#closeIssue').attr('style',"background-color:white;");
-		$('#closeIssue').attr('style',"border-color:#adadad;");
+		$('#openIssue').attr('style',"background-color:#fffacd;border-color:#faebcc;");
+		$('#closeIssue').attr('style',"background-color:white;border-color:#dcdcdc;");
 		$('body').trigger('loadIssue');
 	}
 	function closeClick(){
 		g_type = true;
 		$('#closeIssueButton').prop("disabled", true);
-		$('#closeIssue').attr('style',"background-color:#fcf8e3;");
-		$('#closeIssue').attr('style',"border-color:#faebcc;");
-		$('#openIssue').attr('style',"background-color:white;");
-		$('#openIssue').attr('style',"border-color:#adadad;");
+		$('#closeIssue').attr('style',"background-color:#fffacd;border-color:#faebcc;");
+		$('#openIssue').attr('style',"background-color:white;border-color:#dcdcdc;");
 		$('body').trigger('loadIssue');
 	}
 	$('#openIssue').click(openClick);
