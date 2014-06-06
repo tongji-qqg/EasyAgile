@@ -14,12 +14,45 @@
 
     <!-- Add custom CSS here -->
     <link href="/css/modern-business.css" rel="stylesheet">
-    <link href="/icons/font-awesome/css/font-awesome.min.css" rel="stylesheet">    
+    <link href="/icons/font-awesome/css/font-awesome.min.css" rel="stylesheet">  
+
+    <style type="text/css">
+    #login-link{
+        color:#000;
+        background-color:#f8f8ff;
+        height:32px;
+        margin-top:9px;
+        padding-top:5px;
+    }
+    #reg-link{
+        color:#000;
+        background-color:#f8f8ff;
+        height:32px;
+        margin-top:9px;
+        padding-top:5px;
+        margin-left:10px;
+    }
+    #login-link:hover{
+        background-color: #fff;
+        border-color: #e1e1e1;
+    }
+    #reg-link:hover{
+        background-color: #fff;
+        border-color: #e1e1e1;
+    }
+    .btn{
+        background-color:#add8e6;border-color:#bce8f1;color:#000;
+    }
+    #loginBtn:hover{
+        background-color: #e1e1e1;
+        border-color:#dcdcdc;
+    }
+    </style>  
 </head>
 
 <body>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top nav-top-color" role="navigation">
+    <nav class="navbar navbar-inverse navbar-fixed-top nav-top-color" role="navigation" style="background-color:#add8e6;border-color:#bce8f1;">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -29,15 +62,15 @@
                     <span class="icon-bar"></span>
                 </button>
                 <!-- You'll want to use a responsive image option so this logo looks good on devices - I recommend using something like retina.js (do a quick Google search for it and you'll find it) -->
-                <a class="navbar-brand" href="/">EasyAgile</a>
+                <a class="navbar-brand" href="/" style="color:#000;"><img src="/img/flex-admin-logo.png" class="img-responsive" style="height:25px; width:120px"></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/">首页</a>
+                <ul class="nav navbar-nav navbar-right" >
+                    <li><a href="/" style="color:#000;">首页</a>
                     </li>
-                    <li><a href="/mobile">移动版</a>
+                    <li ><a href="/mobile" style="color:#000;">移动版</a>
                     </li>
 
                     <% if(user) {%>    
@@ -47,9 +80,9 @@
                         </a>
                     </li>                              
                     <% } else { %>
-                    <li><a id="login-link" class='btn  btn-primary' style='color:white' href="login">登陆</a>
+                    <li><a id="login-link" class='btn  btn-primary' href="login">登陆</a>
                     </li>                    
-                    <li><a id="reg-link" class='btn  btn-success' style='color:white' href="reg">注册</a>
+                    <li><a id="reg-link" class='btn  btn-success' href="reg">注册</a>
                     </li>                    
                     <% } %>
                 </ul>
@@ -80,13 +113,13 @@
                 </div>
             </div>
             <div class="item">
-                <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Two');"></div>
+                <div class="fill" style="background-color:#f5f5f5;');"></div>
                 <div class="carousel-caption">
                     <h1>Ready to Style &amp; Add Content</h1>
                 </div>
             </div>
             <div class="item">
-                <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Three');"></div>
+                <div class="fill" style="background-color:#f5f5f5;"></div>
                 <div class="carousel-caption">
                     <h1>Additional Layout Options at <a href="http://startbootstrap.com">http://startbootstrap.com</a>
                     </h1>
@@ -138,7 +171,7 @@
 
 
 
-    <div class="section-colored">
+    <div class="section-colored color1">
 
         <div class="container">
 
@@ -167,7 +200,7 @@
     </div>
     <!-- /.section-colored -->
 
-    <div class="section">
+    <div class="section-colored color2">
 
         <div class="container">
 
@@ -192,7 +225,7 @@
     </div>
     <!-- /.section -->
     
-    <div class="section-colored">
+    <div class="section-colored color3">
 
         <div class="container">
 
@@ -219,7 +252,7 @@
     <!-- /.section-colored -->
 
 
-    <div class="section">
+    <div class="section-colored color4">
 
         <div class="container">
 
@@ -253,7 +286,7 @@
                 <p>用手机接收查看通知，实时掌握项目进展，浏览任务。</p>
             </div>
             <div class="col-lg-4 col-md-4">
-                <a class="btn btn-lg btn-primary pull-right" href="mobile.html">点击下载</a>
+                <a class="btn btn-lg btn-primary pull-right" href="mobile.html" style="background-color:white">点击下载</a>
             </div>
         </div>
         <!-- /.row -->

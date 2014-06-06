@@ -40,7 +40,7 @@ a:focus {
 
 @media(min-width:768px) {
     body {
-        background: #f8f8ff;        
+        background: #fff;        
     }
 }
 
@@ -1577,10 +1577,6 @@ a.google-plus-link:hover {
 }
 
 /* -- Login Page Styles */
-
- .login {
-    background-color: #f8f8ff;
-}
 
 .login-banner {
     margin: 50px 0;
