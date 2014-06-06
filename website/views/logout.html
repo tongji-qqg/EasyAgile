@@ -1,7 +1,11 @@
 <!-- Logout Notification Box -->
     <div id="logout">
         <div class="logout-message">
-            <img class="img-circle img-logout" src="/img/profile-pic.jpg" alt="">
+            <%if(user.icon){%>
+            <img class="img-circle img-logout" src="/<%=user.icon%>" alt="">
+            <%}else{%>
+            <img class="img-circle img-logout" src="/usericons/default.jpg" alt="">
+            <%}%>
             <h3>
                 <i class="fa fa-sign-out text-green"></i> 确认退出
             </h3>
