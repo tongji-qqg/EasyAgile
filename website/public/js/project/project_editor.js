@@ -177,7 +177,12 @@ $(function(){
 			}
 			if(pox_x > $(window).width())
 				return;
-			$('<img >',{'src':'/plugins/jQuery-Desktop/assets/images/icons/new/doc_64.png'})			
+			var ext = getFileExtension(e.name);
+			if( ext === '')
+				$('<img >',{'src':'/plugins/jQuery-Desktop/assets/images/icons/new/doc_64.png'})			
+				.appendTo(icon);
+			else
+				$('<img >',{'src':('/plugins/jQuery-Desktop/assets/images/icons/new/'+ext+'_64.png')})			
 				.appendTo(icon);
 			icon.append(e.name);
 			//////////////////////////////////////////////// desktop div
@@ -253,6 +258,18 @@ $(function(){
 			for(var i=0;i<recognizeExtensions.length;i++)
 				if(recognizeExtensions[i] === ext)
 					return recognizeMode[i];
+			return '';
+		}    		
+    	else 
+    		return '';
+	}
+	function getFileExtension(file){
+		var arrfn = file.split(".");  
+		if(arrfn.length > 1){
+			var ext = arrfn[arrfn.length - 1];
+			for(var i=0;i<recognizeExtensions.length;i++)
+				if(recognizeExtensions[i] === ext)
+					return ext;
 			return '';
 		}    		
     	else 
