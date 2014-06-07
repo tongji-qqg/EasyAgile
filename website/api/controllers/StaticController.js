@@ -25,7 +25,7 @@ function renderViewWithProject(req, res, view){
         //   user:req.session.user,
         //   project:{ _id: req.params.pid, cSprint: 0 }
         // });
-        if(err) res.render("404");
+        if(err) res.render("500",err);
         else res.view(view,{
           user: req.session.user,
           project:project
@@ -44,7 +44,7 @@ function renderViewWithProjectAndFiles(req, res, view){
       })
     }
   ],function(err,project,files){
-      if(err) res.render("404");
+      if(err) res.render("500",err);
       else res.view(view,{
         user: req.session.user,
         project:project ,
@@ -64,7 +64,7 @@ function renderViewWithProjectAndTopics(req, res, view){
       })
     }
   ],function(err,project,topics){
-      if(err) res.render("404");
+      if(err) res.render("500",err);
       else res.view(view,{
         user: req.session.user,
         project:project ,
@@ -84,7 +84,7 @@ function renderViewWithProjectAndOneTopic(req, res, view){
       })
     }
   ],function(err,project,topic){
-      if(err) res.render("404");
+      if(err) res.render("500",err);
       else res.view(view,{
         user: req.session.user,
         project:project ,
@@ -126,7 +126,7 @@ function renderViewWithProjectAndTopicsFilesTasks(req, res, view){
     }
   ],function(err,project,topics, files, tasks){      
            
-      if(err) res.render("404");
+      if(err) res.render("500",err);
       else res.view(view,{
         user: req.session.user,
         project:project ,
@@ -216,7 +216,7 @@ module.exports = {
   userTask: function(req, res) {
       sails.log.verbose('Controller - api/controller/StaticController.userTask');      
       userService.getUserCurrentTaskInProject(req.session.user._id, function(err,p){
-        if(err) return res.render("404");
+        if(err) return res.render("500",err);
         res.view('user/user_task',{               
           user:req.session.user,                          
           'p':p,

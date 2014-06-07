@@ -42,8 +42,11 @@ module.exports = function validateURLID(request, response, next) {
             next();            
         }else{
             sails.log.warn("validateURLID Error");
-            response.json(ErrorService.wrongURLID);
-        }
+            var type = request.accepts('json','html');
+            if(type === 'html') response.view('404');
+            else response.json(ErrorService.wrongURLID);
+        }        
+        
     // Check that current user has access to specified project
     
 };

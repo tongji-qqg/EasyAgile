@@ -53,8 +53,10 @@ module.exports = {
     */
     logout: function(req, res) {
         sails.log.verbose('Controller - api/controller/AuthController.logout');
+        AuthService.tryToForget(req.cookies.uid);
         req.session.user = null;  
-
+        res.clearCookie("remember_me");
+        res.clearCookie("uid");        
         res.redirect('/');
     },
 
@@ -82,7 +84,12 @@ module.exports = {
             }
             else{
                 //sails.log.info(result);
-                req.session.user = result;
+                req.session.user = result;                
+                if(req.body.remember){                    
+                    AuthService.tryToRemember(req, res, result._id);
+                }                    
+                else
+                    res.cookie.expires = false;
                 res.redirect('/user/'+result._id);
             }
          });

@@ -11,59 +11,39 @@
 
 var async = require("async");
 var randomstring = require("randomstring");
-
+var month = 30 * 24 * 60 * 60 * 1000;
 // Remember me tokens, that are valid for single server instance
-var tokens = {};
+var tokens = {}; //uid -- token
+var REMEMBER_TIME = month;
 
-/**
- * Service method to consume single user remember me token.
- *
- * @param   {String}    token   Token to consume
- * @param   {Function}  next    Callback function to return
- *
- * @returns {*}
- */
-exports.consumeRememberMeToken = function(token, next) {
-    var uid = tokens[token];
 
-    // invalidate the single-use token
-    delete tokens[token];
+exports.tryToForget = function(uid){    
+    if(uid){
+        uid = uid.toString;        
+        delete tokens[uid];         
+    }        
+}
 
-    return next(null, uid);
-};
+exports.tryToRemember = function(req, res, uid){
+    uid = uid.toString();    
 
-/**
- * Service method to save given user id to specified token.
- *
- * @param   {String}    token   Token to be save
- * @param   {Number}    uid     User id which is assigned to given token
- * @param   {Function}  next    Callback function
- *
- * @returns {*}
- */
-exports.saveRememberMeToken = function(token, uid, next) {
-    tokens[token] = uid;
-
-    return next();
-};
-
-/**
- * Service method to issue new remember me token for specified user.
- *
- * @param   {sails.model.user}  user    User object
- * @param   {Function}          next    Callback function
- */
-exports.issueToken = function(user, next) {
     var token = randomstring.generate(64);
+    tokens[uid] = token;    
 
-    AuthService.saveRememberMeToken(token, user.id, function(error) {
-        if (error) {
-            return next(error);
-        }
+    res.cookie('remember_me', token, { maxAge: REMEMBER_TIME, httpOnly: true });
+    res.cookie('uid',   uid, { maxAge: REMEMBER_TIME, httpOnly: true });
+}
 
-        return next(null, token);
-    });
-};
+exports.tryToRecall = function(req, res, callback){
+    var cToken  = req.cookies.remember_me;
+    var cUid    = req.cookies.uid;
+    
+    if(tokens[cUid] && tokens[cUid] === cToken){               
+        exports.tryToRemember(req, res, cUid);
+        DataService.getUserById(cUid, callback);       
+    }
+    else callback('not find');
+}
 
 /**
  * Service method to issue new remember me token for specified user.

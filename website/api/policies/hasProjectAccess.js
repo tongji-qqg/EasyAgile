@@ -26,7 +26,9 @@ module.exports = function hasProjectAccess(request, response, next) {
     // Check that current user has access to specified project
     AuthService.hasProjectAccess(uid, pid, function(error, hasRight) {
         if (error) { // Error occurred
-            response.json(error);
+            var type = request.accepts('json','html');
+            if(type === 'html') response.view('403');
+            else response.json(error);
         }
         else { // Otherwise all is ok
             sails.log.verbose("hasProjectAccess OK");
