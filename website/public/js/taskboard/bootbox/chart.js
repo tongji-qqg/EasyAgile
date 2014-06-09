@@ -3,7 +3,9 @@ var chartBootBox = (function(){
 	function initBurndownData(elementName){
 		if(g_sprint.burndown.length == 0) return;
 		var data = [];
-		var total = g_sprint.burndown[0].remain;
+		var total = 0;
+		for(var i=0;i<g_sprint.tasks.length;i++)
+			total += g_sprint.tasks[i].estimate;
 		
 		var days = moment(g_sprint.endTime).diff(moment(g_sprint.startTime),'days');
 		var dayWork = total / days;		
@@ -22,11 +24,11 @@ var chartBootBox = (function(){
 					break;
 				}
 			}
-						
+			if(remain) remain = remain.toFixed(2);
 			return {
 				d: formatedDate,
 				Should: total.toFixed(2),
-				real: remain.toFixexd(2)
+				real: remain
 			}
 		}
 		////////////////////////////////////////////////////////

@@ -44,6 +44,11 @@ jQuery(document).ready(function() {
             return false;
         }
 
+        if(password !== repeatpassword){
+            bootbox.alert('password not match')
+            return false;
+        }
+
         $.ajax({
             type: 'POST',
             url: '/reg',

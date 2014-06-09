@@ -17,7 +17,10 @@
 
 */
 
- body {
+ body {    
+    min-height:100%;
+    height:100%;
+    background: url(/img/canvas_bg.jpg) repeat;
     font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
@@ -40,7 +43,7 @@ a:focus {
 
 @media(min-width:768px) {
     body {
-        background: #fff;        
+        background: url(/img/canvas_bg.jpg) repeat;        
     }
 }
 
@@ -133,7 +136,7 @@ a:focus {
     color: rgba(255,255,255,0.7);
 }
 .text-yellow{
-	color: #239cc5;
+    color: #239cc5;
 }
 
 /* Wrappers
@@ -153,6 +156,7 @@ a:focus {
 
 #wrapper {
     width: 100%;
+    min-height: 100%;    
 }
 
 #page-wrapper {
@@ -160,6 +164,7 @@ a:focus {
     border: none;
     /*background-color: #ecf0f1;*/
     margin-bottom: 30px;
+    height: auto;
     min-height: 100%;
     background: url(/img/canvas_bg.jpg) repeat;
 }
@@ -169,7 +174,7 @@ a:focus {
         margin: 50px 0 0 225px;
         padding: 0 30px;
         height: auto;
-        min-height: 100%;
+        min-height: 90%;      
         /*border-left: 1px solid #2c3e50;*/
     }
 
@@ -572,8 +577,7 @@ a:focus {
 .navbar-side .nav-search button {
     position: absolute;
     top: 15px;
-    right: 5px;
-    background-color: transparent;
+    right: 5px;    
 }
 
 .navbar-side .nav-search .btn:focus,
@@ -666,7 +670,7 @@ a:focus {
     }
 
     .navbar-side ul.side-nav {
-        background-color: transparent;
+        background-color: #fff;
     }
 
     .navbar-side .side-nav > li > a {
