@@ -18,6 +18,13 @@
     .deleteButton:hover{
         color: #CCC;
     }
+    .message{
+        width: 80%;
+        margin-left: 20px;
+    }
+    .well{
+        margin-top: 5px;
+    }
     </style>
 
 </head>
@@ -39,59 +46,41 @@
         <div id="page-wrapper">
 
             <div class="page-content">
-
-            <!-- Basic Form Example -->
-            <div class="col-lg-12" style="margin-top:20px;">
-
-                <div class="portlet portlet-default" style="border-style:none;"> 
-
-                    <div id="basicFormExample" class="panel-collapse collapse in">
-                        <div class="portlet-body">                   
-                            <!-- begin PAGE TITLE ROW -->
-                            <div class="row">
-                                <div class="col-lg-12">
-                                   <div class="page-title">
-                                       <h1>
-                                        所有通知
-                                        <small></small>
-                                        <button id='delete-all-alert-button' type="button" class="btn btn-white" style="float:right;margin-right:10px;">删除全部</button>
-                                       </h1>
-                                   </div>
-                               </div>
-                               <!-- /.col-lg-12 -->
-                            </div>
-                            <!-- /.row -->
-                            <!-- end PAGE TITLE ROW --> 
-                            <div id='alerts-div'>
-                                <div class="message">
-                                    <h6 style="color:#CCC;">2014年5月15日</h6> 
-                                    <div class="well" style="color:#3c763d;background-color:#dff0d8;border-color:#d6e9c6; ">
-                                        <div class="messageContent" style="width:93%;display:inline-block;">
-                                        <p > 
-                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. 
-                                        </p>
-                                        </div>
-                                        <button class="deleteButton fa fa-trash-o"  style="margin-top:-10px;float:right;background-color:transparent;border:none;"></button>                            
-                                    </div>
-                                </div>           
-                            </div>                
-                            <div class="modal-footer">
-                                <ul id='user_alerts_pages' class="pagination">          
-                               </ul>            
-                            </div>
-                        </div>
-                     </div>
+                                 
+                <!-- begin PAGE TITLE ROW -->
+                <div class="row">
+                    <div class="col-lg-12">
+                       <div class="page-title">
+                           <h1>
+                            所有通知
+                            <small></small>
+                            <button id='delete-all-alert-button' type="button" class="btn btn-white" style="float:right;margin-right:10px;">删除全部</button>
+                           </h1>
+                       </div>
+                   </div>
+                   <!-- /.col-lg-12 -->
                 </div>
-                <!-- /.portlet -->
-            </div>
-            <!-- /.col-lg-12 (nested) -->
-            <!-- End Basic Form Example -->
-
-
-   
-
-            </div>
-            <!-- /.page-content -->
+                <!-- /.row -->
+                <!-- end PAGE TITLE ROW --> 
+                
+                    <div id='alerts-div' style='background-color:white;padding-bottom:20px;'>
+                        <div class="message">
+                            <h6 style="color:#CCC;">2014年5月15日</h6> 
+                            <div class="well" style="color:#3c763d;background-color:#dff0d8;border-color:#d6e9c6; ">
+                                <div class="messageContent" style="width:93%;display:inline-block;">
+                                <p > 
+                                Anim 
+                                </p>
+                                </div>
+                                <button class="deleteButton fa fa-trash-o"  style="margin-top:-10px;float:right;background-color:transparent;border:none;"></button>                            
+                            </div>
+                        </div>           
+                    </div>                
+                    <div class="modal-footer">
+                        <ul id='user_alerts_pages' class="pagination">          
+                       </ul>            
+                    </div>                        
+                </div>
 
         </div>
         <!-- /#page-wrapper -->
