@@ -13,6 +13,9 @@ var chartBootBox = (function(){
 		function formatDate(date){
 			return date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
 		}
+		function isFloat(n) {
+		    return n === +n && n !== (n|0);
+		}
 		function generateData(date){
 			var formatedDate = formatDate(date);
 			total-=dayWork;
@@ -24,7 +27,7 @@ var chartBootBox = (function(){
 					break;
 				}
 			}
-			if(remain) remain = remain.toFixed(2);
+			if(remain && isFloat(remain)) remain = remain.toFixexd(2);			
 			return {
 				d: formatedDate,
 				Should: total.toFixed(2),
