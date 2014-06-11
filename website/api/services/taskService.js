@@ -5,7 +5,7 @@ var taskModel = require('../schemas/taskSchema');
 var async = require('async');
 
 function makeWhatOfHistory(arr, what){
-	if(what) arr.push(what);
+	arr.push(what);
 }
 
 exports.createTask = function(selfuid, pid, sid, taskInfo, callback){

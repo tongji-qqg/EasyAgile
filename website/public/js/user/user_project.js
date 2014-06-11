@@ -95,6 +95,7 @@ function loadProjects(){
                     data.tasks.forEach(function(t){
                         if(t.state == 1) finish ++;
                     })
+                    if(project.name.length > 20) project.name = project.name.slice(0,20) + ' ...';
                     if(total != 0)
                     percent = finish * 100 / total ;  
                     //alert('total '+total+' finish '+finish)     
@@ -102,7 +103,7 @@ function loadProjects(){
                     if(!project.done)
                     {
                         var div = 
-                    '<div class="col-lg-3 col-sm-6"> <a href=/project/'+project._id+' style="color:#fff;text-decoration:none;"><div class="tile '+color +' dash-demo-tile"> <h4>' + project.name + '</h4> <div class="easy-pie-chart" data-percent="'+percent+'%"> <span class="percent"></span> </div> <a href=/project/'+project._id+' class="dash-demo-footer">More Info <i class="fa fa-chevron-circle-right"></i></a> </div> </a></div>' ;
+                    '<div class="col-lg-3 col-sm-6"> <a href=/project/'+project._id+' style="color:#fff;text-decoration:none;" ><div class="tile '+color +' dash-demo-tile  project_div_class"> <h4>' + project.name + '</h4> <div class="easy-pie-chart" data-percent="'+percent+'%"> <span class="percent"></span> </div> <a href=/project/'+project._id+' class="dash-demo-footer">More Info <i class="fa fa-chevron-circle-right"></i></a> </div> </a></div>' ;
                         $('#current-project-row').append(div);
                     }
                     else

@@ -45,9 +45,14 @@ exports.createProject = function(selfuid, name, des, cb){
 		},
 
 		function(user, project, callback){
+			var today = new Date();
+			var end   = new Date();
+			end = end.setDate(end.getDate()+7);
 			sprintService.createSprint(selfuid, project._id, {
 				name: 'sprint 1',
-				description: 'first sprint',				
+				description: 'first sprint',	
+				startTime: today,
+				endTime:end
 			}, function(err, result){
 				if(err) callback(ErrorService.makeDbErr(err));
 				else{ 
@@ -56,7 +61,7 @@ exports.createProject = function(selfuid, name, des, cb){
 					project.save(function(err){
 						if(err) callback(ErrorService.makeDbErr(err));
 						else callback(null, project);
-					})					
+					})
 				}
 			});
 		}
