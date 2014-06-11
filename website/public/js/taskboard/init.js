@@ -37,7 +37,8 @@ function init() {
         socket.get('/API/p/'+pid+'/s/'+sid+'/sub',null,function(){});
         socket.on('sprint',function updateSprint(message){
             //alert('update sprint '+ message.what);
-            if(message.sid === sid)
+            if(message.sid === sid  && message.uid !== uid)
+            //if(message.sid === sid )
                 loadSprint();
         });
         socket.on('sprintDelete',function updateSprint(message){

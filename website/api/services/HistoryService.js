@@ -71,8 +71,6 @@ exports.getProjectHistory = function(selfuid, pid, callback){
 
 exports.getProjectHistoryFromTo = function(selfuid, pid, from, to, callback){
 	DataService.getProjectById(pid, function(err, project){
-		console.log(from);
-		console.log(to);
 		if(err) return callback(err);
 		if(isNaN(from) || isNaN(to))  return callback(ErrorService.paramRangeError);
 		if(from < 0 || from > project.history.length) return callback(ErrorService.paramRangeError);

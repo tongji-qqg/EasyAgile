@@ -22,7 +22,12 @@ var sprintBootBox = (function() {
 			.on("show", function(event) { // Fix z-index of datepicker
 				//jQuery(".datepicker").css("z-index", parseInt(jQuery(this).closest(".modal").css("z-index"), 10) + 1);
 			})
-			.on("changeDate", function(event) {});
+			.on("changeDate", function(event) {
+				if(!event.date)return;
+				var startDate = new Date(event.date.valueOf());
+				startDate.setDate(startDate.getDate()+1);
+				containerEnd.bootstrapDP('setStartDate',startDate);
+			});
 
 		containerEnd.bootstrapDP({
 			format: "yyyy-mm-dd",
@@ -32,7 +37,11 @@ var sprintBootBox = (function() {
 			.on("show", function(event) { // Fix z-index of datepicker
 				//jQuery(".datepicker").css("z-index", parseInt(jQuery(this).closest(".modal").css("z-index"), 10) + 1);
 			})
-			.on("changeDate", function(event) {});
+			.on("changeDate", function(event) {
+				if(!event.date)return;
+				var endDate = new Date(event.date.valueOf());
+				containerStart.bootstrapDP('setEndDate',endDate);
+			});
 	}
 
 	function addSprintAjax() {
