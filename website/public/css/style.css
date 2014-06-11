@@ -272,11 +272,12 @@ a:focus {
     float: left;
 }
 
-.navbar-top>.nav-top>ul.navbar-right>li {
+.navbar-top>.nav-top>ul.navbar-right>li {        
     margin-right: 5px;
 }
 
 .navbar-top>.nav-top>ul.navbar-right>li:last-child {
+    float: right;
     margin-right: 0;
 }
 
@@ -305,13 +306,13 @@ a:focus {
 }
 
 .navbar-top .dropdown-alerts {
-    left: -60px;
+    left: -15px;
     min-width: 280px;
     border-color: #f9ce89;
 }
 
 .navbar-top .dropdown-tasks {
-    left: -119px;
+    left: -70px;
     min-width: 280px;
     border-color: #94c0dc;
 }
