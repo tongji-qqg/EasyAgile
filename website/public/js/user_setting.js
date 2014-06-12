@@ -6,7 +6,7 @@ $(function() {
 
 			if (!validateIcon(file.name)) return;
 			if (file.size > 5000000) {
-				alert('file size should less than 5M');
+				bootbox.alert('file size should less than 5M');
 				return;
 			}
 			//Your validation
@@ -26,7 +26,7 @@ $(function() {
 					//Ajax events		 
 					success: function(data) {
 						if (data.state == 'error')
-							alert(data.message);
+							bootbox.alert(data.message);
 						else {
 							$('#userSettingIcon').attr("src", '/' + data.user.icon);
 							$('#userIconSidenav').attr("src", '/' + data.user.icon);
@@ -102,7 +102,7 @@ $(function() {
 		}
 
 		if (!isValidFile) {
-			alert('Allowed Extensions are : *.' + allowedExtension.join(', *.'));
+			bootbox.alert('Allowed Extensions are : *.' + allowedExtension.join(', *.'));
 		}
 
 		return isValidFile;
@@ -134,7 +134,8 @@ $(function() {
 		var birthday = $('#userSettingBirthday').val();
 		var phone = $('#user-tel-input').val();
 		if (!name || name.length < 1) {
-			alert('name can not less than 1');
+			bootbox.alert('name can not less than 1');
+			return;
 		}
 		$.ajax({
 			type: 'PUT',
@@ -148,7 +149,7 @@ $(function() {
 			success: function(data) {
 
 				if (data.state === 'error')
-					alert('error! ' + data.message);
+					bootbox.alert('error! ' + data.message);
 				if (data.state === 'success') {
 					window.location.reload();
 				}
@@ -174,9 +175,9 @@ $(function() {
 			success: function(data) {
 
 				if (data.state === 'error')
-					alert('error! ' + data.message);
+					bootbox.alert(data.message);
 				if (data.state === 'success') {
-					alert('success');
+					bootbox.alert('success');
 				}
 			}
 		});

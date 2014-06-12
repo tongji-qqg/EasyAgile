@@ -17,7 +17,7 @@ $(function() {
             success: function(data){
 
                 if(data.state === 'error')
-                    alert('error! '+ data.message);
+                    bootbox.alert('error! '+ data.message);
                 if(data.state === 'success') {
                 	var cssName = ['fc-green', 'fc-orange', 'fc-blue','fc-red','fc-purple','fc-default','fc-white'];
                 	var option = {

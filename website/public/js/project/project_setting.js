@@ -13,9 +13,9 @@ $(function(){
             success: function(data){
 
 	                if(data.state === 'error')
-	                    alert('error! '+ data.message);
+	                    bootbox.alert(data.message);
 	                if(data.state === 'success') {
-	                	alert('success');                               
+	                	bootbox.alert('success');                               
 	                    $('body').trigger('loadProjectSetting');
 	                }
 	            }  
@@ -35,9 +35,9 @@ $(function(){
 	            success: function(data){
 
 	                if(data.state === 'error')
-	                    alert('error! '+ data.message);
+	                    bootbox.alert(data.message);
 	                if(data.state === 'success') {
-	                	alert('success');                               
+	                	bootbox.alert('success');                               
 	                    $('body').trigger('loadProjectSetting');
 	                }
 	            }//end success  
@@ -56,9 +56,9 @@ $(function(){
             success: function(data){
 
 	                if(data.state === 'error')
-	                    alert('error! '+ data.message);
+	                    bootbox.alert('error! '+ data.message);
 	                if(data.state === 'success') {
-	                	alert('success');                               
+	                	bootbox.alert('success');                               
 	                    $('body').trigger('loadProjectSetting');
 	                }
 	            }  
@@ -129,7 +129,7 @@ $(function(){
 	        success: function(data){
 
 	            if(data.state === 'error')
-	                alert('error! '+ data.message);
+	                bootbox.alert( data.message);
 	            if(data.state === 'success')
 	            {                                  
 	                g_project = data.project;
@@ -150,7 +150,7 @@ $(function(){
 	$('#project-setting-button').click(function(){
 		var name = $('#project-name-input').val().trim();
 		if(!name) {
-			alert('need a name');
+			bootbox.alert('need a name');
 			return;
 		}
 		$.ajax({
@@ -164,7 +164,7 @@ $(function(){
             success: function(data){
 
                 if(data.state === 'error')
-                    alert('error! '+ data.message);
+                    bootbox.alert( data.message);
                 if(data.state === 'success')
                 {       
                 	//alert('success');
@@ -186,10 +186,10 @@ $(function(){
             success: function(data){
 
                 if(data.state === 'error')
-                    alert('error! '+ data.message);
+                    bootbox.alert( data.message);
                 if(data.state === 'success')
                 {   
-                	alert('success');     
+                	bootbox.alert('邀请已发送');     
                 	$('#search-member-box').val('');                          
                     $('body').trigger('loadProjectSetting');
                 }
@@ -210,10 +210,10 @@ $(function(){
             success: function(data){
 
                 if(data.state === 'error')
-                    alert('error! '+ data.message);
-                if(data.state === 'success')
+                    bootbox.alert( data.message);
+                if(data.state === '邀请已发送')
                 {   
-                	alert('success');     
+                	bootbox.alert('success');     
                 	$('#add-member-email-input').val('');                          
                     $('body').trigger('loadProjectSetting');
                 }
@@ -231,7 +231,7 @@ function searchUserInputChange(inputBox){
             dataType: 'json',            
             success: function(data){
                 if(data.state === 'error')
-                    alert('error! '+ data.message);
+                    bootbox.alert(data.message);
                 if(data.state === 'success')
                 {     
                 	var findUserArr = [];                             
@@ -280,10 +280,10 @@ $(function(){
             success: function(data){
 
                 if(data.state === 'error')
-                    alert('error! '+ data.message);
+                    bootbox.alert(data.message);
                 if(data.state === 'success')
                 {   
-                	alert('success');  
+                	bootbox.alert('success');  
                 	window.location.replace('/user/'+uid);              	
                 }
             }            
@@ -297,10 +297,10 @@ $(function(){
             success: function(data){
 
                 if(data.state === 'error')
-                    alert('error! '+ data.message);
+                    bootbox.alert(data.message);
                 if(data.state === 'success')
                 {   
-                	alert('success');  
+                	bootbox.alert('success');  
                 	window.location.replace('/user/'+uid);              	
                 }
             }            
@@ -366,7 +366,7 @@ $(function(){
             dataType: 'json',            
             success: function(data){
                 if(data.state === 'error')
-                    alert('error! '+ data.message);
+                    bootbox.alert( data.message);
                 if(data.state === 'success') {
                 	for(var i=0;i<data.historys.length;i++){
                 		$('#history-table').append(buildTR(data.historys[i]));

@@ -49,10 +49,10 @@ $('#new-project-button').click(function(){
             success: function(data){
 
                 if(data.state === 'error')
-                    alert('error! '+ data.message);
+                    bootbox.alert( data.message);
                 if(data.state === 'success')
                 {    
-                    alert('success!');
+                    bootbox.alert('success!');
                     $('#new-project-close').click();
                     loadProjects();
                 }
@@ -87,7 +87,7 @@ function loadProjects(){
             success: function(data){
 
                 if(data.state === 'error')
-                    alert('error! '+ data.message);
+                    bootbox.alert(data.message);
                 if(data.state === 'success')
                 {   
                     var total = data.tasks.length;
@@ -118,10 +118,10 @@ function loadProjects(){
                                 dataType: 'json',                                
                                 success: function(data){
                                     if(data.state === 'error')
-                                        alert('error! '+ data.message);
+                                        bootbox.alert( data.message);
                                     if(data.state === 'success')
                                     {    
-                                        alert('success!');                                        
+                                        bootbox.alert('success!');                                        
                                         loadProjects();
                                     }
                                 }
@@ -157,7 +157,7 @@ function loadProjects(){
             success: function(data){
 
                 if(data.state === 'error')
-                    alert('error! '+ data.message);
+                    bootbox.alert('error! '+ data.message);
                 if(data.state === 'success')
                 {   
                     $('#current-project-row').empty();

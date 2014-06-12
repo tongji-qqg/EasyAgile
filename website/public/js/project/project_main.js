@@ -51,7 +51,7 @@ $(function(){
             dataType: 'json',            
             success: function(data){
                 if(data.state === 'error')
-                    alert('error! '+ data.message);
+                    bootbox.alert( data.message);
                 if(data.state === 'success') {
                 	var historys = data.historys.reverse();
                 	for(var i=0;i<historys.length;i++){

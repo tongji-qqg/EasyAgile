@@ -4982,6 +4982,7 @@ button.note-editor .close {
   border: 0;
   -webkit-appearance: none;
 }
+/*
 .modal-open {
   overflow: hidden;
 }
@@ -4996,6 +4997,7 @@ button.note-editor .close {
   left: 0;
   z-index: 1040;
 }
+*/
 .modal.fade .modal-dialog {
   -webkit-transform: translate(0, -25%);
   -ms-transform: translate(0, -25%);

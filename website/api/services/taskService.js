@@ -21,6 +21,8 @@ exports.createTask = function(selfuid, pid, sid, taskInfo, callback){
 	    function(sprint, callback){	   
 	    	
 	    	var task = new taskModel(taskInfo);
+	    	task.sprint = sid;
+	    	task.project= pid;
 	    	/////////////////////////////////////
 			//   task history
 			/////////////////////////////////////

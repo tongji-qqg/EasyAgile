@@ -12,7 +12,7 @@ $(function(){
             success: function(data){
 
                 if(data.state === 'error')
-                    alert('error! '+ data.message);
+                    bootbox.alert(data.message);
                 if(data.state === 'success')
                 {        
                     g_allIssues = data.issues;
@@ -98,7 +98,7 @@ $(function(){
             success: function(data){
 
                 if(data.state === 'error')
-                    alert('error! '+ data.message);
+                    bootbox.alert( data.message);
                 if(data.state === 'success')
                 {        
                     $('body').trigger('loadIssue');
@@ -147,7 +147,7 @@ $(function(){
             success: function(data){
 
                 if(data.state === 'error')
-                    alert('error! '+ data.message);
+                    bootbox.alert('error! '+ data.message);
                 if(data.state === 'success')
                 {        
 

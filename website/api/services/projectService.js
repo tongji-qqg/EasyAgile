@@ -1,5 +1,6 @@
 
 var projectModel = require('../schemas/projectSchema');
+var taskModel = require('../schemas/taskSchema');
 var userModel = require('../schemas/userSchema');
 var sprintModel = require('../schemas/sprintSchema');
 var sprintService = require('./sprintService');
@@ -220,6 +221,17 @@ exports.deleteProject = function(selfuid, pid, callback){
 					if(err)callback(ErrorService.makeDbErr(err));
 					else callback(null);
 				});
+			},
+			function(callback){
+				taskModel.find({pid:pid})				 
+		         .exec(function(err, result){
+		         	if(result){
+		         		for(var i=0;i<result.length;i++){
+		         			result[i].remove();
+		         		}
+		         	}
+		         });
+	        	callback(null);
 		}],callback);
 	});
 }
@@ -264,6 +276,18 @@ exports.exitProject = function(selfuid, pid, cb){
 			});
 			MessageService.sendUserMessage(selfuid, project.owner, 
 				MessageService.TYPE.member_leave, '离开了项目'+project.name, function(){});
+		},
+		function(callback){
+			taskModel.find({executer: selfuid,project:pid})				 
+	         .exec(function(err, result){	         	
+	         	if(result){
+	         		for(var i=0;i<result.length;i++){
+	         			result[i].executer.remove(selfuid);
+	         			result[i].save();
+	         		}
+	         	}
+	         });
+	        callback(null);
 		}
 
 	],cb)	

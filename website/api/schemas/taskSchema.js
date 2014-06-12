@@ -12,6 +12,9 @@ var taskSchema = new Schema({
 
   description: String,
 
+  sprint: { type: ObjectId, ref: 'Sprint' },
+  project: { type: ObjectId, ref: 'Project' },   
+
   startTime: Date,
   deadline: Date,  
   realEndTime: Date,

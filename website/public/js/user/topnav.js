@@ -6,7 +6,7 @@ $(function(){
 			dataType: 'json',			
 			success: function(data) {
 				if (data.state === 'error')
-					alert('error! ' + data.message);
+					bootbox.alert(data.message);
 				if (data.state === 'success') {
 					var tasks = data.tasks;
 					$('#taskScroll .list-unstyled').empty();
@@ -79,7 +79,7 @@ $(function(){
 			dataType: 'json',			
 			success: function(data) {
 				if (data.state === 'error')
-					alert('error! ' + data.message);
+					bootbox.alert( data.message);
 				if (data.state === 'success') {
 					alerts = data.alert.reverse();
 					$('#alertScroll .list-unstyled').empty();

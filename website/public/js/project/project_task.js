@@ -10,7 +10,7 @@ $(function() {
     loadProjectInfo(function(data){
 
 	    if(data.state === 'error')
-	        alert('error! '+ data.message);
+	        alert( data.message);
 	    if(data.state === 'success')
 	    {        
 	        var p = data.project;                          

@@ -21,177 +21,177 @@ exports.notLoginError = {
 	
 	state: "error",
 	errorNumber: 2,    //may be other numbers
-	message: 'you are not login!'
+	message: '抱歉，您没有登录'
 };
 exports.alreadyLoginError = {
 	
 	state: "error",
 	errorNumber: 3,    //may be other numbers
-	message: 'you are already login!'
+	message: '抱歉，您已经登录'
 };
 exports.passwordNotRightError = {
 	
 	state: "error",
 	errorNumber: 4,    //may be other numbers
-	message: 'password not ringht!'	
+	message: '密码错误'	
 };
 exports.projectNotFindError = {
 	
 	state: "error",
 	errorNumber: 5,    //may be other numbers
-	message: 'project not find!'
+	message: '抱歉，项目没有找到'
 };
 exports.userNotFindError = {
 	
 	state: "error",
 	errorNumber: 6,    //may be other numbers
-	message: 'user not find!'
+	message: '抱歉，用户没有找到'
 };
 exports.memberNotFindError = {
 	
 	state: "error",
 	errorNumber: 7,    //may be other numbers
-	message: 'member not find!'
+	message: '抱歉，成员没有找到'
 };
 exports.requirementNotFindError = {
 	
 	state: "error",
 	errorNumber: 8,    //may be other numbers
-	message: 'requirement not find!'
+	message: '抱歉，需求没有找到'
 };
 exports.topicNotFindError = {
 	
 	state: "error",
 	errorNumber: 9,    //may be other numbers
-	message: 'topic not find!'
+	message: '抱歉，话题没有找到'
 };
 exports.sprintNotFindError = {
 	
 	state: "error",
 	errorNumber: 10,    //may be other numbers
-	message: 'sprint not find!'
+	message: '抱歉，Sprint没有找到'
 };
 exports.commentNotFindError = {
 	
 	state: "error",
 	errorNumber: 11,    //may be other numbers
-	message: 'comment not find!'
+	message: '抱歉，评论没有找到'
 };
 exports.taskNotFindError = {
 	
 	state: "error",
 	errorNumber: 12,    //may be other numbers
-	message: 'task not find!'
+	message: '抱歉，任务没有找到'
 };
 exports.backlogNotFindError = {
 	
 	state: "error",
 	errorNumber: 13,    //may be other numbers
-	message: 'Backlog not find!'
+	message: '抱歉，Backlog没有找到'
 };
 exports.notFindError = {
 	
 	state: "error",
 	errorNumber: 14,    //may be other numbers
-	message: 'not find!'
+	message: '抱歉，没有找到'
 };
 exports.alreadyOwnerError = {
 	
 	state: "error",
 	errorNumber: 15,    //may be other numbers
-	message: 'you are already project owner!'
+	message: '抱歉，已经是项目的所有者了'
 };
 exports.alreadyMemberError = {
 	
 	state: "error",
 	errorNumber: 16,    //may be other numbers
-	message: 'alreay team member!'
+	message: '抱歉，您已经是项目的成员了'
 };
 exports.cannotRemoveOwnerError = {
 	
 	state: "error",
 	errorNumber: 17,    //may be other numbers
-	message: 'project owner can not remove'
+	message: '抱歉，项目拥有者无法被移除'
 };
 exports.notOwnerError = {
 	
 	state: "error",
 	errorNumber: 18,    //may be other numbers
-	message: 'no do not have owner permission '
+	message: '抱歉，您没有项目所有者权限'
 };
 exports.notAdminError = {
 	
 	state: "error",
 	errorNumber: 19,    //may be other numbers
-	message: 'no do not have admin permission '
+	message: '抱歉，您没有项目管理员权限'
 };
 exports.notMemberError = {
 	
 	state: "error",
 	errorNumber: 20,    //may be other numbers
-	message: 'no do not have member permission '
+	message: '抱歉，您没有项目成员权限'
 };
 exports.progressScopeError = {
 	
 	state: "error",
 	errorNumber: 21,    //may be other numbers
-	message: 'progress should between 0 and 100'
+	message: '抱歉，进度应该在0到100之间'
 };
 exports.urlError = {
 	
 	state: "error",
 	errorNumber: 22,    //may be other numbers
-	message: 'unsupported url'
+	message: '抱歉，url没有找到'
 };
 exports.notValidateEmailError = {
 	state: "error",
 	errorNumber: 23,    //may be other numbers
-	message: 'Email not vaildate'	
+	message: '抱歉，该邮箱未验证'	
 }
 exports.alreadyValidateEmailError = {
 	state: "error",
 	errorNumber: 24,    //may be other numbers
-	message: 'Email already vaildate'	
+	message: '抱歉，该邮箱已经验证'	
 }
 exports.tokenNotMatchError = {
 	state: "error",
 	errorNumber: 25,    //may be other numbers
-	message: 'token not match'	
+	message: '抱歉，验证码不匹配'	
 }
 exports.emailFormatError = {
 	state: "error",
 	errorNumber: 26,    //may be other numbers
-	message: 'email format error'	
+	message: '抱歉，邮箱格式错误'	
 }
 exports.activateLateError = {
 	state: "error",
 	errorNumber: 27,    //may be other numbers
-	message: 'activate late error'	
+	message: '抱歉，邮箱验证码期限已过'	
 }
 exports.fileNotFindError = {
 	state: "error",
 	errorNumber: 28,    //may be other numbers
-	message: 'file not find error'	
+	message: '抱歉，文件没有找到'	
 }
 exports.wrongURLID = {
 	state: "error",
 	errorNumber: 29,    //may be other numbers
-	message: 'parameter in url not valid'	
+	message: '抱歉，URL参数错误'	
 }
 exports.notHaveChangeTaskPermission = {
 	state: "error",
 	errorNumber: 30,    //may be other numbers
-	message: 'you dont have change task permission'	
+	message: '抱歉，您没有修改任务的权限'	
 }
 exports.cannotDeleteCurrentSprint = {
 	state: "error",
 	errorNumber: 31,    //may be other numbers
-	message: 'you cannot delete current sprint!'	
+	message: '抱歉，您没不能删除当前Sprint'	
 }
 exports.projectIsArchived = {
 	state: "error",
 	errorNumber: 32,    //may be other numbers
-	message: 'project is archived'	
+	message: '抱歉，这个项目已经归档'	
 }
 exports.inviteLinkInvalide = {
 	state: "error",
@@ -206,7 +206,7 @@ exports.paramRangeError = {
 exports.missInfoError = {
 	state: "error",
 	errorNumber: 35,    //may be other numbers
-	message: 'miss info'	
+	message: '抱歉，缺少必要的信息'	
 }
 
 exports.successWithValue = function(key, value){

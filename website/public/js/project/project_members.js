@@ -9,7 +9,7 @@ $(function(){
             },
             success: function(data){                
                 if(data.state === 'error'){
-                    alert('error! '+ data.message);
+                    bootbox.alert(data.message);
                 }
                 $('body').trigger('loadProjectAjax');                                    
             }            
@@ -48,7 +48,7 @@ $(function(){
             success: function(data){
                 //console.log(data.message);
                 if(data.state === 'error')
-                    alert('error! '+ data.message);                
+                    bootbox.alert( data.message);                
                 $('body').trigger('loadProjectAjax');                    
             }            
         });
@@ -133,7 +133,7 @@ $(function(){
             success: function(data) {
 
                 if (data.state === 'error')
-                    alert('error! ' + data.message);
+                    bootbox.alert( data.message);
                 if (data.state === 'success') {
                     members = data.project.members;                    
                     members.unshift({
@@ -159,7 +159,7 @@ $(function(){
             },
             success: function(data){                
                 if(data.state === 'error')
-                    alert('error! '+ data.message);
+                    bootbox.alert( data.message);
                 if(data.state === 'success')
                 {        
                     $('body').trigger('loadProjectAjax');                    

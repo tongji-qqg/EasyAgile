@@ -47,7 +47,7 @@ jQuery(document).ready(function() {
             },
             success: function(data){
                 if(data.state === 'error')
-                    alert('error! '+ data.message);
+                    bootbox.alert(data.message);
                 if(data.state === 'success')
                 {                    
                     window.location.replace('/user/'+data.user._id); 

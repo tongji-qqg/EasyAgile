@@ -26,7 +26,19 @@ exports.register = function(userInfo, callback){
 			var md5 = crypto.createHash('md5');
     		userInfo.password = md5.update(userInfo.password).digest('base64');
 			var user = new userModel(userInfo);
-    		callback(null, user);
+    		//callback(null, user);
+
+    		DataService.getUserByEmail(userInfo.email, function(err, result){
+				if(err) return callback(ErrorService.makeDbErr(err));
+				if(!result) return callback(null, user);
+				else if(result.emailToken == null) return callback(ErrorService.alreadyValidateEmailError);
+				else{
+					result.name = user.name;
+					result.email = user.email;
+					result.password = user.password;
+					callback(null, result);
+				}	
+			});
 		},
 		function(user, callback){
 			crypto.randomBytes(48, function(ex, buf) {
@@ -233,12 +245,13 @@ exports.getUserAllTask = function(selfuid, callback){
 exports.getUserCurrentTask = function(selfuid, callback){
 
 	var query = taskModel.find({executer: selfuid})	
-	if(process.env.memcached)query.cache(false)		
 		query.where('state').ne(1)
 	         .exec(function(err, result){
 	         	if(err) callback(ErrorService.makeDbErr(err));
 	         	else {
-	         		result.history = [];
+	         		if(result || result.length)
+	         			for(var i=0;i<result.length;i++)
+	         				result[i].history = [];
 	         		callback(null, result);
 	         	}
 	         });	         
@@ -284,7 +297,7 @@ exports.getUserCurrentTaskInProject = function(selfuid, callback){
 							projectModel.findOne({'sprints':s._id}).exec(function(err,p){
 								if(err) return callback(ErrorService.makeDbErr(err));
 								if(!p) return callback(ErrorService.projectNotFindError);								
-								if(!p.cSprint.equals(s._id)) return callback(null);
+								if(!p.cSprint.equals(s._id) || p.done || p.deleted) return callback(null);
 								pushArray(projects, p);
 								callback(null);
 							});

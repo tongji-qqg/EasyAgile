@@ -63,7 +63,7 @@ jQuery(document).ready(function() {
             },
             success: function(data){
                 if(data.state === 'error')
-                    alert('error! '+ data.message);
+                    bootbox.alert(data.message);
                 if(data.state === 'success')
                 {                    
                     //location.href = "user/"+data.user._id;

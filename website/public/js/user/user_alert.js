@@ -9,7 +9,7 @@ $(function(){
 			dataType: 'json',			
 			success: function(data) {
 				if (data.state === 'error')
-					alert('error! ' + data.message);
+					bootbox.alert('error! ' + data.message);
 				if (data.state === 'success') {
 					alerts = data.alert.reverse();
 					pages = Math.floor(alerts.length / 7);

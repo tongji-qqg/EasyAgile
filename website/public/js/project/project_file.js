@@ -10,7 +10,7 @@ $(function () {
         url: url,//上传地址
         dataType: 'json',
         stop: function (e, data) {//设置文件上传完毕事件的回调函数
-        	alert('success');
+        	bootbox.alert('success');
             window.location.reload();
         },
         progressall: function (e, data) {//设置上传进度事件的回调函数
@@ -51,8 +51,7 @@ $(function(){
 		});
 		
 		window.location.reload();
-		function deleteFile(fid){
-            alert(fid)
+		function deleteFile(fid){            
 			$.ajax({  ///API/p/:pid/f/:fid'         
             type: 'DELETE',
             url: '/API/p/'+projectid+'/f/'+fid,
@@ -61,10 +60,10 @@ $(function(){
             success: function(data){
 
                 if(data.state === 'error')
-                    alert('error! '+ data.message);
+                    bootbox.alert( data.message);
                 if(data.state === 'success')
                 {                                  
-           			alert('success');        
+           			bootbox.alert('success');        
                 }
             }            
         });

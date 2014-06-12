@@ -93,7 +93,9 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h4 class="modal-title" style="color:#FFF;">项目设置</h4>  
         <div style="text-align:center;">
+        <!--
         <input id="fileupload" type="file" name="files[]" multiple="" style="width: 150px;height: 150px;cursor: pointer;outline: medium none;position: absolute;filter:alpha(opacity=0);-moz-opacity:0;opacity:0; left:254px;top: 40px;">
+        -->
         <img src="/img/myicon.jpg" class="img-circle" style="margin:0 auto; width:150px;height:150px;">
         </div>
       </div>
@@ -259,7 +261,12 @@
         <p>一旦你退出了该项目，你将不能查看任何关于该项目的信息。退出项目后，如果想重新加入，请联系项目管理员</p>
         <div class="row">
           <div class="col-sm-12">
+            <%if(project.owner._id == user._id){%>
+            <button id='set-exiting-button' type="button" class="btn btn-red" style="width:100%;">删除项目</button>
+            <%}else{%>
             <button id='set-exiting-button' type="button" class="btn btn-red" style="width:100%;">退出项目</button>
+            <%}%>
+            
           </div>
                        
         </div>
