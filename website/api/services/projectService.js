@@ -246,7 +246,8 @@ exports.exitProject = function(selfuid, pid, cb){
 				if(err)return callback(err);
 				var member = project.members.id(selfuid);
 				if(!member) return callback(ErrorService.userNotFindError);
-				member.remove();
+				//member.remove() may cause user delete!!!!!!!
+				project.members.remove(selfuid);
 				/////////////////////////////////////
 				//   project history
 				/////////////////////////////////////
