@@ -2,7 +2,7 @@ $(function(){
 	var editors;
 	loadProjectEditor();
 
-	var recognizeExtensions = ['c','cpp','java','csharp','css','js','html','xml','sql','sh'];
+	var recognizeExtensions = ['c','cpp','java','cs','css','js','html','xml','sql','sh'];
 	var recognizeMode = ['text/x-csrc','text/x-c++src','text/x-java','text/x-csharp','text/css',
 	                     'text/javascript','text/html','application/xml','text/x-sql','text/x-sh'];
 	function loadProjectEditor(){
