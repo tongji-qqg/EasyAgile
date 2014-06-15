@@ -223,7 +223,9 @@
                    <div class="panel-body">
                         <table class="table">                          
                             <tbody>
-                              <%topics.forEach(function(t){%>
+                              <%topics.forEach(function(t){
+				if(!t) return;
+			      %>
                                  <tr>
                                    <td style="width:20%;">
                                     <%if(t.author && t.author.icon){%>
